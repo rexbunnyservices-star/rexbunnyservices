@@ -1,0 +1,23 @@
+[app]
+address = "0.0.0.0:9000"
+admin_username = "admin"
+admin_password = "changeme"
+
+[db]
+host = "listmonk-db"
+port = 5432
+user = "listmonk"
+password = "changeme"
+database = "listmonk"
+ssl_mode = "disable"
+max_open = 25
+max_idle = 25
+max_lifetime = "300s"
+
+[smtp]
+enabled = true
+host = "your-smtp-host.com"
+port = 587
+auth_protocol = "smtp"
+username = "your-smtp-user"
+password = "your-smtp-password"

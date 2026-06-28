@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalEmbed from "../../components/CalEmbed.tsx";
+---
+
+<BaseLayout
+  title="Portfolio"
+  description="Case studies from REX Bunny Services — quantified results in web performance, SEO, and AI search optimization."
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <h1 class="mb-4 text-center text-4xl font-extrabold text-white sm:text-5xl">
+        Case Studies
+      </h1>
+      <p class="mb-12 text-center text-lg text-dark-400">
+        Every result quantified. No fluff.
+      </p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Placeholder cards — populated from PocketBase in production -->
+        {[1, 2, 3].map((i) => (
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+            <div class="mb-4 flex h-40 items-center justify-center rounded-lg bg-dark-800">
+              <span class="text-4xl text-dark-600">📁</span>
+            </div>
+            <div class="mb-2 text-xs font-semibold text-brand-500">CASE STUDY O{i}</div>
+            <h3 class="mb-2 text-lg font-bold text-white">Client Project Placeholder</h3>
+            <p class="mb-4 text-sm text-dark-400">Case study content will be loaded from PocketBase.</p>
+            <div class="flex gap-2 text-xs text-dark-500">
+              <span class="rounded bg-dark-800 px-2 py-1">Lighthouse: --</span>
+              <span class="rounded bg-dark-800 px-2 py-1">Traffic: --</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-12 text-center">
+        <CalEmbed buttonText="Be Our Next Case Study →" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

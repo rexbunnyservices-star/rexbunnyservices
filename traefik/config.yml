@@ -1,0 +1,46 @@
+http:
+  routers:
+    astro:
+      rule: "Host(`rexbunnyservices.com`) || Host(`www.rexbunnyservices.com`)"
+      service: astro
+      tls:
+        certResolver: letsencrypt
+
+    n8n:
+      rule: "Host(`n8n.rexbunnyservices.com`)"
+      service: n8n
+      tls:
+        certResolver: letsencrypt
+
+    listmonk:
+      rule: "Host(`listmonk.rexbunnyservices.com`)"
+      service: listmonk
+      tls:
+        certResolver: letsencrypt
+
+    calcom:
+      rule: "Host(`cal.rexbunnyservices.com`)"
+      service: calcom
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    astro:
+      loadBalancer:
+        servers:
+          - url: "http://astro:3000"
+
+    n8n:
+      loadBalancer:
+        servers:
+          - url: "http://n8n:5678"
+
+    listmonk:
+      loadBalancer:
+        servers:
+          - url: "http://listmonk:9000"
+
+    calcom:
+      loadBalancer:
+        servers:
+          - url: "http://calcom:3000"

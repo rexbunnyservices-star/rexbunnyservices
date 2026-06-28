@@ -1,0 +1,185 @@
+---
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+const siteUrl = "https://rexbunnyservices.com";
+const pageUrl = canonical || Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | REX Bunny Services</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={`${siteUrl}${pageUrl}`} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | REX Bunny Services`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${siteUrl}${pageUrl}`} />
+    <meta property="og:site_name" content="REX Bunny Services" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | REX Bunny Services`} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" data-schema="organization" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          "name": "REX Bunny Services",
+          "url": siteUrl,
+          "logo": `${siteUrl}/favicon.svg`,
+          "foundingDate": "2024-01-01",
+          "founders": [
+            {
+              "@type": "Person",
+              "@id": `${siteUrl}/#founder`,
+              "name": "Anass",
+              "jobTitle": "CEO & Lead Architect"
+            }
+          ],
+          "sameAs": [
+            "https://linkedin.com/company/rexbunnyservices"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "sales",
+            "email": "hello@rexbunnyservices.com",
+            "availableLanguage": ["English"]
+          },
+          "description": "Next-Gen Web Development, Technical SEO, and AI Search Optimization (GEO) agency. We engineer websites to rank in ChatGPT, Google Gemini, Perplexity, and Microsoft Copilot."
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": `${siteUrl}/#service`,
+          "name": "REX Bunny Services — AI Search Optimization & Web Development",
+          "provider": { "@id": `${siteUrl}/#organization` },
+          "url": siteUrl,
+          "areaServed": [
+            { "@type": "Country", "name": "United States" },
+            { "@type": "Country", "name": "Canada" },
+            { "@type": "Country", "name": "United Kingdom" }
+          ],
+          "serviceType": [
+            "Generative Engine Optimization",
+            "AI Search Optimization",
+            "Technical SEO",
+            "Local SEO",
+            "Web Development",
+            "Performance Engineering",
+            "Conversion Rate Optimization",
+            "Structured Data Consulting"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "REX Bunny Service Packages",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "GEO Growth Package",
+                  "description": "Full entity optimization, LLM citation engineering, and AI search monitoring."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web Performance Overhaul",
+                  "description": "End-to-end rebuild or refactor to achieve Lighthouse 95+ and sub-second load times."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Programmatic Local SEO",
+                  "description": "Scalable local SEO infrastructure for multi-location businesses."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${siteUrl}/#website`,
+          "url": siteUrl,
+          "name": "REX Bunny Services",
+          "publisher": { "@id": `${siteUrl}/#organization` },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${siteUrl}/#webpage`,
+          "url": siteUrl,
+          "name": "REX Bunny Services — AI Search Optimization & Web Development",
+          "isPartOf": { "@id": `${siteUrl}/#website` },
+          "about": { "@id": `${siteUrl}/#service` },
+          "mainEntity": { "@id": `${siteUrl}/#service` },
+          "specialty": [
+            "Generative Engine Optimization",
+            "AI Search Optimization",
+            "LLM Citation Engineering",
+            "Entity Optimization",
+            "Technical SEO",
+            "Web Performance Engineering"
+          ],
+          "significantLink": [
+            `${siteUrl}/services/web-development`,
+            `${siteUrl}/services/seo`,
+            `${siteUrl}/services/ai-search-optimization`,
+            `${siteUrl}/lead-engine`
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${siteUrl}/#breadcrumb`,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl }
+          ]
+        }
+      ]
+    })} />
+  </head>
+  <body class="bg-dark-950 text-white antialiased">
+    <Navigation />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

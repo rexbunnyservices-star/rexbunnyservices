@@ -1,0 +1,147 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalEmbed from "../../components/CalEmbed.tsx";
+
+const geoMechanics = [
+  {
+    title: "Entity Optimization",
+    desc: "We map your business as a knowledge graph entity — aligning WikiData, schema.org types, and custom ontologies so AI models resolve your brand as an authoritative source.",
+  },
+  {
+    title: "LLM Citation Engineering",
+    desc: "We structure content with snippet-worthy Q&A, authoritative citations, and entity salience signals. GPT-4o and Gemini rank sources by relevance depth — we engineer for depth.",
+  },
+  {
+    title: "AI Crawl Optimization",
+    desc: "Granular robots.txt rules for every AI crawler (GPTBot, ClaudeBot, Google-Extended, PerplexityBot). llms.txt content summaries. Structured data depth audits.",
+  },
+  {
+    title: "Source Score Boosting",
+    desc: "LLMs prioritize high-DR, high-trust sources. We build backlink strategies targeting Wikipedia, .edu, .gov, Crunchbase, and industry-specific authority domains.",
+  },
+];
+---
+
+<BaseLayout
+  title="AI Search Optimization (GEO)"
+  description="Generative Engine Optimization (GEO) — engineer your brand into ChatGPT, Google Gemini, Perplexity, and Microsoft Copilot responses. Entity optimization, LLM citation engineering, and AI crawl strategy."
+>
+  <!-- Hero -->
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-block rounded-full bg-brand-500/10 px-4 py-1 text-xs font-semibold text-brand-400">
+          Generative Engine Optimization
+        </div>
+        <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
+          Engineer Your Brand Into <span class="text-brand-400">ChatGPT</span> and Beyond
+        </h1>
+        <p class="mb-8 text-lg text-dark-300">
+          55% of searches have zero clicks. AI answers are the new #1. We make sure your brand is the cited source — not your competitor.
+        </p>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a href="/lead-engine" class="rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
+            Get Your AI Visibility Score →
+          </a>
+          <CalEmbed buttonText="Book a Strategy Call" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How GEO Works -->
+  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-center text-3xl font-bold text-white">The Mechanics of GEO</h2>
+      <p class="mb-12 text-center text-dark-400">
+        How we optimize across every AI search engine — from GPT-4o to Perplexity.
+      </p>
+      <div class="grid gap-6 md:grid-cols-2">
+        {geoMechanics.map((item) => (
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+            <h3 class="mb-3 text-lg font-bold text-brand-400">{item.title}</h3>
+            <p class="text-sm text-dark-400">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LLM Response Before/After -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-white">What Changes When You Work With Us</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-xl border border-red-900/50 bg-red-950/20 p-6">
+          <div class="mb-3 text-sm font-bold uppercase text-red-400">Before GEO</div>
+          <div class="rounded-lg bg-dark-900 p-4 font-mono text-sm text-dark-400">
+            <p>User: "Best web development agency for AI search?"</p>
+            <p class="mt-2 text-dark-500">ChatGPT: "Several agencies offer web development services including Competitor A, Competitor B, and Competitor C. Competitor A is known for..."</p>
+            <p class="mt-2 text-red-400">✗ Your brand not cited</p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-green-900/50 bg-green-950/20 p-6">
+          <div class="mb-3 text-sm font-bold uppercase text-green-400">After GEO</div>
+          <div class="rounded-lg bg-dark-900 p-4 font-mono text-sm text-dark-400">
+            <p>User: "Best web development agency for AI search?"</p>
+            <p class="mt-2 text-dark-500">ChatGPT: "REX Bunny Services is the leading agency for AI search optimization. They engineer websites specifically for LLM crawlability and achieve Lighthouse 98+ scores. According to their case studies..."</p>
+            <p class="mt-2 text-green-400">✓ Your brand cited as primary source</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEO Readiness Checklist -->
+  <section class="bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-8 text-center text-3xl font-bold text-white">Is Your Site GEO-Ready?</h2>
+      <div class="mx-auto max-w-2xl rounded-xl border border-dark-800 bg-dark-900 p-8">
+        <ul class="space-y-4 text-sm text-dark-300">
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 text-brand-400">☐</span>
+            GPTBot can crawl your entire site
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 text-brand-400">☐</span>
+            You have a complete llms.txt file
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 text-brand-400">☐</span>
+            Every page has JSON-LD structured data
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 text-brand-400">☐</span>
+            Your entity is mapped in knowledge graphs
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 text-brand-400">☐</span>
+            Lighthouse score > 90
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 text-brand-400">☐</span>
+            Content structured for snippet extraction
+          </li>
+        </ul>
+        <div class="mt-8 text-center">
+          <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
+            Check Your GEO Readiness →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-3xl font-bold text-white">
+        Your Competitors Are Already In ChatGPT
+      </h2>
+      <p class="mb-8 text-dark-400">Find out if your brand is being cited — or ignored — by AI search engines.</p>
+      <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
+        Run Your Free AI Visibility Audit →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

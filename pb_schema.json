@@ -1,0 +1,72 @@
+{
+  "collections": [
+    {
+      "name": "services",
+      "type": "base",
+      "schema": [
+        { "name": "title", "type": "text", "required": true },
+        { "name": "slug", "type": "text", "required": true, "unique": true },
+        { "name": "tagline", "type": "text" },
+        { "name": "description", "type": "text" },
+        { "name": "longDescription", "type": "editor" },
+        { "name": "icon", "type": "text" },
+        { "name": "order", "type": "number" },
+        { "name": "features", "type": "json" },
+        { "name": "faqs", "type": "json" },
+        { "name": "metaTitle", "type": "text" },
+        { "name": "metaDescription", "type": "text" }
+      ]
+    },
+    {
+      "name": "portfolio",
+      "type": "base",
+      "schema": [
+        { "name": "title", "type": "text", "required": true },
+        { "name": "slug", "type": "text", "required": true, "unique": true },
+        { "name": "clientName", "type": "text" },
+        { "name": "serviceType", "type": "relation", "options": { "collectionId": "services", "maxSelect": 1 } },
+        { "name": "description", "type": "editor" },
+        { "name": "results", "type": "json" },
+        { "name": "testimonial", "type": "text" },
+        { "name": "liveUrl", "type": "url" }
+      ]
+    },
+    {
+      "name": "leads",
+      "type": "base",
+      "schema": [
+        { "name": "email", "type": "email", "required": true },
+        { "name": "website", "type": "url", "required": true },
+        { "name": "name", "type": "text" },
+        { "name": "serviceInterest", "type": "select", "options": { "values": ["webdev", "seo", "geo", "unknown"] } },
+        { "name": "auditScore", "type": "json" },
+        { "name": "aiVisibility", "type": "json" },
+        { "name": "status", "type": "select", "options": { "values": ["new", "running", "completed", "contacted", "qualified", "converted", "lost"] } },
+        { "name": "source", "type": "text" },
+        { "name": "score", "type": "number" }
+      ]
+    },
+    {
+      "name": "blog_posts",
+      "type": "base",
+      "schema": [
+        { "name": "title", "type": "text", "required": true },
+        { "name": "slug", "type": "text", "required": true, "unique": true },
+        { "name": "content", "type": "editor" },
+        { "name": "excerpt", "type": "text" },
+        { "name": "tags", "type": "json" },
+        { "name": "publishedAt", "type": "date" },
+        { "name": "author", "type": "text" }
+      ]
+    },
+    {
+      "name": "settings",
+      "type": "base",
+      "system": true,
+      "schema": [
+        { "name": "key", "type": "text", "required": true, "unique": true },
+        { "name": "value", "type": "json" }
+      ]
+    }
+  ]
+}

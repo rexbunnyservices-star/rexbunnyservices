@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CalEmbed from "../components/CalEmbed.tsx";
+---
+
+<BaseLayout
+  title="About"
+  description="REX Bunny Services engineers your brand into AI search results. Founded to bridge the gap between traditional web development and the AI-powered search future."
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+      <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
+        We Exist Because <span class="text-brand-400">Search Changed Forever</span>
+      </h1>
+      <div class="prose prose-invert max-w-none text-dark-300">
+        <p class="text-lg leading-relaxed">
+          In 2024, Google launched AI Overviews. OpenAI released GPT-4o with web browsing. Perplexity reached 10M monthly users.
+          The way people find businesses fundamentally shifted — but most agencies kept building websites the same way.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed">
+          REX Bunny Services was founded to bridge that gap. We combine next-gen web performance engineering with
+          deep expertise in how Large Language Models crawl, index, and cite sources. We don't just build fast websites —
+          we build websites that AI search engines <strong class="text-white">trust</strong>.
+        </p>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+            <div class="text-3xl font-bold text-brand-400">Web Dev</div>
+            <div class="mt-1 text-sm text-dark-400">Lighthouse 98 avg</div>
+          </div>
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+            <div class="text-3xl font-bold text-brand-400">SEO</div>
+            <div class="mt-1 text-sm text-dark-400">Programmatic at scale</div>
+          </div>
+          <div class="rounded-xl border border-brand-500/30 bg-dark-900 p-6 text-center">
+            <div class="text-3xl font-bold text-brand-400">GEO</div>
+            <div class="mt-1 text-sm text-dark-400">AI search specialists</div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <CalEmbed buttonText="Book a Strategy Call →" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

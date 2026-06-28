@@ -1,0 +1,131 @@
+version: "3.9"
+
+services:
+  astro:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - POCKETBASE_URL=http://pocketbase:8090
+      - N8N_WEBHOOK_URL=http://n8n:5678
+      - PUBLIC_SITE_URL=https://rexbunnyservices.com
+      - LISTMONK_URL=http://listmonk:9000
+    depends_on:
+      pocketbase:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./pb_data:/pb_data
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/home/node/.n8n/workflows
+    environment:
+      - N8N_SECURE_COOKIE=false
+      - WEBHOOK_URL=https://n8n.rexbunnyservices.com
+      - LISTMONK_URL=http://listmonk:9000
+    depends_on:
+      - pocketbase
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  listmonk:
+    image: listmonk/listmonk:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./listmonk_data:/listmonk
+      - ./listmonk/config.toml:/listmonk/config.toml
+    depends_on:
+      listmonk-db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  listmonk-db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=listmonk
+      - POSTGRES_USER=listmonk
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - ./listmonk_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  calcom:
+    image: calcom/docker:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=postgresql://calcom:${POSTGRES_PASSWORD:-changeme}@calcom-db:5432/calcom
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-changeme}
+      - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY:-changeme}
+      - NEXTAUTH_URL=https://cal.rexbunnyservices.com
+    depends_on:
+      calcom-db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  calcom-db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=calcom
+      - POSTGRES_USER=calcom
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - ./calcom_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U calcom"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  traefik:
+    image: traefik:v3.0
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml
+      - ./traefik/config.yml:/etc/traefik/config.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - astro
+      - n8n
+      - listmonk
+      - calcom
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+networks:
+  rexnet:
+    driver: bridge

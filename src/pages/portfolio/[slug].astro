@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalEmbed from "../../components/CalEmbed.tsx";
+import type { GetStaticPathsResult } from "astro";
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  return [{ params: { slug: "placeholder" } }];
+}
+
+const { slug } = Astro.params;
+---
+
+<BaseLayout
+  title={`Case Study: ${slug}`}
+  description="Detailed case study from REX Bunny Services."
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <a href="/portfolio" class="text-sm text-brand-400 hover:text-brand-300">← Back to Portfolio</a>
+      </div>
+      <h1 class="mb-6 text-4xl font-extrabold text-white">Case Study: {slug}</h1>
+      <p class="mb-8 text-dark-400">
+        Full case study details will be loaded from PocketBase.
+      </p>
+      <div class="rounded-xl border border-dark-800 bg-dark-900 p-8 text-center">
+        <p class="text-dark-400">
+          This case study is coming soon. In production, this page will render dynamic content from your PocketBase portfolio collection.
+        </p>
+      </div>
+      <div class="mt-8 text-center">
+        <CalEmbed buttonText="Get Results Like This →" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

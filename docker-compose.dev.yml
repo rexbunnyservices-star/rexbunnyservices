@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  astro:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    environment:
+      - POCKETBASE_URL=http://pocketbase:8090
+      - N8N_WEBHOOK_URL=http://n8n:5678
+      - PUBLIC_SITE_URL=http://localhost:3000
+      - LISTMONK_URL=http://listmonk:9000
+
+  # Add a dev Dockerfile for hot reload
+  # All other services same as production

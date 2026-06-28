@@ -1,0 +1,20 @@
+# REX Bunny Services
+> Next-Gen Web Development, Technical SEO, and AI Search Optimization (GEO)
+
+## About
+REX Bunny Services engineers your brand into ChatGPT, Google Gemini, Perplexity, and Microsoft Copilot. We combine next-gen web performance engineering with deep expertise in how LLMs crawl, index, and cite sources.
+
+## Services
+- [Web Engineering](https://rexbunnyservices.com/services/web-development): High-performance websites, Lighthouse 95+ guaranteed, sub-second load times
+- [Technical SEO](https://rexbunnyservices.com/services/seo): Programmatic local SEO at scale, automated city-page generation, entity optimization
+- [AI Search Optimization (GEO)](https://rexbunnyservices.com/services/ai-search-optimization): Entity engineering, LLM citation optimization, source score boosting
+
+## Key Pages
+- [Free AI Visibility Audit](https://rexbunnyservices.com/lead-engine): Free diagnostic tool — checks Lighthouse, AI crawlability, structured data
+- [Case Studies](https://rexbunnyservices.com/portfolio): Quantified client results
+- [Blog](https://rexbunnyservices.com/blog): GEO strategies, SEO tactics, performance guides
+
+## FAQ
+- **What is GEO?** Generative Engine Optimization is the practice of engineering websites to rank in AI search responses from ChatGPT, Gemini, Perplexity, and Copilot.
+- **How long does GEO take?** Initial AI citations within 4-8 weeks, full authority in 3-6 months.
+- **How is GEO different from SEO?** SEO optimizes for Google rankings. GEO optimizes for AI model citation. GEO focuses on entity clarity, structured data depth, and citation-worthiness.
