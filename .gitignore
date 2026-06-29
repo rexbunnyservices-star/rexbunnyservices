@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.netlify/
 .env
 .env.local
 *.log
@@ -22,3 +23,6 @@ traefik/acme.json
 .idea/
 *.swp
 *.swo
+
+# Config
+opencode.json
