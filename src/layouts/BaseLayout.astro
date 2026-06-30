@@ -23,6 +23,7 @@ const pageUrl = canonical || Astro.url.pathname;
     <meta name="description" content={description} />
     <link rel="canonical" href={`${siteUrl}${pageUrl}`} />
     <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -30,11 +31,13 @@ const pageUrl = canonical || Astro.url.pathname;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={`${siteUrl}${pageUrl}`} />
     <meta property="og:site_name" content="REX Bunny Services" />
+    <meta property="og:image" content={`${siteUrl}/images/og-image.svg`} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | REX Bunny Services`} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/images/og-image.svg`} />
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

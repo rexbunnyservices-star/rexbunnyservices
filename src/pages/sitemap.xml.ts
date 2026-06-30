@@ -8,11 +8,13 @@ const staticPages = [
   { url: "/services/web-development", priority: 0.9, changefreq: "monthly" },
   { url: "/services/seo", priority: 0.9, changefreq: "monthly" },
   { url: "/services/ai-search-optimization", priority: 0.9, changefreq: "monthly" },
+  { url: "/pricing", priority: 0.8, changefreq: "monthly" },
   { url: "/lead-engine", priority: 0.8, changefreq: "weekly" },
   { url: "/portfolio", priority: 0.7, changefreq: "monthly" },
   { url: "/about", priority: 0.6, changefreq: "monthly" },
   { url: "/contact", priority: 0.6, changefreq: "monthly" },
   { url: "/blog", priority: 0.7, changefreq: "weekly" },
+  { url: "/geo-checklist", priority: 0.7, changefreq: "monthly" },
   { url: "/privacy", priority: 0.3, changefreq: "yearly" },
   { url: "/terms", priority: 0.3, changefreq: "yearly" },
 ];

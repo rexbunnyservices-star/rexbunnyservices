@@ -1,0 +1,72 @@
+---
+title: "llms.txt Explained: The File Every Website Needs in 2026"
+description: "What is llms.txt, why it matters for AI search, and how to create one for your website in under 10 minutes."
+pubDate: 2026-05-28
+author: "REX Bunny"
+tags: ["GEO", "Technical", "AI Search"]
+---
+
+## What Is llms.txt?
+
+`llms.txt` is a plain text file you place at your domain root (like `robots.txt`) that gives AI language models a structured summary of your website.
+
+Think of it as a business card for AI. When GPTBot or Claude-Web crawls your site, `llms.txt` is one of the first things they read.
+
+## Why It Matters
+
+AI models need to understand:
+- Who you are
+- What you do
+- What services you offer
+- How to describe you to users
+
+Without `llms.txt`, the AI has to infer this from your HTML. With it, you control the narrative.
+
+## How to Create One
+
+Create a file at `https://yoursite.com/llms.txt` with this structure:
+
+```markdown
+# Company Name
+> One-line tagline
+
+## About
+Brief company description.
+
+## Services
+- [Service Name](URL): What it does
+
+## Key Pages
+- [Pricing](URL): Link to pricing
+- [Case Studies](URL): Link to portfolio
+```
+
+## Best Practices
+
+1. **Keep it concise** — 200-500 words maximum
+2. **Use Markdown** — AI models parse it easily
+3. **Include links** — Point to your key pages
+4. **Update regularly** — Keep it current with new services
+5. **Reference it in robots.txt** — Not required, but good practice
+
+## Real Example
+
+Here's what our `llms.txt` looks like:
+
+```
+# REX Bunny Services
+> Next-Gen Web Development, Technical SEO, and AI Search Optimization (GEO)
+
+## About
+REX Bunny Services engineers your brand into ChatGPT, Google Gemini, 
+Perplexity, and Microsoft Copilot.
+
+## Services
+- [Web Engineering](https://rexbunnyservices.online/services/web-development)
+- [Technical SEO](https://rexbunnyservices.online/services/seo)
+- [AI Search Optimization](https://rexbunnyservices.online/services/ai-search-optimization)
+```
+
+---
+
+*Want us to set up `llms.txt` for your site? [Run a free audit](/lead-engine) and we'll include it in your report.*
