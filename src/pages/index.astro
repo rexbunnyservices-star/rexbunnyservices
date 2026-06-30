@@ -178,6 +178,92 @@ const faqs = [
     </div>
   </section>
 
+  <!-- Case Study Carousel -->
+  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 flex items-end justify-between">
+        <div>
+          <h2 class="mb-2 text-3xl font-bold text-white">Proven Results</h2>
+          <p class="text-dark-400">Real outcomes from real clients. Every metric verified.</p>
+        </div>
+        <a href="/portfolio" class="hidden text-sm font-semibold text-brand-400 hover:text-brand-300 sm:block">
+          View All Case Studies →
+        </a>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          [
+            {
+              title: "SaaS Platform Rebuild",
+              client: "CloudMetrics",
+              service: "Web Development",
+              desc: "From 6s to 0.4s LCP. Complete platform rebuild using Astro + Preact Islands.",
+              metrics: [
+                { label: "Lighthouse", value: "98" },
+                { label: "Traffic", value: "+142%" },
+                { label: "Conversions", value: "+96%" },
+              ],
+              color: "text-blue-400",
+              slug: "saas-platform-rebuild",
+            },
+            {
+              title: "Dental Chain Local SEO",
+              client: "BrightSmile Dental",
+              service: "SEO",
+              desc: "120+ city pages with automated schema. Programmatic local SEO at scale.",
+              metrics: [
+                { label: "Lighthouse", value: "96" },
+                { label: "Traffic", value: "+312%" },
+                { label: "LCP", value: "0.6s" },
+              ],
+              color: "text-green-400",
+              slug: "dental-chain-local-seo",
+            },
+            {
+              title: "E-Commerce AI Visibility",
+              client: "Nordic Home Co.",
+              service: "AI Search Optimization",
+              desc: "GEO optimization that got a brand cited in ChatGPT, Perplexity, and Gemini.",
+              metrics: [
+                { label: "Lighthouse", value: "97" },
+                { label: "Traffic", value: "+89%" },
+                { label: "Conversions", value: "+45%" },
+              ],
+              color: "text-purple-400",
+              slug: "ecommerce-ai-visibility",
+            },
+          ].map((cs) => (
+            <a
+              href={`/portfolio/${cs.slug}`}
+              class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10"
+            >
+              <div class={`mb-3 text-xs font-semibold ${cs.color}`}>
+                {cs.service.toUpperCase()}
+              </div>
+              <h3 class="mb-1 text-lg font-bold text-white group-hover:text-brand-400">
+                {cs.title}
+              </h3>
+              <p class="mb-1 text-xs text-dark-500">{cs.client}</p>
+              <p class="mb-4 text-sm text-dark-400">{cs.desc}</p>
+              <div class="flex flex-wrap gap-2">
+                {cs.metrics.map((m) => (
+                  <span class="rounded bg-dark-800 px-2 py-1 text-xs text-dark-300">
+                    <span class="font-semibold text-white">{m.value}</span> {m.label}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <div class="mt-8 text-center sm:hidden">
+        <a href="/portfolio" class="text-sm font-semibold text-brand-400 hover:text-brand-300">
+          View All Case Studies →
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Lead Engine Embed -->
   <section class="bg-dark-900/50 py-20" id="audit">
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">

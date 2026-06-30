@@ -20,7 +20,7 @@ providers:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: hello@rexbunnyservices.online
+      email: help@rexbunnyservices.online
       storage: /etc/traefik/acme.json
       httpChallenge:
         entryPoint: web
