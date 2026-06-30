@@ -1,36 +1,110 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CalEmbed from "../../components/CalEmbed.tsx";
-import type { GetStaticPathsResult } from "astro";
+import { getCollection, render } from "astro:content";
 
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return [{ params: { slug: "placeholder" } }];
+export async function getStaticPaths() {
+  const projects = await getCollection("portfolio");
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
 }
 
-const { slug } = Astro.params;
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const serviceColors: Record<string, string> = {
+  "Web Development": "text-blue-400",
+  SEO: "text-green-400",
+  "AI Search Optimization": "text-purple-400",
+};
 ---
 
 <BaseLayout
-  title={`Case Study: ${slug}`}
-  description="Detailed case study from REX Bunny Services."
+  title={`${project.data.title} — Case Study`}
+  description={project.data.description}
 >
   <section class="pt-24">
-    <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+    <article class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mb-8">
         <a href="/portfolio" class="text-sm text-brand-400 hover:text-brand-300">← Back to Portfolio</a>
       </div>
-      <h1 class="mb-6 text-4xl font-extrabold text-white">Case Study: {slug}</h1>
-      <p class="mb-8 text-dark-400">
-        Full case study details will be loaded from PocketBase.
-      </p>
-      <div class="rounded-xl border border-dark-800 bg-dark-900 p-8 text-center">
-        <p class="text-dark-400">
-          This case study is coming soon. In production, this page will render dynamic content from your PocketBase portfolio collection.
+
+      <header class="mb-12">
+        <div class={`mb-3 text-xs font-semibold ${serviceColors[project.data.serviceType] || "text-brand-500"}`}>
+          {project.data.serviceType.toUpperCase()}
+        </div>
+        <h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl">{project.data.title}</h1>
+        <p class="mb-2 text-lg text-dark-400">{project.data.description}</p>
+        <p class="text-sm text-dark-500">
+          Client: <span class="text-dark-300">{project.data.clientName}</span>
         </p>
+      </header>
+
+      <div class="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {
+          project.data.results.lighthouse && (
+            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
+              <div class="text-2xl font-bold text-brand-400">{project.data.results.lighthouse}</div>
+              <div class="text-xs text-dark-500">Lighthouse</div>
+            </div>
+          )
+        }
+        {
+          project.data.results.trafficIncrease && (
+            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
+              <div class="text-2xl font-bold text-green-400">{project.data.results.trafficIncrease}</div>
+              <div class="text-xs text-dark-500">Traffic</div>
+            </div>
+          )
+        }
+        {
+          project.data.results.lcp && (
+            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
+              <div class="text-2xl font-bold text-blue-400">{project.data.results.lcp}</div>
+              <div class="text-xs text-dark-500">LCP</div>
+            </div>
+          )
+        }
+        {
+          project.data.results.conversionLift && (
+            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
+              <div class="text-2xl font-bold text-purple-400">{project.data.results.conversionLift}</div>
+              <div class="text-xs text-dark-500">Conversions</div>
+            </div>
+          )
+        }
       </div>
-      <div class="mt-8 text-center">
+
+      {
+        project.data.testimonial && (
+          <blockquote class="mb-12 rounded-xl border-l-4 border-brand-500 bg-dark-900 p-6">
+            <p class="mb-2 text-lg italic text-dark-200">"{project.data.testimonial}"</p>
+            <cite class="text-sm text-dark-500">— {project.data.testimonialAuthor}</cite>
+          </blockquote>
+        )
+      }
+
+      <div class="prose prose-invert prose-brand max-w-none text-dark-300">
+        <Content />
+      </div>
+
+      <div class="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        {
+          project.data.liveUrl && (
+            <a
+              href={project.data.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg border border-dark-700 px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:border-brand-500 hover:text-brand-400"
+            >
+              View Live Site →
+            </a>
+          )
+        }
         <CalEmbed buttonText="Get Results Like This →" />
       </div>
-    </div>
+    </article>
   </section>
 </BaseLayout>

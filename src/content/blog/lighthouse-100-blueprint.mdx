@@ -1,0 +1,50 @@
+---
+title: "How We Engineer Sub-Second Lighthouse Scores"
+description: "Our technical blueprint for achieving perfect Lighthouse scores with Astro, edge deployment, and Preact Islands."
+pubDate: 2026-06-01
+author: "REX Bunny"
+tags: ["Performance", "Astro", "Web Development"]
+---
+
+## The Performance Bar
+
+A 0.3-second Lighthouse score isn't aspirational — it's a requirement. Google uses Core Web Vitals as a ranking signal, and AI crawlers reward fast sites with higher source scores.
+
+Here's how we consistently deliver Lighthouse 98+ scores for our clients.
+
+## The REX Bunny Stack
+
+We've architected our entire stack around performance:
+
+- **Astro** — Static-first framework with zero JS by default
+- **Preact Islands** — Interactive components load only where needed
+- **Tailwind CSS** — No unused CSS, purged at build time
+- **Edge CDN** — Content served from the nearest node
+- **PocketBase** — Lightweight backend that doesn't slow down the frontend
+
+## The Blueprint
+
+### 1. Audit Everything
+Before writing a line of code, we audit the existing site. Lighthouse, WebPageTest, and our custom AI Crawlability check. Every millisecond is accounted for.
+
+### 2. Architect for Speed
+Font loading, image optimization, JavaScript bundling — each decision is made with performance in mind. No heavy frameworks. No unnecessary dependencies.
+
+### 3. Build with Constraints
+Every component must justify its existence. If a page needs interactivity, it gets a Preact island. If it's content-only, it's pure HTML/CSS with zero JavaScript.
+
+### 4. Optimize Relentlessly
+Post-build optimization: image compression, font subsetting, CSS minification, and edge caching rules. We treat performance as a continuous process, not a one-time goal.
+
+## Real Results
+
+| Metric | Before | After |
+|--------|--------|-------|
+| LCP | 3.2s | 0.3s |
+| Lighthouse | 62 | 98 |
+| CLS | 0.15 | 0.01 |
+| TBT | 450ms | 45ms |
+
+---
+
+*Ready to engineer a faster site? [Let's talk](/contact) about your performance goals.*

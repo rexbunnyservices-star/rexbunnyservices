@@ -8,7 +8,7 @@ services:
     environment:
       - POCKETBASE_URL=http://pocketbase:8090
       - N8N_WEBHOOK_URL=http://n8n:5678
-      - PUBLIC_SITE_URL=https://rexbunnyservices.com
+      - PUBLIC_SITE_URL=https://rexbunnyservices.online
       - LISTMONK_URL=http://listmonk:9000
     depends_on:
       pocketbase:
@@ -36,7 +36,7 @@ services:
       - ./n8n/workflows:/home/node/.n8n/workflows
     environment:
       - N8N_SECURE_COOKIE=false
-      - WEBHOOK_URL=https://n8n.rexbunnyservices.com
+      - WEBHOOK_URL=https://n8n.rexbunnyservices.online
       - LISTMONK_URL=http://listmonk:9000
     depends_on:
       - pocketbase
@@ -83,7 +83,7 @@ services:
       - DATABASE_URL=postgresql://calcom:${POSTGRES_PASSWORD:-changeme}@calcom-db:5432/calcom
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-changeme}
       - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY:-changeme}
-      - NEXTAUTH_URL=https://cal.rexbunnyservices.com
+      - NEXTAUTH_URL=https://cal.rexbunnyservices.online
     depends_on:
       calcom-db:
         condition: service_healthy

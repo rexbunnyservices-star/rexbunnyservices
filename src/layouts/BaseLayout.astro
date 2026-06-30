@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const { title, description, canonical } = Astro.props;
-const siteUrl = "https://rexbunnyservices.com";
+const siteUrl = "https://rexbunnyservices.online";
 const pageUrl = canonical || Astro.url.pathname;
 ---
 
@@ -50,7 +50,7 @@ const pageUrl = canonical || Astro.url.pathname;
           "@id": `${siteUrl}/#organization`,
           "name": "REX Bunny Services",
           "url": siteUrl,
-          "logo": `${siteUrl}/favicon.svg`,
+          "logo": `${siteUrl}/images/logo.png`,
           "foundingDate": "2024-01-01",
           "founders": [
             {
@@ -70,7 +70,7 @@ const pageUrl = canonical || Astro.url.pathname;
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "sales",
-            "email": "hello@rexbunnyservices.com",
+            "email": "hello@rexbunnyservices.online",
             "availableLanguage": ["English"]
           },
           "description": "Next-Gen Web Development, Technical SEO, and AI Search Optimization (GEO) agency. We engineer websites to rank in ChatGPT, Google Gemini, Perplexity, and Microsoft Copilot."

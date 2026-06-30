@@ -1,7 +1,7 @@
 import PocketBase from "pocketbase";
 
 const PB_URL = process.env.POCKETBASE_URL || "http://localhost:8090";
-const ADMIN_EMAIL = process.env.PB_ADMIN_EMAIL || "admin@rexbunnyservices.com";
+const ADMIN_EMAIL = process.env.PB_ADMIN_EMAIL || "admin@rexbunnyservices.online";
 const ADMIN_PASSWORD = process.env.PB_ADMIN_PASSWORD || "changeme";
 
 async function seed() {

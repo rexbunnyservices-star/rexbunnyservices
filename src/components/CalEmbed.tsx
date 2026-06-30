@@ -5,7 +5,7 @@ interface CalEmbedProps {
 
 export default function CalEmbed({ buttonText = "Book a Strategy Call →", className = "" }: CalEmbedProps) {
   const handleClick = () => {
-    window.open("https://cal.rexbunnyservices.com/strategy-call", "_blank", "noopener,noreferrer");
+    window.open("https://cal.rexbunnyservices.online/strategy-call", "_blank", "noopener,noreferrer");
   };
 
   return (

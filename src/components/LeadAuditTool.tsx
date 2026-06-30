@@ -182,7 +182,7 @@ export default function LeadAuditTool() {
 
         <div class="flex flex-col gap-3 sm:flex-row">
           <a
-            href="https://cal.rexbunnyservices.com/strategy-call"
+            href="https://cal.rexbunnyservices.online/strategy-call"
             target="_blank"
             rel="noopener noreferrer"
             class="flex-1 rounded-lg bg-brand-600 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-brand-500"

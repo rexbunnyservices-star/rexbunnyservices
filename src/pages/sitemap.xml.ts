@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
 
-const site = "https://rexbunnyservices.com";
+const site = "https://rexbunnyservices.online";
 
 const staticPages = [
   { url: "/", priority: 1.0, changefreq: "weekly" },
@@ -14,11 +15,28 @@ const staticPages = [
   { url: "/blog", priority: 0.7, changefreq: "weekly" },
   { url: "/privacy", priority: 0.3, changefreq: "yearly" },
   { url: "/terms", priority: 0.3, changefreq: "yearly" },
-  { url: "/portfolio/placeholder", priority: 0.5, changefreq: "monthly" },
 ];
 
 export const GET: APIRoute = async () => {
-  const urls = staticPages
+  const blogPosts = await getCollection("blog");
+  const portfolioProjects = await getCollection("portfolio");
+
+  const dynamicPages = [
+    ...blogPosts.map((post) => ({
+      url: `/blog/${post.id}`,
+      priority: 0.6,
+      changefreq: "monthly",
+    })),
+    ...portfolioProjects.map((project) => ({
+      url: `/portfolio/${project.id}`,
+      priority: 0.6,
+      changefreq: "monthly",
+    })),
+  ];
+
+  const allPages = [...staticPages, ...dynamicPages];
+
+  const urls = allPages
     .map(
       (page) => `
   <url>

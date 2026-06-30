@@ -1,0 +1,65 @@
+{
+  "$ref": "#/definitions/portfolio",
+  "definitions": {
+    "portfolio": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "serviceType": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "results": {
+          "type": "object",
+          "properties": {
+            "lighthouse": {
+              "type": "number"
+            },
+            "trafficIncrease": {
+              "type": "string"
+            },
+            "lcp": {
+              "type": "string"
+            },
+            "conversionLift": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "testimonial": {
+          "type": "string"
+        },
+        "testimonialAuthor": {
+          "type": "string"
+        },
+        "liveUrl": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "slug",
+        "clientName",
+        "serviceType",
+        "description",
+        "results"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

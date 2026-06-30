@@ -1,4 +1,7 @@
 const POCKETBASE_URL = process.env.POCKETBASE_URL || "";
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || "";
+const N8N_WEBHOOK_AUTH = process.env.N8N_WEBHOOK_AUTH || "";
+const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL || "https://rexbunnyservices.online";
 
 export async function handler(event) {
   const headers = {
@@ -32,6 +35,24 @@ export async function handler(event) {
     }
 
     const lead = await response.json();
+
+    if (N8N_WEBHOOK_URL) {
+      const webhookHeaders = { "Content-Type": "application/json" };
+      if (N8N_WEBHOOK_AUTH) {
+        webhookHeaders["Authorization"] = N8N_WEBHOOK_AUTH;
+      }
+
+      fetch(N8N_WEBHOOK_URL, {
+        method: "POST",
+        headers: webhookHeaders,
+        body: JSON.stringify({
+          leadId: lead.id,
+          url,
+          email,
+          callbackUrl: `${PUBLIC_SITE_URL}/api/audit-callback`,
+        }),
+      }).catch((err) => console.error("n8n webhook error:", err));
+    }
 
     return {
       statusCode: 202,
