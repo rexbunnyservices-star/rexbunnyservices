@@ -2,21 +2,22 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
 const site = "https://rexbunnyservices.online";
+const today = new Date().toISOString().split("T")[0];
 
 const staticPages = [
-  { url: "/", priority: 1.0, changefreq: "weekly" },
-  { url: "/services/web-development", priority: 0.9, changefreq: "monthly" },
-  { url: "/services/seo", priority: 0.9, changefreq: "monthly" },
-  { url: "/services/ai-search-optimization", priority: 0.9, changefreq: "monthly" },
-  { url: "/pricing", priority: 0.8, changefreq: "monthly" },
-  { url: "/lead-engine", priority: 0.8, changefreq: "weekly" },
-  { url: "/portfolio", priority: 0.7, changefreq: "monthly" },
-  { url: "/about", priority: 0.6, changefreq: "monthly" },
-  { url: "/contact", priority: 0.6, changefreq: "monthly" },
-  { url: "/blog", priority: 0.7, changefreq: "weekly" },
-  { url: "/geo-checklist", priority: 0.7, changefreq: "monthly" },
-  { url: "/privacy", priority: 0.3, changefreq: "yearly" },
-  { url: "/terms", priority: 0.3, changefreq: "yearly" },
+  { url: "/", priority: 1.0, changefreq: "weekly", lastmod: today },
+  { url: "/services/web-development", priority: 0.9, changefreq: "monthly", lastmod: today },
+  { url: "/services/seo", priority: 0.9, changefreq: "monthly", lastmod: today },
+  { url: "/services/ai-search-optimization", priority: 0.9, changefreq: "monthly", lastmod: today },
+  { url: "/pricing", priority: 0.8, changefreq: "monthly", lastmod: today },
+  { url: "/lead-engine", priority: 0.8, changefreq: "weekly", lastmod: today },
+  { url: "/portfolio", priority: 0.7, changefreq: "monthly", lastmod: today },
+  { url: "/about", priority: 0.6, changefreq: "monthly", lastmod: today },
+  { url: "/contact", priority: 0.6, changefreq: "monthly", lastmod: today },
+  { url: "/blog", priority: 0.7, changefreq: "weekly", lastmod: today },
+  { url: "/geo-checklist", priority: 0.7, changefreq: "monthly", lastmod: today },
+  { url: "/privacy", priority: 0.3, changefreq: "yearly", lastmod: today },
+  { url: "/terms", priority: 0.3, changefreq: "yearly", lastmod: today },
 ];
 
 export const GET: APIRoute = async () => {
@@ -28,11 +29,13 @@ export const GET: APIRoute = async () => {
       url: `/blog/${post.id}`,
       priority: 0.6,
       changefreq: "monthly",
+      lastmod: post.data.pubDate.toISOString().split("T")[0],
     })),
     ...portfolioProjects.map((project) => ({
       url: `/portfolio/${project.id}`,
       priority: 0.6,
       changefreq: "monthly",
+      lastmod: today,
     })),
   ];
 
@@ -43,6 +46,7 @@ export const GET: APIRoute = async () => {
       (page) => `
   <url>
     <loc>${site}${page.url}</loc>
+    <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`

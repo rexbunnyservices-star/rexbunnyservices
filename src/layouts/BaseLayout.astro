@@ -8,11 +8,16 @@ export interface Props {
   description: string;
   canonical?: string;
   ogImage?: string;
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { title, description, canonical } = Astro.props;
+const { title, description, canonical, breadcrumbs } = Astro.props;
 const siteUrl = "https://rexbunnyservices.online";
 const pageUrl = canonical || Astro.url.pathname;
+
+const breadcrumbItems = breadcrumbs
+  ? [{ name: "Home", url: siteUrl }, ...breadcrumbs.map(b => ({ name: b.name, url: b.url.startsWith("http") ? b.url : `${siteUrl}${b.url}` }))]
+  : [{ name: "Home", url: siteUrl }];
 ---
 
 <!DOCTYPE html>
@@ -74,7 +79,7 @@ const pageUrl = canonical || Astro.url.pathname;
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "sales",
-            "email": "help@rexbunnyservices.online",
+            "email": "help@rexbunnyservices.com",
             "availableLanguage": ["English"]
           },
           "description": "Next-Gen Web Development, Technical SEO, and AI Search Optimization (GEO) agency. We engineer websites to rank in ChatGPT, Google Gemini, Perplexity, and Microsoft Copilot."
@@ -172,9 +177,12 @@ const pageUrl = canonical || Astro.url.pathname;
         {
           "@type": "BreadcrumbList",
           "@id": `${siteUrl}/#breadcrumb`,
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl }
-          ]
+          "itemListElement": breadcrumbItems.map((item, i) => ({
+            "@type": "ListItem",
+            "position": i + 1,
+            "name": item.name,
+            "item": item.url
+          }))
         }
       ]
     })} />

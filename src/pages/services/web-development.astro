@@ -22,16 +22,20 @@ const stackItems = [
 <BaseLayout
   title="Next-Gen Web Development"
   description="High-performance websites engineered for Lighthouse 95+, sub-second load times, and LLM-optimized HTML. Built with Astro, edged-deployed, AI-ready."
+  breadcrumbs={[
+    { name: "Services", url: "/services" },
+    { name: "Web Development", url: "/services/web-development" }
+  ]}
 >
   <!-- Hero -->
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
-          Sites That Ship in Under <span class="text-brand-400">0.5s</span>
+          Web Development That Ships in Under <span class="text-brand-400">0.5 Seconds</span>
         </h1>
         <p class="mb-8 text-lg text-dark-300">
-          Built on Astro. Edge-deployed. LLM-optimized. Every millisecond engineered for conversion and crawlability.
+          High-performance websites engineered for Lighthouse 95+, sub-second load times, and LLM-optimized HTML. Built with Astro, edge-deployed, AI-ready.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a href="/lead-engine" class="rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
@@ -102,6 +106,23 @@ const stackItems = [
       <p class="mb-8 text-dark-400">Get your free Lighthouse audit and see exactly where your current site stands.</p>
       <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
         Run Your Free Audit →
+      </a>
+    </div>
+  </section>
+
+  <!-- Related Case Study -->
+  <section class="border-t border-dark-800 bg-dark-900/50 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-dark-400">Related Case Study</h3>
+      <a href="/portfolio/saas-platform-rebuild" class="group block rounded-xl border border-dark-800 bg-dark-900 p-8 transition-all hover:border-brand-500/50">
+        <div class="text-xs font-semibold text-blue-400">WEB DEVELOPMENT</div>
+        <h4 class="mt-2 text-xl font-bold text-white group-hover:text-brand-400">SaaS Platform Rebuild: From 6s to 0.4s LCP</h4>
+        <p class="mt-2 text-sm text-dark-400">Complete platform rebuild using Astro + Preact Islands, cutting load times by 87% and doubling conversion rates.</p>
+        <div class="mt-4 flex gap-4 text-sm">
+          <span class="text-white font-semibold">Lighthouse: 98</span>
+          <span class="text-green-400 font-semibold">Traffic: +142%</span>
+          <span class="text-blue-400 font-semibold">LCP: 0.4s</span>
+        </div>
       </a>
     </div>
   </section>

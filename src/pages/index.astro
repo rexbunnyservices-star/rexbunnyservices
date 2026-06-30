@@ -27,6 +27,8 @@ const faqs = [
     answer: "The audit checks your Lighthouse performance scores (LCP, CLS, TBT), AI crawlability (GPTBot access, llms.txt presence), structured data quality (JSON-LD completeness), and produces a composite AI Visibility Score. A full PDF report with recommendations is emailed to you.",
   },
 ];
+
+const siteUrl = "https://rexbunnyservices.online";
 ---
 
 <BaseLayout
@@ -34,6 +36,18 @@ const faqs = [
   description="REX Bunny Services engineers your brand into ChatGPT, Google Gemini, Perplexity, and Copilot. Web development, technical SEO, and GEO — built for 2026."
 >
   <!-- Hero -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  })} />
   <section class="relative overflow-hidden pt-24">
     <div class="absolute inset-0 bg-gradient-to-b from-brand-950/20 to-dark-950" />
     <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
@@ -259,6 +273,69 @@ const faqs = [
       <div class="mt-8 text-center sm:hidden">
         <a href="/portfolio" class="text-sm font-semibold text-brand-400 hover:text-brand-300">
           View All Case Studies →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 flex items-end justify-between">
+        <div>
+          <h2 class="mb-2 text-3xl font-bold text-white">From the Blog</h2>
+          <p class="text-dark-400">GEO strategies, SEO tactics, and web performance guides.</p>
+        </div>
+        <a href="/blog" class="hidden text-sm font-semibold text-brand-400 hover:text-brand-300 sm:block">
+          View All Posts →
+        </a>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          [
+            {
+              title: "How to Get Your Brand Cited in ChatGPT",
+              date: "June 22, 2026",
+              desc: "Step-by-step guide to optimizing your website so ChatGPT recommends your brand.",
+              tags: ["GEO", "ChatGPT"],
+              slug: "get-cited-in-chatgpt",
+            },
+            {
+              title: "What is Generative Engine Optimization (GEO)?",
+              date: "June 15, 2026",
+              desc: "A complete guide to optimizing your website for AI search engines.",
+              tags: ["GEO", "AI Search"],
+              slug: "what-is-geo",
+            },
+            {
+              title: "llms.txt Explained: The File Every Website Needs",
+              date: "May 28, 2026",
+              desc: "What is llms.txt, why it matters, and how to create one in under 10 minutes.",
+              tags: ["Technical", "AI Search"],
+              slug: "llms-txt-explained",
+            },
+          ].map((post) => (
+            <a
+              href={`/blog/${post.slug}`}
+              class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10"
+            >
+              <div class="mb-2 text-xs text-dark-500">{post.date}</div>
+              <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">
+                {post.title}
+              </h3>
+              <p class="mb-4 text-sm text-dark-400">{post.desc}</p>
+              <div class="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span class="rounded bg-dark-800 px-2 py-1 text-xs text-dark-400">{tag}</span>
+                ))}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <div class="mt-8 text-center sm:hidden">
+        <a href="/blog" class="text-sm font-semibold text-brand-400 hover:text-brand-300">
+          View All Posts →
         </a>
       </div>
     </div>

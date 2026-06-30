@@ -12,12 +12,40 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const siteUrl = "https://rexbunnyservices.online";
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
+  breadcrumbs={[
+    { name: "Blog", url: "/blog" },
+    { name: post.data.title, url: `/blog/${post.id}` }
+  ]}
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "datePublished": post.data.pubDate.toISOString(),
+    "author": {
+      "@type": "Organization",
+      "name": "REX Bunny Services",
+      "url": siteUrl
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "REX Bunny Services",
+      "url": siteUrl,
+      "logo": `${siteUrl}/images/logo.png`
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blog/${post.id}`
+    },
+    "keywords": post.data.tags.join(", ")
+  })} />
   <section class="pt-24">
     <article class="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mb-8">

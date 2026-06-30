@@ -26,4 +26,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://rexbunnyservices.online/sitemap-index.xml
+Sitemap: https://rexbunnyservices.online/sitemap.xml

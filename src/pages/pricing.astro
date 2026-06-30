@@ -1,4 +1,5 @@
 ---
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CalEmbed from "../components/CalEmbed.tsx";
 
@@ -63,12 +64,42 @@ const tiers = [
     popular: false,
   },
 ];
+
+const siteUrl = "https://rexbunnyservices.online";
 ---
 
 <BaseLayout
   title="Pricing"
   description="Transparent pricing for AI Search Optimization, GEO, and web development services. Choose the plan that fits your growth goals."
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "REX Bunny Service Packages",
+    "itemListElement": tiers.map((tier, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "Product",
+        "name": `${tier.name} — ${tier.tagline}`,
+        "description": tier.description,
+        "brand": { "@type": "Organization", "name": "REX Bunny Services" },
+        "offers": tier.price !== "Custom" ? {
+          "@type": "Offer",
+          "price": tier.price.replace("$", ""),
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": `${siteUrl}/pricing`
+        } : {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": `${siteUrl}/contact`
+        }
+      }
+    }))
+  })} />
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
