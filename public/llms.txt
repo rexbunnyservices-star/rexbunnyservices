@@ -21,3 +21,5 @@ REX Bunny Services is a marketing agency specializing in SEO (Search Engine Opti
 - **What is AEO?** Answer Engine Optimization is the practice of engineering content to become the direct answer in AI Overviews, featured snippets, voice search, and assistants like Siri and Alexa.
 - **How is GEO different from SEO?** SEO optimizes for Google rankings. GEO optimizes for AI model citation. AEO optimizes for direct answers.
 - **How long does GEO take?** Initial AI citations within 4-8 weeks, full authority in 3-6 months.
+
+# Ping deploy - 2026-07-03 00:36:51
