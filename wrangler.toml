@@ -1,0 +1,11 @@
+name = "rex-bunny-services"
+compatibility_date = "2026-07-03"
+
+pages_build_output_dir = "dist"
+
+[env.production]
+name = "rexbunnyservices"
+routes = ["rexbunnyservices.online/*"]
+
+[env.preview]
+name = "rexbunnyservices-preview"
