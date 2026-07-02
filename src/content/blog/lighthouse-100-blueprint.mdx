@@ -8,33 +8,60 @@ tags: ["Performance", "Astro", "Web Development"]
 
 ## The Performance Bar
 
-A 0.3-second Lighthouse score isn't aspirational — it's a requirement. Google uses Core Web Vitals as a ranking signal, and AI crawlers reward fast sites with higher source scores.
+A 0.3-second Lighthouse score isn't aspirational — it's a requirement. Google uses Core Web Vitals as a ranking signal, and AI crawlers like GPTBot reward fast sites with higher source scores. In 2026, site speed is simultaneously a ranking factor for Google, a citation factor for AI models, and a conversion factor for your users. Every millisecond matters.
 
-Here's how we consistently deliver Lighthouse 98+ scores for our clients.
+Here's how we consistently deliver Lighthouse 98+ scores for our clients using our proven engineering blueprint.
 
 ## The REX Bunny Stack
 
-We've architected our entire stack around performance:
+We've architected our entire stack around performance, not convenience. Every technology choice is justified by measurable impact on load times:
 
-- **Astro** — Static-first framework with zero JS by default
-- **Preact Islands** — Interactive components load only where needed
-- **Tailwind CSS** — No unused CSS, purged at build time
-- **Edge CDN** — Content served from the nearest node
-- **PocketBase** — Lightweight backend that doesn't slow down the frontend
+- **Astro** — Static-first framework that ships zero JavaScript by default. Pages are pre-rendered to HTML at build time, meaning the browser receives ready-to-display content with no framework overhead.
+- **Preact Islands** — Interactive components are isolated as "islands" that load independently. A contact form on one page doesn't load JavaScript for the entire site. Only the components that need interactivity get JavaScript.
+- **Tailwind CSS** — Utility-first CSS framework that purges unused styles at build time. The production CSS bundle is typically under 10KB — smaller than most hero images.
+- **Edge CDN** — Content served from the nearest edge node to your user. Sub-50ms time-to-first-byte regardless of geographic location.
+- **PocketBase** — Single-binary, SQLite-backed backend that serves API responses in under 5ms. No heavy database queries, no N+1 problems.
 
 ## The Blueprint
 
 ### 1. Audit Everything
-Before writing a line of code, we audit the existing site. Lighthouse, WebPageTest, and our custom AI Crawlability check. Every millisecond is accounted for.
+
+Before writing a line of code, we run a comprehensive performance audit:
+
+- **Lighthouse** — Full diagnostic across performance, accessibility, best practices, and SEO
+- **WebPageTest** — Multi-location load testing with filmstrip view
+- **Bundle analysis** — Inspect every dependency for size impact
+- **AI Crawlability check** — Verify GPTBot, Claude-Web, and PerplexityBot can crawl efficiently
+- **Core Web Vitals** — Measure LCP, CLS, INP, TBT, and FCP at the 75th percentile
+
+Every millisecond is accounted for and documented before we start building.
 
 ### 2. Architect for Speed
-Font loading, image optimization, JavaScript bundling — each decision is made with performance in mind. No heavy frameworks. No unnecessary dependencies.
+
+Architecture decisions cascade into performance outcomes. We make deliberate choices:
+
+- **Font loading** — Self-host fonts, subset to only needed characters, use `font-display: swap`
+- **Image optimization** — Next-gen formats (WebP, AVIF), responsive srcsets, lazy loading with explicit dimensions
+- **JavaScript strategy** — Critically analyze every dependency. If a library adds 50KB, it needs to justify 50KB of value
+- **CSS strategy** — Critical CSS inlined, the rest loaded asynchronously. No render-blocking stylesheets
 
 ### 3. Build with Constraints
-Every component must justify its existence. If a page needs interactivity, it gets a Preact island. If it's content-only, it's pure HTML/CSS with zero JavaScript.
+
+Every component must justify its existence. We follow a strict tiered approach:
+
+- **Content-only pages** — Pure HTML and CSS. Zero JavaScript. A blog post doesn't need React.
+- **Partially interactive pages** — Preact islands for specific components (navigation, forms, interactive charts). The island pattern ensures JavaScript only loads where it's actually needed.
+- **Fully interactive pages** — Only when the use case demands it. Dashboards, tools, and complex UIs get full SPA treatment — but these are isolated to specific routes.
 
 ### 4. Optimize Relentlessly
-Post-build optimization: image compression, font subsetting, CSS minification, and edge caching rules. We treat performance as a continuous process, not a one-time goal.
+
+Post-build optimization is continuous, not a one-time step:
+
+- **Image compression** — Automated pipeline that compresses every image to the smallest acceptable quality
+- **Font subsetting** — Only the characters used in the actual content
+- **CSS minification** — Tailwind's built-in purging combined with additional minification passes
+- **HTTP/3 and Brotli** — Modern protocols and compression at the CDN level
+- **Edge caching** — Cache-control headers optimized for every content type
 
 ## Real Results
 
@@ -44,13 +71,19 @@ Post-build optimization: image compression, font subsetting, CSS minification, a
 | Lighthouse | 62 | 98 |
 | CLS | 0.15 | 0.01 |
 | TBT | 450ms | 45ms |
+| Page weight | 2.1MB | 89KB |
+
+## Why Speed Matters for AI Search
+
+Many clients ask us why we prioritize performance for GEO and AEO optimization. The answer is straightforward: AI crawlers have timeouts. If your page takes more than a few seconds to load, GPTBot and other AI crawlers may abandon the crawl entirely. A fast site isn't just better for users and Google — it's essential for being cited in AI responses.
 
 ---
 
-*Ready to engineer a faster site? [Let's talk](/contact) about your performance goals.*
+*Ready to engineer a faster site? [Run a free audit](/lead-engine) to see your current performance baseline.*
 
 **Related reading:**
 - [What is GEO?](/blog/what-is-geo) — Why speed matters for AI search citations
 - [Programmatic Local SEO](/blog/programmatic-local-seo) — Scale your SEO with automated city pages
+- [What is AEO?](/blog/aeo-answer-engine-optimization-guide) — How page speed affects answer extraction
 - [Our Web Development Service](/services/web-development) — Lighthouse 95+ guaranteed
 - [SaaS Platform Rebuild Case Study](/portfolio/saas-platform-rebuild) — From 6s to 0.4s LCP

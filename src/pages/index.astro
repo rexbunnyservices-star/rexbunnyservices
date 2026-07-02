@@ -7,24 +7,32 @@ import CalEmbed from "../components/CalEmbed.tsx";
 
 const faqs = [
   {
-    question: "What's the difference between SEO and GEO?",
-    answer: "SEO optimizes for traditional search engines like Google. GEO (Generative Engine Optimization) optimizes for AI search engines like ChatGPT, Gemini, and Perplexity. GEO focuses on entity clarity, structured data depth, and citation-worthiness — factors that LLMs use to determine which sources to cite in their responses.",
+    question: "What's the difference between SEO, GEO, and AEO?",
+    answer: "SEO optimizes for traditional search engines like Google. GEO (Generative Engine Optimization) gets your brand cited in AI responses from ChatGPT, Gemini, and Perplexity. AEO (Answer Engine Optimization) makes your content the direct answer — featured snippets, voice search, Siri, Alexa, and Google AI Overviews. Most businesses need all three to cover every way customers search.",
   },
   {
-    question: "How do you measure AI search rankings?",
-    answer: "We run periodic queries across GPT-4o, Gemini 2.0, Perplexity, and Copilot for your target keywords, then track whether your brand appears in the response, what position, and in what context. We also monitor GPTBot crawl behavior and your entity presence in knowledge graphs.",
+    question: "What is AEO and how is it different from GEO?",
+    answer: "AEO (Answer Engine Optimization) focuses on making your content the direct answer that AI engines and voice assistants read aloud. Think featured snippets, 'position zero,' and Siri responses. GEO focuses on getting your brand cited as a source within AI responses. AEO = you ARE the answer. GEO = you're CITED in the answer. Both are essential in 2026.",
   },
   {
-    question: "How long until I see results in ChatGPT?",
-    answer: "Most clients see initial AI citations within 4-8 weeks after implementing entity optimization and structured data improvements. Full LLM citation authority typically builds over 3-6 months as the AI models re-crawl and re-index your entity signals.",
+    question: "How do you measure AI search and answer visibility?",
+    answer: "We run periodic queries across GPT-4o, Gemini 2.0, Perplexity, Copilot, Google AI Overviews, and voice assistants. We track whether your brand appears, in what position, and in what context — and whether your content is extracted as the direct answer. We also monitor GPTBot crawl behavior and entity presence in knowledge graphs.",
+  },
+  {
+    question: "How long until I see results?",
+    answer: "SEO results typically show in 4-12 weeks. Initial AI citations (GEO) appear within 4-8 weeks. AEO results — featured snippets and direct answers — can appear in as little as 2-4 weeks with proper schema and content structuring. Full authority across all channels builds over 3-6 months.",
   },
   {
     question: "Can you optimize my existing site or do I need a rebuild?",
-    answer: "We can optimize your existing site — GEO and SEO improvements are primarily about structured data, content restructuring, and entity signals. However, if your site has severe performance issues (Lighthouse < 50, 5+ second load times), a rebuild may be more cost-effective in the long run.",
+    answer: "We can optimize your existing site — most SEO, GEO, and AEO improvements are about structured data, content restructuring, and entity signals. Web development is only needed if your site has severe performance issues (Lighthouse < 50, 5+ second load times).",
+  },
+  {
+    question: "Do you offer web development as a standalone service?",
+    answer: "Yes. While our core marketing services are SEO, GEO, and AEO, we also offer web development for clients who need a high-performance site built from the ground up — Lighthouse 95+, sub-second load times, edge-deployed, and LLM-ready. It can be bundled with our marketing services or purchased separately.",
   },
   {
     question: "What's included in the free audit?",
-    answer: "The audit checks your Lighthouse performance scores (LCP, CLS, TBT), AI crawlability (GPTBot access, llms.txt presence), structured data quality (JSON-LD completeness), and produces a composite AI Visibility Score. A full PDF report with recommendations is emailed to you.",
+    answer: "The audit checks your Lighthouse performance scores (LCP, CLS, TBT), AI crawlability (GPTBot access, llms.txt presence), structured data quality (JSON-LD completeness), featured snippet presence, and produces a composite Search Visibility Score across all channels. A full PDF report with recommendations is emailed to you.",
   },
 ];
 
@@ -32,8 +40,8 @@ const siteUrl = "https://rexbunnyservices.online";
 ---
 
 <BaseLayout
-  title="Next-Gen Web Dev, SEO & AI Search Optimization"
-  description="REX Bunny Services engineers your brand into ChatGPT, Google Gemini, Perplexity, and Copilot. Web development, technical SEO, and GEO — built for 2026."
+  title="Marketing Agency for AI & Search | SEO, GEO & AEO"
+  description="REX Bunny Services is a marketing agency specializing in SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). We make your brand visible in every search — Google, ChatGPT, Gemini, Siri, and beyond."
 >
   <!-- Hero -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -53,18 +61,17 @@ const siteUrl = "https://rexbunnyservices.online";
     <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Is Your Business{" "}
+          The Marketing Agency That Makes You{" "}
           <span class="bg-gradient-to-r from-brand-400 to-orange-400 bg-clip-text text-transparent">
-            Invisible to AI Search
+            Visible in Every Search
           </span>
-          ?
         </h1>
         <p class="mb-4 text-lg text-dark-300 sm:text-xl">
-          55% of searches now end without a click. AI answers are the new #1.
+          SEO. GEO. AEO. We cover every way your customers search — Google, ChatGPT, Siri, Alexa, Gemini, and Perplexity.
         </p>
         <p class="mb-8 text-base text-dark-400">
-          We engineer your brand into ChatGPT, Gemini, Perplexity, and Copilot —
-          so AI recommends you before your competitors even load.
+          We're a marketing agency that engineers your brand into traditional search results, AI citations, 
+          and direct answer engines — so you're found everywhere your customers are looking.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a
@@ -83,7 +90,7 @@ const siteUrl = "https://rexbunnyservices.online";
   <section class="border-y border-dark-800 bg-dark-900/50 py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <p class="mb-8 text-center text-sm font-semibold uppercase tracking-widest text-dark-400">
-        Built for 2026. Structured for AI Bots.
+        A Marketing Agency Built for the AI Era
       </p>
       <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
         <MetricCard value="0.3s" label="Avg LCP" description="Largest Contentful Paint" />
@@ -94,42 +101,56 @@ const siteUrl = "https://rexbunnyservices.online";
     </div>
   </section>
 
-  <!-- Three Service Pillars -->
+  <!-- Four Service Pillars -->
   <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-center text-3xl font-bold text-white">Three Ways We Make You AI-First</h2>
-      <p class="mb-12 text-center text-dark-400">Every service engineered for maximum AI search visibility.</p>
-      <div class="grid gap-6 md:grid-cols-3">
+      <h2 class="mb-4 text-center text-3xl font-bold text-white">Four Ways We Make You Visible</h2>
+      <p class="mb-12 text-center text-dark-400">Every channel your customers search — we make sure you're there.</p>
+      <div class="grid gap-6 md:grid-cols-4">
+        <a href="/services/seo" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
+          <div class="mb-4 text-3xl">🔍</div>
+          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">SEO</h3>
+          <p class="mb-3 text-xs text-dark-500">Traditional & Local Search</p>
+          <ul class="space-y-1 text-sm text-dark-400">
+            <li>Technical & on-page SEO</li>
+            <li>Programmatic local schema</li>
+            <li>500+ city page automation</li>
+            <li>GSC rank tracking</li>
+          </ul>
+        </a>
+        <a href="/services/ai-search-optimization" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
+          <div class="mb-4 text-3xl">🤖</div>
+          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">GEO</h3>
+          <p class="mb-3 text-xs text-dark-500">Generative Engine Optimization</p>
+          <ul class="space-y-1 text-sm text-dark-400">
+            <li>Entity engineering for AI</li>
+            <li>LLM citation optimization</li>
+            <li>AI crawl strategy</li>
+            <li>Source score boosting</li>
+          </ul>
+        </a>
+        <a href="/services/aeo" class="group rounded-xl border border-brand-500/30 bg-dark-900 p-6 transition-all hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10">
+          <div class="mb-4 text-3xl">🎙️</div>
+          <h3 class="mb-2 text-lg font-bold text-brand-400">AEO</h3>
+          <p class="mb-3 text-xs text-dark-500">Answer Engine Optimization</p>
+          <ul class="space-y-1 text-sm text-dark-400">
+            <li>Featured snippet capture</li>
+            <li>Voice & assistant readiness</li>
+            <li>AI Overview integration</li>
+            <li>Direct answer engineering</li>
+          </ul>
+          <div class="mt-4 text-xs font-semibold text-brand-500">★ New Service</div>
+        </a>
         <a href="/services/web-development" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
           <div class="mb-4 text-3xl">🚀</div>
-          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">Web Engineering</h3>
+          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">Web Dev</h3>
+          <p class="mb-3 text-xs text-dark-500">Built for Search Performance</p>
           <ul class="space-y-1 text-sm text-dark-400">
             <li>Lighthouse 95+ guaranteed</li>
             <li>Sub-second load times</li>
             <li>LLM-crawlable HTML</li>
             <li>Edge-deployed architecture</li>
           </ul>
-        </a>
-        <a href="/services/seo" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🔍</div>
-          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">Tech & Local SEO</h3>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Programmatic local schema</li>
-            <li>500+ city pages auto-gen</li>
-            <li>GSC integration</li>
-            <li>Entity disambiguation</li>
-          </ul>
-        </a>
-        <a href="/services/ai-search-optimization" class="group rounded-xl border border-brand-500/30 bg-dark-900 p-6 transition-all hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🤖</div>
-          <h3 class="mb-2 text-lg font-bold text-brand-400">AI Search Optimization (GEO)</h3>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Entity engineering for ChatGPT</li>
-            <li>LLM citation optimization</li>
-            <li>Source score boosting</li>
-            <li>AI crawl optimization</li>
-          </ul>
-          <div class="mt-4 text-xs font-semibold text-brand-500">★ Our Flagship Service</div>
         </a>
       </div>
     </div>
@@ -356,13 +377,13 @@ const siteUrl = "https://rexbunnyservices.online";
   <!-- Process -->
   <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-12 text-center text-3xl font-bold text-white">The AI-First Blueprint</h2>
+      <h2 class="mb-12 text-center text-3xl font-bold text-white">The REX Bunny Marketing Blueprint</h2>
       <div class="grid gap-4 md:grid-cols-4">
         {[
-          { step: "01", title: "Audit", desc: "Full diagnostic — Lighthouse, AI crawlability, entity graph, citation potential." },
-          { step: "02", title: "Engineer", desc: "Map your entity graph, restructure content for LLM consumption, build structured data." },
-          { step: "03", title: "Build", desc: "Implement the solution — performance overhaul, local SEO infra, or GEO strategy." },
-          { step: "04", title: "Monitor", desc: "Track AI citations weekly, adapt to model updates, maintain authority." },
+          { step: "01", title: "Audit", desc: "Full diagnostic — SEO health, AI crawlability, entity presence, answer extraction potential." },
+          { step: "02", title: "Strategize", desc: "Build a unified plan across SEO, GEO, and AEO. Identify gaps in every search channel." },
+          { step: "03", title: "Implement", desc: "Execute the strategy — technical SEO, entity engineering, answer optimization, or performance rebuild." },
+          { step: "04", title: "Monitor", desc: "Track rankings, AI citations, and answer placement weekly. Adapt to algorithm and model updates." },
         ].map((item) => (
           <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
             <div class="mb-3 text-sm font-bold text-brand-500">{item.step}</div>
@@ -389,14 +410,14 @@ const siteUrl = "https://rexbunnyservices.online";
   <section class="py-20">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
       <h2 class="mb-4 text-3xl font-bold text-white">
-        Most businesses won't know they're invisible to AI search until it's too late.
+        Most businesses are invisible in at least one search channel — and don't know it.
       </h2>
-      <p class="mb-8 text-dark-400">Run your audit today. Get your visibility score, a full report, and a custom roadmap.</p>
+      <p class="mb-8 text-dark-400">Run your free audit. See your visibility across SEO, AI citations, and direct answers.</p>
       <a
         href="/lead-engine"
         class="inline-block rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-brand-500 hover:shadow-lg hover:shadow-brand-500/25"
       >
-        Run Your Free AI Visibility Audit →
+        Run Your Free Visibility Audit →
       </a>
     </div>
   </section>

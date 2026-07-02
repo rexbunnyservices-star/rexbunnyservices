@@ -8,20 +8,26 @@ tags: ["GEO", "ChatGPT", "AI Search"]
 
 ## Why ChatGPT Citations Matter
 
-When a user asks ChatGPT "What's the best CRM for small business?", the model doesn't guess — it cites specific sources. If your brand is one of those sources, you get recommended to millions of users without spending a dime on ads.
+When a user asks ChatGPT "What's the best CRM for small business?", the model doesn't guess — it cites specific sources. If your brand is one of those sources, you get recommended to millions of users without spending a dime on ads. With ChatGPT's browsing feature now reaching 100M+ weekly active users, being cited by the model has become a significant traffic and credibility driver.
+
+The mechanism is straightforward: when ChatGPT needs to answer a question, it searches the web, evaluates sources based on entity clarity and content authority, and synthesizes an answer from the best sources it finds. Your goal is to be one of those sources.
 
 Here's exactly how to make that happen.
 
 ## Step 1: Audit Your Current AI Visibility
 
 Before optimizing, know where you stand. Run a free audit to check:
-- Is GPTBot allowed to crawl your site?
-- Do you have an `llms.txt` file?
-- Is your structured data complete?
+
+- **Is GPTBot allowed to crawl your site?** Check your robots.txt. If GPTBot is disallowed, ChatGPT can't read your content.
+- **Do you have an llms.txt file?** This is the first thing GPTBot reads. Without it, ChatGPT has to infer your business from your HTML.
+- **Is your structured data complete?** ChatGPT extracts entity information from JSON-LD schema. Missing schema means missing context.
+- **What does ChatGPT currently say about your brand?** Ask it directly: "What do you know about [your brand]?" The answer reveals your current AI visibility baseline.
 
 ## Step 2: Create an llms.txt File
 
-This is the single most overlooked GEO tactic. An `llms.txt` file at your domain root tells AI models exactly who you are and what you do.
+This is the single most overlooked GEO tactic. An llms.txt file at your domain root tells AI models exactly who you are and what you do. It's like a business card for AI crawlers.
+
+Create a file at `https://yoursite.com/llms.txt`:
 
 ```
 # Your Company Name
@@ -33,26 +39,52 @@ This is the single most overlooked GEO tactic. An `llms.txt` file at your domain
 ## Services
 - [Service 1](https://yoursite.com/service-1): Brief description
 - [Service 2](https://yoursite.com/service-2): Brief description
+
+## Key Pages
+- [Pricing](https://yoursite.com/pricing): Link to pricing
+- [Case Studies](https://yoursite.com/case-studies): Link to portfolio
 ```
+
+Keep it between 200-500 words. Include links to your most important pages.
 
 ## Step 3: Implement Structured Data
 
-AI models use schema.org markup to understand your entity. At minimum, add:
-- `Organization` schema with name, URL, logo, founding date
-- `ProfessionalService` with service types and area served
-- `FAQPage` schema for common questions
+AI models use schema.org markup to understand your entity, your services, and your relationship to other entities. At minimum, add:
+
+- **Organization schema** — name, URL, logo, founding date, founder
+- **ProfessionalService schema** — service types, area served, provider
+- **FAQPage schema** — common questions with answers (ChatGPT pulls these directly)
+- **LocalBusiness schema** — if you have physical locations, add address, phone, geo coordinates
+
+Structured data should be in JSON-LD format, placed in the `<head>` of your pages. Every page should have at minimum an Organization or WebSite schema.
 
 ## Step 4: Write Citation-Friendly Content
 
-AI models prefer to cite content that:
-- Directly answers specific questions
-- Uses clear, factual statements
-- Includes statistics and data points
-- Has structured headings (H2, H3)
+AI models prefer to cite content that meets specific criteria:
 
-## Step 5: Monitor and Adapt
+- **Directly answers specific questions** — Write content in Q&A format. "What is X?" followed by a clear, concise definition gets cited more than long-form narrative.
+- **Uses clear, factual statements** — Cite statistics, reference authoritative sources, and make unambiguous claims. AI models avoid citing content that uses weasel words.
+- **Includes data and statistics** — Pages with specific numbers get cited 3x more than opinion-based content.
+- **Has structured headings** — H2 and H3 subheadings help AI models understand your content hierarchy and extract relevant sections.
 
-Track whether your brand appears in ChatGPT responses for your target keywords. Adjust your strategy based on what's working.
+## Step 5: Build Entity Authority
+
+ChatGPT evaluates entities, not just pages. Your brand needs a clear entity presence across the web:
+
+- **Wikipedia or Wikidata entry** — Even a minimal Wikidata entry helps ChatGPT resolve your brand as a real entity
+- **Crunchbase and industry directories** — Citations on authoritative platforms strengthen your entity signals
+- **Consistent NAP across the web** — Your name, address, and phone number should be identical everywhere
+
+## Step 6: Monitor and Adapt
+
+Track whether your brand appears in ChatGPT responses for your target keywords. Weekly monitoring using our AI visibility tool will show you:
+
+- Which queries trigger your brand in ChatGPT
+- What position and context your brand appears in
+- Which competitors are cited instead of you
+- Changes over time as ChatGPT's model updates
+
+Adjust your content and entity strategy based on what's working. GEO is iterative — the first brands to optimize have a significant first-mover advantage.
 
 ---
 
@@ -62,4 +94,5 @@ Track whether your brand appears in ChatGPT responses for your target keywords. 
 - [What is GEO?](/blog/what-is-geo) — The complete guide to Generative Engine Optimization
 - [llms.txt Explained](/blog/llms-txt-explained) — How to set up the file ChatGPT reads first
 - [How to Optimize for Perplexity](/blog/optimize-for-perplexity) — Get cited in another major AI search engine
-- [E-Commerce AI Visibility Case Study](/portfolio/ecommerce-ai-visibility) — How we got a brand cited in ChatGPT
+- [What is AEO?](/blog/aeo-answer-engine-optimization-guide) — Beyond citations, becoming the direct answer
+- [Our GEO Service](/services/ai-search-optimization) — Full AI citation strategy

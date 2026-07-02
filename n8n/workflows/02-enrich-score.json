@@ -1,0 +1,189 @@
+{
+  "name": "02 - AI Enrich & Score Prospects",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{"item": ["days"], "size": 1}]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [0, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.POCKETBASE_URL || 'http://pocketbase:8090' }}/api/collections/prospects/records?filter=(status='discovered')&sort=created&perPage=50",
+        "method": "GET",
+        "sendBody": false,
+        "options": {}
+      },
+      "id": "fetch-unprocessed",
+      "name": "Fetch Unprocessed Leads",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $json.items || [];\nif (items.length === 0) return [];\n\nreturn items.map(item => ({\n  ...item,\n  // Default enrichment fields\n  enriched: false,\n  score: 0,\n  personalizedEmail: '',\n  emailSubject: '',\n  painPoints: []\n}));"
+      },
+      "id": "prepare-items",
+      "name": "Prepare Enrichment Batch",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lead = $json;\nconst website = lead.website || '';\n\nlet siteContent = '';\nlet siteIssues = [];\n\nif (website) {\n  try {\n    const resp = await fetch(website, { signal: AbortSignal.timeout(8000) });\n    siteContent = await resp.text();\n    \n    // Basic checks\n    if (!siteContent.includes('application/ld+json') && !siteContent.includes('itemscope'))\n      siteIssues.push('missing_structured_data');\n    if (!siteContent.includes('viewport'))\n      siteIssues.push('not_mobile_friendly');\n    if (siteContent.length < 500)\n      siteIssues.push('thin_content');\n    if (!siteContent.includes('https://') && !siteContent.includes('http://'))\n      siteIssues.push('http_not_https');\n  } catch (e) {\n    siteIssues.push('site_unreachable');\n  }\n}\n\nreturn [{\n  ...lead,\n  siteSnippet: siteContent.substring(0, 3000),\n  siteIssues: siteIssues.join(', '),\n  hasStructuredData: !siteIssues.includes('missing_structured_data'),\n  mobileFriendly: !siteIssues.includes('not_mobile_friendly'),\n  reachable: !siteIssues.includes('site_unreachable')\n}];"
+      },
+      "id": "scrape-website",
+      "name": "Scrape & Check Website",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.openai.com/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-4o-mini"
+            },
+            {
+              "name": "messages",
+              "value": "=[\n  {\n    role: 'system',\n    content: `You are a lead qualification AI. Analyze the prospect data and output JSON only.\n\nScoring weights (0-100 each):\n- missing_structured_data: 30\n- no_mobile: 20\n- poor_content: 20\n- low_rating_vs_competitors: 15\n- site_unreachable: 15\n\nReturn JSON:\n{\n  \"score\": number 0-100,\n  \"painPoints\": string[],\n  \"valueProposition\": string (1 sentence),\n  \"personalizedEmail\": string (3 sentence email, friendly, no spam),\n  \"emailSubject\": string (compelling subject line),\n  \"hasAiVisibility\": boolean\n}`\n  },\n  {\n    role: 'user',\n    content: `Business: ${$json.name}\\nWebsite: ${$json.website}\\nRating: ${$json.rating}/5 (${$json.totalRatings} reviews)\\nType: ${$json.businessType}\\nLocation: ${$json.address}\\n\\nWebsite issues found: ${$json.siteIssues}\\n\\nWebsite HTML snippet: ${($json.siteSnippet || '').substring(0, 1500)}`\n  }\n]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "openai-enrich",
+      "name": "AI Enrichment (OpenAI)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ai = $json.choices?.[0]?.message?.content || '{}';\nlet parsed;\ntry {\n  parsed = JSON.parse(ai);\n} catch {\n  const match = ai.match(/\\{[\\s\\S]*\\}/);\n  parsed = match ? JSON.parse(match[0]) : {};\n}\n\nconst lead = $node['Scrape & Check Website'].json;\n\nreturn [{\n  ...lead,\n  aiScore: parsed.score || 50,\n  painPoints: (parsed.painPoints || []).join('; '),\n  valueProposition: parsed.valueProposition || '',\n  personalizedEmail: parsed.personalizedEmail || '',\n  emailSubject: parsed.emailSubject || '',\n  hasAiVisibility: parsed.hasAiVisibility || false,\n  enrichedAt: new Date().toISOString(),\n  status: (parsed.score || 0) >= 50 ? 'qualified' : 'low_priority'\n}];"
+      },
+      "id": "parse-ai-response",
+      "name": "Parse AI Score & Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.POCKETBASE_URL || 'http://pocketbase:8090' }}/api/collections/prospects/records/{{ $json.id }}",
+        "method": "PATCH",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "status", "value": "={{ $json.status }}" },
+            { "name": "aiScore", "value": "={{ $json.aiScore }}" },
+            { "name": "painPoints", "value": "={{ $json.painPoints }}" },
+            { "name": "valueProposition", "value": "={{ $json.valueProposition }}" },
+            { "name": "personalizedEmail", "value": "={{ $json.personalizedEmail }}" },
+            { "name": "emailSubject", "value": "={{ $json.emailSubject }}" },
+            { "name": "hasAiVisibility", "value": "={{ $json.hasAiVisibility }}" },
+            { "name": "siteIssues", "value": "={{ $json.siteIssues }}" },
+            { "name": "enrichedAt", "value": "={{ $json.enrichedAt }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "update-pocketbase",
+      "name": "Update PocketBase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1500, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            { "value1": "={{ $json.status }}", "operation": "equal", "value2": "qualified" }
+          ]
+        }
+      },
+      "id": "check-qualified",
+      "name": "Qualified?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1750, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.N8N_WEBHOOK_URL || 'http://n8n:5678' }}/webhook/start-outreach",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "prospectId", "value": "={{ $json.id }}" },
+            { "name": "email", "value": "={{ $json.email }}" },
+            { "name": "name", "value": "={{ $json.name }}" },
+            { "name": "personalizedEmail", "value": "={{ $json.personalizedEmail }}" },
+            { "name": "emailSubject", "value": "={{ $json.emailSubject }}" },
+            { "name": "niche", "value": "={{ $json.niche }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "trigger-outreach",
+      "name": "Trigger Outreach Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [2000, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ skipped: true, reason: 'Below qualification threshold' }];"
+      },
+      "id": "skip-low-score",
+      "name": "Skip (Low Score)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2000, 500]
+    }
+  ],
+  "connections": {
+    "Daily Schedule": {
+      "main": [[{ "node": "Fetch Unprocessed Leads", "type": "main", "index": 0 }]]
+    },
+    "Fetch Unprocessed Leads": {
+      "main": [[{ "node": "Prepare Enrichment Batch", "type": "main", "index": 0 }]]
+    },
+    "Prepare Enrichment Batch": {
+      "main": [[{ "node": "Scrape & Check Website", "type": "main", "index": 0 }]]
+    },
+    "Scrape & Check Website": {
+      "main": [[{ "node": "AI Enrichment (OpenAI)", "type": "main", "index": 0 }]]
+    },
+    "AI Enrichment (OpenAI)": {
+      "main": [[{ "node": "Parse AI Score & Email", "type": "main", "index": 0 }]]
+    },
+    "Parse AI Score & Email": {
+      "main": [[{ "node": "Update PocketBase", "type": "main", "index": 0 }]]
+    },
+    "Update PocketBase": {
+      "main": [[{ "node": "Qualified?", "type": "main", "index": 0 }]]
+    },
+    "Qualified?": {
+      "main": [
+        [{ "node": "Trigger Outreach Workflow", "type": "main", "index": 0 }],
+        [{ "node": "Skip (Low Score)", "type": "main", "index": 0 }]
+      ]
+    }
+  }
+}

@@ -37,6 +37,7 @@ services:
     environment:
       - N8N_SECURE_COOKIE=false
       - WEBHOOK_URL=https://n8n.rexbunnyservices.online
+      - POCKETBASE_URL=http://pocketbase:8090
       - LISTMONK_URL=http://listmonk:9000
     depends_on:
       - pocketbase

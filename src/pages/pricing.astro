@@ -3,65 +3,283 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CalEmbed from "../components/CalEmbed.tsx";
 
-const tiers = [
+const serviceLines = [
   {
-    name: "Starter",
-    tagline: "Get visible in AI search",
-    price: "$1,500",
-    period: "one-time",
-    description: "Perfect for businesses ready to establish their AI search presence.",
-    features: [
-      "Full AI Visibility Audit",
-      "llms.txt setup & optimization",
-      "robots.txt AI crawler configuration",
-      "Basic structured data (JSON-LD)",
-      "Entity graph mapping",
-      "30-day monitoring",
-      "PDF report with roadmap",
+    id: "seo",
+    name: "SEO",
+    tagline: "Traditional & Local Search",
+    description: "Rank on Google, Bing, and other search engines. Technical SEO, local SEO, and programmatic city pages at scale.",
+    plans: [
+      {
+        name: "SEO Audit",
+        tagline: "One-time diagnostic",
+        price: "$1,500",
+        period: "one-time",
+        features: [
+          "Technical SEO audit (20+ checks)",
+          "On-page optimization analysis",
+          "Backlink profile review",
+          "Keyword gap analysis",
+          "PDF report with roadmap",
+          "30-day follow-up support",
+        ],
+        cta: "Start Audit",
+        href: "/lead-engine",
+        popular: false,
+      },
+      {
+        name: "Local SEO",
+        tagline: "Single location",
+        price: "$1,500",
+        period: "per month",
+        features: [
+          "Google Business Profile management",
+          "Local citation building & cleanup",
+          "Local schema markup",
+          "Monthly rank tracking (50 keywords)",
+          "Monthly reporting",
+        ],
+        cta: "Book Strategy Call",
+        href: "#",
+        popular: false,
+      },
+      {
+        name: "Growth SEO",
+        tagline: "Multi-location",
+        price: "$3,000",
+        period: "per month",
+        features: [
+          "Everything in Local",
+          "Programmatic city page generation",
+          "Auto-generated local schema",
+          "GSC integration & monitoring",
+          "n8n automated rank tracking",
+          "Dedicated account manager",
+        ],
+        cta: "Book Strategy Call",
+        href: "#",
+        popular: true,
+      },
+      {
+        name: "Enterprise SEO",
+        tagline: "50+ locations",
+        price: "Custom",
+        period: "",
+        features: [
+          "Everything in Growth",
+          "Custom automation pipeline",
+          "API integrations",
+          "Dedicated SEO engineer",
+          "Weekly strategy calls",
+          "Priority support & SLA",
+        ],
+        cta: "Contact Sales",
+        href: "/contact",
+        popular: false,
+      },
     ],
-    cta: "Start with Audit",
-    href: "/lead-engine",
-    popular: false,
   },
   {
-    name: "Growth",
-    tagline: "Dominate AI citations",
-    price: "$4,500",
-    period: "per month",
-    description: "For businesses serious about being the #1 cited source in AI responses.",
-    features: [
-      "Everything in Starter",
-      "Full GEO strategy & implementation",
-      "LLM citation engineering",
-      "Content restructuring for AI",
-      "Weekly AI citation tracking",
-      "Monthly performance reports",
-      "Dedicated account manager",
-      "Slack support channel",
+    id: "geo",
+    name: "GEO",
+    tagline: "Generative Engine Optimization",
+    description: "Get your brand cited inside ChatGPT, Gemini, Perplexity, and Copilot responses. Entity engineering, LLM citation strategy, and AI crawl optimization.",
+    plans: [
+      {
+        name: "GEO Sprint",
+        tagline: "One-time foundation",
+        price: "$8,000",
+        period: "one-time",
+        features: [
+          "Full AI visibility baseline",
+          "Entity page creation & optimization",
+          "JSON-LD schema rollout (all pages)",
+          "5 AI-optimized listicle articles",
+          "llms.txt & robots.txt AI config",
+          "Directory & citation submissions",
+          "Baseline citation report",
+        ],
+        cta: "Start GEO Sprint",
+        href: "/lead-engine",
+        popular: false,
+      },
+      {
+        name: "GEO Growth",
+        tagline: "Ongoing optimization",
+        price: "$4,500",
+        period: "per month",
+        features: [
+          "Weekly AI citation tracking (5 engines)",
+          "4-8 AI-optimized content pieces/mo",
+          "Entity signal monitoring & updates",
+          "Directory & source maintenance",
+          "Monthly performance report",
+          "Slack support channel",
+        ],
+        cta: "Book Strategy Call",
+        href: "#",
+        popular: true,
+      },
+      {
+        name: "GEO Enterprise",
+        tagline: "Full-scale program",
+        price: "$8,000",
+        period: "per month",
+        features: [
+          "Everything in Growth",
+          "12+ AI-optimized content pieces/mo",
+          "Multi-engine competitor benchmarking",
+          "Real-time citation alerts",
+          "Quarterly strategy review",
+          "Dedicated account manager",
+        ],
+        cta: "Book Strategy Call",
+        href: "#",
+        popular: false,
+      },
     ],
-    cta: "Book Strategy Call",
-    href: "#",
+  },
+  {
+    id: "aeo",
+    name: "AEO",
+    tagline: "Answer Engine Optimization",
+    description: "Become the direct answer in Google AI Overviews, featured snippets, Siri, Alexa, and voice search. Direct answer engineering, voice-ready content, and snippet capture.",
+    plans: [
+      {
+        name: "AEO Audit",
+        tagline: "One-time diagnostic",
+        price: "$1,500",
+        period: "one-time",
+        features: [
+          "Featured snippet opportunity audit",
+          "Voice search readiness check",
+          "AI Overview presence analysis",
+          "FAQ/HowTo schema audit",
+          "Direct answer extraction test",
+          "PDF report with roadmap",
+        ],
+        cta: "Start AEO Audit",
+        href: "/lead-engine",
+        popular: false,
+      },
+      {
+        name: "AEO Foundation",
+        tagline: "Essential package",
+        price: "$2,000",
+        period: "per month",
+        features: [
+          "FAQ schema & HowTo markup",
+          "Featured snippet targeting (10 queries)",
+          "Voice search content optimization",
+          "Direct answer content engineering",
+          "Monthly snippet tracking & reporting",
+        ],
+        cta: "Book Strategy Call",
+        href: "#",
+        popular: false,
+      },
+      {
+        name: "AEO Growth",
+        tagline: "Full answer strategy",
+        price: "$3,500",
+        period: "per month",
+        features: [
+          "Everything in Foundation",
+          "Voice assistant integration (Siri, Alexa)",
+          "AI Overview content optimization",
+          "Conversational content engineering",
+          "Cross-platform answer monitoring",
+          "Monthly strategy call",
+        ],
+        cta: "Book Strategy Call",
+        href: "#",
+        popular: true,
+      },
+    ],
+  },
+  {
+    id: "webdev",
+    name: "Web Dev",
+    tagline: "Built for Search Performance",
+    description: "High-performance websites engineered for Lighthouse 95+, sub-second load times, and LLM-ready HTML. Available as a standalone service or bundled with marketing.",
+    plans: [
+      {
+        name: "Starter Site",
+        tagline: "3-5 pages",
+        price: "$5,000",
+        period: "one-time",
+        features: [
+          "3-5 page responsive website",
+          "Template-based premium design",
+          "SEO-optimized structure",
+          "Contact forms & lead capture",
+          "Basic schema markup",
+          "1 month post-launch support",
+        ],
+        cta: "Get Started",
+        href: "/contact",
+        popular: false,
+      },
+      {
+        name: "Business Site",
+        tagline: "5-10 pages",
+        price: "$10,000",
+        period: "one-time",
+        features: [
+          "Everything in Starter",
+          "Custom design system",
+          "GEO-optimized content structure",
+          "Advanced schema (FAQ, HowTo, Product)",
+          "llms.txt & AI crawl setup",
+          "3 months post-launch support",
+        ],
+        cta: "Get Started",
+        href: "/contact",
+        popular: true,
+      },
+      {
+        name: "Custom Build",
+        tagline: "Complex or enterprise",
+        price: "$15,000+",
+        period: "one-time",
+        features: [
+          "Everything in Business",
+          "Full custom architecture",
+          "Integrations & API connections",
+          "Edge deployment & CDN",
+          "Performance SLA (Lighthouse 95+)",
+          "6 months post-launch support",
+        ],
+        cta: "Contact Sales",
+        href: "/contact",
+        popular: false,
+      },
+    ],
+  },
+];
+
+const bundles = [
+  {
+    name: "SEO + GEO Bundle",
+    tagline: "Traditional + AI search",
+    price: "15% off",
+    description: "Cover both Google rankings and AI citations. Most businesses start here.",
+    url: "#",
+  },
+  {
+    name: "SEO + AEO Bundle",
+    tagline: "Search + direct answers",
+    price: "15% off",
+    description: "Rank on Google and become the direct answer in AI Overviews & voice search.",
+    url: "#",
+  },
+  {
+    name: "Full Stack Bundle",
+    tagline: "SEO + GEO + AEO",
+    price: "25% off",
+    description: "Complete search visibility across every channel. Maximum ROI for growing businesses.",
+    url: "#",
     popular: true,
-  },
-  {
-    name: "Enterprise",
-    tagline: "Multi-location at scale",
-    price: "Custom",
-    period: "",
-    description: "For multi-location businesses needing programmatic SEO and full-stack GEO.",
-    features: [
-      "Everything in Growth",
-      "Programmatic city page generation",
-      "Multi-location schema automation",
-      "Custom n8n monitoring workflows",
-      "Real-time AI citation alerts",
-      "Quarterly strategy reviews",
-      "Priority support & SLA",
-      "White-label reporting",
-    ],
-    cta: "Contact Sales",
-    href: "/contact",
-    popular: false,
   },
 ];
 
@@ -69,105 +287,108 @@ const siteUrl = "https://rexbunnyservices.online";
 ---
 
 <BaseLayout
-  title="Pricing"
-  description="Transparent pricing for AI Search Optimization, GEO, and web development services. Choose the plan that fits your growth goals."
+  title="Pricing | Marketing Agency for SEO, GEO & AEO"
+  description="Transparent pricing for SEO, GEO, AEO, and web development services. Choose the service line that fits your goals — or bundle for maximum visibility."
 >
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "REX Bunny Service Packages",
-    "itemListElement": tiers.map((tier, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "item": {
-        "@type": "Product",
-        "name": `${tier.name} — ${tier.tagline}`,
-        "description": tier.description,
-        "brand": { "@type": "Organization", "name": "REX Bunny Services" },
-        "offers": tier.price !== "Custom" ? {
-          "@type": "Offer",
-          "price": tier.price.replace("$", ""),
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "url": `${siteUrl}/pricing`
-        } : {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "url": `${siteUrl}/contact`
-        }
-      }
-    }))
-  })} />
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl">
-          Simple, Transparent Pricing
+          Transparent Pricing
         </h1>
         <p class="mb-8 text-lg text-dark-400">
-          No hidden fees. No long-term contracts. Just results.
+          Pick the search channel you need to win. Or bundle them all.
         </p>
       </div>
 
-      <div class="grid gap-8 md:grid-cols-3">
-        {
-          tiers.map((tier) => (
-            <div
-              class={`relative rounded-2xl border p-8 ${
-                tier.popular
-                  ? "border-brand-500 bg-dark-900 shadow-lg shadow-brand-500/10"
-                  : "border-dark-800 bg-dark-900"
-              }`}
-            >
-              {tier.popular && (
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-4 py-1 text-xs font-semibold text-white">
-                  Most Popular
-                </div>
-              )}
-              <div class="mb-6">
-                <h3 class="text-xl font-bold text-white">{tier.name}</h3>
-                <p class="mt-1 text-sm text-dark-400">{tier.tagline}</p>
-              </div>
-              <div class="mb-6">
-                <span class="text-4xl font-extrabold text-white">{tier.price}</span>
-                {tier.period && (
-                  <span class="text-sm text-dark-500">/{tier.period}</span>
-                )}
-              </div>
-              <p class="mb-6 text-sm text-dark-400">{tier.description}</p>
-              <ul class="mb-8 space-y-3">
-                {tier.features.map((feature) => (
-                  <li class="flex items-start gap-2 text-sm text-dark-300">
-                    <span class="mt-0.5 text-brand-400">✓</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              {tier.href === "#" ? (
-                <CalEmbed buttonText={tier.cta} className="w-full" client:load />
-              ) : (
-                <a
-                  href={tier.href}
-                  class={`block w-full rounded-lg py-3 text-center text-sm font-semibold transition-colors ${
-                    tier.popular
-                      ? "bg-brand-600 text-white hover:bg-brand-500"
-                      : "border border-dark-700 text-white hover:border-brand-500 hover:text-brand-400"
+      <!-- Service Lines -->
+      {
+        serviceLines.map((line) => (
+          <div class="mb-20">
+            <div class="mb-2">
+              <h2 class="text-2xl font-bold text-white">{line.name}</h2>
+              <p class="text-sm font-medium text-brand-400">{line.tagline}</p>
+            </div>
+            <p class="mb-8 text-sm text-dark-400">{line.description}</p>
+            <div class="grid gap-6 md:grid-cols-4">
+              {line.plans.map((plan) => (
+                <div
+                  class={`relative rounded-2xl border p-6 ${
+                    plan.popular
+                      ? "border-brand-500 bg-dark-900 shadow-lg shadow-brand-500/10"
+                      : "border-dark-800 bg-dark-900"
                   }`}
                 >
-                  {tier.cta}
-                </a>
-              )}
+                  {plan.popular && (
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-3 py-0.5 text-xs font-semibold text-white">
+                      Most Popular
+                    </div>
+                  )}
+                  <div class="mb-4">
+                    <h3 class="text-lg font-bold text-white">{plan.name}</h3>
+                    <p class="text-xs text-dark-500">{plan.tagline}</p>
+                  </div>
+                  <div class="mb-4">
+                    <span class="text-3xl font-extrabold text-white">{plan.price}</span>
+                    {plan.period && (
+                      <span class="text-sm text-dark-500">/{plan.period}</span>
+                    )}
+                  </div>
+                  <ul class="mb-6 space-y-2">
+                    {plan.features.map((feat) => (
+                      <li class="flex items-start gap-2 text-xs text-dark-300">
+                        <span class="mt-0.5 text-brand-400">✓</span>
+                        {feat}
+                      </li>
+                    ))}
+                  </ul>
+                  {plan.href === "#" ? (
+                    <CalEmbed buttonText={plan.cta} className="w-full text-xs" client:load />
+                  ) : (
+                    <a
+                      href={plan.href}
+                      class={`block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors ${
+                        plan.popular
+                          ? "bg-brand-600 text-white hover:bg-brand-500"
+                          : "border border-dark-700 text-white hover:border-brand-500 hover:text-brand-400"
+                      }`}
+                    >
+                      {plan.cta}
+                    </a>
+                  )}
+                </div>
+              ))}
             </div>
-          ))
-        }
+          </div>
+        ))
+      }
+
+      <!-- Bundles -->
+      <div class="mb-16 rounded-2xl border border-brand-500/30 bg-dark-900 p-10">
+        <h2 class="mb-2 text-center text-2xl font-bold text-white">Bundle & Save</h2>
+        <p class="mb-10 text-center text-sm text-dark-400">
+          Combine service lines for maximum coverage at a discounted rate.
+        </p>
+        <div class="grid gap-6 md:grid-cols-3">
+          {bundles.map((bundle) => (
+            <div class={`rounded-xl border p-6 text-center ${bundle.popular ? "border-brand-500 bg-brand-500/5" : "border-dark-800 bg-dark-900"}`}>
+              {bundle.popular && (
+                <div class="mb-3 text-xs font-semibold text-brand-400">★ BEST VALUE</div>
+              )}
+              <h3 class="text-lg font-bold text-white">{bundle.name}</h3>
+              <p class="mb-1 text-sm text-dark-400">{bundle.tagline}</p>
+              <div class="mb-3 text-2xl font-extrabold text-brand-400">{bundle.price}</div>
+              <p class="mb-5 text-xs text-dark-500">{bundle.description}</p>
+              <CalEmbed buttonText="Book Strategy Call" className="w-full text-xs" client:load />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div class="mt-16 text-center">
-        <h2 class="mb-4 text-2xl font-bold text-white">Not sure which plan?</h2>
-        <p class="mb-6 text-dark-400">
-          Start with a free audit. We'll review your results and recommend the right path.
+      <div class="text-center">
+        <h2 class="mb-4 text-2xl font-bold text-white">Not sure where to start?</h2>
+        <p class="mb-6 text-sm text-dark-400">
+          Run a free visibility audit. We'll analyze your gaps across SEO, AI citations, and direct answers — and recommend the right path.
         </p>
         <a
           href="/lead-engine"

@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const stats = [
+  { value: "60%", label: "of Google searches end without a click", source: "SparkToro, 2025" },
+  { value: "40%", label: "of all search queries now happen through AI interfaces", source: "Gartner, 2026" },
+  { value: "25%", label: "of Google SERPs show an AI Overview", source: "BrightEdge, Q1 2026" },
+  { value: "3x", label: "voice search is growing faster than typed search", source: "NPR/MIT Voice Research, 2026" },
+  { value: "55%", label: "of Gen Z uses AI search daily instead of Google", source: "Pew Research, 2026" },
+  { value: "89%", label: "of brands cited in ChatGPT saw a traffic increase", source: "REX Bunny Internal Data, 2026" },
+  { value: "100M+", label: "weekly active users on ChatGPT with browsing", source: "OpenAI, 2026" },
+  { value: "4-8 wk", label: "average time to first AI citation after GEO optimization", source: "Industry benchmark, 2026" },
+  { value: "73%", label: "of voice search results are from featured snippets", source: "Backlinko, 2026" },
+  { value: "62%", label: "of brands have no presence in any AI search engine", source: "Authoritas AI Visibility Study, 2026" },
+  { value: "47%", label: "of all searches in 2026 are zero-click", source: "SimilarWeb/Jumpshot analysis, 2026" },
+  { value: "98+", label: "average Lighthouse score of GEO-optimized sites", source: "REX Bunny Client Data, 2026" },
+];
+---
+
+<BaseLayout
+  title="AI Search Statistics 2026"
+  description="The most comprehensive collection of AI search statistics for 2026 — zero-click searches, GEO impact, voice search growth, AI Overview coverage, and ChatGPT adoption. Updated regularly."
+  breadcrumbs={[
+    { name: "Research", url: "/ai-search-statistics" }
+  ]}
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-block rounded-full bg-brand-500/10 px-4 py-1 text-xs font-semibold text-brand-400">
+          Research & Data
+        </div>
+        <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
+          AI Search <span class="text-brand-400">Statistics 2026</span>
+        </h1>
+        <p class="mb-6 text-lg text-dark-300">
+          The key numbers shaping search in 2026 — from zero-click dominance to AI citation benchmarks.
+        </p>
+        <p class="mb-8 text-sm text-dark-500">
+          Last updated: July 2, 2026. Sources linked where available. Cite this page as: <span class="font-mono text-brand-400">REX Bunny Services — AI Search Statistics 2026</span>
+        </p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="mx-auto max-w-6xl">
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {stats.map((stat) => (
+            <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/30">
+              <div class="mb-2 text-4xl font-extrabold text-brand-400">{stat.value}</div>
+              <p class="mb-3 text-sm text-dark-300">{stat.label}</p>
+              <p class="text-xs text-dark-500">Source: {stat.source}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Key Takeaways -->
+      <div class="mx-auto mt-20 max-w-4xl">
+        <h2 class="mb-6 text-2xl font-bold text-white">What These Numbers Mean</h2>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+            <h3 class="mb-2 text-lg font-bold text-white">Traditional SEO alone is no longer enough</h3>
+            <p class="text-sm text-dark-400">
+              With 60% of searches ending without a click and 47% of all searches being zero-click, ranking #1 on Google no longer guarantees visibility. Users are getting answers directly from AI Overviews, featured snippets, and ChatGPT — without ever visiting your site.
+            </p>
+          </div>
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+            <h3 class="mb-2 text-lg font-bold text-white">AI search is not a future trend — it's the present</h3>
+            <p class="text-sm text-dark-400">
+              40% of search queries now happen through AI interfaces. 100M+ weekly active users browse with ChatGPT. 25% of Google SERPs include an AI Overview. Businesses that ignore GEO and AEO are invisible to nearly half of all search traffic.
+            </p>
+          </div>
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+            <h3 class="mb-2 text-lg font-bold text-white">Voice search is the fastest-growing channel</h3>
+            <p class="text-sm text-dark-400">
+              Voice search is growing 3x faster than typed search, and 73% of voice results come from featured snippets. AEO (Answer Engine Optimization) is no longer optional for businesses that want to be found via Siri, Alexa, and Google Assistant.
+            </p>
+          </div>
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+            <h3 class="mb-2 text-lg font-bold text-white">The opportunity is massive — most brands aren't showing up</h3>
+            <p class="text-sm text-dark-400">
+              62% of brands have no presence in any AI search engine. Early adopters of GEO and AEO have a significant competitive advantage. With AI search adoption accelerating, the window to establish AI visibility is closing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Methodology -->
+      <div class="mx-auto mt-20 max-w-4xl">
+        <h2 class="mb-4 text-2xl font-bold text-white">Methodology & Sources</h2>
+        <p class="mb-6 text-sm text-dark-400">
+          Statistics on this page are compiled from publicly available industry reports, academic research, and REX Bunny Services' internal client data. Internal data is based on anonymized aggregate results from 50+ client engagements between 2024-2026.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {["SparkToro", "Gartner", "BrightEdge", "Pew Research", "OpenAI", "Backlinko", "Authoritas", "SimilarWeb", "NPR/MIT"].map((s) => (
+            <span class="rounded-full border border-dark-700 bg-dark-900 px-3 py-1 text-xs text-dark-400">{s}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="mx-auto mt-20 max-w-3xl text-center">
+        <h2 class="mb-4 text-2xl font-bold text-white">Want your brand to be part of the 38% that shows up in AI search?</h2>
+        <p class="mb-8 text-sm text-dark-400">Run a free audit to see where you stand across SEO, GEO, and AEO.</p>
+        <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-brand-500 hover:shadow-lg hover:shadow-brand-500/25">
+          Run Your Free Audit →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

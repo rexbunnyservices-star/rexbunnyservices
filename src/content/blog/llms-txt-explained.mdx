@@ -8,71 +8,92 @@ tags: ["GEO", "Technical", "AI Search"]
 
 ## What Is llms.txt?
 
-`llms.txt` is a plain text file you place at your domain root (like `robots.txt`) that gives AI language models a structured summary of your website.
+`llms.txt` is a plain text file you place at your domain root (like `robots.txt`) that gives AI language models a structured summary of your website. It was proposed as a standard by the LLM and AI community and has been adopted by major AI crawlers including GPTBot, Claude-Web, and PerplexityBot.
 
-Think of it as a business card for AI. When GPTBot or Claude-Web crawls your site, `llms.txt` is one of the first things they read.
+Think of it as a business card for AI. When an AI crawler visits your domain, `llms.txt` is one of the first things it reads. Without it, the model has to parse your entire HTML structure to understand who you are and what you do. With it, you provide a clean, structured summary that the model can instantly consume.
 
 ## Why It Matters
 
-AI models need to understand:
-- Who you are
-- What you do
-- What services you offer
-- How to describe you to users
+AI models need to understand four things about your business:
 
-Without `llms.txt`, the AI has to infer this from your HTML. With it, you control the narrative.
+- **Who you are** — Your company name, brand, and entity identity
+- **What you do** — Your products, services, and value proposition
+- **What services you offer** — A structured list they can reference in responses
+- **How to describe you to users** — The exact phrasing you want AI to use
+
+Without `llms.txt`, the AI has to infer all of this from your HTML. With it, you control the narrative. If you don't provide an llms.txt file, the AI might describe your business using outdated or incomplete information it found elsewhere on the web.
 
 ## How to Create One
 
 Create a file at `https://yoursite.com/llms.txt` with this structure:
 
 ```markdown
-# Company Name
-> One-line tagline
+# Your Company Name
+> One-line tagline describing what you do
 
 ## About
-Brief company description.
+2-3 sentences about your company, what you do, who you serve, and what makes you unique.
 
 ## Services
-- [Service Name](URL): What it does
+- [Service Name](https://yoursite.com/service): Brief description of the service
+- [Another Service](https://yoursite.com/another): Brief description
 
 ## Key Pages
-- [Pricing](URL): Link to pricing
-- [Case Studies](URL): Link to portfolio
+- [Pricing](https://yoursite.com/pricing): Link to pricing and plans
+- [Case Studies](https://yoursite.com/portfolio): Real client results
+- [Blog](https://yoursite.com/blog): Industry insights and guides
+
+## FAQ
+- **Question?** Answer.
+- **Another question?** Answer.
 ```
 
 ## Best Practices
 
-1. **Keep it concise** — 200-500 words maximum
-2. **Use Markdown** — AI models parse it easily
-3. **Include links** — Point to your key pages
-4. **Update regularly** — Keep it current with new services
-5. **Reference it in robots.txt** — Not required, but good practice
+1. **Keep it concise** — 200-500 words maximum. AI models have token limits and prioritize brevity.
+2. **Use Markdown** — AI models parse Markdown easily. Headers, lists, and links are all understood.
+3. **Include links** — Point to your key pages so the AI can reference them in responses.
+4. **Update regularly** — Keep it current with new services, pricing changes, or product launches.
+5. **Add an FAQ section** — Questions and answers in llms.txt directly influence how AI describes your business.
+6. **Reference it in robots.txt** — Not required, but ensures compliant crawlers find it.
+
+## Common Mistakes to Avoid
+
+- **Making it too long** — More than 500 words gets truncated by some models
+- **Using complex formatting** — Stick to basic Markdown. Tables and nested lists may not parse correctly
+- **Omitting your value proposition** — The tagline (line starting with `>`) is the first thing AI reads
+- **Not including links** — Without URLs, the AI can't direct users to your pages
 
 ## Real Example
 
-Here's what our `llms.txt` looks like:
+Here's the current `llms.txt` we use for REX Bunny Services:
 
 ```
 # REX Bunny Services
-> Next-Gen Web Development, Technical SEO, and AI Search Optimization (GEO)
+> Marketing Agency for SEO, GEO & AEO — Making your brand visible in every search.
 
 ## About
-REX Bunny Services engineers your brand into ChatGPT, Google Gemini, 
-Perplexity, and Microsoft Copilot.
+REX Bunny Services is a marketing agency specializing in SEO, GEO, and AEO.
+We make brands visible in Google, ChatGPT, Gemini, Siri, Alexa, Perplexity, and Copilot.
 
 ## Services
-- [Web Engineering](https://rexbunnyservices.online/services/web-development)
-- [Technical SEO](https://rexbunnyservices.online/services/seo)
-- [AI Search Optimization](https://rexbunnyservices.online/services/ai-search-optimization)
+- [SEO](https://rexbunnyservices.online/services/seo): Technical and local SEO
+- [GEO](https://rexbunnyservices.online/services/ai-search-optimization): AI citation optimization
+- [AEO](https://rexbunnyservices.online/services/aeo): Answer Engine Optimization
+- [Web Dev](https://rexbunnyservices.online/services/web-development): High-performance websites
 ```
+
+## How llms.txt Relates to AEO
+
+Your llms.txt is also a key component of AEO (Answer Engine Optimization). Voice assistants like Siri and Alexa may reference your llms.txt content when answering questions about your business. A well-structured llms.txt helps ensure the AI describes you correctly — whether in a text response or a spoken answer.
 
 ---
 
-*Want us to set up `llms.txt` for your site? [Run a free audit](/lead-engine) and we'll include it in your report.*
+*Want us to set up llms.txt for your site? [Run a free audit](/lead-engine) and we'll include it in your report.*
 
 **Related reading:**
 - [How to Get Cited in ChatGPT](/blog/get-cited-in-chatgpt) — llms.txt is step 2 of the process
 - [How to Optimize for Perplexity](/blog/optimize-for-perplexity) — Perplexity reads llms.txt too
 - [What is GEO?](/blog/what-is-geo) — The bigger picture of AI search optimization
-- [Our AI Search Optimization Service](/services/ai-search-optimization) — We set up llms.txt as part of every engagement
+- [What is AEO?](/blog/aeo-answer-engine-optimization-guide) — How llms.txt supports answer engine optimization
+- [Our GEO Service](/services/ai-search-optimization) — We set up llms.txt as part of every engagement

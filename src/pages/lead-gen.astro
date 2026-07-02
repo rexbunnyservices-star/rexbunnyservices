@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeadGenDashboard from "../components/LeadGenDashboard.tsx";
+---
+
+<BaseLayout
+  title="Lead Gen Dashboard - Rex Bunny Services"
+  description="Universal lead generation system — find, enrich, and nurture prospects across any niche."
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl">
+          <span class="text-brand-400">Lead Gen</span> Dashboard
+        </h1>
+        <p class="mb-8 text-lg text-dark-300">
+          Config-driven outreach system. Swap niches by editing <code class="text-brand-400">lead-gen/config/niches.json</code>.
+        </p>
+      </div>
+
+      <div class="mx-auto max-w-5xl">
+        <LeadGenDashboard client:load />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

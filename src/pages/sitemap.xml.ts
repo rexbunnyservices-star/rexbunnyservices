@@ -9,6 +9,7 @@ const staticPages = [
   { url: "/services/web-development", priority: 0.9, changefreq: "monthly", lastmod: today },
   { url: "/services/seo", priority: 0.9, changefreq: "monthly", lastmod: today },
   { url: "/services/ai-search-optimization", priority: 0.9, changefreq: "monthly", lastmod: today },
+  { url: "/services/aeo", priority: 0.9, changefreq: "monthly", lastmod: today },
   { url: "/pricing", priority: 0.8, changefreq: "monthly", lastmod: today },
   { url: "/lead-engine", priority: 0.8, changefreq: "weekly", lastmod: today },
   { url: "/portfolio", priority: 0.7, changefreq: "monthly", lastmod: today },
@@ -16,6 +17,7 @@ const staticPages = [
   { url: "/contact", priority: 0.6, changefreq: "monthly", lastmod: today },
   { url: "/blog", priority: 0.7, changefreq: "weekly", lastmod: today },
   { url: "/geo-checklist", priority: 0.7, changefreq: "monthly", lastmod: today },
+  { url: "/ai-search-statistics", priority: 0.8, changefreq: "monthly", lastmod: today },
   { url: "/privacy", priority: 0.3, changefreq: "yearly", lastmod: today },
   { url: "/terms", priority: 0.3, changefreq: "yearly", lastmod: today },
 ];

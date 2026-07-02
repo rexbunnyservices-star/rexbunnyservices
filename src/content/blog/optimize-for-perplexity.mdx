@@ -8,51 +8,92 @@ tags: ["Perplexity", "GEO", "AI Search"]
 
 ## Why Perplexity Matters
 
-Perplexity AI has crossed 100 million monthly active users. Unlike ChatGPT, it's built specifically for search — and it cites sources prominently. Every citation is a direct link to your website.
+Perplexity AI has crossed 100 million monthly active users and is growing faster than any AI search engine besides ChatGPT. Unlike ChatGPT, Perplexity is built specifically for search — its entire interface revolves around answering questions with cited sources. Every citation is a direct, clickable link back to your website, making it one of the highest-quality traffic sources in AI search.
+
+Perplexity's unique value for businesses is its transparency. When ChatGPT synthesizes an answer, it doesn't always show its sources. Perplexity shows exactly which sources it used, with in-line citations. This means you can verify when your brand is being referenced and understand the context.
 
 ## How Perplexity Finds Sources
 
-Perplexity uses a combination of:
-- Real-time web crawling
-- Bing search index
-- Its own crawling bot (PerplexityBot)
-- Structured data from your site
+Perplexity uses a multi-layered approach to discover and evaluate sources:
+
+- **Real-time web crawling** — Perplexity crawls the web in real-time when answering queries, using its own crawler (PerplexityBot) to fetch fresh content
+- **Bing search index** — Perplexity supplements its crawl with Bing's search index, meaning strong Bing SEO can indirectly boost your Perplexity visibility
+- **Structured data extraction** — Schema.org markup is parsed to understand entity types, relationships, and attributes
+- **llms.txt parsing** — Perplexity reads your llms.txt file for a structured overview of your business
 
 ## 5 Steps to Optimize for Perplexity
 
 ### 1. Allow PerplexityBot in robots.txt
 
+This is step zero. If PerplexityBot can't crawl your site, you'll never appear in Perplexity results:
+
 ```
 User-agent: PerplexityBot
 Allow: /
+Crawl-delay: 2
 ```
 
-### 2. Create Comprehensive llms.txt
+Also ensure your server responds quickly. PerplexityBot has a crawl timeout — slow pages get skipped.
 
-Perplexity reads `llms.txt` to understand your business. Make it detailed.
+### 2. Create a Comprehensive llms.txt
+
+Perplexity reads `llms.txt` to understand your business before it crawls your pages. Make it detailed with:
+
+- Your company name and tagline
+- A clear description of what you do
+- Structured service listings with links
+- An FAQ section for common questions
+
+Perplexity's UI directly shows llms.txt content when users ask about your business, so this file serves double duty.
 
 ### 3. Build Citation-Worthy Content
 
-Perplexity prefers content that:
-- Answers specific questions directly
-- Includes data and statistics
-- Has clear, structured headings
-- Cites its own sources (meta, but effective)
+Perplexity prefers content with specific characteristics:
+
+- **Answers specific questions directly** — Content that addresses a clear question in the first paragraph is more likely to be cited
+- **Includes data and statistics** — Perplexity prioritizes content with verifiable data points
+- **Has clear, structured headings** — H2 and H3 subheadings help Perplexity extract the right section for a given query
+- **Cites its own sources** — Meta, but effective. Content that references authoritative sources is treated as more credible
+- **Publishes recently** — Perplexity favors recent content for time-sensitive queries
 
 ### 4. Implement FAQ Schema
 
-Add `FAQPage` schema to your key pages. Perplexity uses this to match questions to answers.
+This is one of the highest-impact technical optimizations for Perplexity. When you add `FAQPage` schema to your pages, Perplexity can directly match user questions to your answers:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "What is your pricing?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Our pricing starts at..."
+    }
+  }]
+}
+```
 
 ### 5. Get Backlinks from Cited Sources
 
-Perplexity tends to cite sources that other trusted sources cite. Build backlinks from industry publications.
+Perplexity evaluates source credibility in part by looking at which other sources link to you. Backlinks from industry publications, .edu domains, and authoritative directories signal to Perplexity that your content is trustworthy. Focus on:
+
+- Guest posts on established industry blogs
+- Directory listings on authoritative platforms
+- Being featured in roundup articles
+- Earning mentions on .edu and .gov domains
 
 ## Measuring Perplexity Visibility
 
-Ask Perplexity questions related to your industry and check:
-- Does your brand appear in the response?
-- Is your website linked as a source?
+To track your Perplexity presence, regularly run queries related to your industry and check:
+
+- Does your brand appear in the response text?
+- Is your website linked as a source citation?
 - What context is your brand mentioned in?
+- Are competitors appearing instead of you?
+
+Our AI visibility audit tool tracks these metrics automatically across Perplexity, ChatGPT, Gemini, and Copilot.
 
 ---
 
@@ -62,4 +103,5 @@ Ask Perplexity questions related to your industry and check:
 - [How to Get Cited in ChatGPT](/blog/get-cited-in-chatgpt) — Similar optimization for ChatGPT
 - [llms.txt Explained](/blog/llms-txt-explained) — The file Perplexity reads first
 - [What is GEO?](/blog/what-is-geo) — The complete AI search optimization guide
-- [Our AI Search Optimization Service](/services/ai-search-optimization) — We optimize for all major AI engines
+- [What is AEO?](/blog/aeo-answer-engine-optimization-guide) — Extending beyond citations to direct answers
+- [Our GEO Service](/services/ai-search-optimization) — We optimize for all major AI engines
