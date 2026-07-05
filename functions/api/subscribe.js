@@ -1,7 +1,6 @@
 export async function onRequest(context) {
   const { request, env } = context;
 
-  // Log request details
   console.log("Subscribe function called", request.method, request.url);
 
   const headers = {
@@ -41,30 +40,42 @@ export async function onRequest(context) {
     const fetchUrl = `${listmonkUrl}/api/subscribers`;
     console.log("Fetching", fetchUrl);
 
-    const response = await fetch(fetchUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${basicAuth}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        name: name || email.split("@")[0],
-        status: "enabled",
-        lists: [listId],
-        attribs: { source: source || "website_form" },
-      }),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
 
-    console.log("Response status:", response.status);
-    const respBody = await response.text();
-    console.log("Response body:", respBody);
+    try {
+      const response = await fetch(fetchUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${basicAuth}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          name: name || email.split("@")[0],
+          status: "enabled",
+          lists: [listId],
+          attribs: { source: source || "website_form" },
+        }),
+        signal: controller.signal,
+      });
 
-    if (!response.ok) {
-      return new Response(JSON.stringify({ error: "Listmonk API error", detail: { status: response.status, body: respBody } }), { status: 500, headers });
+      clearTimeout(timeoutId);
+
+      console.log("Response status:", response.status);
+      const respBody = await response.text();
+      console.log("Response body:", respBody);
+
+      if (!response.ok) {
+        return new Response(JSON.stringify({ error: "Listmonk API error", detail: { status: response.status, body: respBody } }), { status: 500, headers });
+      }
+
+      return new Response(JSON.stringify({ status: "ok" }), { status: 200, headers });
+    } catch (fetchError) {
+      clearTimeout(timeoutId);
+      console.error("Fetch error:", fetchError.message, fetchError.stack);
+      return new Response(JSON.stringify({ error: "Listmonk connection error", detail: fetchError.message }), { status: 502, headers });
     }
-
-    return new Response(JSON.stringify({ status: "ok" }), { status: 200, headers });
   } catch (error) {
     console.error("Subscribe error:", error.message, error.stack);
     return new Response(JSON.stringify({ error: "Internal error", detail: error.message }), { status: 500, headers });
