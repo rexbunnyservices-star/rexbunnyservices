@@ -20,7 +20,7 @@ export async function onRequest(context) {
       return new Response(JSON.stringify({ error: "Missing fields" }), { status: 400, headers });
     }
 
-    const response = await fetch(`${env.POCKETBASE_URL}/api/collections/leads/records`, {
+    const response = await fetch(`http://pb-internal.rexbunnyservices.online:8090/api/collections/leads/records`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -40,23 +40,18 @@ export async function onRequest(context) {
 
     const lead = await response.json();
 
-    if (env.N8N_WEBHOOK_URL) {
-      const webhookHeaders = { "Content-Type": "application/json" };
-      if (env.N8N_WEBHOOK_AUTH) {
-        webhookHeaders["Authorization"] = env.N8N_WEBHOOK_AUTH;
-      }
+    const webhookHeaders = { "Content-Type": "application/json" };
 
-      fetch(env.N8N_WEBHOOK_URL, {
+    fetch("http://n8n-internal.rexbunnyservices.online:5678/webhook/run-audit", {
         method: "POST",
         headers: webhookHeaders,
         body: JSON.stringify({
           leadId: lead.id,
           url,
           email,
-          callbackUrl: `${env.PUBLIC_SITE_URL || "https://rexbunnyservices.online"}/api/audit-callback`,
+          callbackUrl: `https://rexbunnyservices.online/api/audit-callback`,
         }),
       }).catch((err) => console.error("n8n webhook error:", err));
-    }
 
     return new Response(JSON.stringify({ leadId: lead.id, status: "pending" }), { status: 202, headers });
   } catch (error) {

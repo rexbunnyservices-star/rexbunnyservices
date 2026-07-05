@@ -2,99 +2,62 @@
 
 ## Site: `rexbunnyservices.online`
 ## Repo: `https://github.com/rexbunnyservices-star/rexbunnyservices.git`
-## Last commit: `140a10f` (SEO Phase 2-4)
-## Last updated: July 2, 2026
+## Last commit: `534adcb` (Netlify -> Cloudflare Pages migration)
+## Hosting: Cloudflare Pages (`https://rex-bunny-services.pages.dev`)
+## Backend: Docker stack on local machine (PocketBase, n8n, Listmonk, Cal.com)
+## DNS: Cloudflare NS (`jarred.ns.cloudflare.com` / `summer.ns.cloudflare.com`)
+## Last updated: July 5, 2026
 
 ---
 
 ## Completed
 
-### Phase 1 — Critical SEO Bugs Fixed
-- robots.txt sitemap URL fixed
-- About/Contact title tags keyword-optimized
-- Broken portfolio link fixed
-- Domain unified to `.online` everywhere
+### Phase 1-6 — (see previous entries below)
 
-### Phase 2 — Internal Linking (15 files)
-- All 7 blog posts have 4 cross-links each
-- 3 service pages link to case studies
-- 3 case studies link to services + blog
-- Navigation updated with Blog & Portfolio
-
-### Phase 3 — Schema & Structured Data (5+ files)
-- FAQPage schema on homepage
-- Article schema on all blog post templates
-- CaseStudy schema on all portfolio templates
-- Product/Offer schema on pricing page (3 tiers)
-- Dynamic BreadcrumbList in BaseLayout
-- Breadcrumbs on all service, blog, portfolio pages
-
-### Phase 4 — Content Expansion
-- About page expanded to ~400+ words
-- Contact page: NAP block added
-- Service page H1s now include primary keywords
-- Sitemap includes `<lastmod>` for all URLs
-- Email corrected to `.com` across all files
-
-### Phase 5 — Full Repositioning as Marketing Agency (July 2, 2026)
-- **New AEO service page** (`/services/aeo`) — Answer Engine Optimization
-- **Homepage repositioned** — New hero, tagline, 4-card service grid (SEO/GEO/AEO/Web Dev)
-- **About page rewritten** — Marketing agency positioning with all 4 disciplines
-- **Pricing restructured** — 4 separate service lines (SEO, GEO, AEO, Web Dev) + bundles with 15-25% discounts
-- **Navigation updated** — AEO added, reordered by service priority
-- **Footer updated** — AEO added, marketing agency tagline
-- **BaseLayout schema** — Updated organization description for marketing agency
-- **Service pages** — All 3 repositioned with marketing agency framing
-- **Lead Engine page** — Updated to reflect SEO/GEO/AEO audit scope
-- **Blog index** — Description updated
-- **llms.txt** — Updated with AEO, marketing agency description
-- **Sitemap** — Added `/services/aeo`
-- **New AEO blog post** — "What is AEO? Answer Engine Optimization Guide for 2026"
-
-### Phase 6 — Backlinks Strategy & Blog Expansion (July 2, 2026)
-- **Directory submission copy** (`scripts/directory-submissions.md`) — Ready-to-paste descriptions for AI and SEO directories
-- **Linkable asset page** (`/ai-search-statistics`) — 12 stats, 4 analysis sections, methodology — designed to attract natural backlinks
-- **Blog expansion** — All 7 existing posts expanded from ~375 words to 800+ words each
-  - GEO vs SEO 2026 → 800+ words
-  - How to Get Cited in ChatGPT → 800+ words
-  - Sub-Second Lighthouse Scores → 800+ words
-  - llms.txt Explained → 800+ words
-  - Optimize for Perplexity → 800+ words
-  - Programmatic Local SEO → 800+ words
-  - What is GEO? → 800+ words
-- **Sitemap + llms.txt** — Updated with new research page
-- **BaseLayout** — Added significant links for AEO and statistics page
-
-### Previously Done
-- 8 blog posts (MDX) with internal links (7 expanded, 1 new AEO post)
-- 3 case studies (MDX) with cross-links
-- Exit-intent popup for GEO checklist
-- Case study carousel on homepage
-- Latest blog posts section on homepage
-- Testimonials + client logos on homepage
+### Phase 7 — Netlify → Cloudflare Pages Migration (July 5, 2026)
+- **Static site deployed** to Cloudflare Pages at `https://rex-bunny-services.pages.dev`
+- **Custom domains added** — `rexbunnyservices.online` + `www.rexbunnyservices.online` (SSL provisioning)
+- **Cloudflare Pages Functions** deployed (audit, audit-status, audit-callback, subscribe)
+- **Subscribe rewritten** from Mailchimp to self-hosted Listmonk API
+- **Cloudflare Tunnel created** (`3562b277-2a7e-4ab9-9b51-90b7e267ac76`) for backend services
+- **Tunnel config** written at `cloudflared/config.yml` (routes pb, n8n, listmonk, cal subdomains → localhost)
+- **cloudflared service** added to `docker-compose.yml`
+- **DNS CNAME records** added for tunnel subdomains:
+  - `pb.rexbunnyservices.online`, `n8n.rexbunnyservices.online`, `listmonk.rexbunnyservices.online`, `cal.rexbunnyservices.online`
+- **Env vars set** in Cloudflare Pages (production):
+  - `POCKETBASE_URL`, `N8N_WEBHOOK_URL`, `N8N_WEBHOOK_AUTH`, `LISTMONK_URL`, `LISTMONK_USER`, `LISTMONK_PASS`, `LISTMONK_LIST_ID`, `PUBLIC_SITE_URL`
+- **Netlify artifacts removed**: `netlify.toml`, `netlify/functions/` (all 4 serverless functions)
+- **`wrangler.toml`** fixed — removed invalid `routes` key
+- **`.env` / `.env.example`** updated — Mailchimp replaced with Listmonk vars
 
 ---
 
 ## Next Steps (continue from here)
 
-1. ✅ **Google Search Console** — Property added, sitemap submitted
-2. ✅ **Logos** — Already in place (`public/images/logo.png`, `logo-mark.png`, `og-image.svg`)
-3. ✅ **Blog posts expanded** to 800+ words each
-4. **Analytics** — Set up tracking (Plausible, GA4, or similar)
-5. **Ongoing content** — Publish 2 blog posts/week
-6. **Backlinks** — Use `scripts/directory-submissions.md` to submit to AI directories
-7. **Monitor GSC** — Check for crawl errors after 48h
-8. **AEO case study** — Add to portfolio
-9. **Client onboarding flow** — Checkout/payment integration
+### Immediate
+1. **🔴 Start the tunnel** — `docker compose up -d cloudflared` (makes backend services reachable at subdomains)
+2. **🔴 Delete old apex A record** — Cloudflare Dashboard > DNS > delete A record for `rexbunnyservices.online` (points to `75.2.60.5`, blocks Pages from taking over fully)
+3. **Verify custom domain** — Wait for SSL provisioning, then check `https://rexbunnyservices.online` serves from Pages
+4. **Set real Listmonk password** — Update `LISTMONK_PASS` env var in Pages dashboard from default `changeme`
+5. **Fill in N8N_WEBHOOK_URL/AUTH** — Update env vars once n8n tunnel is running
+
+### Backlog (pre-migration)
+6. **Analytics** — Set up tracking (Plausible, GA4, or similar)
+7. **Ongoing content** — Publish 2 blog posts/week
+8. **Backlinks** — Use `scripts/directory-submissions.md` to submit to AI directories
+9. **Monitor GSC** — Check for crawl errors after 48h
+10. **AEO case study** — Add to portfolio
+11. **Client onboarding flow** — Checkout/payment integration
 
 ---
 
 ## Key Files
-- `astro.config.mjs` — site URL config
+- `astro.config.mjs` — site URL config (`site: "https://rexbunnyservices.online"`)
 - `src/content.config.ts` — blog + portfolio schemas
 - `src/pages/sitemap.xml.ts` — dynamic sitemap
 - `src/layouts/BaseLayout.astro` — all schema.org markup
 - `public/robots.txt` — AI crawler rules
-- `netlify.toml` — build config
-- `.env.example` — env vars (N8N_WEBHOOK_URL, etc.)
-- `src/pages/services/aeo.astro` — new AEO service page
+- `wrangler.toml` — Cloudflare Pages project config
+- `cloudflared/config.yml` — Tunnel ingress rules (pb, n8n, listmonk, cal)
+- `functions/api/` — Cloudflare Pages Functions (audit, subscribe)
+- `.env.example` — env vars template (Listmonk, n8n, PocketBase, Cal.com)

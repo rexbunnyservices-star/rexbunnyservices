@@ -1,5 +1,9 @@
 export async function onRequest(context) {
   const { request, env } = context;
+
+  // Log request details
+  console.log("Subscribe function called", request.method, request.url);
+
   const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -14,15 +18,18 @@ export async function onRequest(context) {
   }
 
   try {
-    const { email, name, source } = await request.json();
+    const body = await request.json();
+    console.log("Request body parsed", JSON.stringify(body));
+
+    const { email, name, source } = body;
 
     if (!email) {
       return new Response(JSON.stringify({ error: "Missing email" }), { status: 400, headers });
     }
 
-    const listmonkUrl = env.LISTMONK_URL || "https://listmonk.rexbunnyservices.online";
-    const listId = parseInt(env.LISTMONK_LIST_ID || "1", 10);
-    const username = env.LISTMONK_USER || "admin";
+    const listmonkUrl = "https://listmonk.rexbunnyservices.online";
+    const listId = 1;
+    const username = "listmonk-api";
     const password = env.LISTMONK_PASS || "";
 
     if (!password) {
@@ -31,8 +38,10 @@ export async function onRequest(context) {
     }
 
     const basicAuth = btoa(`${username}:${password}`);
+    const fetchUrl = `${listmonkUrl}/api/subscribers`;
+    console.log("Fetching", fetchUrl);
 
-    const response = await fetch(`${listmonkUrl}/api/subscribers`, {
+    const response = await fetch(fetchUrl, {
       method: "POST",
       headers: {
         Authorization: `Basic ${basicAuth}`,
@@ -47,15 +56,17 @@ export async function onRequest(context) {
       }),
     });
 
+    console.log("Response status:", response.status);
+    const respBody = await response.text();
+    console.log("Response body:", respBody);
+
     if (!response.ok) {
-      const body = await response.text();
-      console.error("Listmonk error:", response.status, body);
-      return new Response(JSON.stringify({ error: "Failed to subscribe" }), { status: 500, headers });
+      return new Response(JSON.stringify({ error: "Listmonk API error", detail: { status: response.status, body: respBody } }), { status: 500, headers });
     }
 
     return new Response(JSON.stringify({ status: "ok" }), { status: 200, headers });
   } catch (error) {
-    console.error("Subscribe error:", error);
-    return new Response(JSON.stringify({ error: "Failed to subscribe" }), { status: 500, headers });
+    console.error("Subscribe error:", error.message, error.stack);
+    return new Response(JSON.stringify({ error: "Internal error", detail: error.message }), { status: 500, headers });
   }
 }
