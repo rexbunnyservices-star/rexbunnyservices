@@ -1,0 +1,13 @@
+tunnel: rex-bunny-services
+credentials-file: /etc/cloudflared/credentials.json
+
+ingress:
+  - hostname: pb.rexbunnyservices.online
+    service: http://pocketbase:8090
+  - hostname: n8n.rexbunnyservices.online
+    service: http://n8n:5678
+  - hostname: listmonk.rexbunnyservices.online
+    service: http://listmonk:9000
+  - hostname: cal.rexbunnyservices.online
+    service: http://calcom:3000
+  - service: http_status:404

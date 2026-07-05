@@ -5,7 +5,6 @@ pages_build_output_dir = "dist"
 
 [env.production]
 name = "rexbunnyservices"
-routes = ["rexbunnyservices.online/*"]
 
 [env.preview]
 name = "rexbunnyservices-preview"

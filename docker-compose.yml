@@ -127,6 +127,21 @@ services:
     networks:
       - rexnet
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --config /etc/cloudflared/config.yml run
+    volumes:
+      - ./cloudflared:/etc/cloudflared
+      - C:\Users\anass\.cloudflared\3562b277-2a7e-4ab9-9b51-90b7e267ac76.json:/etc/cloudflared/credentials.json
+    depends_on:
+      - pocketbase
+      - n8n
+      - listmonk
+      - calcom
+    restart: unless-stopped
+    networks:
+      - rexnet
+
 networks:
   rexnet:
     driver: bridge
