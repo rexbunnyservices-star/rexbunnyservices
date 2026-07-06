@@ -1,5 +1,5 @@
 export async function onRequest(context) {
-  const { request, env } = context;
+  const { request } = context;
   const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -21,7 +21,16 @@ export async function onRequest(context) {
       return new Response(JSON.stringify({ error: "Missing leadId" }), { status: 400, headers });
     }
 
-    const response = await fetch(`${env.POCKETBASE_URL}/api/collections/leads/records/${leadId}`);
+    const pbUrl = "https://pb.rexbunnyservices.online";
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+    const response = await fetch(`${pbUrl}/api/collections/leads/records/${leadId}`, {
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers });
@@ -36,7 +45,7 @@ export async function onRequest(context) {
       score: lead.score,
     }), { status: 200, headers });
   } catch (error) {
-    console.error("Audit status error:", error);
+    console.error("Audit status error:", error.message, error.stack);
     return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers });
   }
 }

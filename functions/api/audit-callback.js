@@ -3,7 +3,7 @@ function computeCompositeScore(performanceScore, seoScore, aiVisibilityScore) {
 }
 
 export async function onRequest(context) {
-  const { request, env } = context;
+  const { request } = context;
   const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -30,7 +30,12 @@ export async function onRequest(context) {
       aiVisibilityResult?.aiVisibilityScore || 0
     );
 
-    const response = await fetch(`${env.POCKETBASE_URL}/api/collections/leads/records/${leadId}`, {
+    const pbUrl = "https://pb.rexbunnyservices.online";
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+    const response = await fetch(`${pbUrl}/api/collections/leads/records/${leadId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -39,7 +44,10 @@ export async function onRequest(context) {
         score: compositeScore,
         status: "completed",
       }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const body = await response.text();
@@ -49,7 +57,7 @@ export async function onRequest(context) {
 
     return new Response(JSON.stringify({ status: "ok" }), { status: 200, headers });
   } catch (error) {
-    console.error("Audit callback error:", error);
+    console.error("Audit callback error:", error.message, error.stack);
     return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500, headers });
   }
 }
