@@ -29,7 +29,7 @@ export async function onRequest(context) {
     const listmonkUrl = "https://listmonk.rexbunnyservices.online";
     const listId = 1;
     const username = "listmonk-api";
-    const password = env.LISTMONK_PASS || "lmk_api_9q1zweip4rg6hfbnd38ay2sm57oxjtlu";
+    const password = env.LISTMONK_PASS || "";
 
     if (!password) {
       console.error("Listmonk password not configured");

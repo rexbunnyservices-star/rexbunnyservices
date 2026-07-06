@@ -1,5 +1,5 @@
 export async function onRequest(context) {
-  const { request, env } = context;
+  const { request } = context;
   const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -20,7 +20,13 @@ export async function onRequest(context) {
       return new Response(JSON.stringify({ error: "Missing fields" }), { status: 400, headers });
     }
 
-    const response = await fetch(`http://pb-internal.rexbunnyservices.online:8090/api/collections/leads/records`, {
+    const pbUrl = "https://pb.rexbunnyservices.online";
+    const n8nUrl = "https://n8n.rexbunnyservices.online";
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+    const pbResp = await fetch(`${pbUrl}/api/collections/leads/records`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -30,32 +36,33 @@ export async function onRequest(context) {
         source: "audit_tool",
         score: 0,
       }),
+      signal: controller.signal,
     });
 
-    if (!response.ok) {
-      const body = await response.text();
-      console.error("PocketBase error:", response.status, body);
-      return new Response(JSON.stringify({ error: "Failed to create audit" }), { status: 500, headers });
+    clearTimeout(timeoutId);
+
+    if (!pbResp.ok) {
+      const body = await pbResp.text();
+      console.error("PocketBase error:", pbResp.status, body);
+      return new Response(JSON.stringify({ error: "Failed to create audit", detail: { status: pbResp.status, body: body } }), { status: 500, headers });
     }
 
-    const lead = await response.json();
+    const lead = await pbResp.json();
 
-    const webhookHeaders = { "Content-Type": "application/json" };
-
-    fetch("http://n8n-internal.rexbunnyservices.online:5678/webhook/run-audit", {
-        method: "POST",
-        headers: webhookHeaders,
-        body: JSON.stringify({
-          leadId: lead.id,
-          url,
-          email,
-          callbackUrl: `https://rexbunnyservices.online/api/audit-callback`,
-        }),
-      }).catch((err) => console.error("n8n webhook error:", err));
+    fetch(`${n8nUrl}/webhook/run-audit`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        leadId: lead.id,
+        url,
+        email,
+        callbackUrl: "https://rexbunnyservices.online/api/audit-callback",
+      }),
+    }).catch((err) => console.error("n8n webhook error:", err));
 
     return new Response(JSON.stringify({ leadId: lead.id, status: "pending" }), { status: 202, headers });
   } catch (error) {
-    console.error("Audit error:", error);
+    console.error("Audit error:", error.message, error.stack);
     return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500, headers });
   }
 }
