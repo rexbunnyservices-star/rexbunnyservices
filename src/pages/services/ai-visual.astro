@@ -1,0 +1,289 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalEmbed from "../../components/CalEmbed.tsx";
+
+const packages = [
+  {
+    name: "Starter Visuals",
+    price: "$497",
+    type: "one-time",
+    popular: false,
+    tagline: "For businesses needing quick social content",
+    deliverables: "5 social graphics + product cutouts + HD versions",
+    workflows: ["Text to Image (Flux.2 Dev)", "Remove Background (BiRefNet)", "Image Upscale (Z-Image-Turbo)"],
+  },
+  {
+    name: "AI Video Ads",
+    price: "$997",
+    type: "one-time",
+    popular: true,
+    tagline: "Short-form video for social media",
+    deliverables: "1 polished 30s video ad — ready to post",
+    workflows: ["Image to Video (Wan 2.2)", "Text to Video (LTX-2.3)", "Merge Videos", "Audio Generation (ACE-Step 1.5)", "Video Upscale (GAN x4)"],
+  },
+  {
+    name: "E-Commerce Pro",
+    price: "$1,497",
+    type: "one-time",
+    popular: false,
+    tagline: "Product imagery for online stores",
+    deliverables: "20 polished product images + 5 lifestyle scenes",
+    workflows: ["Remove Background (BiRefNet)", "Image Edit (Flux.2 Dev)", "Image Inpainting (Flux.1 Fill Dev)", "Image Upscale (Z-Image-Turbo)", "Image to Layers (Qwen-Image-Layered)"],
+  },
+  {
+    name: "Brand Identity Suite",
+    price: "$2,497",
+    type: "one-time",
+    popular: false,
+    tagline: "Complete visual brand package",
+    deliverables: "Full brand kit — logo, patterns, mascot, 3D mockups",
+    workflows: ["Text to Image (Flux.2 Dev)", "Image Edit (Qwen 2511)", "Character Replacement (SCAIL-2 Base)", "Depth Estimation (MoGe)", "Geometry Estimation (MoGe)"],
+  },
+  {
+    name: "Content Engine",
+    price: "$1,997",
+    type: "monthly",
+    popular: false,
+    tagline: "Ongoing content production",
+    deliverables: "10 posts + 4 videos + audio — done for you monthly",
+    workflows: ["Text to Image (Flux.2 Dev / Qwen-Image)", "Image to Video (Wan 2.2)", "Video Stitch", "Frame Interpolation", "Audio Generation (ACE-Step 1.5)", "Image Captioning (gemini)"],
+  },
+];
+
+const addons = [
+  { name: "Headshot Polish", price: "$197", desc: "Face detection + editing + upscale for professional headshots" },
+  { name: "3D Product Spin", price: "$497", desc: "Turn product photos into 3D models and Gaussian splats" },
+  { name: "Background Pack", price: "$97", desc: "10 custom AI-generated backgrounds for your brand" },
+  { name: "Video Repurpose", price: "$297", desc: "Extract frames, edit, and re-animate into new video formats" },
+  { name: "Audio Brand", price: "$197", desc: "3 custom audio backgrounds from AI-generated soundscapes" },
+];
+
+const faqs = [
+  {
+    question: "How is AI used in the creative process?",
+    answer: "We use ComfyUI — a professional open-source AI toolkit — running on our own hardware. Every asset is generated, reviewed, and refined by a human creative director. AI accelerates production but doesn't replace human judgment. You get premium results at a fraction of traditional costs.",
+  },
+  {
+    question: "Do I own the rights to the generated assets?",
+    answer: "Yes. All assets produced are fully owned by you. We use open-source and locally-hosted AI models — no third-party licensing restrictions. Commercial usage is included.",
+  },
+  {
+    question: "How fast can you deliver?",
+    answer: "Starter Visuals can be delivered in 2-3 business days. AI Video Ads take 5-7 days. Larger packages like Brand Identity Suite typically take 7-14 days depending on rounds of revision. Rush delivery available.",
+  },
+  {
+    question: "What do I need to provide to get started?",
+    answer: "Your brand colors, logo, 2-3 reference images that match the style you're looking for, and any specific text or messaging you want included. For video packages, a brief script or bullet points of what you want to communicate.",
+  },
+  {
+    question: "Can you match my existing brand style?",
+    answer: "Yes. We use your existing brand assets as reference and fine-tune the AI outputs using Image Edit and Color Balance workflows to match your exact brand identity, color palette, and visual tone.",
+  },
+];
+---
+
+<BaseLayout
+  title="AI Visual Services | AI-Generated Graphics, Video & Brand Assets"
+  description="REX Bunny Services offers AI-powered visual content production — social graphics, video ads, product imagery, and brand kits. Powered by ComfyUI, delivered fast."
+  breadcrumbs={[
+    { name: "Services", url: "/services" },
+    { name: "AI Visual Services", url: "/services/ai-visual" }
+  ]}
+>
+  <!-- Hero -->
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
+          Premium Visuals <span class="text-brand-400">Without the Photoshoot</span>
+        </h1>
+        <p class="mb-8 text-lg text-dark-300">
+          AI-powered social graphics, video ads, product imagery, and brand assets — 
+          produced on our own hardware and delivered in days, not weeks. No studio, 
+          no crew, no hidden costs.
+        </p>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <CalEmbed buttonText="Book a Strategy Call" />
+          <a href="#packages" class="rounded-lg border border-dark-700 px-8 py-4 font-semibold text-white hover:border-brand-500">
+            See Packages ↓
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-white">How It Works</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-4 text-2xl text-brand-400">1.</div>
+          <h3 class="mb-2 text-lg font-bold text-white">Kickoff</h3>
+          <p class="text-sm text-dark-400">
+            Share your brand colors, logo, and 2-3 reference images. We'll align on style, 
+            messaging, and deliverables. No complicated briefs — just what you want.
+          </p>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-4 text-2xl text-brand-400">2.</div>
+          <h3 class="mb-2 text-lg font-bold text-white">AI Production</h3>
+          <p class="text-sm text-dark-400">
+            Our ComfyUI workflows generate your assets in batch — tuned, refined, and 
+            reviewed by a human creative director. Multiple variants for each asset.
+          </p>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-4 text-2xl text-brand-400">3.</div>
+          <h3 class="mb-2 text-lg font-bold text-white">Deliver & Iterate</h3>
+          <p class="text-sm text-dark-400">
+            You receive finished, upscaled, and branded assets. Two rounds of revisions 
+            included. Final files delivered in web-optimized and print-ready formats.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="py-20" id="packages">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-center text-3xl font-bold text-white">Pick Your Package</h2>
+      <p class="mb-12 text-center text-dark-400">Every package includes two rounds of revisions and full commercial rights.</p>
+      <div class="grid gap-6 md:grid-cols-3 lg:grid-cols-5">
+        {packages.map((pkg) => (
+          <div class={`relative rounded-2xl border p-6 ${pkg.popular ? "border-brand-500 bg-dark-900 shadow-lg shadow-brand-500/10" : "border-dark-800 bg-dark-900"}`}>
+            {pkg.popular && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-3 py-0.5 text-xs font-semibold text-white">
+                Most Popular
+              </div>
+            )}
+            <h3 class="mb-1 text-lg font-bold text-white">{pkg.name}</h3>
+            <p class="mb-3 text-xs text-dark-500">{pkg.tagline}</p>
+            <div class="mb-3">
+              <span class="text-3xl font-extrabold text-white">{pkg.price}</span>
+              <span class="text-sm text-dark-500">/{pkg.type}</span>
+            </div>
+            <p class="mb-4 text-xs text-dark-300">{pkg.deliverables}</p>
+            <details class="group">
+              <summary class="cursor-pointer text-xs font-medium text-brand-400 hover:text-brand-300">
+                What's included →
+              </summary>
+              <ul class="mt-3 space-y-1">
+                {pkg.workflows.map((wf) => (
+                  <li class="flex items-start gap-1 text-xs text-dark-400">
+                    <span class="mt-0.5 text-brand-400">▸</span>
+                    {wf}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-ons -->
+  <section class="border-y border-dark-800 bg-dark-900/50 py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-center text-3xl font-bold text-white">Add-On Upgrades</h2>
+      <p class="mb-10 text-center text-dark-400">Enhance any package with these extras.</p>
+      <div class="grid gap-4 md:grid-cols-5">
+        {addons.map((addon) => (
+          <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
+            <h3 class="text-base font-bold text-white">{addon.name}</h3>
+            <div class="my-2 text-xl font-extrabold text-brand-400">{addon.price}</div>
+            <p class="text-xs text-dark-400">{addon.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why AI Visuals -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-white">Why AI-Powered Visuals?</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-4 text-2xl">⚡</div>
+          <h3 class="mb-2 text-lg font-bold text-white">5x Faster</h3>
+          <p class="text-sm text-dark-400">
+            Traditional photoshoots take 2-4 weeks from booking to delivery. 
+            We deliver in 2-7 days. No scheduling. No weather delays. No reshoots.
+          </p>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-4 text-2xl">💰</div>
+          <h3 class="mb-2 text-lg font-bold text-white">80% Less Cost</h3>
+          <p class="text-sm text-dark-400">
+            No studio rental, photographer, models, or equipment costs. 
+            A $5,000 photoshoot is replaced by a $497-$997 package. Same quality, 
+            fraction of the price.
+          </p>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-4 text-2xl">🎨</div>
+          <h3 class="mb-2 text-lg font-bold text-white">Infinite Iterations</h3>
+          <p class="text-sm text-dark-400">
+            Want to try a different color scheme? Swap the background? Change the 
+            composition? No problem. Changes take minutes, not days. Two rounds 
+            included, more available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-10 text-center text-3xl font-bold text-white">Questions?</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group rounded-xl border border-dark-800 bg-dark-900 p-5">
+            <summary class="cursor-pointer text-sm font-semibold text-white group-hover:text-brand-400">
+              {faq.question}
+            </summary>
+            <p class="mt-3 text-sm text-dark-400">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+      <div class="mt-8 text-center">
+        <CalEmbed buttonText="Still have questions? Book a Free 30-min Call →" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-3xl font-bold text-white">
+        Ready to See What AI Visuals Can Do for Your Brand?
+      </h2>
+      <p class="mb-8 text-dark-400">
+        Book a free 30-minute strategy call. We'll show you examples from your industry 
+        and recommend the right package.
+      </p>
+      <CalEmbed buttonText="Book Your Free Strategy Call →" />
+    </div>
+  </section>
+
+  <!-- Related Case Study -->
+  <section class="border-t border-dark-800 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-dark-400">Related Case Study</h3>
+      <a href="/portfolio/coffee-shop-ai-visuals" class="group block rounded-xl border border-dark-800 bg-dark-900 p-8 transition-all hover:border-brand-500/50">
+        <div class="text-xs font-semibold text-purple-400">AI Visual Services</div>
+        <h4 class="mt-2 text-xl font-bold text-white group-hover:text-brand-400">Local Coffee Shop Boosts Engagement 3x with AI Visuals</h4>
+        <p class="mt-2 text-sm text-dark-400">How we transformed a small coffee shop's social media with AI-generated product photos and video ads — zero photoshoot costs.</p>
+        <div class="mt-4 flex gap-4 text-sm">
+          <span class="text-white font-semibold">Engagement: +280%</span>
+          <span class="text-green-400 font-semibold">Video Views: 50K+</span>
+          <span class="text-blue-400 font-semibold">Shoot Cost: $0</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

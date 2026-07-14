@@ -10,6 +10,7 @@ const staticPages = [
   { url: "/services/seo", priority: 0.9, changefreq: "monthly", lastmod: today },
   { url: "/services/ai-search-optimization", priority: 0.9, changefreq: "monthly", lastmod: today },
   { url: "/services/aeo", priority: 0.9, changefreq: "monthly", lastmod: today },
+  { url: "/services/ai-visual", priority: 0.9, changefreq: "monthly", lastmod: today },
   { url: "/pricing", priority: 0.8, changefreq: "monthly", lastmod: today },
   { url: "/lead-engine", priority: 0.8, changefreq: "weekly", lastmod: today },
   { url: "/portfolio", priority: 0.7, changefreq: "monthly", lastmod: today },

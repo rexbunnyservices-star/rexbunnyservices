@@ -1,0 +1,203 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Tower7LeadForm from "../components/Tower7LeadForm.tsx";
+
+const faqs = [
+  {
+    question: "What is Tower 7 at Aspire Silicon City?",
+    answer: "Tower 7 is a premium residential tower in the Aspire Silicon City township by NBCC (India) and AMRAPALLI. It offers 105 homes of 4 BHK + Study (3,342 sq ft) plus 2 exclusive Duplex Penthouses on floors 36-37. Possession is targeted for 2028.",
+  },
+  {
+    question: "What is the price of a 4 BHK + Study in Tower 7?",
+    answer: "The basic sale price starts at approximately Rs 4.67 Cr (BSP Rs 13,991/sq ft on 3,342 sq ft). Additional charges include IFMS of Rs 225/sq ft and PLC based on floor/face. Use the form above to get the live, unit-level price sheet.",
+  },
+  {
+    question: "Is this an official NBCC / Amrapalli website?",
+    answer: "No. This is an independent marketing page. We're a marketing partner for Tower 7 and the developer (NBCC) pays our commission directly — so our assistance costs you nothing extra. All bookings and payments happen through the official developer channel.",
+  },
+  {
+    question: "How do I book a site visit?",
+    answer: "Register your interest using the form on this page. We'll share floor plans, availability, and schedule a free site-visit slot at the Aspire Silicon City experience center.",
+  },
+  {
+    question: "What are the payment plan and possession timeline?",
+    answer: "Aspire Silicon City follows a construction-linked payment plan. Possession for Tower 7 is targeted for 2028. Exact plan and milestone dates are shared in the official price sheet after you register.",
+  },
+];
+---
+
+<BaseLayout
+  title="Tower 7, Aspire Silicon City | 4 BHK + Study & Duplex Penthouses"
+  description="Tower 7 at Aspire Silicon City by NBCC — 105 homes of 4 BHK + Study (3,342 sq ft) and 2 Duplex Penthouses (floors 36-37). Prices from Rs 4.67 Cr. Get floor plans, live pricing & a free site visit."
+  breadcrumbs={[{ name: "Tower 7", url: "/tower7" }]}
+>
+  <!-- JSON-LD: Apartment / Residence -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Apartment",
+    "name": "Tower 7, Aspire Silicon City",
+    "description": "Premium residential tower with 4 BHK + Study and Duplex Penthouses by NBCC / Amrapalli.",
+    "numberOfRooms": 4,
+    "floorSize": { "@type": "QuantitativeValue", "value": "3342", "unitCode": "SQF" },
+    "yearBuilt": 2028,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Noida",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN",
+    },
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "4 BHK + Study", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Duplex Penthouse", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Site Visit", "value": true },
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "price": "46700000",
+      "availability": "https://schema.org/InStock",
+    },
+  })} />
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-24">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-950/20 to-dark-950" />
+    <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <div class="mb-4 inline-block rounded-full border border-brand-500/30 bg-brand-950/40 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-brand-400">
+            Aspire Silicon City • By NBCC
+          </div>
+          <h1 class="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
+            Tower 7 — <span class="bg-gradient-to-r from-brand-400 to-orange-400 bg-clip-text text-transparent">4 BHK + Study & Duplex Penthouses</span>
+          </h1>
+          <p class="mb-6 text-lg text-dark-300">
+            105 premium homes of 4 BHK + Study (3,342 sq ft) plus 2 exclusive Duplex Penthouses on floors 36–37. Possession 2028.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#register" class="rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white transition-all hover:bg-brand-500">
+              Get Floor Plans & Pricing →
+            </a>
+            <a href="#specs" class="rounded-lg border border-dark-600 px-6 py-3 text-base font-medium text-dark-200 transition-colors hover:border-dark-500">
+              View Specs
+            </a>
+          </div>
+          <p class="mt-4 text-xs text-dark-500">
+            Independent marketing page • Developer (NBCC) pays our commission — costs you nothing extra.
+          </p>
+        </div>
+
+        <div id="register">
+          <div class="rounded-xl border border-dark-800 bg-dark-900/40 p-1">
+            <Tower7LeadForm client:load />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specs -->
+  <section id="specs" class="border-y border-dark-800 bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-center text-3xl font-bold text-white">Tower 7 at a Glance</h2>
+      <p class="mb-12 text-center text-dark-400">Premium specifications across 107 total units.</p>
+      <div class="grid gap-6 md:grid-cols-4">
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="mb-2 text-3xl font-bold text-brand-400">105</div>
+          <div class="text-sm text-dark-400">4 BHK + Study homes (3,342 sq ft)</div>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="mb-2 text-3xl font-bold text-brand-400">2</div>
+          <div class="text-sm text-dark-400">Duplex Penthouses (Floors 36–37)</div>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="mb-2 text-3xl font-bold text-brand-400">₹4.67Cr</div>
+          <div class="text-sm text-dark-400">Starting price (BSP ₹13,991/sq ft)</div>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="mb-2 text-3xl font-bold text-brand-400">2028</div>
+          <div class="text-sm text-dark-400">Targeted possession</div>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-12 max-w-3xl">
+        <h3 class="mb-6 text-center text-xl font-bold text-white">Pricing Breakdown</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between rounded-lg border border-dark-800 bg-dark-900 px-5 py-4">
+            <span class="text-sm text-dark-300">Basic Sale Price (BSP)</span>
+            <span class="font-semibold text-white">₹13,991 / sq ft</span>
+          </div>
+          <div class="flex items-center justify-between rounded-lg border border-dark-800 bg-dark-900 px-5 py-4">
+            <span class="text-sm text-dark-300">4 BHK + Study (3,342 sq ft)</span>
+            <span class="font-semibold text-white">from ₹4.67 Cr</span>
+          </div>
+          <div class="flex items-center justify-between rounded-lg border border-dark-800 bg-dark-900 px-5 py-4">
+            <span class="text-sm text-dark-300">IFMS</span>
+            <span class="font-semibold text-white">₹225 / sq ft</span>
+          </div>
+          <div class="flex items-center justify-between rounded-lg border border-dark-800 bg-dark-900 px-5 py-4">
+            <span class="text-sm text-dark-300">PLC (floor / face)</span>
+            <span class="font-semibold text-white">As per official sheet</span>
+          </div>
+        </div>
+        <p class="mt-4 text-center text-xs text-dark-500">
+          Final price depends on floor, facing, and live availability. Register above for the unit-level price sheet.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why / USP -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-white">Why Tower 7</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-3 text-3xl">🏙️</div>
+          <h3 class="mb-2 text-lg font-bold text-white">Spacious 4 BHK + Study</h3>
+          <p class="text-sm text-dark-400">3,342 sq ft of livable space with a dedicated study — ideal for families and work-from-home.</p>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-3 text-3xl">👑</div>
+          <h3 class="mb-2 text-lg font-bold text-white">Exclusive Duplex Penthouses</h3>
+          <p class="text-sm text-dark-400">Only 2 units on floors 36–37 for buyers who want the rarest address in the township.</p>
+        </div>
+        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+          <div class="mb-3 text-3xl">🏗️</div>
+          <h3 class="mb-2 text-lg font-bold text-white">Backed by NBCC</h3>
+          <p class="text-sm text-dark-400">Developed by NBCC (India) in the Aspire Silicon City township — a name buyers trust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-8 text-center text-3xl font-bold text-white">Tower 7 — Frequently Asked</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group rounded-xl border border-dark-800 bg-dark-900 p-5" open>
+            <summary class="cursor-pointer list-none text-base font-semibold text-white">
+              {faq.question}
+            </summary>
+            <p class="mt-3 text-sm text-dark-300">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20">
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-3xl font-bold text-white">Get the Tower 7 Price Sheet & Site-Visit Slot</h2>
+      <p class="mb-8 text-dark-400">
+        Floor plans, live availability, and a free site visit — delivered straight to you. No obligation, no extra cost.
+      </p>
+      <a href="#register" class="inline-block rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-brand-500 hover:shadow-lg hover:shadow-brand-500/25">
+        Register Your Interest →
+      </a>
+    </div>
+  </section>
+</BaseLayout>
