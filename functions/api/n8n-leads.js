@@ -24,27 +24,10 @@ export async function onRequest(context) {
     const filter = url.searchParams.get("filter") || "";
 
     const pbUrl = "https://pb.rexbunnyservices.online";
-
-    let token = null;
-    try {
-      const authRes = await fetch(`${pbUrl}/api/collections/_superusers/auth-with-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identity: "admin@rexbunnyservices.com", password: "Admin12345!" }),
-      });
-      if (authRes.ok) {
-        const authData = await authRes.json();
-        token = authData.token;
-      }
-    } catch (_) {}
-
     let pbUrl_fetch = `${pbUrl}/api/collections/${encodeURIComponent(collection)}/records?sort=${sort}&perPage=${limit}&page=${page}`;
     if (filter) pbUrl_fetch += `&filter=${encodeURIComponent(filter)}`;
 
-    const headers = {};
-    if (token) headers["Authorization"] = `Bearer ${token}`;
-
-    const dataRes = await fetch(pbUrl_fetch, { headers });
+    const dataRes = await fetch(pbUrl_fetch);
 
     if (!dataRes.ok) {
       const errText = await dataRes.text();
