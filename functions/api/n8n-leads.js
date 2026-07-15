@@ -19,7 +19,7 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const collection = url.searchParams.get("collection") || "leads";
     const limit = Math.min(parseInt(url.searchParams.get("limit") || "100", 10), 500);
-    const sort = url.searchParams.get("sort") || "-created";
+    const sort = url.searchParams.get("sort") || "-id";
     const page = parseInt(url.searchParams.get("page") || "1", 10);
     const filter = url.searchParams.get("filter") || "";
 
@@ -30,11 +30,15 @@ export async function onRequest(context) {
     const dataRes = await fetch(pbUrl_fetch);
 
     if (!dataRes.ok) {
-      const errText = await dataRes.text();
-      return new Response(JSON.stringify({ error: "PocketBase error", detail: errText, status: dataRes.status }), { status: 502, headers: corsHeaders });
+      let errText;
+      try { errText = await dataRes.text(); } catch(e) { errText = "Could not read error body"; }
+      return new Response(JSON.stringify({ error: "PocketBase error", detail: errText, status: dataRes.status, url: pbUrl_fetch }), { status: 502, headers: corsHeaders });
     }
 
-    const data = await dataRes.json();
+    let data;
+    try { data = await dataRes.json(); } catch(e) {
+      return new Response(JSON.stringify({ error: "Failed to parse PB response", detail: e.message }), { status: 502, headers: corsHeaders });
+    }
     return new Response(JSON.stringify({ items: data.items || [], totalItems: data.totalItems || 0, totalPages: data.totalPages || 0, page: data.page || page }), { status: 200, headers: corsHeaders });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
