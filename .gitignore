@@ -29,3 +29,11 @@ pb_data_fresh/
 
 # Config
 opencode.json
+
+# Lead-gen (separate repo)
+lead-gen/
+n8n/workflows/
+graphify-out/
+*.py
+form.html
+cloudflared/
