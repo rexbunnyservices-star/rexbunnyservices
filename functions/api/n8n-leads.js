@@ -27,7 +27,7 @@ export async function onRequest(context) {
 
     let token = null;
     try {
-      const authRes = await fetch(`${pbUrl}/api/admins/auth-with-password`, {
+      const authRes = await fetch(`${pbUrl}/api/collections/_superusers/auth-with-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ identity: "admin@rexbunnyservices.com", password: "Admin12345!" }),
