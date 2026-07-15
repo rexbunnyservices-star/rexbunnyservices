@@ -1,28 +1,13 @@
-version: "3.9"
-
 services:
-  astro:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - POCKETBASE_URL=http://pocketbase:8090
-      - N8N_WEBHOOK_URL=http://n8n:5678
-      - PUBLIC_SITE_URL=https://rexbunnyservices.online
-      - LISTMONK_URL=http://listmonk:9000
-    depends_on:
-      pocketbase:
-        condition: service_started
-    restart: unless-stopped
-    networks:
-      - rexnet
-
   pocketbase:
     image: ghcr.io/muchobien/pocketbase:latest
     ports:
       - "8090:8090"
     volumes:
-      - ./pb_data:/pb_data
+      - ./pb_data_fresh:/pb_data
+    environment:
+      - PB_ADMIN_EMAIL=admin@rexbunnyservices.com
+      - PB_ADMIN_PASSWORD=Admin12345!
     restart: unless-stopped
     networks:
       - rexnet
@@ -34,11 +19,16 @@ services:
     volumes:
       - ./n8n_data:/home/node/.n8n
       - ./n8n/workflows:/home/node/.n8n/workflows
+    env_file:
+      - .env
     environment:
-      - N8N_SECURE_COOKIE=false
+      - N8N_LOG_LEVEL=debug
+      - N8N_SECURE_COOKIE=true
+      - N8N_PROXY_HOPS=1
       - WEBHOOK_URL=https://n8n.rexbunnyservices.online
       - POCKETBASE_URL=http://pocketbase:8090
       - LISTMONK_URL=http://listmonk:9000
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
     depends_on:
       - pocketbase
     restart: unless-stopped
@@ -49,8 +39,12 @@ services:
     image: listmonk/listmonk:latest
     ports:
       - "9000:9000"
+    environment:
+      - LISTMONK_ADMIN_EMAIL=admin@rexbunnyservices.online
+      - LISTMONK_ADMIN_PASSWORD=R3xBunnyL1stMonk!2024$$
+      - LISTMONK_ADMIN_API_USER=listmonk-api
+      - LISTMONK_ADMIN_API_PASSWORD=R3xBunnyL1stMonk!2024$$
     volumes:
-      - ./listmonk_data:/listmonk
       - ./listmonk/config.toml:/listmonk/config.toml
     depends_on:
       listmonk-db:
@@ -62,6 +56,7 @@ services:
   listmonk-db:
     image: postgres:15-alpine
     environment:
+      - N8N_LOG_LEVEL=debug
       - POSTGRES_DB=listmonk
       - POSTGRES_USER=listmonk
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
@@ -77,10 +72,11 @@ services:
       - rexnet
 
   calcom:
-    image: calcom/docker:latest
+    image: calcom/cal.com:latest
     ports:
       - "3001:3000"
     environment:
+      - N8N_LOG_LEVEL=debug
       - DATABASE_URL=postgresql://calcom:${POSTGRES_PASSWORD:-changeme}@calcom-db:5432/calcom
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-changeme}
       - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY:-changeme}
@@ -95,6 +91,7 @@ services:
   calcom-db:
     image: postgres:15-alpine
     environment:
+      - N8N_LOG_LEVEL=debug
       - POSTGRES_DB=calcom
       - POSTGRES_USER=calcom
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
@@ -102,6 +99,40 @@ services:
       - ./calcom_db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U calcom"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - "3002:3000"
+    environment:
+      - N8N_LOG_LEVEL=debug
+      - DATABASE_TYPE=postgresql
+      - DATABASE_URL=postgresql://umami:${POSTGRES_PASSWORD:-changeme}@umami-db:5432/umami
+      - APP_SECRET=${UMAMI_SECRET:-umami_secret_change_me}
+    depends_on:
+      umami-db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  umami-db:
+    image: postgres:15-alpine
+    environment:
+      - N8N_LOG_LEVEL=debug
+      - POSTGRES_DB=umami
+      - POSTGRES_USER=umami
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - ./umami_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U umami"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -119,10 +150,10 @@ services:
       - ./traefik/config.yml:/etc/traefik/config.yml
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      - astro
       - n8n
       - listmonk
       - calcom
+      - umami
     restart: unless-stopped
     networks:
       - rexnet
@@ -133,11 +164,13 @@ services:
     volumes:
       - ./cloudflared:/etc/cloudflared
       - C:\Users\anass\.cloudflared\3562b277-2a7e-4ab9-9b51-90b7e267ac76.json:/etc/cloudflared/credentials.json
+      - C:\Users\anass\.cloudflared\cert.pem:/etc/cloudflared/cert.pem
     depends_on:
       - pocketbase
       - n8n
       - listmonk
       - calcom
+      - umami
     restart: unless-stopped
     networks:
       - rexnet

@@ -10,4 +10,6 @@ ingress:
     service: http://host.docker.internal:9000
   - hostname: cal.rexbunnyservices.online
     service: http://host.docker.internal:3001
+  - hostname: analytics.rexbunnyservices.online
+    service: http://host.docker.internal:3002
   - service: http_status:404

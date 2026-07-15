@@ -1,11 +1,5 @@
 http:
   routers:
-    astro:
-      rule: "Host(`rexbunnyservices.online`) || Host(`www.rexbunnyservices.online`)"
-      service: astro
-      tls:
-        certResolver: letsencrypt
-
     n8n:
       rule: "Host(`n8n.rexbunnyservices.online`)"
       service: n8n
@@ -24,12 +18,13 @@ http:
       tls:
         certResolver: letsencrypt
 
-  services:
-    astro:
-      loadBalancer:
-        servers:
-          - url: "http://astro:3000"
+    umami:
+      rule: "Host(`analytics.rexbunnyservices.online`)"
+      service: umami
+      tls:
+        certResolver: letsencrypt
 
+  services:
     n8n:
       loadBalancer:
         servers:
@@ -44,3 +39,8 @@ http:
       loadBalancer:
         servers:
           - url: "http://calcom:3000"
+
+    umami:
+      loadBalancer:
+        servers:
+          - url: "http://umami:3000"

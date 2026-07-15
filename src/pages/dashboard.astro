@@ -1,22 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import LeadsDashboard from "../components/LeadsDashboard.tsx";
+import MainDashboard from "../components/MainDashboard.tsx";
 ---
 
-<BaseLayout title="Leads Dashboard | REX Bunny Services" description="View and manage all website form submissions.">
+<BaseLayout
+  title="Admin Dashboard | REX Bunny Services"
+  description="Internal dashboard for website leads and lead generation prospects."
+  breadcrumbs={[{ name: "Dashboard", url: "/dashboard" }]}
+>
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl">
-          <span class="text-brand-400">Leads</span> Dashboard
+          <span class="text-brand-400">Admin Dashboard</span>
         </h1>
         <p class="mb-8 text-lg text-dark-300">
-          View and manage all form submissions from your website visitors.
+          Website leads and lead generation prospects — all in one place.
         </p>
       </div>
 
       <div class="mx-auto max-w-6xl">
-        <LeadsDashboard client:load />
+        <MainDashboard client:load />
       </div>
     </div>
   </section>

@@ -18,6 +18,8 @@ listmonk_data/
 listmonk_db/
 calcom_db/
 traefik/acme.json
+umami_db/
+pb_data_fresh/
 
 # IDE
 .vscode/

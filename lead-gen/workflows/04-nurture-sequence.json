@@ -17,9 +17,15 @@
     },
     {
       "parameters": {
-        "url": "={{ $env.LISTMONK_URL }}/api/subscribers?query=status=disabled&per_page=200",
+        "url": "={{ $env.LISTMONK_URL }}/api/subscribers?query=subscribers.status='disabled'&per_page=200",
         "method": "GET",
         "sendBody": false,
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $env.LISTMONK_AUTH }}" }
+          ]
+        },
         "options": {}
       },
       "id": "listmonk-subscribers",
@@ -43,17 +49,23 @@
         "url": "={{ $env.LISTMONK_URL }}/api/campaigns",
         "method": "POST",
         "sendBody": true,
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $env.LISTMONK_AUTH }}" }
+          ]
+        },
         "bodyParameters": {
           "parameters": [
             { "name": "name", "value": "={{ `Weekly Nurture - ${new Date().toISOString().split('T')[0]}` }}" },
             { "name": "subject", "value": "=How to dominate AI search in 2026" },
-            { "name": "lists", "value": "[1]" },
+            { "name": "lists", "value": "={{ [1] }}" },
             { "name": "from_email", "value": "hi@rexbunnyservices.com" },
             { "name": "content_type", "value": "richtext" },
             { "name": "body", "value": "=<html><body><p>Hi {{ .Name }},</p><p>AI search (GEO) is changing how businesses get found online. Here's what's working right now:</p><ul><li>Structured data markup → +30% visibility in AI overviews</li><li>LLM-friendly content (llms.txt) → indexed by GPT, Claude, Perplexity</li><li>Entity clarity → Google understands exactly what you do</li></ul><p>Want a free AI visibility audit for your site? Reply to this email.</p><p>Best,<br>Anass<br>rexbunnyservices.com</p></body></html>" },
             { "name": "altbody", "value": "=Hi there,\n\nAI search (GEO) is changing how businesses get found online. Here's what's working right now:\n- Structured data markup\n- LLM-friendly content\n- Entity clarity\n\nWant a free AI visibility audit? Reply to this email.\n\nBest,\nAnass" },
             { "name": "send", "value": "false" },
-            { "name": "tags", "value": "[\"nurture\", \"weekly\", \"ai-visibility\"]" }
+            { "name": "tags", "value": "={{ [\"nurture\", \"weekly\", \"ai-visibility\"] }}" }
           ]
         },
         "options": {}
