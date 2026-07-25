@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+  <rect width="60" height="60" fill="none"/>
+  <path d="M30 0 L60 30 L30 60 L0 30 Z" fill="currentColor" opacity="0.03"/>
+  <circle cx="30" cy="30" r="3" fill="currentColor" opacity="0.04"/>
+</svg>

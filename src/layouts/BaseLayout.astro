@@ -2,18 +2,34 @@
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 import ExitPopup from "../components/ExitPopup.astro";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/inter/900.css";
+import "@fontsource/plus-jakarta-sans/600.css";
+import "@fontsource/plus-jakarta-sans/700.css";
+import "@fontsource/plus-jakarta-sans/800.css";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/jetbrains-mono/700.css";
 
 export interface Props {
   title: string;
   description: string;
   canonical?: string;
   ogImage?: string;
+  ogType?: string;
   breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { title, description, canonical, breadcrumbs } = Astro.props;
+const { title, description, canonical, ogImage, ogType = "website", breadcrumbs } = Astro.props;
 const siteUrl = "https://rexbunnyservices.online";
 const pageUrl = canonical || Astro.url.pathname;
+const fullUrl = `${siteUrl}${pageUrl}`;
+const ogImageUrl = ogImage || `${siteUrl}/images/og-image.svg`;
 
 const breadcrumbItems = breadcrumbs
   ? [{ name: "Home", url: siteUrl }, ...breadcrumbs.map(b => ({ name: b.name, url: b.url.startsWith("http") ? b.url : `${siteUrl}${b.url}` }))]
@@ -25,30 +41,38 @@ const breadcrumbItems = breadcrumbs
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | REX Bunny Services</title>
+    <title>{title} | RexBunny Services</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={`${siteUrl}${pageUrl}`} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#f97316" />
+    <meta name="author" content="RexBunny Services" />
+
+    <!-- Hreflang for international audience -->
+    <link rel="alternate" hreflang="en" href={fullUrl} />
+    <link rel="alternate" hreflang="en-us" href={fullUrl} />
+    <link rel="alternate" hreflang="en-ca" href={fullUrl} />
+    <link rel="alternate" hreflang="en-gb" href={fullUrl} />
+    <link rel="alternate" hreflang="x-default" href={fullUrl} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={`${title} | REX Bunny Services`} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={`${title} | RexBunny Services`} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={`${siteUrl}${pageUrl}`} />
-    <meta property="og:site_name" content="REX Bunny Services" />
-    <meta property="og:image" content={`${siteUrl}/images/og-image.svg`} />
+    <meta property="og:url" content={fullUrl} />
+    <meta property="og:site_name" content="RexBunny Services" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title} - RexBunny Services`} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | REX Bunny Services`} />
+    <meta name="twitter:title" content={`${title} | RexBunny Services`} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}/images/og-image.svg`} />
-
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:site" content="@rexbunnyservices" />
 
     <!-- Analytics (Umami - self-hosted) -->
     <script defer src="https://analytics.rexbunnyservices.online/script.js" data-website-id="89882bfd-5853-4835-8ee8-a54cc9b8f4a6"></script>
@@ -60,7 +84,7 @@ const breadcrumbItems = breadcrumbs
         {
           "@type": "Organization",
           "@id": `${siteUrl}/#organization`,
-          "name": "REX Bunny Services",
+          "name": "RexBunny Services",
           "url": siteUrl,
           "logo": `${siteUrl}/images/logo.png`,
           "foundingDate": "2024-01-01",
@@ -90,7 +114,7 @@ const breadcrumbItems = breadcrumbs
         {
           "@type": "ProfessionalService",
           "@id": `${siteUrl}/#service`,
-          "name": "REX Bunny Services — AI Search Optimization & Web Development",
+          "name": "RexBunny Services — AI Search Optimization & Web Development",
           "provider": { "@id": `${siteUrl}/#organization` },
           "url": siteUrl,
           "areaServed": [
@@ -110,7 +134,7 @@ const breadcrumbItems = breadcrumbs
           ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "REX Bunny Service Packages",
+            "name": "RexBunny Service Packages",
             "itemListElement": [
               {
                 "@type": "Offer",
@@ -143,7 +167,7 @@ const breadcrumbItems = breadcrumbs
           "@type": "WebSite",
           "@id": `${siteUrl}/#website`,
           "url": siteUrl,
-          "name": "REX Bunny Services",
+          "name": "RexBunny Services",
           "publisher": { "@id": `${siteUrl}/#organization` },
           "potentialAction": {
             "@type": "SearchAction",
@@ -158,7 +182,7 @@ const breadcrumbItems = breadcrumbs
           "@type": "WebPage",
           "@id": `${siteUrl}/#webpage`,
           "url": siteUrl,
-          "name": "REX Bunny Services — AI Search Optimization & Web Development",
+          "name": "RexBunny Services — AI Search Optimization & Web Development",
           "isPartOf": { "@id": `${siteUrl}/#website` },
           "about": { "@id": `${siteUrl}/#service` },
           "mainEntity": { "@id": `${siteUrl}/#service` },
@@ -192,7 +216,7 @@ const breadcrumbItems = breadcrumbs
       ]
     })} />
   </head>
-  <body class="bg-dark-950 text-white antialiased">
+  <body class="bg-white text-gray-900 antialiased">
     <Navigation />
     <main>
       <slot />

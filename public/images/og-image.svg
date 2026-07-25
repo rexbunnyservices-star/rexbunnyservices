@@ -1,14 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="og 1200 630">
-  <rect width="1200" height="630" fill="#0a0a10"/>
-  <rect x="0" y="0" width="1200" height="630" fill="url(#grad)" opacity="0.3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#d97706;stop-opacity:0.2" />
-      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:0.1" />
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#0f0f1a"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff8c00"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="patternGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <text x="600" y="240" font-family="system-ui, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="#ffffff">REX Bunny Services</text>
-  <text x="600" y="340" font-family="system-ui, sans-serif" font-size="36" text-anchor="middle" fill="#d97706">AI Search Optimization &amp; Web Development</text>
-  <text x="600" y="420" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle" fill="#9ca3af">Engineering your brand into ChatGPT, Gemini, Perplexity &amp; Copilot</text>
-  <text x="600" y="520" font-family="system-ui, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#d97706">rexbunnyservices.online</text>
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <!-- Logo R -->
+  <rect x="140" y="200" width="100" height="100" rx="20" fill="none" stroke="url(#accentGrad)" stroke-width="4"/>
+  <text x="190" y="280" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" fill="url(#accentGrad)">R</text>
+  <!-- Title -->
+  <text x="320" y="260" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="800" fill="#fff" letter-spacing="-1">RexBunny</text>
+  <text x="320" y="320" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="800" fill="#fff" letter-spacing="-1">Services</text>
+  <!-- Tagline -->
+  <text x="320" y="380" font-family="'Inter', system-ui, sans-serif" font-size="28" fill="url(#accentGrad)" font-weight="600">AI Search &amp; Marketing Agency</text>
+  <text x="320" y="420" font-family="'Inter', system-ui, sans-serif" font-size="20" fill="#9ca3af">SEO · GEO · AEO · Web Development · AI Visual</text>
+  <!-- Decorative circles -->
+  <circle cx="1100" cy="100" r="200" fill="url(#patternGrad)"/>
+  <circle cx="50" cy="580" r="150" fill="url(#patternGrad)"/>
+  <circle cx="1150" cy="500" r="100" fill="url(#patternGrad)"/>
 </svg>
