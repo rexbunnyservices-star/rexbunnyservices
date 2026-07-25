@@ -1,10 +1,10 @@
 name = "rex-bunny-services"
-compatibility_date = "2026-07-03"
-
+compatibility_date = "2024-01-01"
 pages_build_output_dir = "dist"
 
-[env.production]
-name = "rexbunnyservices"
+[vars]
+MAILEROO_API_KEY = "bcf73bf9481105aa6ef5aaa1"
 
-[env.preview]
-name = "rexbunnyservices-preview"
+[[kv_namespaces]]
+binding = "FORMS"
+id = "fc785caf6e58419a80204ad81ec50b7d"
