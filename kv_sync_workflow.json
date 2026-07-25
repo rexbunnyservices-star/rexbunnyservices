@@ -1,0 +1,49 @@
+{
+  "name": "05 — KV to PocketBase Sync",
+  "nodes": [
+    {
+      "id": "kv-sched-trigger-01",
+      "name": "Every 30s",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 30
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "kv-code-01",
+      "name": "Process KV Entries",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300],
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "const token = process.env.CLOUDFLARE_API_TOKEN;\nconst acct = \"b59e38ec6e735d414dd1cef8c4739ebd\";\nconst kvId = \"fc785caf6e58419a80204ad81ec50b7d\";\nconst headers = { Authorization: `Bearer ${token}` };\nconst results = [];\n\nfor (const prefix of [\"contact_\", \"audit_\"]) {\n  const listUrl = `https://api.cloudflare.com/client/v4/accounts/${acct}/storage/kv/namespaces/${kvId}/keys?prefix=${prefix}`;\n  const listResp = await fetch(listUrl, { headers });\n  const data = await listResp.json();\n  const keys = data.result || [];\n\n  for (const key of keys) {\n    const valResp = await fetch(`https://api.cloudflare.com/client/v4/accounts/${acct}/storage/kv/namespaces/${kvId}/values/${key.name}`, { headers });\n    const val = await valResp.json();\n\n    const pbCol = prefix === \"contact_\" ? \"contacts\" : \"prospects\";\n    const pbPayload = { ...val };\n    delete pbPayload.type;\n    delete pbPayload.createdAt;\n\n    try {\n      const pbResp = await fetch(`http://pocketbase:8090/api/collections/${pbCol}/records`, {\n        method: \"POST\",\n        headers: { \"Content-Type\": \"application/json\" },\n        body: JSON.stringify(pbPayload)\n      });\n      if (pbResp.ok) {\n        await fetch(`https://api.cloudflare.com/client/v4/accounts/${acct}/storage/kv/namespaces/${kvId}/values/${key.name}`, { method: \"DELETE\", headers });\n        results.push({ processed: key.name, collection: pbCol });\n      }\n    } catch (e) {\n      // skip\n    }\n  }\n}\n\nreturn results;"
+      }
+    }
+  ],
+  "connections": {
+    "Every 30s": {
+      "main": [
+        [
+          {
+            "node": "Process KV Entries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "active": true,
+  "tags": []
+}

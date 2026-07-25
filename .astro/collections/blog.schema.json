@@ -28,7 +28,7 @@
         },
         "author": {
           "type": "string",
-          "default": "REX Bunny"
+          "default": "RexBunny"
         },
         "tags": {
           "type": "array",

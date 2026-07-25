@@ -16,8 +16,8 @@ database = "listmonk"
 
 [smtp]
 enabled = true
-host = "smtp.titan.email"
+host = "smtp.maileroo.com"
 port = 465
 auth_protocol = "smtp"
-username = "help@rexbunnyservices.online"
-password = "Charming@786"
+username = "growth@rexbunnyservices.online"
+password = "bcf73bf9481105aa6ef5aaa1"

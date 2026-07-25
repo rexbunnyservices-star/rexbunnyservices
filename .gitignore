@@ -30,6 +30,17 @@ pb_data_fresh/
 # Config
 opencode.json
 
+# PowerShell / shell artifacts
+$null
+
+# Runtime / temp data
+cookiejar.txt
+*.sqlite
+*.recovered.*
+
+# Preview screenshots
+preview-*.png
+
 # Lead-gen (separate repo)
 lead-gen/
 n8n/workflows/
