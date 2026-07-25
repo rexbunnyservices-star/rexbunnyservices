@@ -14,18 +14,22 @@ const links = [
 ];
 ---
 
-<nav class="fixed top-0 z-50 w-full border-b border-dark-700/50 bg-dark-950/90 backdrop-blur-md">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-    <a href="/" class="flex items-center">
-      <img src="/images/logo-mark.png" alt="REX Bunny" class="h-10 w-auto" />
+<nav class="fixed top-0 z-50 w-full border-b border-brand-200/50 bg-white/90 backdrop-blur-md">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 lg:px-8">
+    <a href="/" class="flex items-center gap-2">
+      <img src="/images/logo-mark.png" alt="RexBunny Services" class="h-9 w-auto" loading="lazy" decoding="async" />
+      <div class="flex flex-col leading-tight">
+        <span class="text-lg font-extrabold tracking-tight text-rex-dark">RexBunny</span>
+        <span class="text-[10px] font-medium tracking-[2px] text-gray-400">SERVICES</span>
+      </div>
     </a>
 
-    <div class="hidden items-center gap-6 md:flex" id="desktop-nav">
+    <div class="hidden items-center gap-5 md:flex" id="desktop-nav">
       {
         links.map((link) => (
           <a
             href={link.href}
-            class="text-sm font-medium text-dark-200 transition-colors hover:text-brand-400"
+            class="text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
           >
             {link.label}
           </a>
@@ -33,7 +37,7 @@ const links = [
       }
       <a
         href="/lead-engine"
-        class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+        class="rounded-lg bg-gradient-to-r from-brand-500 to-rex-orange px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/20 transition-all hover:shadow-xl hover:shadow-brand-500/30 hover:-translate-y-0.5"
       >
         Get My AI Score
       </a>
@@ -46,16 +50,20 @@ const links = [
     </button>
   </div>
 
-  <div class="hidden border-t border-dark-800 bg-dark-950 md:hidden" id="mobile-menu">
+  <div class="hidden border-t border-gray-200 bg-white md:hidden" id="mobile-menu">
     <div class="space-y-1 px-4 py-4">
-      <a href="/" class="mb-2 block">
-        <img src="/images/logo-mark.png" alt="REX Bunny" class="h-8 w-auto" />
+      <a href="/" class="mb-3 flex items-center gap-2">
+        <img src="/images/logo-mark.png" alt="RexBunny Services" class="h-8 w-auto" loading="lazy" decoding="async" />
+        <div class="flex flex-col leading-tight">
+          <span class="text-base font-extrabold tracking-tight text-rex-dark">RexBunny</span>
+          <span class="text-[9px] font-medium tracking-[2px] text-gray-400">SERVICES</span>
+        </div>
       </a>
       {
         links.map((link) => (
           <a
             href={link.href}
-            class="block rounded-lg px-3 py-2 text-sm font-medium text-dark-200 transition-colors hover:bg-dark-800 hover:text-brand-400"
+            class="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-brand-50 hover:text-brand-600"
           >
             {link.label}
           </a>
@@ -63,7 +71,7 @@ const links = [
       }
       <a
         href="/lead-engine"
-        class="mt-2 block rounded-lg bg-brand-600 px-3 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+        class="mt-2 block rounded-lg bg-gradient-to-r from-brand-500 to-rex-orange px-3 py-2.5 text-center text-sm font-semibold text-white transition-all hover:shadow-lg"
       >
         Get My AI Score
       </a>

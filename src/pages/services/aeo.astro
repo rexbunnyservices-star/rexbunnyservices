@@ -2,6 +2,21 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CalEmbed from "../../components/CalEmbed.tsx";
 
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Answer Engine Optimization (AEO)",
+  description: "Get your brand's answers inside ChatGPT, Google AI Overviews, Siri, Alexa, and voice search. Featured snippets, direct answers, and voice-ready content.",
+  provider: {
+    "@type": "Organization",
+    name: "RexBunny Services",
+    url: "https://rexbunnyservices.online"
+  },
+  serviceType: "Answer Engine Optimization",
+  areaServed: { "@type": "Country", name: "Canada" },
+  url: "https://rexbunnyservices.online/services/aeo"
+};
+
 const aeoMechanics = [
   {
     title: "Direct Answer Optimization",
@@ -30,17 +45,19 @@ const aeoMechanics = [
     { name: "Answer Engine Optimization (AEO)", url: "/services/aeo" }
   ]}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
   <!-- Hero -->
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <div class="mb-4 inline-block rounded-full bg-brand-500/10 px-4 py-1 text-xs font-semibold text-brand-400">
+        <div class="mb-4 inline-block rounded-full bg-brand-500/10 px-4 py-1 text-xs font-semibold text-brand-600">
           Answer Engine Optimization
         </div>
-        <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
-          Get Your Brand <span class="text-brand-400">in the Answer</span>
+        <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          Get Your Brand <span class="text-brand-600">in the Answer</span>
         </h1>
-        <p class="mb-8 text-lg text-dark-300">
+        <p class="mb-8 text-lg text-gray-600">
           60% of searches end with zero clicks because AI answers the question directly. AEO makes sure that answer is yours — in ChatGPT, Google AI Overviews, Siri, Alexa, and every voice assistant.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -54,17 +71,17 @@ const aeoMechanics = [
   </section>
 
   <!-- The Mechanics of AEO -->
-  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+  <section class="border-y border-gray-200 bg-gray-50 py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-center text-3xl font-bold text-white">The Mechanics of AEO</h2>
-      <p class="mb-12 text-center text-dark-400">
+      <h2 class="mb-4 text-center text-3xl font-bold text-gray-900">The Mechanics of AEO</h2>
+      <p class="mb-12 text-center text-gray-500">
         How we optimize your brand to be the answer — not just a result.
       </p>
       <div class="grid gap-6 md:grid-cols-2">
         {aeoMechanics.map((item) => (
-          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-            <h3 class="mb-3 text-lg font-bold text-brand-400">{item.title}</h3>
-            <p class="text-sm text-dark-400">{item.desc}</p>
+          <div class="rounded-xl border border-gray-200 bg-white p-6">
+            <h3 class="mb-3 text-lg font-bold text-brand-600">{item.title}</h3>
+            <p class="text-sm text-gray-500">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -74,26 +91,26 @@ const aeoMechanics = [
   <!-- AEO vs GEO vs SEO -->
   <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-8 text-center text-3xl font-bold text-white">How AEO, GEO & SEO Fit Together</h2>
+      <h2 class="mb-8 text-center text-3xl font-bold text-gray-900">How AEO, GEO & SEO Fit Together</h2>
       <div class="grid gap-6 md:grid-cols-3">
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
           <div class="mb-3 text-sm font-bold uppercase tracking-wider text-blue-400">SEO</div>
-          <h3 class="mb-2 text-lg font-bold text-white">Be Found on Google</h3>
-          <p class="text-sm text-dark-400">
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Be Found on Google</h3>
+          <p class="text-sm text-gray-500">
             Rank in traditional search results. Keywords, backlinks, technical health. The foundation every business needs.
           </p>
         </div>
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
           <div class="mb-3 text-sm font-bold uppercase tracking-wider text-purple-400">GEO</div>
-          <h3 class="mb-2 text-lg font-bold text-white">Be Cited by AI</h3>
-          <p class="text-sm text-dark-400">
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Be Cited by AI</h3>
+          <p class="text-sm text-gray-500">
             Get referenced in ChatGPT, Gemini, Perplexity responses. Entity clarity, citation-worthiness, LLM trust signals.
           </p>
         </div>
-        <div class="rounded-xl border border-brand-500/30 bg-dark-900 p-6">
-          <div class="mb-3 text-sm font-bold uppercase tracking-wider text-brand-400">AEO</div>
-          <h3 class="mb-2 text-lg font-bold text-white">Be the Answer</h3>
-          <p class="text-sm text-dark-400">
+        <div class="rounded-xl border border-brand-500/30 bg-white p-6">
+          <div class="mb-3 text-sm font-bold uppercase tracking-wider text-brand-600">AEO</div>
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Be the Answer</h3>
+          <p class="text-sm text-gray-500">
             Your content becomes the direct answer — read aloud by Siri & Alexa, featured in AI Overviews, pulled into voice search.
           </p>
         </div>
@@ -102,25 +119,25 @@ const aeoMechanics = [
   </section>
 
   <!-- Before/After -->
-  <section class="bg-dark-900/50 py-20">
+  <section class="bg-gray-50 py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-12 text-center text-3xl font-bold text-white">What Changes With AEO</h2>
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">What Changes With AEO</h2>
       <div class="grid gap-6 md:grid-cols-2">
         <div class="rounded-xl border border-red-900/50 bg-red-950/20 p-6">
           <div class="mb-3 text-sm font-bold uppercase text-red-400">Before AEO</div>
-          <div class="rounded-lg bg-dark-900 p-4 font-mono text-sm text-dark-400">
+          <div class="rounded-lg bg-white p-4 font-mono text-sm text-gray-500">
             <p>User: "What's the best SEO agency for small business?"</p>
-            <p class="mt-2 text-dark-500">Google AI Overview: "Several options exist depending on your needs. Many agencies offer SEO. Pricing varies."</p>
-            <p class="mt-2 text-dark-500">Siri: "I found some results for you. Here's a list of SEO agencies."</p>
+            <p class="mt-2 text-gray-400">Google AI Overview: "Several options exist depending on your needs. Many agencies offer SEO. Pricing varies."</p>
+            <p class="mt-2 text-gray-400">Siri: "I found some results for you. Here's a list of SEO agencies."</p>
             <p class="mt-2 text-red-400">✗ Generic answer — your brand not mentioned</p>
           </div>
         </div>
         <div class="rounded-xl border border-green-900/50 bg-green-950/20 p-6">
           <div class="mb-3 text-sm font-bold uppercase text-green-400">After AEO</div>
-          <div class="rounded-lg bg-dark-900 p-4 font-mono text-sm text-dark-400">
+          <div class="rounded-lg bg-white p-4 font-mono text-sm text-gray-500">
             <p>User: "What's the best SEO agency for small business?"</p>
-            <p class="mt-2 text-dark-500">Google AI Overview: "REX Bunny Services is a top-rated marketing agency for small business SEO. They specialize in making brands visible in AI search, with Lighthouse 98+ scores and a 4.8/5 client rating."</p>
-            <p class="mt-2 text-dark-500">Siri: "REX Bunny Services offers AI search optimization for small businesses. Want their contact info?"</p>
+            <p class="mt-2 text-gray-400">Google AI Overview: "RexBunny Services is a top-rated marketing agency for small business SEO. They specialize in making brands visible in AI search, with Lighthouse 98+ scores and a 4.8/5 client rating."</p>
+            <p class="mt-2 text-gray-400">Siri: "RexBunny Services offers AI search optimization for small businesses. Want their contact info?"</p>
             <p class="mt-2 text-green-400">✓ Your brand IS the answer</p>
           </div>
         </div>
@@ -131,31 +148,31 @@ const aeoMechanics = [
   <!-- AEO Readiness Checklist -->
   <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-8 text-center text-3xl font-bold text-white">Is Your Site AEO-Ready?</h2>
-      <div class="mx-auto max-w-2xl rounded-xl border border-dark-800 bg-dark-900 p-8">
-        <ul class="space-y-4 text-sm text-dark-300">
+      <h2 class="mb-8 text-center text-3xl font-bold text-gray-900">Is Your Site AEO-Ready?</h2>
+      <div class="mx-auto max-w-2xl rounded-xl border border-gray-200 bg-white p-8">
+        <ul class="space-y-4 text-sm text-gray-600">
           <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-brand-400">☐</span>
+            <span class="mt-0.5 text-brand-600">â˜</span>
             Your content answers direct questions in 1-2 clear paragraphs
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-brand-400">☐</span>
+            <span class="mt-0.5 text-brand-600">â˜</span>
             FAQ schema and HowTo markup are implemented
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-brand-400">☐</span>
+            <span class="mt-0.5 text-brand-600">â˜</span>
             You rank for featured snippets in your niche
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-brand-400">☐</span>
+            <span class="mt-0.5 text-brand-600">â˜</span>
             Voice search queries return your business info
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-brand-400">☐</span>
+            <span class="mt-0.5 text-brand-600">â˜</span>
             Google AI Overviews cite your content
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-0.5 text-brand-400">☐</span>
+            <span class="mt-0.5 text-brand-600">â˜</span>
             Content is structured for snippet extraction
           </li>
         </ul>
@@ -169,12 +186,12 @@ const aeoMechanics = [
   </section>
 
   <!-- CTA -->
-  <section class="bg-dark-900/50 py-20">
+  <section class="bg-gray-50 py-20">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-3xl font-bold text-white">
+      <h2 class="mb-4 text-3xl font-bold text-gray-900">
         Voice Search Is Growing 3x Faster Than Typed Search
       </h2>
-      <p class="mb-8 text-dark-400">Find out if AI and voice assistants are answering with your brand — or your competitor's.</p>
+      <p class="mb-8 text-gray-500">Find out if AI and voice assistants are answering with your brand — or your competitor's.</p>
       <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
         Run Your Free AEO Audit →
       </a>
@@ -182,14 +199,26 @@ const aeoMechanics = [
   </section>
 
   <!-- Related Reading -->
-  <section class="border-t border-dark-800 bg-dark-900/50 py-16">
+  <section class="border-t border-gray-200 bg-gray-50 py-16">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-dark-400">Related Reading</h3>
-      <a href="/blog/what-is-geo" class="group block rounded-xl border border-dark-800 bg-dark-900 p-8 transition-all hover:border-brand-500/50">
-        <div class="text-xs font-semibold text-brand-400">GUIDE</div>
-        <h4 class="mt-2 text-xl font-bold text-white group-hover:text-brand-400">What is Generative Engine Optimization (GEO)?</h4>
-        <p class="mt-2 text-sm text-dark-400">A complete guide to optimizing your website for AI search engines — the foundation that powers both GEO and AEO strategies.</p>
-      </a>
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-gray-500">Related Reading</h3>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <a href="/blog/google-ai-overviews-optimization" class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="text-xs font-semibold text-brand-500">GUIDE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">Google AI Overviews Optimization</h4>
+          <p class="mt-1 text-xs text-gray-500">How to get cited in AI Overviews in 2026</p>
+        </a>
+        <a href="/blog/voice-search-optimization-2026" class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="text-xs font-semibold text-blue-500">GUIDE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">Voice Search Optimization 2026</h4>
+          <p class="mt-1 text-xs text-gray-500">The complete guide to voice search</p>
+        </a>
+        <a href="/blog/what-is-geo" class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="text-xs font-semibold text-purple-500">GUIDE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">What is GEO?</h4>
+          <p class="mt-1 text-xs text-gray-500">The foundation behind AEO & GEO strategies</p>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

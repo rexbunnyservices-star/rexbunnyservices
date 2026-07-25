@@ -383,13 +383,34 @@ const siteUrl = "https://rexbunnyservices.online";
   title="Pricing | Marketing Agency for SEO, GEO & AEO"
   description="Transparent pricing for SEO, GEO, AEO, and web development services. Choose the service line that fits your goals — or bundle for maximum visibility."
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Pricing — Marketing Agency for SEO, GEO & AEO",
+    "description": "Transparent pricing for SEO, GEO, AEO, and web development services from RexBunny Services.",
+    "isPartOf": { "@id": `${siteUrl}/#website` },
+    "about": {
+      "@type": "Service",
+      "provider": { "@type": "Organization", "name": "RexBunny Services", "url": siteUrl },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "RexBunny Service Packages",
+        "itemListElement": serviceLines.flatMap(line =>
+          line.plans.map(plan => ({
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": plan.name, "description": plan.description }
+          }))
+        )
+      }
+    }
+  })} />
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl">
+        <h1 class="mb-4 text-4xl font-extrabold text-gray-700 sm:text-5xl">
           Transparent Pricing
         </h1>
-        <p class="mb-8 text-lg text-dark-400">
+        <p class="mb-8 text-lg text-gray-500">
           Pick the search channel you need to win. Or bundle them all.
         </p>
       </div>
@@ -399,17 +420,17 @@ const siteUrl = "https://rexbunnyservices.online";
         serviceLines.map((line) => (
           <div class="mb-20">
             <div class="mb-2">
-              <h2 class="text-2xl font-bold text-white">{line.name}</h2>
+              <h2 class="text-2xl font-bold text-gray-700">{line.name}</h2>
               <p class="text-sm font-medium text-brand-400">{line.tagline}</p>
             </div>
-            <p class="mb-8 text-sm text-dark-400">{line.description}</p>
+            <p class="mb-8 text-sm text-gray-500">{line.description}</p>
             <div class="grid gap-6 md:grid-cols-4">
               {line.plans.map((plan) => (
                 <div
                   class={`relative rounded-2xl border p-6 ${
                     plan.popular
-                      ? "border-brand-500 bg-dark-900 shadow-lg shadow-brand-500/10"
-                      : "border-dark-800 bg-dark-900"
+                      ? "border-brand-500 bg-white shadow-lg shadow-brand-500/10"
+                      : "border-gray-200 bg-white"
                   }`}
                 >
                   {plan.popular && (
@@ -418,18 +439,18 @@ const siteUrl = "https://rexbunnyservices.online";
                     </div>
                   )}
                   <div class="mb-4">
-                    <h3 class="text-lg font-bold text-white">{plan.name}</h3>
-                    <p class="text-xs text-dark-500">{plan.tagline}</p>
+                    <h3 class="text-lg font-bold text-gray-700">{plan.name}</h3>
+                    <p class="text-xs text-gray-400">{plan.tagline}</p>
                   </div>
                   <div class="mb-4">
-                    <span class="text-3xl font-extrabold text-white">{plan.price}</span>
+                    <span class="text-3xl font-extrabold text-gray-700">{plan.price}</span>
                     {plan.period && (
-                      <span class="text-sm text-dark-500">/{plan.period}</span>
+                      <span class="text-sm text-gray-400">/{plan.period}</span>
                     )}
                   </div>
                   <ul class="mb-6 space-y-2">
                     {plan.features.map((feat) => (
-                      <li class="flex items-start gap-2 text-xs text-dark-300">
+                      <li class="flex items-start gap-2 text-xs text-gray-600">
                         <span class="mt-0.5 text-brand-400">✓</span>
                         {feat}
                       </li>
@@ -443,7 +464,7 @@ const siteUrl = "https://rexbunnyservices.online";
                       class={`block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors ${
                         plan.popular
                           ? "bg-brand-600 text-white hover:bg-brand-500"
-                          : "border border-dark-700 text-white hover:border-brand-500 hover:text-brand-400"
+                          : "border border-gray-300 text-gray-700 hover:border-brand-500 hover:text-brand-400"
                       }`}
                     >
                       {plan.cta}
@@ -457,21 +478,21 @@ const siteUrl = "https://rexbunnyservices.online";
       }
 
       <!-- Bundles -->
-      <div class="mb-16 rounded-2xl border border-brand-500/30 bg-dark-900 p-10">
-        <h2 class="mb-2 text-center text-2xl font-bold text-white">Bundle & Save</h2>
-        <p class="mb-10 text-center text-sm text-dark-400">
+      <div class="mb-16 rounded-2xl border border-brand-500/30 bg-white p-10">
+        <h2 class="mb-2 text-center text-2xl font-bold text-gray-700">Bundle & Save</h2>
+        <p class="mb-10 text-center text-sm text-gray-500">
           Combine service lines for maximum coverage at a discounted rate.
         </p>
         <div class="grid gap-6 md:grid-cols-3">
           {bundles.map((bundle) => (
-            <div class={`rounded-xl border p-6 text-center ${bundle.popular ? "border-brand-500 bg-brand-500/5" : "border-dark-800 bg-dark-900"}`}>
+            <div class={`rounded-xl border p-6 text-center ${bundle.popular ? "border-brand-500 bg-brand-500/5" : "border-gray-200 bg-white"}`}>
               {bundle.popular && (
-                <div class="mb-3 text-xs font-semibold text-brand-400">★ BEST VALUE</div>
+                <div class="mb-3 text-xs font-semibold text-brand-400">â˜… BEST VALUE</div>
               )}
-              <h3 class="text-lg font-bold text-white">{bundle.name}</h3>
-              <p class="mb-1 text-sm text-dark-400">{bundle.tagline}</p>
+              <h3 class="text-lg font-bold text-gray-700">{bundle.name}</h3>
+              <p class="mb-1 text-sm text-gray-500">{bundle.tagline}</p>
               <div class="mb-3 text-2xl font-extrabold text-brand-400">{bundle.price}</div>
-              <p class="mb-5 text-xs text-dark-500">{bundle.description}</p>
+              <p class="mb-5 text-xs text-gray-400">{bundle.description}</p>
               <CalEmbed buttonText="Book Strategy Call" className="w-full text-xs" client:load />
             </div>
           ))}
@@ -479,8 +500,8 @@ const siteUrl = "https://rexbunnyservices.online";
       </div>
 
       <div class="text-center">
-        <h2 class="mb-4 text-2xl font-bold text-white">Not sure where to start?</h2>
-        <p class="mb-6 text-sm text-dark-400">
+        <h2 class="mb-4 text-2xl font-bold text-gray-700">Not sure where to start?</h2>
+        <p class="mb-6 text-sm text-gray-500">
           Run a free visibility audit. We'll analyze your gaps across SEO, AI citations, and direct answers — and recommend the right path.
         </p>
         <a

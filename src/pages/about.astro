@@ -1,34 +1,49 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CalEmbed from "../components/CalEmbed.tsx";
+
+const siteUrl = "https://rexbunnyservices.online";
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About RexBunny Services",
+  "description": "A marketing agency specializing in SEO, GEO, and AEO making brands visible in Google, ChatGPT, Gemini, Siri, Alexa, Perplexity, and Copilot.",
+  "mainEntity": {
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    "name": "RexBunny Services",
+    "url": siteUrl
+  }
+};
 ---
 
 <BaseLayout
-  title="About REX Bunny Services | Marketing Agency for AI & Search"
-  description="REX Bunny Services is a marketing agency specializing in SEO, GEO, and AEO. We make your brand visible in every search — Google, ChatGPT, Siri, Gemini, and beyond."
+  title="About RexBunny Services | Marketing Agency for AI & Search"
+  description="RexBunny Services is a marketing agency specializing in SEO, GEO, and AEO. We make your brand visible in every search — Google, ChatGPT, Siri, Gemini, and beyond."
   breadcrumbs={[
     { name: "About", url: "/about" }
   ]}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
   <section class="pt-24">
     <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
-      <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
+      <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
         A Marketing Agency for <span class="text-brand-400">Every Way People Search</span>
       </h1>
-      <div class="prose prose-invert max-w-none text-dark-300">
+      <div class="prose max-w-none text-gray-600">
         <p class="text-lg leading-relaxed">
           Search has fractured. Customers now find businesses through Google, ChatGPT, Siri, Alexa, Gemini, Perplexity, AI Overviews, and voice assistants — each with different rules for who gets featured. Most marketing agencies only optimize for one channel.
         </p>
         <p class="mt-4 text-lg leading-relaxed">
-          REX Bunny Services is a marketing agency built for this reality. We cover every search surface — traditional (SEO), AI-generated (GEO), and direct answers (AEO). We don't just help you rank; we make you visible in every format your customers use to find answers.
+          RexBunny Services is a marketing agency built for this reality. We cover every search surface — traditional (SEO), AI-generated (GEO), and direct answers (AEO). We don't just help you rank; we make you visible in every format your customers use to find answers.
         </p>
 
-        <h2 class="mt-12 mb-4 text-2xl font-bold text-white">Who We Are</h2>
+        <h2 class="mt-12 mb-4 text-2xl font-bold text-gray-900">Who We Are</h2>
         <p>
           We are a small, focused marketing agency that specializes in search visibility across all channels — Google, LLMs, voice assistants, and AI answer engines. Our team combines deep expertise in search algorithms, entity engineering, structured data, content strategy, and web performance. We don't spread across dozens of services. We focus on what we're best at: making brands findable everywhere.
         </p>
 
-        <h2 class="mt-12 mb-4 text-2xl font-bold text-white">Why Three Search Channels?</h2>
+        <h2 class="mt-12 mb-4 text-2xl font-bold text-gray-900">Why Three Search Channels?</h2>
         <p>
           <strong>SEO (Search Engine Optimization)</strong> — The foundation. Ranking on Google, Bing, and other traditional search engines through technical health, backlinks, and content authority. Still drives the majority of web traffic.
         </p>
@@ -42,7 +57,7 @@ import CalEmbed from "../components/CalEmbed.tsx";
           Most businesses invest in one or two of these channels. We ensure you're visible across all three — because your customers use all of them.
         </p>
 
-        <h2 class="mt-12 mb-4 text-2xl font-bold text-white">Our Approach</h2>
+        <h2 class="mt-12 mb-4 text-2xl font-bold text-gray-900">Our Approach</h2>
         <p>
           Every engagement starts with a thorough audit of your current search visibility — across Google, AI citations, and direct answers. From there, we build a tailored strategy that addresses your specific gaps, whether that's fixing Core Web Vitals, restructuring content for LLM consumption, or engineering direct answers for voice search.
         </p>
@@ -51,21 +66,21 @@ import CalEmbed from "../components/CalEmbed.tsx";
         </p>
 
         <div class="mt-10 grid gap-4 md:grid-cols-4">
-          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="rounded-xl border border-gray-200 bg-white p-6 text-center">
             <div class="text-3xl font-bold text-blue-400">SEO</div>
-            <div class="mt-1 text-sm text-dark-400">Traditional search</div>
+            <div class="mt-1 text-sm text-gray-500">Traditional search</div>
           </div>
-          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="rounded-xl border border-gray-200 bg-white p-6 text-center">
             <div class="text-3xl font-bold text-purple-400">GEO</div>
-            <div class="mt-1 text-sm text-dark-400">AI citations</div>
+            <div class="mt-1 text-sm text-gray-500">AI citations</div>
           </div>
-          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
+          <div class="rounded-xl border border-gray-200 bg-white p-6 text-center">
             <div class="text-3xl font-bold text-brand-400">AEO</div>
-            <div class="mt-1 text-sm text-dark-400">Direct answers</div>
+            <div class="mt-1 text-sm text-gray-500">Direct answers</div>
           </div>
-          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6 text-center">
-            <div class="text-3xl font-bold text-white">Web Dev</div>
-            <div class="mt-1 text-sm text-dark-400">Performance option</div>
+          <div class="rounded-xl border border-gray-200 bg-white p-6 text-center">
+            <div class="text-3xl font-bold text-gray-900">Web Dev</div>
+            <div class="mt-1 text-sm text-gray-500">Performance option</div>
           </div>
         </div>
       </div>

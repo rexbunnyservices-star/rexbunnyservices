@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalEmbed from "../../components/CalEmbed.tsx";
+
+const cityName = "Ottawa";
+const province = "Ontario";
+const services = [
+  { name: "SEO Services", desc: "Local and technical SEO for Ottawa businesses", link: "/services/seo" },
+  { name: "GEO — AI Search Optimization", desc: "Get cited in ChatGPT, Gemini, and Perplexity", link: "/services/ai-search-optimization" },
+  { name: "AEO — Answer Engine Optimization", desc: "Dominate voice search and AI Overviews in Ottawa", link: "/services/aeo" },
+  { name: "Web Development", desc: "High-performance websites built for Ottawa businesses", link: "/services/web-development" },
+  { name: "AI Visual Services", desc: "AI-generated graphics, video, and brand assets", link: "/services/ai-visual" },
+];
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: `RexBunny Services — ${cityName} Marketing Agency`,
+  description: `Marketing agency in ${cityName}, ${province}. SEO, GEO, AEO, web development, and AI visual services for businesses in the Greater ${cityName} Area.`,
+  provider: { "@type": "Organization", name: "RexBunny Services", url: "https://rexbunnyservices.online" },
+  areaServed: { "@type": "City", name: cityName, containedInPlace: { "@type": "State", name: province } },
+  url: "https://rexbunnyservices.online/locations/ottawa"
+};
+---
+
+<BaseLayout
+  title={`${cityName} Marketing Agency | SEO, GEO & AI Search Optimization`}
+  description={`Marketing agency in ${cityName}, ${province}. We help Ottawa businesses rank on Google and get cited in ChatGPT, Gemini, Perplexity, and voice search. Free AI visibility audit.`}
+  breadcrumbs={[
+    { name: "Locations", url: "/locations" },
+    { name: cityName, url: "/locations/ottawa" }
+  ]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(localSchema)} />
+
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-block rounded-full bg-brand-500/10 px-4 py-1 text-xs font-semibold text-brand-600">
+          {cityName}, {province}
+        </div>
+        <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          Marketing Agency in <span class="text-brand-600">{cityName}</span>
+        </h1>
+        <p class="mb-8 text-lg text-gray-600">
+          We help {cityName} businesses rank on Google and get cited in ChatGPT, Gemini, Perplexity, and every voice assistant. SEO, GEO, AEO, web development, and AI visuals — built for the way people search in 2026.
+        </p>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a href="/lead-engine" class="rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
+            Free AI Visibility Audit →
+          </a>
+          <CalEmbed buttonText="Book a Strategy Call" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-gray-200 bg-gray-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">Services in {cityName}</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {services.map((s) => (
+          <a href={s.link} class="rounded-xl border border-gray-200 bg-white p-6 transition-all hover:shadow-md hover:border-brand-500/30">
+            <h3 class="mb-2 text-lg font-bold text-gray-900">{s.name}</h3>
+            <p class="text-sm text-gray-500">{s.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-3xl font-bold text-gray-900">Why {cityName} Businesses Choose Us</h2>
+      <p class="mb-8 text-gray-500">
+        We combine traditional SEO with AI search optimization — the two disciplines that matter most in 2026. {cityName} businesses that work with us get found on Google AND inside ChatGPT, Gemini, and Perplexity.
+      </p>
+      <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
+        Run Your Free Audit →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

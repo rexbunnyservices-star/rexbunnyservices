@@ -11,7 +11,7 @@ export default function CalEmbed({ buttonText = "Book a Strategy Call →", clas
   return (
     <button
       onClick={handleClick}
-      class={`rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-500 ${className}`}
+      class={`rounded-xl border border-gray-300 bg-white px-8 py-4 text-base font-semibold text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:border-gray-400 hover:shadow-md ${className}`}
     >
       {buttonText}
     </button>

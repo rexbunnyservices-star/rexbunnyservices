@@ -14,14 +14,14 @@ const serviceColors: Record<string, string> = {
 
 <BaseLayout
   title="Portfolio"
-  description="Case studies from REX Bunny Services — quantified results in web performance, SEO, and AI search optimization."
+  description="Case studies from RexBunny Services — quantified results in web performance, SEO, and AI search optimization."
 >
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-      <h1 class="mb-4 text-center text-4xl font-extrabold text-white sm:text-5xl">
+      <h1 class="mb-4 text-center text-4xl font-extrabold text-gray-900 sm:text-5xl">
         Case Studies
       </h1>
-      <p class="mb-12 text-center text-lg text-dark-400">
+      <p class="mb-12 text-center text-lg text-gray-500">
         Every result quantified. No fluff.
       </p>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -29,10 +29,10 @@ const serviceColors: Record<string, string> = {
           projects.map((project) => (
             <a
               href={`/portfolio/${project.id}`}
-              class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/30"
+              class="group rounded-xl border border-gray-200 bg-white p-6 transition-all hover:shadow-md hover:border-gray-300"
             >
-              <div class="mb-4 flex h-40 items-center justify-center rounded-lg bg-dark-800">
-                <span class="text-4xl text-dark-600">
+              <div class="mb-4 flex h-40 items-center justify-center rounded-lg bg-gray-100">
+                <span class="text-4xl text-gray-400">
                   {project.data.serviceType === "Web Development" && "⚡"}
                   {project.data.serviceType === "SEO" && "📈"}
                   {project.data.serviceType === "AI Search Optimization" && "🤖"}
@@ -41,23 +41,23 @@ const serviceColors: Record<string, string> = {
               <div class={`mb-2 text-xs font-semibold ${serviceColors[project.data.serviceType] || "text-brand-500"}`}>
                 {project.data.serviceType.toUpperCase()}
               </div>
-              <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">
+              <h3 class="mb-2 text-lg font-bold text-gray-900 group-hover:text-brand-600">
                 {project.data.title}
               </h3>
-              <p class="mb-4 text-sm text-dark-400">{project.data.description}</p>
-              <div class="flex flex-wrap gap-2 text-xs text-dark-500">
+              <p class="mb-4 text-sm text-gray-500">{project.data.description}</p>
+              <div class="flex flex-wrap gap-2 text-xs text-gray-400">
                 {project.data.results.lighthouse && (
-                  <span class="rounded bg-dark-800 px-2 py-1">
+                  <span class="rounded bg-gray-100 px-2 py-1">
                     Lighthouse: {project.data.results.lighthouse}
                   </span>
                 )}
                 {project.data.results.trafficIncrease && (
-                  <span class="rounded bg-dark-800 px-2 py-1">
+                  <span class="rounded bg-gray-100 px-2 py-1">
                     Traffic: {project.data.results.trafficIncrease}
                   </span>
                 )}
                 {project.data.results.lcp && (
-                  <span class="rounded bg-dark-800 px-2 py-1">
+                  <span class="rounded bg-gray-100 px-2 py-1">
                     LCP: {project.data.results.lcp}
                   </span>
                 )}

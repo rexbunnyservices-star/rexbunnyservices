@@ -1,24 +1,46 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CalEmbed from "../../components/CalEmbed.tsx";
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "SEO Services — Traditional & Local Search Optimization",
+  description: "Technical SEO, local SEO, and programmatic multi-location optimization from a marketing agency built for 2026 search.",
+  provider: {
+    "@type": "Organization",
+    name: "RexBunny Services",
+    url: "https://rexbunnyservices.online"
+  },
+  serviceType: "Search Engine Optimization",
+  areaServed: { "@type": "Country", name: "Canada" },
+  offers: [
+    { "@type": "Offer", name: "Local Silver", price: "See pricing", priceCurrency: "CAD", description: "Single-location SEO" },
+    { "@type": "Offer", name: "National Gold", price: "See pricing", priceCurrency: "CAD", description: "5-50 location programmatic SEO" },
+    { "@type": "Offer", name: "Enterprise Platinum", price: "See pricing", priceCurrency: "CAD", description: "50+ location custom automation" }
+  ],
+  url: "https://rexbunnyservices.online/services/seo"
+};
 ---
 
 <BaseLayout
   title="SEO Services | Traditional & Local Search Optimization"
-  description="REX Bunny Services offers SEO for businesses that want to rank on Google. Technical SEO, local SEO, and programmatic multi-location optimization from a marketing agency built for 2026 search."
+  description="RexBunny Services offers SEO for businesses that want to rank on Google. Technical SEO, local SEO, and programmatic multi-location optimization from a marketing agency built for 2026 search."
   breadcrumbs={[
     { name: "Services", url: "/services" },
     { name: "Technical & Local SEO", url: "/services/seo" }
   ]}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
   <!-- Hero -->
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <h1 class="mb-6 text-4xl font-extrabold text-white sm:text-5xl">
-          SEO That Actually <span class="text-brand-400">Drives Results</span>
+        <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          SEO That Actually <span class="text-brand-600">Drives Results</span>
         </h1>
-        <p class="mb-8 text-lg text-dark-300">
+        <p class="mb-8 text-lg text-gray-600">
           Technical SEO, local SEO, and programmatic multi-location optimization from a marketing agency that engineers for performance. Automated city pages, entity optimization, and GSC integration at scale.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -32,28 +54,28 @@ import CalEmbed from "../../components/CalEmbed.tsx";
   </section>
 
   <!-- Technical Architecture -->
-  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+  <section class="border-y border-gray-200 bg-gray-50 py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-12 text-center text-3xl font-bold text-white">Programmatic SEO Engine</h2>
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">Programmatic SEO Engine</h2>
       <div class="grid gap-6 md:grid-cols-3">
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-          <div class="mb-4 text-2xl text-brand-400">1.</div>
-          <h3 class="mb-2 text-lg font-bold text-white">City Page Generator</h3>
-          <p class="text-sm text-dark-400">
-            Astro <code class="text-brand-400">getStaticPaths()</code> pre-renders HTML for every city. Zero runtime overhead. Each page gets unique schema, content, and meta.
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
+          <div class="mb-4 text-2xl text-brand-600">1.</div>
+          <h3 class="mb-2 text-lg font-bold text-gray-900">City Page Generator</h3>
+          <p class="text-sm text-gray-500">
+            Astro <code class="text-brand-600">getStaticPaths()</code> pre-renders HTML for every city. Zero runtime overhead. Each page gets unique schema, content, and meta.
           </p>
         </div>
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-          <div class="mb-4 text-2xl text-brand-400">2.</div>
-          <h3 class="mb-2 text-lg font-bold text-white">Entity Disambiguation</h3>
-          <p class="text-sm text-dark-400">
-            Each location gets <code class="text-brand-400">LocalBusiness</code> + <code class="text-brand-400">GeoCoordinates</code> schema. Google and AI models resolve your NAP across every page.
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
+          <div class="mb-4 text-2xl text-brand-600">2.</div>
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Entity Disambiguation</h3>
+          <p class="text-sm text-gray-500">
+            Each location gets <code class="text-brand-600">LocalBusiness</code> + <code class="text-brand-600">GeoCoordinates</code> schema. Google and AI models resolve your NAP across every page.
           </p>
         </div>
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-          <div class="mb-4 text-2xl text-brand-400">3.</div>
-          <h3 class="mb-2 text-lg font-bold text-white">Automated Monitoring</h3>
-          <p class="text-sm text-dark-400">
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
+          <div class="mb-4 text-2xl text-brand-600">3.</div>
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Automated Monitoring</h3>
+          <p class="text-sm text-gray-500">
             n8n workflow pulls GSC data weekly, checks ranking changes, and alerts when any city page drops. Continuous optimization.
           </p>
         </div>
@@ -64,12 +86,12 @@ import CalEmbed from "../../components/CalEmbed.tsx";
   <!-- Service Tiers -->
   <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-12 text-center text-3xl font-bold text-white">SEO Service Tiers</h2>
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">SEO Service Tiers</h2>
       <div class="grid gap-6 md:grid-cols-3">
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-          <h3 class="mb-2 text-lg font-bold text-white">Local Silver</h3>
-          <p class="mb-4 text-sm text-dark-400">For single-location businesses</p>
-          <ul class="space-y-2 text-sm text-dark-300">
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Local Silver</h3>
+          <p class="mb-4 text-sm text-gray-500">For single-location businesses</p>
+          <ul class="space-y-2 text-sm text-gray-600">
             <li>✓ Technical SEO audit</li>
             <li>✓ On-page optimization</li>
             <li>✓ Google Business Profile</li>
@@ -77,11 +99,11 @@ import CalEmbed from "../../components/CalEmbed.tsx";
             <li>✓ Monthly reporting</li>
           </ul>
         </div>
-        <div class="rounded-xl border border-brand-500/30 bg-dark-900 p-6">
-          <div class="mb-2 text-xs font-semibold text-brand-500">★ MOST POPULAR</div>
-          <h3 class="mb-2 text-lg font-bold text-white">National Gold</h3>
-          <p class="mb-4 text-sm text-dark-400">For 5-50 location businesses</p>
-          <ul class="space-y-2 text-sm text-dark-300">
+        <div class="rounded-xl border border-brand-500/30 bg-white p-6">
+          <div class="mb-2 text-xs font-semibold text-brand-500">â˜… MOST POPULAR</div>
+          <h3 class="mb-2 text-lg font-bold text-gray-900">National Gold</h3>
+          <p class="mb-4 text-sm text-gray-500">For 5-50 location businesses</p>
+          <ul class="space-y-2 text-sm text-gray-600">
             <li>✓ Everything in Silver</li>
             <li>✓ Programmatic city pages</li>
             <li>✓ Auto-generated local schema</li>
@@ -89,10 +111,10 @@ import CalEmbed from "../../components/CalEmbed.tsx";
             <li>✓ Rank tracking dashboard</li>
           </ul>
         </div>
-        <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-          <h3 class="mb-2 text-lg font-bold text-white">Enterprise Platinum</h3>
-          <p class="mb-4 text-sm text-dark-400">For 50+ location brands</p>
-          <ul class="space-y-2 text-sm text-dark-300">
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 class="mb-2 text-lg font-bold text-gray-900">Enterprise Platinum</h3>
+          <p class="mb-4 text-sm text-gray-500">For 50+ location brands</p>
+          <ul class="space-y-2 text-sm text-gray-600">
             <li>✓ Everything in Gold</li>
             <li>✓ Custom automation pipeline</li>
             <li>✓ API integrations</li>
@@ -105,10 +127,10 @@ import CalEmbed from "../../components/CalEmbed.tsx";
   </section>
 
   <!-- CTA -->
-  <section class="bg-dark-900/50 py-20">
+  <section class="bg-gray-50 py-20">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-3xl font-bold text-white">See Your Local Search Gaps</h2>
-      <p class="mb-8 text-dark-400">Run our free audit to discover which local searches you're missing.</p>
+      <h2 class="mb-4 text-3xl font-bold text-gray-900">See Your Local Search Gaps</h2>
+      <p class="mb-8 text-gray-500">Run our free audit to discover which local searches you're missing.</p>
       <a href="/lead-engine" class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500">
         Check Your Local Visibility →
       </a>
@@ -116,19 +138,43 @@ import CalEmbed from "../../components/CalEmbed.tsx";
   </section>
 
   <!-- Related Case Study -->
-  <section class="border-t border-dark-800 py-16">
+  <section class="border-t border-gray-200 py-16">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-dark-400">Related Case Study</h3>
-      <a href="/portfolio/dental-chain-local-seo" class="group block rounded-xl border border-dark-800 bg-dark-900 p-8 transition-all hover:border-brand-500/50">
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-gray-500">Related Case Study</h3>
+        <a href="/portfolio/dental-chain-local-seo" class="group block rounded-xl border border-gray-200 bg-white p-8 transition-all hover:shadow-md hover:border-gray-300">
         <div class="text-xs font-semibold text-green-400">SEO</div>
-        <h4 class="mt-2 text-xl font-bold text-white group-hover:text-brand-400">Multi-Location Dental Chain: 300% Local Traffic Increase</h4>
-        <p class="mt-2 text-sm text-dark-400">Programmatic local SEO strategy generating 120+ city pages with automated schema and monitoring.</p>
+        <h4 class="mt-2 text-xl font-bold text-gray-900 group-hover:text-brand-600">Multi-Location Dental Chain: 300% Local Traffic Increase</h4>
+        <p class="mt-2 text-sm text-gray-500">Programmatic local SEO strategy generating 120+ city pages with automated schema and monitoring.</p>
         <div class="mt-4 flex gap-4 text-sm">
-          <span class="text-white font-semibold">Lighthouse: 96</span>
+          <span class="text-gray-700 font-semibold">Lighthouse: 96</span>
           <span class="text-green-400 font-semibold">Traffic: +312%</span>
           <span class="text-blue-400 font-semibold">LCP: 0.6s</span>
         </div>
       </a>
+    </div>
+  </section>
+
+  <!-- Related Reading -->
+  <section class="border-t border-gray-200 bg-gray-50 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-gray-500">Related Reading</h3>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <a href="/blog/programmatic-local-seo" class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="text-xs font-semibold text-green-500">GUIDE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">Programmatic Local SEO</h4>
+          <p class="mt-1 text-xs text-gray-500">How to build 100+ city pages that rank</p>
+        </a>
+        <a href="/blog/lighthouse-100-blueprint" class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="text-xs font-semibold text-blue-500">GUIDE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">Lighthouse 100 Blueprint</h4>
+          <p class="mt-1 text-xs text-gray-500">Step-by-step to a perfect performance score</p>
+        </a>
+        <a href="/blog/geo-vs-seo-2026" class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="text-xs font-semibold text-purple-500">GUIDE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">GEO vs SEO in 2026</h4>
+          <p class="mt-1 text-xs text-gray-500">How traditional SEO fits with AI search</p>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

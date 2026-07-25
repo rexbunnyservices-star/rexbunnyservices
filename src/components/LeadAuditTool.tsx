@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 interface AuditResults {
   performanceScore: number;
@@ -27,7 +27,7 @@ function ScoreRing({ score, size = 120 }: { score: number; size?: number }) {
   return (
     <div class="relative inline-flex items-center justify-center">
       <svg width={size} height={size} class="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#1f2937" stroke-width="8" />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#e5e7eb" stroke-width="8" />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -42,8 +42,8 @@ function ScoreRing({ score, size = 120 }: { score: number; size?: number }) {
         />
       </svg>
       <span class="absolute flex flex-col items-center">
-        <span class="text-3xl font-bold">{score}</span>
-        <span class="text-xs text-dark-400">/100</span>
+        <span class="text-3xl font-bold text-gray-900">{score}</span>
+        <span class="text-xs text-gray-500">/100</span>
       </span>
     </div>
   );
@@ -52,9 +52,9 @@ function ScoreRing({ score, size = 120 }: { score: number; size?: number }) {
 function MetricCard({ label, value }: { label: string; value: number }) {
   const color = value >= 80 ? "text-green-400" : value >= 50 ? "text-yellow-400" : "text-red-400";
   return (
-    <div class="rounded-lg bg-dark-800 p-4 text-center">
+    <div class="rounded-lg bg-gray-100 p-4 text-center">
       <div class={`text-2xl font-bold ${color}`}>{value}</div>
-      <div class="mt-1 text-xs text-dark-400">{label}</div>
+      <div class="mt-1 text-xs text-gray-500">{label}</div>
     </div>
   );
 }
@@ -63,48 +63,41 @@ export default function LeadAuditTool() {
   const [url, setUrl] = useState("");
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"form" | "running" | "complete">("form");
-  const [leadId, setLeadId] = useState<string | null>(null);
   const [results, setResults] = useState<AuditResults | null>(null);
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (step !== "running" || !leadId) return;
-
-    const interval = setInterval(async () => {
-      try {
-        const res = await fetch(`/api/audit-status?leadId=${leadId}`);
-        const data = await res.json();
-        setProgress((prev) => Math.min(prev + 15, 90));
-
-        if (data.status === "completed") {
-          clearInterval(interval);
-          setResults(data);
-          setStep("complete");
-          setProgress(100);
-        }
-      } catch {
-        // retry
-      }
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [step, leadId]);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
     setStep("running");
     setProgress(10);
+    setError("");
+
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => Math.min(prev + 5, 95));
+    }, 2000);
 
     try {
+      setProgress(30);
       const res = await fetch("/api/audit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url, email }),
       });
-      const { leadId: id } = await res.json();
-      setLeadId(id);
+
+      if (!res.ok) throw new Error("Audit request failed");
+
+      setProgress(90);
+      const data: AuditResults = await res.json();
+
+      setResults(data);
+      setStep("complete");
+      setProgress(100);
     } catch {
+      setError("Something went wrong. Please try again.");
       setStep("form");
+    } finally {
+      clearInterval(progressInterval);
     }
   };
 
@@ -117,18 +110,18 @@ export default function LeadAuditTool() {
 
   if (step === "running") {
     return (
-      <div class="rounded-xl bg-dark-800 p-8 text-center">
-        <div class="mb-6 h-2 w-full overflow-hidden rounded-full bg-dark-700">
+      <div class="rounded-xl bg-gray-100 p-8 text-center">
+        <div class="mb-6 h-2 w-full overflow-hidden rounded-full bg-gray-200">
           <div
             class="h-full rounded-full bg-brand-500 transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div class="mb-2 text-lg font-semibold text-white">Analyzing your site...</div>
-        <div class="text-sm text-dark-400">
-          {progress < 30 && "Running Lighthouse performance audit..."}
-          {progress >= 30 && progress < 60 && "Checking AI search crawlability..."}
-          {progress >= 60 && progress < 90 && "Evaluating structured data and entity signals..."}
+        <div class="mb-2 text-lg font-semibold text-gray-900">Analyzing your site...</div>
+        <div class="text-sm text-gray-500">
+          {progress < 30 && "Preparing audit request..."}
+          {progress >= 30 && progress < 60 && "Running Lighthouse performance audit..."}
+          {progress >= 60 && progress < 90 && "Checking AI search crawlability..."}
           {progress >= 90 && "Generating your report..."}
         </div>
       </div>
@@ -137,10 +130,10 @@ export default function LeadAuditTool() {
 
   if (step === "complete" && results) {
     return (
-      <div class="rounded-xl bg-dark-800 p-8">
+      <div class="rounded-xl bg-gray-100 p-8">
         <div class="mb-6 flex flex-col items-center">
           <ScoreRing score={results.compositeScore} />
-          <h4 class="mt-4 text-xl font-bold text-white">Your AI Visibility Score</h4>
+          <h4 class="mt-4 text-xl font-bold text-gray-900">Your AI Visibility Score</h4>
         </div>
 
         <div class="mb-6 grid grid-cols-3 gap-3">
@@ -149,8 +142,8 @@ export default function LeadAuditTool() {
           <MetricCard label="AI Readiness" value={results.aiVisibility.aiVisibilityScore} />
         </div>
 
-        <div class="mb-6 rounded-lg bg-dark-900 p-4">
-          <h5 class="mb-3 text-sm font-semibold uppercase tracking-wider text-dark-400">
+        <div class="mb-6 rounded-lg bg-white p-4">
+          <h5 class="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
             AI Crawl Status
           </h5>
           <ul class="space-y-2 text-sm">
@@ -175,8 +168,8 @@ export default function LeadAuditTool() {
           </ul>
         </div>
 
-        <p class="mb-4 text-sm text-dark-300">
-          Your full audit report has been sent to <strong class="text-white">{email}</strong>.
+        <p class="mb-4 text-sm text-gray-600">
+          Your full audit report has been sent to <strong class="text-gray-900">{email}</strong>.
           Book a strategy call to get your personalized GEO roadmap.
         </p>
 
@@ -191,7 +184,7 @@ export default function LeadAuditTool() {
           </a>
           <button
             onClick={handleReset}
-            class="rounded-lg border border-dark-600 px-6 py-3 text-sm font-medium text-dark-200 transition-colors hover:border-dark-500"
+            class="rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:border-gray-400"
           >
             Run Another Audit
           </button>
@@ -201,11 +194,14 @@ export default function LeadAuditTool() {
   }
 
   return (
-    <form onSubmit={handleSubmit} class="rounded-xl bg-dark-800 p-8">
-      <h3 class="mb-2 text-2xl font-bold text-white">Free AI Visibility & SEO Audit</h3>
-      <p class="mb-6 text-sm text-dark-400">
+    <form onSubmit={handleSubmit} class="rounded-xl bg-gray-100 p-8">
+      <h3 class="mb-2 text-2xl font-bold text-gray-900">Free AI Visibility & SEO Audit</h3>
+      <p class="mb-6 text-sm text-gray-500">
         Discover how your site performs for both search engines and AI models like ChatGPT, Gemini, and Perplexity.
       </p>
+      {error && (
+        <div class="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</div>
+      )}
       <div class="mb-4">
         <input
           type="url"
@@ -213,7 +209,7 @@ export default function LeadAuditTool() {
           value={url}
           onInput={(e) => setUrl((e.target as HTMLInputElement).value)}
           required
-          class="w-full rounded-lg border border-dark-700 bg-dark-900 px-4 py-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none"
+          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none"
         />
       </div>
       <div class="mb-4">
@@ -223,10 +219,10 @@ export default function LeadAuditTool() {
           value={email}
           onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
           required
-          class="w-full rounded-lg border border-dark-700 bg-dark-900 px-4 py-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none"
+          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none"
         />
       </div>
-      <label class="mb-6 flex items-start gap-2 text-xs text-dark-400">
+      <label class="mb-6 flex items-start gap-2 text-xs text-gray-500">
         <input type="checkbox" required class="mt-0.5" />
         I agree to receive the audit report and follow-up strategies via email
       </label>

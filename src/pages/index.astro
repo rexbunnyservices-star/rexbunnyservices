@@ -37,13 +37,62 @@ const faqs = [
 ];
 
 const siteUrl = "https://rexbunnyservices.online";
+
+const services = [
+  {
+    href: "/services/seo",
+    icon: "/images/icons/icon-seo.svg",
+    title: "SEO",
+    subtitle: "Traditional & Local Search",
+    accent: "text-brand-600",
+    accentBg: "bg-brand-100",
+    features: ["Technical & on-page SEO", "Programmatic local schema", "500+ city page automation", "GSC rank tracking"],
+  },
+  {
+    href: "/services/ai-search-optimization",
+    icon: "/images/icons/icon-geo.svg",
+    title: "GEO",
+    subtitle: "Generative Engine Optimization",
+    accent: "text-rex-violet",
+    accentBg: "bg-violet-100",
+    features: ["Entity engineering for AI", "LLM citation optimization", "AI crawl strategy", "Source score boosting"],
+  },
+  {
+    href: "/services/aeo",
+    icon: "/images/icons/icon-aeo.svg",
+    title: "AEO",
+    subtitle: "Answer Engine Optimization",
+    accent: "text-rex-teal",
+    accentBg: "bg-emerald-100",
+    features: ["Featured snippet capture", "Voice & assistant readiness", "AI Overview integration", "Direct answer engineering"],
+    badge: { text: "New Service", class: "text-rex-teal" },
+  },
+  {
+    href: "/services/web-development",
+    icon: "/images/icons/icon-webdev.svg",
+    title: "Web Dev",
+    subtitle: "Built for Search Performance",
+    accent: "text-rex-blue",
+    accentBg: "bg-blue-100",
+    features: ["Lighthouse 95+ guaranteed", "Sub-second load times", "LLM-crawlable HTML", "Edge-deployed architecture"],
+  },
+  {
+    href: "/services/ai-visual",
+    icon: "/images/icons/icon-aivisual.svg",
+    title: "AI Visual",
+    subtitle: "AI-Generated Visual Content",
+    accent: "text-rex-pink",
+    accentBg: "bg-fuchsia-100",
+    features: ["Social graphics & video ads", "Product imagery & brand kits", "AI headshots & 3D mockups", "Delivered in days, not weeks"],
+  },
+];
 ---
 
 <BaseLayout
   title="Marketing Agency for AI & Search | SEO, GEO & AEO"
-  description="REX Bunny Services is a marketing agency specializing in SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). We make your brand visible in every search — Google, ChatGPT, Gemini, Siri, and beyond."
+  description="RexBunny Services is a marketing agency specializing in SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). We make your brand visible in every search — Google, ChatGPT, Gemini, Siri, and beyond."
 >
-  <!-- Hero -->
+  <!-- FAQ Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -56,43 +105,62 @@ const siteUrl = "https://rexbunnyservices.online";
       }
     }))
   })} />
+
+  <!-- Hero -->
   <section class="relative overflow-hidden pt-24">
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-950/20 to-dark-950" />
-    <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-50/50" />
+    <div class="absolute inset-0 bg-brand-glow" />
+    <div class="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <h1 class="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+        <div class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
+          AI Search &amp; Marketing Agency
+        </div>
+        <h1 class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl">
           The Marketing Agency That Makes You{" "}
-          <span class="bg-gradient-to-r from-brand-400 to-orange-400 bg-clip-text text-transparent">
+          <span class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent">
             Visible in Every Search
           </span>
         </h1>
-        <p class="mb-4 text-lg text-dark-300 sm:text-xl">
+        <p class="mb-4 text-lg text-gray-600 sm:text-xl">
           SEO. GEO. AEO. We cover every way your customers search — Google, ChatGPT, Siri, Alexa, Gemini, and Perplexity.
         </p>
-        <p class="mb-8 text-base text-dark-400">
-          We're a marketing agency that engineers your brand into traditional search results, AI citations, 
-          and direct answer engines — so you're found everywhere your customers are looking.
+        <p class="mb-10 text-base text-gray-400">
+          We engineer your brand into traditional search, AI citations, and direct answer engines — so you're found everywhere your customers are looking.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a
             href="/lead-engine"
-            class="rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-brand-500 hover:shadow-lg hover:shadow-brand-500/25"
+            class="rounded-xl bg-gradient-to-r from-brand-500 to-rex-orange px-8 py-4 text-base font-semibold text-white shadow-xl shadow-brand-500/30 transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5"
           >
             Run Your Free AI Visibility Audit →
           </a>
           <CalEmbed buttonText="Book a Strategy Call" client:load />
         </div>
+        <div class="mt-10 flex items-center justify-center gap-6 text-sm text-gray-400">
+          <span class="flex items-center gap-1.5">
+            <svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            No credit card
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            30-second scan
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            PDF report included
+          </span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Value Metrics -->
-  <section class="border-y border-dark-800 bg-dark-900/50 py-16">
+  <!-- Branded Metrics Bar -->
+  <section class="relative border-y border-brand-200/50 bg-gradient-to-r from-brand-50 via-white to-brand-50 py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="mb-8 text-center text-sm font-semibold uppercase tracking-widest text-dark-400">
+      <div class="mb-6 text-center text-sm font-semibold uppercase tracking-[2px] text-brand-500">
         A Marketing Agency Built for the AI Era
-      </p>
-      <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      </div>
+      <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
         <MetricCard value="0.3s" label="Avg LCP" description="Largest Contentful Paint" />
         <MetricCard value="98" label="Lighthouse" description="Performance Score" />
         <MetricCard value="100%" label="Schema Score" description="Structured Data Depth" />
@@ -102,81 +170,61 @@ const siteUrl = "https://rexbunnyservices.online";
   </section>
 
   <!-- Five Service Pillars -->
-  <section class="py-20">
+  <section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-center text-3xl font-bold text-white">Five Ways We Make You Visible</h2>
-      <p class="mb-12 text-center text-dark-400">Every channel your customers search — we make sure you're there.</p>
-      <div class="grid gap-6 md:grid-cols-5">
-        <a href="/services/seo" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🔍</div>
-          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">SEO</h3>
-          <p class="mb-3 text-xs text-dark-500">Traditional & Local Search</p>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Technical & on-page SEO</li>
-            <li>Programmatic local schema</li>
-            <li>500+ city page automation</li>
-            <li>GSC rank tracking</li>
-          </ul>
-        </a>
-        <a href="/services/ai-search-optimization" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🤖</div>
-          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">GEO</h3>
-          <p class="mb-3 text-xs text-dark-500">Generative Engine Optimization</p>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Entity engineering for AI</li>
-            <li>LLM citation optimization</li>
-            <li>AI crawl strategy</li>
-            <li>Source score boosting</li>
-          </ul>
-        </a>
-        <a href="/services/aeo" class="group rounded-xl border border-brand-500/30 bg-dark-900 p-6 transition-all hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🎙️</div>
-          <h3 class="mb-2 text-lg font-bold text-brand-400">AEO</h3>
-          <p class="mb-3 text-xs text-dark-500">Answer Engine Optimization</p>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Featured snippet capture</li>
-            <li>Voice & assistant readiness</li>
-            <li>AI Overview integration</li>
-            <li>Direct answer engineering</li>
-          </ul>
-          <div class="mt-4 text-xs font-semibold text-brand-500">★ New Service</div>
-        </a>
-        <a href="/services/web-development" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🚀</div>
-          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">Web Dev</h3>
-          <p class="mb-3 text-xs text-dark-500">Built for Search Performance</p>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Lighthouse 95+ guaranteed</li>
-            <li>Sub-second load times</li>
-            <li>LLM-crawlable HTML</li>
-            <li>Edge-deployed architecture</li>
-          </ul>
-        </a>
-        <a href="/services/ai-visual" class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10">
-          <div class="mb-4 text-3xl">🎨</div>
-          <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">AI Visual</h3>
-          <p class="mb-3 text-xs text-dark-500">AI-Generated Visual Content</p>
-          <ul class="space-y-1 text-sm text-dark-400">
-            <li>Social graphics & video ads</li>
-            <li>Product imagery & brand kits</li>
-            <li>AI headshots & 3D mockups</li>
-            <li>Delivered in days, not weeks</li>
-          </ul>
-        </a>
+      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        What We Do
+      </div>
+      <h2 class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark">Five Ways We Make You Visible</h2>
+      <p class="mb-14 text-center text-gray-500">Every channel your customers search — we make sure you're there.</p>
+      <div class="grid gap-5 md:grid-cols-5">
+        {services.map((s) => (
+          <a
+            href={s.href}
+            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden"
+          >
+            <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${s.accentBg}`} />
+            <div class="relative">
+              <div class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${s.accentBg} ${s.accent}`}>
+                <img src={s.icon} alt="" class="h-6 w-6" loading="lazy" decoding="async" />
+              </div>
+              <h3 class={`mb-1 text-lg font-extrabold ${s.accent} group-hover:scale-105 transition-transform`}>{s.title}</h3>
+              <p class="mb-3 text-xs font-medium text-gray-400 uppercase tracking-wider">{s.subtitle}</p>
+              <ul class="space-y-1.5 text-sm text-gray-500">
+                {s.features.map((f) => (
+                  <li class="flex items-start gap-1.5">
+                    <svg class={`mt-0.5 h-3.5 w-3.5 flex-shrink-0 ${s.accent}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              {s.badge && (
+                <div class={`mt-4 inline-flex items-center rounded-full bg-gradient-to-r ${s.accentBg} px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${s.accent}`}>
+                  {s.badge.text}
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- Social Proof: Testimonials -->
-  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+  <section class="border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-center text-3xl font-bold text-white">Results That Speak</h2>
-      <p class="mb-12 text-center text-dark-400">Real outcomes from real clients.</p>
+      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+        Testimonials
+      </div>
+      <h2 class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark">Results That Speak</h2>
+      <p class="mb-14 text-center text-gray-500">Real outcomes from real clients.</p>
       <div class="grid gap-6 md:grid-cols-3">
         {
           [
             {
-              quote: "REX Bunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue.",
+              quote: "RexBunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue.",
               author: "Sarah Chen",
               role: "CTO, CloudMetrics",
               metric: "+96% conversions",
@@ -194,12 +242,22 @@ const siteUrl = "https://rexbunnyservices.online";
               metric: "23 AI citations/mo",
             },
           ].map((t) => (
-            <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-              <div class="mb-4 text-2xl font-bold text-brand-400">{t.metric}</div>
-              <p class="mb-4 text-sm text-dark-300 italic">"{t.quote}"</p>
-              <div>
-                <div class="text-sm font-semibold text-white">{t.author}</div>
-                <div class="text-xs text-dark-500">{t.role}</div>
+            <div class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div class="mb-4 flex items-center gap-1.5">
+                {[...Array(5)].map(() => (
+                  <svg class="h-4 w-4 text-rex-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+              </div>
+              <div class="mb-4 text-3xl font-extrabold bg-gradient-to-r from-brand-500 to-rex-orange bg-clip-text text-transparent">{t.metric}</div>
+              <p class="mb-5 text-sm text-gray-600 leading-relaxed">"{t.quote}"</p>
+              <div class="flex items-center gap-3 border-t border-gray-100 pt-4">
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-rex-orange text-xs font-bold text-white">
+                  {t.author.charAt(0)}
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-gray-900">{t.author}</div>
+                  <div class="text-xs text-gray-400">{t.role}</div>
+                </div>
               </div>
             </div>
           ))
@@ -209,14 +267,14 @@ const siteUrl = "https://rexbunnyservices.online";
   </section>
 
   <!-- Client Logos Bar -->
-  <section class="py-12">
+  <section class="py-14">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="mb-8 text-center text-sm font-semibold uppercase tracking-widest text-dark-500">
+      <p class="mb-8 text-center text-sm font-semibold uppercase tracking-[2px] text-gray-400">
         Trusted by forward-thinking brands
       </p>
-      <div class="flex flex-wrap items-center justify-center gap-8 opacity-50">
+      <div class="flex flex-wrap items-center justify-center gap-6 opacity-60">
         {["CloudMetrics", "BrightSmile Dental", "Nordic Home Co.", "TechVault", "ScaleUp Labs"].map((name) => (
-          <div class="rounded-lg border border-dark-800 bg-dark-900 px-6 py-3 text-sm font-medium text-dark-400">
+          <div class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-500 transition-all hover:shadow-md hover:border-gray-300">
             {name}
           </div>
         ))}
@@ -224,15 +282,19 @@ const siteUrl = "https://rexbunnyservices.online";
     </div>
   </section>
 
-  <!-- Case Study Carousel -->
-  <section class="border-y border-dark-800 bg-dark-900/50 py-20">
+  <!-- Case Studies -->
+  <section class="border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-end justify-between">
         <div>
-          <h2 class="mb-2 text-3xl font-bold text-white">Proven Results</h2>
-          <p class="text-dark-400">Real outcomes from real clients. Every metric verified.</p>
+          <div class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            Case Studies
+          </div>
+          <h2 class="font-display text-4xl font-extrabold text-rex-dark">Proven Results</h2>
+          <p class="text-gray-500">Real outcomes from real clients. Every metric verified.</p>
         </div>
-        <a href="/portfolio" class="hidden text-sm font-semibold text-brand-400 hover:text-brand-300 sm:block">
+        <a href="/portfolio" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">
           View All Case Studies →
         </a>
       </div>
@@ -249,7 +311,7 @@ const siteUrl = "https://rexbunnyservices.online";
                 { label: "Traffic", value: "+142%" },
                 { label: "Conversions", value: "+96%" },
               ],
-              color: "text-blue-400",
+              color: "text-rex-blue",
               slug: "saas-platform-rebuild",
             },
             {
@@ -262,7 +324,7 @@ const siteUrl = "https://rexbunnyservices.online";
                 { label: "Traffic", value: "+312%" },
                 { label: "LCP", value: "0.6s" },
               ],
-              color: "text-green-400",
+              color: "text-brand-600",
               slug: "dental-chain-local-seo",
             },
             {
@@ -275,26 +337,26 @@ const siteUrl = "https://rexbunnyservices.online";
                 { label: "Traffic", value: "+89%" },
                 { label: "Conversions", value: "+45%" },
               ],
-              color: "text-purple-400",
+              color: "text-rex-violet",
               slug: "ecommerce-ai-visibility",
             },
           ].map((cs) => (
             <a
               href={`/portfolio/${cs.slug}`}
-              class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10"
+              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
-              <div class={`mb-3 text-xs font-semibold ${cs.color}`}>
-                {cs.service.toUpperCase()}
+              <div class={`mb-3 text-xs font-extrabold uppercase tracking-wider ${cs.color}`}>
+                {cs.service}
               </div>
-              <h3 class="mb-1 text-lg font-bold text-white group-hover:text-brand-400">
+              <h3 class="mb-1 font-display text-lg font-bold text-rex-dark group-hover:text-brand-600 transition-colors">
                 {cs.title}
               </h3>
-              <p class="mb-1 text-xs text-dark-500">{cs.client}</p>
-              <p class="mb-4 text-sm text-dark-400">{cs.desc}</p>
+              <p class="mb-1 text-xs text-gray-400">{cs.client}</p>
+              <p class="mb-4 text-sm text-gray-500">{cs.desc}</p>
               <div class="flex flex-wrap gap-2">
                 {cs.metrics.map((m) => (
-                  <span class="rounded bg-dark-800 px-2 py-1 text-xs text-dark-300">
-                    <span class="font-semibold text-white">{m.value}</span> {m.label}
+                  <span class="rounded-lg bg-gray-100 px-2.5 py-1 text-xs text-gray-500">
+                    <span class="font-extrabold text-rex-dark">{m.value}</span> {m.label}
                   </span>
                 ))}
               </div>
@@ -303,7 +365,7 @@ const siteUrl = "https://rexbunnyservices.online";
         }
       </div>
       <div class="mt-8 text-center sm:hidden">
-        <a href="/portfolio" class="text-sm font-semibold text-brand-400 hover:text-brand-300">
+        <a href="/portfolio" class="text-sm font-semibold text-brand-600 hover:text-brand-700">
           View All Case Studies →
         </a>
       </div>
@@ -311,14 +373,18 @@ const siteUrl = "https://rexbunnyservices.online";
   </section>
 
   <!-- Latest Blog Posts -->
-  <section class="py-20">
+  <section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-end justify-between">
         <div>
-          <h2 class="mb-2 text-3xl font-bold text-white">From the Blog</h2>
-          <p class="text-dark-400">GEO strategies, SEO tactics, and web performance guides.</p>
+          <div class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+            Blog
+          </div>
+          <h2 class="font-display text-4xl font-extrabold text-rex-dark">From the Blog</h2>
+          <p class="text-gray-500">GEO strategies, SEO tactics, and web performance guides.</p>
         </div>
-        <a href="/blog" class="hidden text-sm font-semibold text-brand-400 hover:text-brand-300 sm:block">
+        <a href="/blog" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">
           View All Posts →
         </a>
       </div>
@@ -349,16 +415,19 @@ const siteUrl = "https://rexbunnyservices.online";
           ].map((post) => (
             <a
               href={`/blog/${post.slug}`}
-              class="group rounded-xl border border-dark-800 bg-dark-900 p-6 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/10"
+              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
-              <div class="mb-2 text-xs text-dark-500">{post.date}</div>
-              <h3 class="mb-2 text-lg font-bold text-white group-hover:text-brand-400">
+              <div class="mb-2 flex items-center gap-2 text-xs text-gray-400">
+                <span class="flex h-1.5 w-1.5 rounded-full bg-brand-400" />
+                {post.date}
+              </div>
+              <h3 class="mb-2 font-display text-lg font-bold text-rex-dark group-hover:text-brand-600 transition-colors">
                 {post.title}
               </h3>
-              <p class="mb-4 text-sm text-dark-400">{post.desc}</p>
+              <p class="mb-4 text-sm text-gray-500">{post.desc}</p>
               <div class="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
-                  <span class="rounded bg-dark-800 px-2 py-1 text-xs text-dark-400">{tag}</span>
+                  <span class="rounded-lg bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-600">{tag}</span>
                 ))}
               </div>
             </a>
@@ -366,7 +435,7 @@ const siteUrl = "https://rexbunnyservices.online";
         }
       </div>
       <div class="mt-8 text-center sm:hidden">
-        <a href="/blog" class="text-sm font-semibold text-brand-400 hover:text-brand-300">
+        <a href="/blog" class="text-sm font-semibold text-brand-600 hover:text-brand-700">
           View All Posts →
         </a>
       </div>
@@ -374,32 +443,46 @@ const siteUrl = "https://rexbunnyservices.online";
   </section>
 
   <!-- Lead Engine Embed -->
-  <section class="bg-dark-900/50 py-20" id="audit">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-2 text-center text-3xl font-bold text-white">Is Your Site Ready for AI Search?</h2>
-      <p class="mb-8 text-center text-dark-400">Find out in 30 seconds. Free audit, no credit card.</p>
-      <LeadAuditTool client:visible />
-      <p class="mt-4 text-center text-xs text-dark-500">
+  <section class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-24" id="audit">
+    <div class="absolute inset-0 bg-brand-glow" />
+    <div class="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Free Audit
+      </div>
+      <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">Is Your Site Ready for AI Search?</h2>
+      <p class="mb-8 text-center text-gray-500">Find out in 30 seconds. Free audit, no credit card.</p>
+      <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
+        <LeadAuditTool client:visible />
+      </div>
+      <p class="mt-4 text-center text-xs text-gray-400">
         We'll check: Lighthouse Performance, AI Crawlability, Structured Data Quality, and LLM Citation Potential.
       </p>
     </div>
   </section>
 
   <!-- Process -->
-  <section class="py-20">
+  <section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-12 text-center text-3xl font-bold text-white">The REX Bunny Marketing Blueprint</h2>
-      <div class="grid gap-4 md:grid-cols-4">
+      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        Process
+      </div>
+      <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">The RexBunny Marketing Blueprint</h2>
+      <p class="mb-14 text-center text-gray-500">A proven 4-step methodology to dominate every search channel.</p>
+      <div class="grid gap-6 md:grid-cols-4">
         {[
           { step: "01", title: "Audit", desc: "Full diagnostic — SEO health, AI crawlability, entity presence, answer extraction potential." },
           { step: "02", title: "Strategize", desc: "Build a unified plan across SEO, GEO, and AEO. Identify gaps in every search channel." },
           { step: "03", title: "Implement", desc: "Execute the strategy — technical SEO, entity engineering, answer optimization, or performance rebuild." },
           { step: "04", title: "Monitor", desc: "Track rankings, AI citations, and answer placement weekly. Adapt to algorithm and model updates." },
-        ].map((item) => (
-          <div class="rounded-xl border border-dark-800 bg-dark-900 p-6">
-            <div class="mb-3 text-sm font-bold text-brand-500">{item.step}</div>
-            <h3 class="mb-2 text-lg font-bold text-white">{item.title}</h3>
-            <p class="text-sm text-dark-400">{item.desc}</p>
+        ].map((item, i) => (
+          <div class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-rex-orange text-lg font-extrabold text-white shadow-lg">
+              {item.step}
+            </div>
+            <h3 class="mb-2 font-display text-lg font-bold text-rex-dark">{item.title}</h3>
+            <p class="text-sm text-gray-500">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -407,9 +490,14 @@ const siteUrl = "https://rexbunnyservices.online";
   </section>
 
   <!-- FAQ -->
-  <section class="bg-dark-900/50 py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="mb-8 text-center text-3xl font-bold text-white">Questions We Hear Every Day</h2>
+  <section class="border-t border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        FAQ
+      </div>
+      <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">Questions We Hear Every Day</h2>
+      <p class="mb-10 text-center text-gray-500">Everything you need to know about modern search optimization.</p>
       <FAQ items={faqs} client:visible />
       <div class="mt-8 text-center">
         <CalEmbed buttonText="Still have questions? Book a Free 30-min Call →" />
@@ -418,15 +506,20 @@ const siteUrl = "https://rexbunnyservices.online";
   </section>
 
   <!-- Final CTA -->
-  <section class="py-20">
-    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-      <h2 class="mb-4 text-3xl font-bold text-white">
+  <section class="relative overflow-hidden py-24">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-rex-dark to-brand-950" />
+    <div class="absolute inset-0 bg-brand-glow opacity-20" />
+    <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="mb-4 inline-flex items-center rounded-full border border-brand-700/50 bg-brand-800/30 px-4 py-1.5 text-sm font-medium text-brand-300">
+        Start Your Journey
+      </div>
+      <h2 class="mb-4 font-display text-4xl font-extrabold text-white sm:text-5xl">
         Most businesses are invisible in at least one search channel — and don't know it.
       </h2>
-      <p class="mb-8 text-dark-400">Run your free audit. See your visibility across SEO, AI citations, and direct answers.</p>
+      <p class="mb-10 text-lg text-brand-200/80">Run your free audit. See your visibility across SEO, AI citations, and direct answers.</p>
       <a
         href="/lead-engine"
-        class="inline-block rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-brand-500 hover:shadow-lg hover:shadow-brand-500/25"
+        class="inline-block rounded-xl bg-gradient-to-r from-brand-400 to-rex-orange px-10 py-4 text-lg font-bold text-white shadow-2xl shadow-brand-500/40 transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:-translate-y-0.5"
       >
         Run Your Free Visibility Audit →
       </a>

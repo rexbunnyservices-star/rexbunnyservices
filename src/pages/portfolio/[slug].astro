@@ -20,6 +20,12 @@ const serviceColors: Record<string, string> = {
   SEO: "text-green-400",
   "AI Search Optimization": "text-purple-400",
 };
+
+const serviceLinks: Record<string, { href: string; label: string; desc: string; color: string }> = {
+  "Web Development": { href: "/services/web-development", label: "WEB DEVELOPMENT", desc: "Lighthouse 95+ websites built for search performance", color: "text-blue-500" },
+  SEO: { href: "/services/seo", label: "SEO", desc: "Technical SEO, local SEO & programmatic optimization", color: "text-green-500" },
+  "AI Search Optimization": { href: "/services/ai-search-optimization", label: "GEO", desc: "Get cited in ChatGPT, Gemini, Perplexity & Copilot", color: "text-purple-500" },
+};
 ---
 
 <BaseLayout
@@ -42,7 +48,7 @@ const serviceColors: Record<string, string> = {
     },
     "provider": {
       "@type": "Organization",
-      "name": "REX Bunny Services",
+      "name": "RexBunny Services",
       "url": siteUrl
     },
     "review": project.data.testimonial ? {
@@ -58,50 +64,50 @@ const serviceColors: Record<string, string> = {
   <section class="pt-24">
     <article class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mb-8">
-        <a href="/portfolio" class="text-sm text-brand-400 hover:text-brand-300">← Back to Portfolio</a>
+        <a href="/portfolio" class="text-sm text-brand-600 hover:text-brand-700">← Back to Portfolio</a>
       </div>
 
       <header class="mb-12">
         <div class={`mb-3 text-xs font-semibold ${serviceColors[project.data.serviceType] || "text-brand-500"}`}>
           {project.data.serviceType.toUpperCase()}
         </div>
-        <h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl">{project.data.title}</h1>
-        <p class="mb-2 text-lg text-dark-400">{project.data.description}</p>
-        <p class="text-sm text-dark-500">
-          Client: <span class="text-dark-300">{project.data.clientName}</span>
+        <h1 class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl">{project.data.title}</h1>
+        <p class="mb-2 text-lg text-gray-500">{project.data.description}</p>
+        <p class="text-sm text-gray-400">
+          Client: <span class="text-gray-600">{project.data.clientName}</span>
         </p>
       </header>
 
       <div class="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {
           project.data.results.lighthouse && (
-            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
-              <div class="text-2xl font-bold text-brand-400">{project.data.results.lighthouse}</div>
-              <div class="text-xs text-dark-500">Lighthouse</div>
+            <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
+              <div class="text-2xl font-bold text-brand-600">{project.data.results.lighthouse}</div>
+              <div class="text-xs text-gray-400">Lighthouse</div>
             </div>
           )
         }
         {
           project.data.results.trafficIncrease && (
-            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
-              <div class="text-2xl font-bold text-green-400">{project.data.results.trafficIncrease}</div>
-              <div class="text-xs text-dark-500">Traffic</div>
+            <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
+              <div class="text-2xl font-bold text-green-500">{project.data.results.trafficIncrease}</div>
+              <div class="text-xs text-gray-400">Traffic</div>
             </div>
           )
         }
         {
           project.data.results.lcp && (
-            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
-              <div class="text-2xl font-bold text-blue-400">{project.data.results.lcp}</div>
-              <div class="text-xs text-dark-500">LCP</div>
+            <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
+              <div class="text-2xl font-bold text-blue-500">{project.data.results.lcp}</div>
+              <div class="text-xs text-gray-400">LCP</div>
             </div>
           )
         }
         {
           project.data.results.conversionLift && (
-            <div class="rounded-xl border border-dark-800 bg-dark-900 p-4 text-center">
-              <div class="text-2xl font-bold text-purple-400">{project.data.results.conversionLift}</div>
-              <div class="text-xs text-dark-500">Conversions</div>
+            <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
+              <div class="text-2xl font-bold text-purple-500">{project.data.results.conversionLift}</div>
+              <div class="text-xs text-gray-400">Conversions</div>
             </div>
           )
         }
@@ -109,14 +115,14 @@ const serviceColors: Record<string, string> = {
 
       {
         project.data.testimonial && (
-          <blockquote class="mb-12 rounded-xl border-l-4 border-brand-500 bg-dark-900 p-6">
-            <p class="mb-2 text-lg italic text-dark-200">"{project.data.testimonial}"</p>
-            <cite class="text-sm text-dark-500">— {project.data.testimonialAuthor}</cite>
+          <blockquote class="mb-12 rounded-xl border-l-4 border-brand-500 bg-gray-50 p-6">
+            <p class="mb-2 text-lg italic text-gray-700">"{project.data.testimonial}"</p>
+            <cite class="text-sm text-gray-400">— {project.data.testimonialAuthor}</cite>
           </blockquote>
         )
       }
 
-      <div class="prose prose-invert prose-brand max-w-none text-dark-300">
+      <div class="prose prose-brand max-w-none text-gray-600">
         <Content />
       </div>
 
@@ -127,7 +133,7 @@ const serviceColors: Record<string, string> = {
               href={project.data.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="rounded-lg border border-dark-700 px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:border-brand-500 hover:text-brand-400"
+              class="rounded-lg border border-gray-300 px-6 py-3 text-center text-sm font-semibold text-gray-900 transition-colors hover:border-brand-500 hover:text-brand-600"
             >
               View Live Site →
             </a>
@@ -135,6 +141,18 @@ const serviceColors: Record<string, string> = {
         }
         <CalEmbed buttonText="Get Results Like This →" />
       </div>
+
+      <!-- Related Service -->
+      {serviceLinks[project.data.serviceType] && (
+        <div class="mt-12 border-t border-gray-200 pt-12">
+          <h3 class="mb-6 text-sm font-semibold uppercase tracking-wider text-gray-500">Service Used</h3>
+          <a href={serviceLinks[project.data.serviceType].href} class="group block rounded-xl border border-gray-200 bg-white p-6 transition-all hover:shadow-md hover:border-gray-300">
+            <div class={`text-xs font-semibold ${serviceLinks[project.data.serviceType].color}`}>{serviceLinks[project.data.serviceType].label}</div>
+            <h4 class="mt-1 text-lg font-bold text-gray-900 group-hover:text-brand-600">{project.data.serviceType}</h4>
+            <p class="mt-1 text-sm text-gray-500">{serviceLinks[project.data.serviceType].desc}</p>
+          </a>
+        </div>
+      )}
     </article>
   </section>
 </BaseLayout>
