@@ -19,6 +19,11 @@ const staticPages = [
   { url: "/blog", priority: 0.7, changefreq: "weekly", lastmod: today },
   { url: "/geo-checklist", priority: 0.7, changefreq: "monthly", lastmod: today },
   { url: "/ai-search-statistics", priority: 0.8, changefreq: "monthly", lastmod: today },
+  { url: "/locations/toronto", priority: 0.8, changefreq: "monthly", lastmod: today },
+  { url: "/locations/vancouver", priority: 0.8, changefreq: "monthly", lastmod: today },
+  { url: "/locations/calgary", priority: 0.8, changefreq: "monthly", lastmod: today },
+  { url: "/locations/ottawa", priority: 0.8, changefreq: "monthly", lastmod: today },
+  { url: "/locations/montreal", priority: 0.8, changefreq: "monthly", lastmod: today },
   { url: "/privacy", priority: 0.3, changefreq: "yearly", lastmod: today },
   { url: "/terms", priority: 0.3, changefreq: "yearly", lastmod: today },
 ];

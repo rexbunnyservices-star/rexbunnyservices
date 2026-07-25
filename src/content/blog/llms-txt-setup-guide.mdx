@@ -1,0 +1,121 @@
+---
+title: "llms.txt Setup Guide: How to Make Your Website AI-Friendly"
+description: "Complete guide to creating an llms.txt file. What it is, why it matters for AI search visibility, and a step-by-step template you can copy."
+pubDate: 2026-07-18
+author: "RexBunny"
+tags: ["llms.txt", "GEO", "AI Search", "Technical SEO"]
+---
+
+## What is llms.txt?
+
+`llms.txt` is a plain text file you place at your domain root that gives large language models (LLMs) a structured overview of your website. Think of it as a sitemap designed specifically for AI — not for Google's crawler, but for ChatGPT, Claude, Gemini, and Perplexity's crawlers.
+
+The format was proposed by Anthropic (the company behind Claude) and is gaining adoption across AI search platforms. When an AI model crawls your site, llms.txt provides a quick, structured summary so the model can understand what you offer without parsing every page.
+
+## Why llms.txt Matters for AI Search
+
+Without llms.txt, AI crawlers must independently crawl and interpret every page on your site. This is slow, error-prone, and often incomplete. With llms.txt, you're giving AI models a "cheat sheet" — here's who we are, what we offer, and where to find detailed information.
+
+**Benefits:**
+- Faster AI discovery of your key pages
+- Better comprehension of your services and expertise
+- Higher likelihood of being cited in AI responses
+- Structured context that AI models prefer over scattered page content
+
+## How to Create Your llms.txt File
+
+### Step 1: Create a Plain Text File
+
+Create a file named `llms.txt` (no extension other than .txt) and place it at your domain root:
+
+```
+https://yoursite.com/llms.txt
+```
+
+### Step 2: Follow the Format
+
+The recommended format uses Markdown-style headers and lists:
+
+```markdown
+# Your Company Name
+
+> One-line description of what you do and who you serve
+
+## About
+Brief company description (2-3 sentences)
+
+## Services
+- [Service Name](/services/service-slug) — Short description
+- [Service Name](/services/service-slug) — Short description
+
+## Key Pages
+- [About Us](/about) — Company story and team
+- [Pricing](/pricing) — Service tiers and pricing
+- [Contact](/contact) — Get in touch
+
+## Blog
+- [Article Title](/blog/article-slug) — Topic summary
+- [Article Title](/blog/article-slug) — Topic summary
+
+## FAQ
+Question: What services do you offer?
+Answer: We offer SEO, GEO, AEO, web development, and AI visual services.
+
+Question: What industries do you serve?
+Answer: We work with businesses across e-commerce, SaaS, healthcare, and local services.
+```
+
+### Step 3: Validate It
+
+After creating the file, verify it's accessible by visiting `https://yoursite.com/llms.txt` in your browser. You should see the plain text content displayed.
+
+## Real Example: RexBunny Services
+
+Here's the actual llms.txt we use:
+
+```markdown
+# RexBunny Services
+
+> AI search optimization agency specializing in GEO, AEO, and technical SEO. We make brands visible in Google, ChatGPT, Gemini, Siri, Alexa, and Perplexity.
+
+## Services
+- [SEO](/services/seo) — Traditional and local search optimization
+- [GEO](/services/ai-search-optimization) — Generative Engine Optimization
+- [AEO](/services/aeo) — Answer Engine Optimization
+- [Web Development](/services/web-development) — High-performance websites
+- [AI Visuals](/services/ai-visual) — AI-generated graphics and video
+
+## Key Pages
+- [Lead Engine](/lead-engine) — Free AI visibility audit
+- [Pricing](/pricing) — Service tiers and packages
+- [Case Studies](/portfolio) — Client results and case studies
+
+## FAQ
+Question: What is GEO?
+Answer: Generative Engine Optimization gets your brand cited in AI search engines like ChatGPT, Gemini, and Perplexity.
+
+Question: How long until I see results?
+Answer: Most clients see AI citation improvements within 2-4 weeks of implementation.
+```
+
+## Common Mistakes to Avoid
+
+1. **Making it too long.** Keep it under 500 lines. AI models have context limits — give them the highlights, not a novel.
+2. **Forgetting to update it.** When you add new services or blog posts, update llms.txt too.
+3. **Blocking it in robots.txt.** Make sure AI crawlers can access `/llms.txt`.
+4. **Using complex formatting.** Plain text with simple Markdown headers works best. No JavaScript, no CSS, no HTML.
+5. **Leaving out contact info.** AI models may surface your contact details in responses — make sure they're current.
+
+## Testing Your llms.txt
+
+After deploying, use these tools to verify:
+
+- **Manual check:** Visit `https://yoursite.com/llms.txt` in a browser
+- **Curl check:** `curl https://yoursite.com/llms.txt`
+- **AI visibility test:** Ask ChatGPT or Perplexity about your industry and see if your brand appears in responses
+
+## The Bottom Line
+
+llms.txt takes 15 minutes to create and can meaningfully improve your AI search visibility. Every business that wants to be found in AI search should have one. It's the lowest-effort, highest-impact technical SEO task for AI search optimization.
+
+**Need help setting up llms.txt?** Our free [AI Visibility Audit](/lead-engine) checks whether your site has llms.txt and how AI models are currently interpreting your content.

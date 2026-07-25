@@ -1,0 +1,91 @@
+---
+title: "How to Get Your Brand Cited in ChatGPT Responses"
+description: "Step-by-step guide to getting your website cited as a source in ChatGPT answers. Entity optimization, citation engineering, and LLM trust signals."
+pubDate: 2026-07-21
+author: "RexBunny"
+tags: ["GEO", "ChatGPT", "AI Search", "Citation Engineering"]
+---
+
+## Why ChatGPT Cites Some Websites and Ignores Others
+
+When someone asks ChatGPT "What's the best marketing agency for local SEO?", the model doesn't randomly pick a website. It evaluates hundreds of signals — authority, relevance, structure, trust — and selects sources that meet specific criteria. Getting cited in ChatGPT isn't luck. It's engineering.
+
+Here's exactly how to make your brand one of those sources.
+
+## Step 1: Build Entity Clarity
+
+ChatGPT resolves entities before citing them. If your business name is ambiguous or your online presence is scattered, the model skips you.
+
+**What to do:**
+
+- **Schema.org markup on every page.** Use `Organization`, `LocalBusiness`, or `ProfessionalService` schema. Include `sameAs` links to your LinkedIn, Crunchbase, and social profiles.
+- **Consistent NAP everywhere.** Name, Address, Phone must be identical across Google Business Profile, your website, directories, and social media.
+- **Wikidata entry.** If you don't have one, create it. ChatGPT cross-references Wikidata for entity resolution.
+- **Clear "About" page.** One page that states who you are, what you do, where you operate, and why you're credible. AI models love structured, scannable About pages.
+
+## Step 2: Make Your Content Citation-Worthy
+
+ChatGPT cites content that answers questions directly and authoritatively. Generic blog posts don't make the cut.
+
+**Citation-worthy content has:**
+
+- **Direct answers in the first paragraph.** Don't bury the lead. State the answer, then explain.
+- **Specific claims with sources.** "Our clients see a 300% traffic increase" beats "we help businesses grow."
+- **Structured formats.** Tables, numbered lists, and FAQ sections are easier for LLMs to extract.
+- **Original data or insights.** If you can cite something unique — a case study result, proprietary methodology, original research — you're more likely to be referenced.
+
+## Step 3: Optimize Your robots.txt
+
+ChatGPT uses GPTBot to crawl the web. If your robots.txt blocks GPTBot, you're invisible to ChatGPT.
+
+**Your robots.txt should include:**
+
+```
+User-agent: GPTBot
+Allow: /
+```
+
+Don't block GPTBot from important pages. Allow it to crawl your services, blog, case studies, and About page. Block only admin areas and API endpoints.
+
+## Step 4: Create an llms.txt File
+
+`llms.txt` is a new standard (proposed by Anthropic) that gives LLMs a structured summary of your site. Place it at your domain root: `https://yoursite.com/llms.txt`
+
+**Include:**
+- Your company name and one-line description
+- List of key pages with URLs
+- Services summary
+- FAQ section
+- Contact information
+
+This file acts as a "table of contents" for AI models. When ChatGPT crawls your site, llms.txt gives it a quick overview of what you offer and where to find detailed information.
+
+## Step 5: Build Backlink Authority
+
+ChatGPT ranks sources by trust. Backlinks from authoritative domains signal trust.
+
+**Priority targets:**
+- Industry directories (Clutch, G2, Crunchbase)
+- .edu and .gov references (if applicable)
+- Wikipedia and Wikidata
+- LinkedIn company page with complete profile
+- Guest posts on reputable industry blogs
+
+The key insight: ChatGPT doesn't just count backlinks — it evaluates the *quality and relevance* of linking domains. One link from a relevant .edu site outweighs fifty random directory links.
+
+## Step 6: Test Your AI Visibility
+
+After implementing these changes, test whether ChatGPT cites your brand:
+
+1. Ask ChatGPT questions about your industry where your brand should appear
+2. Ask Perplexity the same questions
+3. Ask Google Gemini
+4. Track which responses mention your brand
+
+If you're not being cited after 2-4 weeks of optimization, revisit your entity signals and content quality.
+
+## The Bottom Line
+
+Getting cited in ChatGPT is a systematic process: build entity clarity, create citation-worthy content, optimize crawl access, and demonstrate authority. Most businesses haven't done any of this — which means the competition is low and the opportunity is massive.
+
+**Ready to see if ChatGPT is citing your brand?** Run our free [AI Visibility Audit](/lead-engine) to check your current standing across ChatGPT, Perplexity, and Google AI Overviews.
