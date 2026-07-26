@@ -86,23 +86,29 @@ conn.close()
 "
 ```
 
-## New Dashboard API Endpoints (Cloudflare Pages Functions)
-- `/api/n8n-leads?collection=prospects&limit=500` — fetches prospects (public read)
-- `/api/n8n-leads?collection=leads&limit=500` — fetches leads (needs PB admin auth)
-- `/api/n8n-data?resource=workflows-all&limit=50` — fetches n8n workflows
-- `/api/n8n-data?resource=executions&limit=100` — fetches n8n executions
+## Security
 
-### Required Env Vars (must be set in Cloudflare Pages dashboard)
-| Variable | Default | Used By |
+### API Endpoints — All protected behind `x-api-key` header check
+- `/api/n8n-leads?collection=prospects` — prospects (PocketBase public read)
+- `/api/n8n-leads?collection=leads` — website audit leads (PB admin auth)
+- `/api/n8n-data?resource=workflows-all` — n8n workflows
+- `/api/n8n-data?resource=executions` — n8n executions
+
+The dashboard sends the PIN (`9690`) as `x-api-key` header. Set a stronger `DASHBOARD_API_KEY` env var in Cloudflare Pages dashboard for real security.
+
+### Required Env Vars (set in Cloudflare Pages dashboard, not wrangler.toml)
+| Variable | Default | Purpose |
 |---|---|---|
-| `PB_URL` | `https://pb.rexbunnyservices.online` | n8n-leads.ts (leads auth) |
+| `DASHBOARD_API_KEY` | `9690` (falls back to PIN) | Shared secret for all dashboard API endpoints |
+| `PB_URL` | `https://pb.rexbunnyservices.online` | n8n-leads.ts |
 | `PB_EMAIL` | `admin@rexbunnyservices.com` | n8n-leads.ts |
 | `PB_PASSWORD` | `Admin12345!` | n8n-leads.ts |
 | `N8N_URL` | `https://n8n.rexbunnyservices.online` | n8n-data.ts |
 | `N8N_EMAIL` | `help@rexbunnyservices.com` | n8n-data.ts |
 | `N8N_PASSWORD` | `Admin12345!` | n8n-data.ts |
+| `MAILEROO_API_KEY` | (hardcoded fallback) | audit.ts email sending |
 
-n8n auth cookie is cached in `FORMS` KV (10min TTL) — function re-logs in automatically if expired.
+n8n auth cookie cached in `FORMS` KV (10min TTL). Never commit secrets to `wrangler.toml`.
 
 ## Known Fixes (Jul 26)
 - n8n admin password hash was corrupted during DB recovery (bcrypt `$` chars mangled by shell). **Fix**: Use Python script (not inline `-c`) to generate bcrypt hash: `import bcrypt; bcrypt.hashpw(b"Admin12345!", bcrypt.gensalt())`
@@ -112,6 +118,5 @@ n8n auth cookie is cached in `FORMS` KV (10min TTL) — function re-logs in auto
 - **Endpoint**: `/api/audit` (Cloudflare Pages Function)
 - **Email Service**: Maileroo HTTP API (`https://smtp.maileroo.com/api/v2/emails`)
 - **From**: `growth@rexbunnyservices.online` (verified domain in Maileroo)
-- **API Key**: `MAILEROO_API_KEY` in `wrangler.toml` (value: `bcf73bf9481105aa6ef5aaa1`)
+- **API Key**: `MAILEROO_API_KEY` — set as secret in Cloudflare Pages dashboard (NOT in wrangler.toml; hardcoded fallback in audit.ts if unset)
 - **Trigger**: After audit completes, results stored to KV, then HTML email sent via Maileroo
-- **To deploy**: Set `MAILEROO_API_KEY` secret in Cloudflare Pages dashboard under Settings > Environment Variables

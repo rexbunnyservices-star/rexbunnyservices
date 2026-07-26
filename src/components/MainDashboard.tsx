@@ -204,12 +204,13 @@ export default function MainDashboard() {
   async function loadAll() {
     setLoading(true);
     setError("");
+    const headers = { "x-api-key": PIN };
     try {
       const [leadsRes, pbRes, wfRes, execRes] = await Promise.allSettled([
-        fetch("/api/n8n-leads?collection=leads&limit=500"),
-        fetch("/api/n8n-leads?collection=prospects&limit=500"),
-        fetch("/api/n8n-data?resource=workflows-all&limit=50"),
-        fetch("/api/n8n-data?resource=executions&limit=100"),
+        fetch("/api/n8n-leads?collection=leads&limit=500", { headers }),
+        fetch("/api/n8n-leads?collection=prospects&limit=500", { headers }),
+        fetch("/api/n8n-data?resource=workflows-all&limit=50", { headers }),
+        fetch("/api/n8n-data?resource=executions&limit=100", { headers }),
       ]);
 
       if (leadsRes.status === "fulfilled" && leadsRes.value.ok) {

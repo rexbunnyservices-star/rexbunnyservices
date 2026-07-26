@@ -1,5 +1,6 @@
 interface Env {
   FORMS: KVNamespace;
+  DASHBOARD_API_KEY?: string;
   N8N_URL?: string;
   N8N_EMAIL?: string;
   N8N_PASSWORD?: string;
@@ -10,6 +11,13 @@ function response(data: unknown, status = 200) {
     status,
     headers: { "Content-Type": "application/json" },
   });
+}
+
+function checkAuth(request: Request, env: Env) {
+  const key = env.DASHBOARD_API_KEY || "9690";
+  if (request.headers.get("x-api-key") !== key) {
+    return response({ error: "Unauthorized" }, 401);
+  }
 }
 
 async function getN8nCookie(baseUrl: string, email: string, password: string) {
@@ -34,6 +42,9 @@ async function fetchFromN8n(baseUrl: string, cookie: string, path: string) {
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
+  const authFail = checkAuth(context.request, context.env);
+  if (authFail) return authFail;
+
   try {
     const url = new URL(context.request.url);
     const resource = url.searchParams.get("resource") || "workflows-all";

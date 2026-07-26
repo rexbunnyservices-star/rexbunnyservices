@@ -1,4 +1,5 @@
 interface Env {
+  DASHBOARD_API_KEY?: string;
   PB_URL?: string;
   PB_EMAIL?: string;
   PB_PASSWORD?: string;
@@ -12,6 +13,13 @@ function response(data: unknown, status = 200) {
     status,
     headers: { "Content-Type": "application/json" },
   });
+}
+
+function checkAuth(request: Request, env: Env) {
+  const key = env.DASHBOARD_API_KEY || "9690";
+  if (request.headers.get("x-api-key") !== key) {
+    return response({ error: "Unauthorized" }, 401);
+  }
 }
 
 async function pbLogin(baseUrl: string, email: string, password: string) {
@@ -35,6 +43,9 @@ async function fetchFromCollection(baseUrl: string, token: string, collection: s
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
+  const authFail = checkAuth(context.request, context.env);
+  if (authFail) return authFail;
+
   try {
     const url = new URL(context.request.url);
     const collection = url.searchParams.get("collection") || "prospects";
@@ -42,16 +53,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     const pbUrl = context.env.PB_URL || "https://pb.rexbunnyservices.online";
 
-    if (collection === "prospects") {
-      const data = await fetchFromCollection(pbUrl, "", "prospects", limit);
-      return response({ items: data.items || [] });
-    }
+    const email = context.env.PB_EMAIL || "admin@rexbunnyservices.com";
+    const password = context.env.PB_PASSWORD || "Admin12345!";
+    const token = await pbLogin(pbUrl, email, password);
 
-    if (collection === "leads") {
-      const email = context.env.PB_EMAIL || "admin@rexbunnyservices.com";
-      const password = context.env.PB_PASSWORD || "Admin12345!";
-      const token = await pbLogin(pbUrl, email, password);
-      const data = await fetchFromCollection(pbUrl, token, "leads", limit);
+    if (collection === "prospects" || collection === "leads") {
+      const data = await fetchFromCollection(pbUrl, token, collection, limit);
       return response({ items: data.items || [] });
     }
 
