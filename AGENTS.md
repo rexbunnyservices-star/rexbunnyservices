@@ -18,9 +18,10 @@
 | n8n | `http://localhost:5678` | help@rexbunnyservices.com / Admin12345! |
 | PocketBase | `http://localhost:8090/_/` | — |
 | Listmonk | `http://localhost:9000` | listmonk / listmonk |
-| Titan SMTP | smtp.titan.email:465 | help@rexbunnyservices.online / Charming@786 |
+| Titan SMTP/IMAP | smtp.titan.email:465 / imap.secureserver.net:993 | help@rexbunnyservices.online / Rexbunny@786 |
 | OpenAI API | — | sk-proj-... (in n8n credentials) |
-| **Maileroo (Audit Emails)** | `https://smtp.maileroo.com/api/v2` | **API Key: `bcf73bf9481105aa6ef5aaa1`** (set in `wrangler.toml` as `MAILEROO_API_KEY`) |
+| **Maileroo API** | `https://smtp.maileroo.com/api/v2` | **Key: `bcf73bf9481105aa6ef5aaa1`** (`.env` as `MAILEROO_API_KEY`) |
+| Maileroo SMTP | smtp.maileroo.com:465 | growth@rexbunnyservices.online / bcf73bf9481105aa6ef5aaa1 |
 
 ## Webhook Endpoints
 | Workflow | Endpoint | Method | Status |
@@ -29,6 +30,14 @@
 | 02 — AI Enrich | Daily Schedule Trigger | — | ✅ Auto-runs |
 | 03 — Email Outreach | `/webhook/start-outreach` | POST | ✅ Working |
 | 04 — Nurture Sequence | Weekly Schedule Trigger | — | ✅ Auto-runs |
+
+## lf03 — Email Sender Split (Jul 29)
+- **SEO prospects** (`prospectType === 'seo'`) → **Maileroo API** → `growth@rexbunnyservices.online`
+- **Web-dev prospects** (`prospectType === 'web-dev'`) → **Titan SMTP** → `help@rexbunnyservices.online`
+- 2 Switch nodes route by prospectType: `Which Provider?` (initial send), `Follow-up Provider?` (follow-ups)
+- 2 Code nodes (`Send via Maileroo` / `Send Follow-up via Maileroo`) using `require('https')` to POST to `https://smtp.maileroo.com/api/v2/emails`
+- Maileroo API key from `.env` (`MAILEROO_API_KEY=bcf73bf...`)
+- Stale connection `Wait 1 minute` → `Wait 3 Days` fixed in DB
 
 ## External URLs (via Cloudflare tunnel)
 - `https://n8n.rexbunnyservices.online`
@@ -120,3 +129,23 @@ n8n auth cookie cached in `FORMS` KV (10min TTL). Never commit secrets to `wrang
 - **From**: `growth@rexbunnyservices.online` (verified domain in Maileroo)
 - **API Key**: `MAILEROO_API_KEY` — set as secret in Cloudflare Pages dashboard (NOT in wrangler.toml; hardcoded fallback in audit.ts if unset)
 - **Trigger**: After audit completes, results stored to KV, then HTML email sent via Maileroo
+
+## Animations (Jul 29)
+- **No custom CSS** — all animations via Tailwind config keyframes + vanilla JS scripts
+- **9 keyframe animations** in `tailwind.config.mjs`: fade-up, fade-down, fade-in, scale-in, blur-in, shimmer, float, gradient-shift, glow-border
+- **3 script files** in `src/scripts/`:
+  - `scrollReveal.ts` — IntersectionObserver adds `animate-*` classes on scroll, number counter (cubic easing), scroll progress bar
+  - `interactions.ts` — 3D tilt (`[data-tilt]`), magnetic buttons (`[data-magnetic]`), cursor glow in hero
+  - `smoothScroll.ts` — smooth anchor scrolling
+- **Attributes**: `data-reveal="fade-up|scale-in|blur-in"`, `data-delay="ms"`, `data-tilt`, `data-magnetic`
+- **Imported** in `BaseLayout.astro` via `<script>` tags
+- **`opacity-0`** applied alongside `data-reveal` for initial hidden state
+- **`prefers-reduced-motion`** respected in all scripts
+- **GPU-accelerated** properties only (`transform`, `opacity`)
+- Pages animated: `index.astro` (hero, metrics, services, testimonials, logos, case studies, blog, audit, process, FAQ, final CTA), `pilot.astro`, `partners.astro`
+
+## Deployment
+- **Build**: `npx astro build`
+- **Deploy**: `npx wrangler pages deploy dist --project-name=rex-bunny-services`
+- **Production**: at `https://d2ccb4d8.rex-bunny-services.pages.dev` (updates on PR merge)
+- **Preview**: each deploy gets unique hash (e.g., `https://3b794e99.rex-bunny-services.pages.dev`)

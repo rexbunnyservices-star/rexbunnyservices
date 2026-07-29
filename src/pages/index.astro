@@ -107,36 +107,38 @@ const services = [
   })} />
 
   <!-- Hero -->
-  <section class="relative overflow-hidden pt-24">
+  <section data-cursor-glow class="relative overflow-hidden pt-24">
     <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-50/50" />
     <div class="absolute inset-0 bg-brand-glow" />
     <div class="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <div class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
+        <div data-reveal="fade-down" class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 opacity-0">
           AI Search &amp; Marketing Agency
         </div>
-        <h1 class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl">
+        <h1 data-reveal="scale-in" class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0">
           The Marketing Agency That Makes You{" "}
-          <span class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent">
+          <span class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
             Visible in Every Search
           </span>
         </h1>
-        <p class="mb-4 text-lg text-gray-600 sm:text-xl">
+        <p data-reveal="fade-up" data-delay="150" class="mb-4 text-lg text-gray-600 sm:text-xl opacity-0">
           SEO. GEO. AEO. We cover every way your customers search — Google, ChatGPT, Siri, Alexa, Gemini, and Perplexity.
         </p>
-        <p class="mb-10 text-base text-gray-400">
+        <p data-reveal="fade-up" data-delay="250" class="mb-10 text-base text-gray-400 opacity-0">
           We engineer your brand into traditional search, AI citations, and direct answer engines — so you're found everywhere your customers are looking.
         </p>
-        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <div data-reveal="fade-up" data-delay="350" class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center opacity-0">
           <a
             href="/lead-engine"
-            class="rounded-xl bg-gradient-to-r from-brand-500 to-rex-orange px-8 py-4 text-base font-semibold text-white shadow-xl shadow-brand-500/30 transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5"
+            data-magnetic
+            class="relative overflow-hidden rounded-xl bg-gradient-to-r from-brand-500 to-rex-orange px-8 py-4 text-base font-semibold text-white shadow-xl shadow-brand-500/30 transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5"
           >
-            Run Your Free AI Visibility Audit →
+            <span class="absolute inset-0 bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+            <span class="relative">Run Your Free AI Visibility Audit →</span>
           </a>
-          <CalEmbed buttonText="Book a Strategy Call" client:load />
+          <span data-magnetic><CalEmbed buttonText="Book a Strategy Call" client:load /></span>
         </div>
-        <div class="mt-10 flex items-center justify-center gap-6 text-sm text-gray-400">
+        <div data-reveal="fade-up" data-delay="450" class="mt-10 flex items-center justify-center gap-6 text-sm text-gray-400 opacity-0">
           <span class="flex items-center gap-1.5">
             <svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             No credit card
@@ -157,14 +159,14 @@ const services = [
   <!-- Branded Metrics Bar -->
   <section class="relative border-y border-brand-200/50 bg-gradient-to-r from-brand-50 via-white to-brand-50 py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-6 text-center text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+      <div data-reveal="fade-up" class="mb-6 text-center text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         A Marketing Agency Built for the AI Era
       </div>
       <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
-        <MetricCard value="0.3s" label="Avg LCP" description="Largest Contentful Paint" />
-        <MetricCard value="98" label="Lighthouse" description="Performance Score" />
-        <MetricCard value="100%" label="Schema Score" description="Structured Data Depth" />
-        <MetricCard value="4-8 wk" label="to AI Cite" description="First LLM Citation" />
+        <MetricCard value="0.3s" label="Avg LCP" description="Largest Contentful Paint" index={0} />
+        <MetricCard value="98" label="Lighthouse" description="Performance Score" index={1} />
+        <MetricCard value="100%" label="Schema Score" description="Structured Data Depth" index={2} />
+        <MetricCard value="4-8 wk" label="to AI Cite" description="First LLM Citation" index={3} />
       </div>
     </div>
   </section>
@@ -172,17 +174,20 @@ const services = [
   <!-- Five Service Pillars -->
   <section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+      <div data-reveal="fade-up" class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         What We Do
       </div>
-      <h2 class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark">Five Ways We Make You Visible</h2>
-      <p class="mb-14 text-center text-gray-500">Every channel your customers search — we make sure you're there.</p>
+      <h2 data-reveal="fade-up" data-delay="100" class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0">Five Ways We Make You Visible</h2>
+      <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">Every channel your customers search — we make sure you're there.</p>
       <div class="grid gap-5 md:grid-cols-5">
-        {services.map((s) => (
+        {services.map((s, i) => (
           <a
             href={s.href}
-            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden"
+            data-reveal="fade-up"
+            data-delay={300 + i * 100}
+            data-tilt
+            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 overflow-hidden opacity-0"
           >
             <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${s.accentBg}`} />
             <div class="relative">
@@ -214,12 +219,12 @@ const services = [
   <!-- Social Proof: Testimonials -->
   <section class="border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+      <div data-reveal="fade-up" class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
         Testimonials
       </div>
-      <h2 class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark">Results That Speak</h2>
-      <p class="mb-14 text-center text-gray-500">Real outcomes from real clients.</p>
+      <h2 data-reveal="fade-up" data-delay="100" class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0">Results That Speak</h2>
+      <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">Real outcomes from real clients.</p>
       <div class="grid gap-6 md:grid-cols-3">
         {
           [
@@ -241,8 +246,8 @@ const services = [
               role: "CEO, Nordic Home Co.",
               metric: "23 AI citations/mo",
             },
-          ].map((t) => (
-            <div class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+          ].map((t, i) => (
+            <div data-reveal="blur-in" data-delay={i * 150} class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0">
               <div class="mb-4 flex items-center gap-1.5">
                 {[...Array(5)].map(() => (
                   <svg class="h-4 w-4 text-rex-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -269,12 +274,12 @@ const services = [
   <!-- Client Logos Bar -->
   <section class="py-14">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p class="mb-8 text-center text-sm font-semibold uppercase tracking-[2px] text-gray-400">
+      <p data-reveal="fade-in" class="mb-8 text-center text-sm font-semibold uppercase tracking-[2px] text-gray-400 opacity-0">
         Trusted by forward-thinking brands
       </p>
-      <div class="flex flex-wrap items-center justify-center gap-6 opacity-60">
+      <div data-reveal="fade-in" data-delay="200" class="flex flex-wrap items-center justify-center gap-6 opacity-0">
         {["CloudMetrics", "BrightSmile Dental", "Nordic Home Co.", "TechVault", "ScaleUp Labs"].map((name) => (
-          <div class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-500 transition-all hover:shadow-md hover:border-gray-300">
+          <div class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-500 transition-all hover:shadow-md hover:border-gray-300 hover:opacity-100 opacity-60">
             {name}
           </div>
         ))}
@@ -287,12 +292,12 @@ const services = [
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-end justify-between">
         <div>
-          <div class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+          <div data-reveal="fade-up" class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             Case Studies
           </div>
-          <h2 class="font-display text-4xl font-extrabold text-rex-dark">Proven Results</h2>
-          <p class="text-gray-500">Real outcomes from real clients. Every metric verified.</p>
+          <h2 data-reveal="fade-up" data-delay="100" class="font-display text-4xl font-extrabold text-rex-dark opacity-0">Proven Results</h2>
+          <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">Real outcomes from real clients. Every metric verified.</p>
         </div>
         <a href="/portfolio" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">
           View All Case Studies →
@@ -340,10 +345,13 @@ const services = [
               color: "text-rex-violet",
               slug: "ecommerce-ai-visibility",
             },
-          ].map((cs) => (
+          ].map((cs, i) => (
             <a
               href={`/portfolio/${cs.slug}`}
-              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              data-reveal="fade-up"
+              data-delay={i * 120}
+              data-tilt
+              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0"
             >
               <div class={`mb-3 text-xs font-extrabold uppercase tracking-wider ${cs.color}`}>
                 {cs.service}
@@ -377,12 +385,12 @@ const services = [
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-end justify-between">
         <div>
-          <div class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+          <div data-reveal="fade-up" class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
             Blog
           </div>
-          <h2 class="font-display text-4xl font-extrabold text-rex-dark">From the Blog</h2>
-          <p class="text-gray-500">GEO strategies, SEO tactics, and web performance guides.</p>
+          <h2 data-reveal="fade-up" data-delay="100" class="font-display text-4xl font-extrabold text-rex-dark opacity-0">From the Blog</h2>
+          <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">GEO strategies, SEO tactics, and web performance guides.</p>
         </div>
         <a href="/blog" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">
           View All Posts →
@@ -412,10 +420,12 @@ const services = [
               tags: ["Technical", "AI Search"],
               slug: "llms-txt-explained",
             },
-          ].map((post) => (
+          ].map((post, i) => (
             <a
               href={`/blog/${post.slug}`}
-              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              data-reveal="fade-up"
+              data-delay={i * 120}
+              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0"
             >
               <div class="mb-2 flex items-center gap-2 text-xs text-gray-400">
                 <span class="flex h-1.5 w-1.5 rounded-full bg-brand-400" />
@@ -443,7 +453,7 @@ const services = [
   </section>
 
   <!-- Lead Engine Embed -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-24" id="audit">
+  <section data-reveal="fade-up" class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-24 opacity-0" id="audit">
     <div class="absolute inset-0 bg-brand-glow" />
     <div class="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
       <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
@@ -464,12 +474,12 @@ const services = [
   <!-- Process -->
   <section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+      <div data-reveal="fade-up" class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         Process
       </div>
-      <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">The RexBunny Marketing Blueprint</h2>
-      <p class="mb-14 text-center text-gray-500">A proven 4-step methodology to dominate every search channel.</p>
+      <h2 data-reveal="fade-up" data-delay="100" class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0">The RexBunny Marketing Blueprint</h2>
+      <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">A proven 4-step methodology to dominate every search channel.</p>
       <div class="grid gap-6 md:grid-cols-4">
         {[
           { step: "01", title: "Audit", desc: "Full diagnostic — SEO health, AI crawlability, entity presence, answer extraction potential." },
@@ -477,7 +487,7 @@ const services = [
           { step: "03", title: "Implement", desc: "Execute the strategy — technical SEO, entity engineering, answer optimization, or performance rebuild." },
           { step: "04", title: "Monitor", desc: "Track rankings, AI citations, and answer placement weekly. Adapt to algorithm and model updates." },
         ].map((item, i) => (
-          <div class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+          <div data-reveal="scale-in" data-delay={i * 150} class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0">
             <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-rex-orange text-lg font-extrabold text-white shadow-lg">
               {item.step}
             </div>
@@ -490,7 +500,7 @@ const services = [
   </section>
 
   <!-- FAQ -->
-  <section class="border-t border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
+  <section data-reveal="fade-up" class="border-t border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24 opacity-0">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
       <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -506,9 +516,9 @@ const services = [
   </section>
 
   <!-- Final CTA -->
-  <section class="relative overflow-hidden py-24">
+  <section data-reveal="scale-in" class="relative overflow-hidden py-24 opacity-0">
     <div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-rex-dark to-brand-950" />
-    <div class="absolute inset-0 bg-brand-glow opacity-20" />
+    <div class="absolute inset-0 bg-brand-glow opacity-20 animate-ping-slow" />
     <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
       <div class="mb-4 inline-flex items-center rounded-full border border-brand-700/50 bg-brand-800/30 px-4 py-1.5 text-sm font-medium text-brand-300">
         Start Your Journey
@@ -519,9 +529,11 @@ const services = [
       <p class="mb-10 text-lg text-brand-200/80">Run your free audit. See your visibility across SEO, AI citations, and direct answers.</p>
       <a
         href="/lead-engine"
-        class="inline-block rounded-xl bg-gradient-to-r from-brand-400 to-rex-orange px-10 py-4 text-lg font-bold text-white shadow-2xl shadow-brand-500/40 transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:-translate-y-0.5"
+        data-magnetic
+        class="relative inline-block overflow-hidden rounded-xl bg-gradient-to-r from-brand-400 to-rex-orange px-10 py-4 text-lg font-bold text-white shadow-2xl shadow-brand-500/40 transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:-translate-y-0.5"
       >
-        Run Your Free Visibility Audit →
+        <span class="absolute inset-0 bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+        <span class="relative">Run Your Free Visibility Audit →</span>
       </a>
     </div>
   </section>

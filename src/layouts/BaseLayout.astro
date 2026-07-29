@@ -217,11 +217,25 @@ const breadcrumbItems = breadcrumbs
     })} />
   </head>
   <body class="bg-white text-gray-900 antialiased">
+    <div
+      id="scroll-progress"
+      class="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-400 via-rex-orange to-rex-gold z-[200] origin-left scale-x-0"
+    />
     <Navigation />
     <main>
       <slot />
     </main>
     <Footer />
     <ExitPopup />
+
+    <script>
+      import "../scripts/smoothScroll.ts";
+    </script>
+    <script>
+      import "../scripts/scrollReveal.ts";
+    </script>
+    <script>
+      import "../scripts/interactions.ts";
+    </script>
   </body>
 </html>

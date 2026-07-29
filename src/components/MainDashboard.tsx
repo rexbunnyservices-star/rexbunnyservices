@@ -40,6 +40,9 @@ interface Prospect {
   emailSubject: string;
   campaignStatus: string;
   followUpCount: number;
+  prospectType?: string;
+  webDevScore?: number;
+  webDevRecommendation?: string;
   created: string;
   updated: string;
 }
@@ -88,6 +91,7 @@ const prospectStatusColors: Record<string, string> = {
   replied: "bg-emerald-600/20 text-emerald-400",
   booked: "bg-brand-600/20 text-brand-400",
   unsubscribed: "bg-red-600/20 text-red-400",
+  web_dev_qualified: "bg-orange-600/20 text-orange-400",
 };
 
 function StatusBadge({ status, colors }: { status: string; colors: Record<string, string> }) {
@@ -250,14 +254,16 @@ export default function MainDashboard() {
   });
 
   const filteredProspects = prospects.filter((p) => {
-    if (prospectFilter !== "all" && p.status !== prospectFilter) return false;
+    if (prospectFilter === "web-dev" && p.prospectType !== "web-dev") return false;
+    if (prospectFilter !== "all" && prospectFilter !== "web-dev" && p.status !== prospectFilter) return false;
     if (search) {
       const q = search.toLowerCase();
       return (
         (p.name || "").toLowerCase().includes(q) ||
         (p.businessType || "").toLowerCase().includes(q) ||
         (p.address || "").toLowerCase().includes(q) ||
-        (p.website || "").toLowerCase().includes(q)
+        (p.website || "").toLowerCase().includes(q) ||
+        (p.prospectType || "").toLowerCase().includes(q)
       );
     }
     return true;
@@ -302,6 +308,13 @@ export default function MainDashboard() {
     contacted: prospects.filter((p) => p.status === "contacted").length,
     replied: prospects.filter((p) => p.status === "replied" || p.status === "responded").length,
     converted: prospects.filter((p) => p.status === "converted").length,
+    webDevTotal: prospects.filter((p) => p.prospectType === "web-dev").length,
+    webDevQualified: prospects.filter((p) => p.status === "web_dev_qualified").length,
+    webDevAvgScore: (() => {
+      const scored = prospects.filter((p) => p.prospectType === "web-dev" && p.webDevScore != null);
+      return scored.length ? Math.round(scored.reduce((s, p) => s + (p.webDevScore || 0), 0) / scored.length) : 0;
+    })(),
+    webDevStrong: prospects.filter((p) => p.prospectType === "web-dev" && p.webDevRecommendation === "strongly needed").length,
   };
 
   if (!authed) return <PinGate onUnlock={() => setAuthed(true)} />;
@@ -362,7 +375,7 @@ export default function MainDashboard() {
               if (tab === "leads") {
                 exportCSV(filteredLeads.map((l) => ({ name: l.name, email: l.email, website: l.website, score: l.score, status: l.status, source: l.source, serviceInterest: l.serviceInterest, created: l.created })), `website-leads-${new Date().toISOString().slice(0, 10)}.csv`);
               } else if (tab === "prospects") {
-                exportCSV(filteredProspects.map((p) => ({ name: p.name, businessType: p.businessType, address: p.address, website: p.website, phoneNumber: p.phoneNumber, rating: p.rating, aiScore: p.aiScore, niche: p.niche, status: p.status, source: p.source, searchQuery: p.searchQuery, created: p.created })), `prospects-${new Date().toISOString().slice(0, 10)}.csv`);
+                exportCSV(filteredProspects.map((p) => ({ name: p.name, businessType: p.businessType, address: p.address, website: p.website, phoneNumber: p.phoneNumber, rating: p.rating, aiScore: p.aiScore, prospectType: p.prospectType || "—", webDevScore: p.webDevScore != null ? p.webDevScore : "—", webDevRecommendation: p.webDevRecommendation || "—", niche: p.niche, status: p.status, source: p.source, searchQuery: p.searchQuery, created: p.created })), `prospects-${new Date().toISOString().slice(0, 10)}.csv`);
               } else if (tab === "workflows") {
                 exportCSV(workflows.map((w) => ({ name: w.name, active: w.active, id: w.id, createdAt: w.createdAt, updatedAt: w.updatedAt })), `workflows-${new Date().toISOString().slice(0, 10)}.csv`);
               } else if (tab === "executions") {
@@ -391,6 +404,22 @@ export default function MainDashboard() {
             <MetricCard value={leadStats.total} label="Total Leads" color="text-purple-400" />
             <MetricCard value={prospectStats.total} label="Total Prospects" color="text-cyan-400" />
           </div>
+
+          {/* Web Dev Quick Stats */}
+          {prospectStats.webDevTotal > 0 && (
+            <div class="rounded-xl border border-orange-700/30 bg-orange-900/10 p-4">
+              <h3 class="mb-3 flex items-center gap-2 text-sm font-semibold text-orange-400">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                Web Dev Pipeline
+              </h3>
+              <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+                <MetricCard value={prospectStats.webDevTotal} label="No-Website Prospects" color="text-orange-400" />
+                <MetricCard value={prospectStats.webDevQualified} label="Ready to Contact" color="text-green-400" />
+                <MetricCard value={prospectStats.webDevStrong} label="Strongly Need Site" color="text-red-400" />
+                <MetricCard value={prospectStats.webDevAvgScore} label="Avg Web Dev Score" color="text-cyan-400" />
+              </div>
+            </div>
+          )}
 
           {/* Quick Workflow List */}
           <div class="rounded-xl border border-gray-200 bg-white p-4">
@@ -664,8 +693,20 @@ export default function MainDashboard() {
             <MetricCard value={prospectStats.replied} label="Replied" color="text-emerald-400" />
           </div>
 
+          {/* Web Dev Prospects Row */}
+          <div class="rounded-xl border border-orange-700/30 bg-orange-900/10 p-4">
+            <h3 class="mb-3 text-sm font-semibold text-orange-400">Web Dev Prospects (no website)</h3>
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-5">
+              <MetricCard value={prospectStats.webDevTotal} label="Total Web Dev" color="text-orange-400" />
+              <MetricCard value={prospectStats.webDevQualified} label="Qualified (score ≥ 5)" color="text-green-400" />
+              <MetricCard value={prospectStats.webDevAvgScore} label="Avg Score (0-12)" color="text-cyan-400" />
+              <MetricCard value={prospectStats.webDevStrong} label="Strongly Needed" color="text-red-400" />
+              <MetricCard value={prospectStats.webDevTotal > 0 ? `${Math.round(prospectStats.webDevQualified / prospectStats.webDevTotal * 100)}%` : "—"} label="Qualified Rate" color="text-brand-400" />
+            </div>
+          </div>
+
           <div class="flex flex-wrap gap-2">
-            {["all", "discovered", "enriched", "qualified", "low_priority", "contacted", "replied", "converted"].map((f) => (
+            {["all", "discovered", "enriched", "qualified", "low_priority", "web_dev_qualified", "contacted", "replied", "converted"].map((f) => (
               <button
                 key={f}
                 onClick={() => setProspectFilter(f)}
@@ -676,6 +717,15 @@ export default function MainDashboard() {
                 {f === "all" ? `All (${prospectStats.total})` : f.replace(/_/g, " ")}
               </button>
             ))}
+            <span class="mx-1 self-center text-xs text-gray-400">|</span>
+            <button
+              onClick={() => setProspectFilter(f => f === "web-dev" ? "all" : "web-dev")}
+              class={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                prospectFilter === "web-dev" ? "bg-orange-600 text-white" : "border border-orange-700/50 text-orange-500 hover:text-orange-400"
+              }`}
+            >
+              {prospectFilter === "web-dev" ? "All" : `Web Dev (${prospectStats.webDevTotal})`}
+            </button>
           </div>
 
           <div class="rounded-xl border border-gray-200 bg-white">
@@ -686,55 +736,86 @@ export default function MainDashboard() {
               </div>
             ) : (
               <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                  <thead>
-                    <tr class="border-b border-gray-200 text-xs uppercase text-gray-500">
-                      <th class="px-4 py-3">Name</th>
-                      <th class="px-4 py-3">Type</th>
-                      <th class="px-4 py-3">Address</th>
-                      <th class="px-4 py-3">Rating</th>
-                      <th class="px-4 py-3">AI Score</th>
-                      <th class="px-4 py-3">Niche</th>
-                      <th class="px-4 py-3">Status</th>
-                      <th class="px-4 py-3">Website</th>
-                      <th class="px-4 py-3">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-gray-200">
-                    {filteredProspects.map((p) => (
-                      <tr key={p.id} class="hover:bg-gray-100">
-                        <td class="px-4 py-3 font-medium text-gray-700">{p.name || "—"}</td>
-                        <td class="px-4 py-3 text-gray-600">{p.businessType || "—"}</td>
-                        <td class="px-4 py-3 max-w-[200px] truncate text-gray-600" title={p.address}>{p.address || "—"}</td>
-                        <td class="px-4 py-3">
-                          {p.rating ? (
-                            <span class={`font-bold ${p.rating >= 4 ? "text-green-400" : p.rating >= 3 ? "text-yellow-400" : "text-red-400"}`}>{p.rating} ★</span>
-                          ) : <span class="text-gray-400">—</span>}
-                        </td>
-                        <td class="px-4 py-3">
-                          {p.aiScore ? (
-                            <span class={`font-bold ${p.aiScore >= 70 ? "text-green-400" : p.aiScore >= 50 ? "text-yellow-400" : "text-red-400"}`}>{p.aiScore}</span>
-                          ) : <span class="text-gray-400">—</span>}
-                        </td>
-                        <td class="px-4 py-3 text-gray-600">{p.niche || "—"}</td>
-                        <td class="px-4 py-3"><StatusBadge status={p.status} colors={prospectStatusColors} /></td>
-                        <td class="px-4 py-3">
-                          {p.website ? (
-                            <a
-                              href={p.website.startsWith("http") ? p.website : `https://${p.website}`}
-                              target="_blank" rel="noopener noreferrer" class="text-brand-400 hover:underline text-xs"
-                            >
-                              {(() => { try { return new URL(p.website.startsWith("http") ? p.website : `https://${p.website}`).hostname; } catch { return p.website; } })()}
-                            </a>
-                          ) : <span class="text-gray-400">—</span>}
-                        </td>
-                        <td class="px-4 py-3 text-xs text-gray-500">
-                          {p.created ? new Date(p.created).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "—"}
-                        </td>
+                  <table class="w-full text-left text-sm">
+                    <thead>
+                      <tr class="border-b border-gray-200 text-xs uppercase text-gray-500">
+                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3">Type</th>
+                        <th class="px-4 py-3">Address</th>
+                        <th class="px-4 py-3">Rating</th>
+                        <th class="px-4 py-3">AI Score</th>
+                        <th class="px-4 py-3">Web Dev</th>
+                        <th class="px-4 py-3">Score</th>
+                        <th class="px-4 py-3">Need</th>
+                        <th class="px-4 py-3">Niche</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Website</th>
+                        <th class="px-4 py-3">Date</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      {filteredProspects.map((p) => (
+                        <tr key={p.id} class="hover:bg-gray-100">
+                          <td class="px-4 py-3 font-medium text-gray-700">{p.name || "—"}</td>
+                          <td class="px-4 py-3 text-gray-600">{p.businessType || "—"}</td>
+                          <td class="px-4 py-3 max-w-[160px] truncate text-gray-600" title={p.address}>{p.address || "—"}</td>
+                          <td class="px-4 py-3">
+                            {p.rating ? (
+                              <span class={`font-bold ${p.rating >= 4 ? "text-green-400" : p.rating >= 3 ? "text-yellow-400" : "text-red-400"}`}>{p.rating} ★</span>
+                            ) : <span class="text-gray-400">—</span>}
+                          </td>
+                          <td class="px-4 py-3">
+                            {p.aiScore ? (
+                              <span class={`font-bold ${p.aiScore >= 70 ? "text-green-400" : p.aiScore >= 50 ? "text-yellow-400" : "text-red-400"}`}>{p.aiScore}</span>
+                            ) : <span class="text-gray-400">—</span>}
+                          </td>
+                          <td class="px-4 py-3">
+                            {p.prospectType === "web-dev" ? (
+                              <span class="inline-flex items-center gap-1 rounded-full bg-orange-600/20 px-2 py-0.5 text-xs font-medium text-orange-400">
+                                <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                Dev
+                              </span>
+                            ) : p.prospectType === "seo" ? (
+                              <span class="text-xs text-green-500">SEO</span>
+                            ) : <span class="text-gray-400">—</span>}
+                          </td>
+                          <td class="px-4 py-3">
+                            {p.webDevScore != null ? (
+                              <span class={`font-bold ${
+                                p.webDevScore >= 9 ? "text-red-400" :
+                                p.webDevScore >= 5 ? "text-yellow-400" :
+                                "text-gray-500"
+                              }`}>{p.webDevScore}/12</span>
+                            ) : <span class="text-gray-400">—</span>}
+                          </td>
+                          <td class="px-4 py-3">
+                            {p.webDevRecommendation ? (
+                              <span class={`text-xs font-medium ${
+                                p.webDevRecommendation === "strongly needed" ? "text-red-400" :
+                                p.webDevRecommendation === "would help" ? "text-yellow-400" :
+                                "text-gray-500"
+                              }`}>{p.webDevRecommendation}</span>
+                            ) : <span class="text-gray-400">—</span>}
+                          </td>
+                          <td class="px-4 py-3 text-gray-600">{p.niche || "—"}</td>
+                          <td class="px-4 py-3"><StatusBadge status={p.status} colors={prospectStatusColors} /></td>
+                          <td class="px-4 py-3">
+                            {p.website ? (
+                              <a
+                                href={p.website.startsWith("http") ? p.website : `https://${p.website}`}
+                                target="_blank" rel="noopener noreferrer" class="text-brand-400 hover:underline text-xs"
+                              >
+                                {(() => { try { return new URL(p.website.startsWith("http") ? p.website : `https://${p.website}`).hostname; } catch { return p.website; } })()}
+                              </a>
+                            ) : <span class="text-gray-400">—</span>}
+                          </td>
+                          <td class="px-4 py-3 text-xs text-gray-500">
+                            {p.created ? new Date(p.created).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "—"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
               </div>
             )}
           </div>

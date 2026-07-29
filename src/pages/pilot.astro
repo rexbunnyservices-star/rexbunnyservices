@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CalEmbed from "../components/CalEmbed.tsx";
+
+const pilotPlans = [
+  {
+    name: "SEO Quick Win",
+    price: "$500",
+    period: "per month",
+    tagline: "Single location audit + fixes",
+    features: [
+      "Technical SEO audit (40+ checks)",
+      "3 high-impact fixes implemented",
+      "Rank tracking setup (50 keywords)",
+      "Google Business Profile optimization",
+      "Weekly progress report",
+      "30-min strategy call",
+    ],
+    cta: "Book Pilot",
+    color: "brand",
+  },
+  {
+    name: "AI Visibility Sprint",
+    price: "$800",
+    period: "per month",
+    tagline: "Get cited in ChatGPT & Gemini",
+    popular: true,
+    features: [
+      "Full AI visibility audit",
+      "Entity schema (JSON-LD) setup",
+      "llms.txt & AI crawl config",
+      "5 AI-optimized content pieces",
+      "AI citation baseline report",
+      "Weekly progress report",
+    ],
+    cta: "Book Pilot",
+    color: "brand",
+  },
+  {
+    name: "Web Dev Tune-Up",
+    price: "$1,000",
+    period: "per month",
+    tagline: "Performance + schema overhaul",
+    features: [
+      "Full Lighthouse audit",
+      "Performance fixes (target LCP < 1.5s)",
+      "Schema markup rollout (all pages)",
+      "SEO-optimized structure",
+      "Contact forms & lead capture setup",
+      "1 month post-launch support",
+    ],
+    cta: "Book Pilot",
+    color: "brand",
+  },
+];
+
+const socialProof = [
+  { metric: "+312%", label: "Traffic increase", client: "BrightSmile Dental" },
+  { metric: "+96%", label: "Conversion lift", client: "CloudMetrics" },
+  { metric: "98", label: "Lighthouse Score", client: "SaaS Platform Rebuild" },
+];
+---
+
+<BaseLayout
+  title="Pilot Program — Try RexBunny Services Risk-Free"
+  description="One month pilot. One focus area. Real results or you don't pay. Start with SEO, AI visibility, or web performance — no contract required."
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <!-- Hero -->
+      <div class="mx-auto max-w-3xl text-center">
+        <div data-reveal="fade-down" class="mb-4 inline-block rounded-full bg-brand-600/10 px-4 py-1 text-sm font-semibold text-brand-600 opacity-0">
+          No Contract. Month-to-Month.
+        </div>
+        <h1 data-reveal="scale-in" class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl opacity-0">
+          Try RexBunny for <span class="text-brand-600">$500/mo</span>
+        </h1>
+        <p data-reveal="fade-up" data-delay="150" class="mb-8 text-lg text-gray-600 opacity-0">
+          One month. One focus area. Real results — or you don't pay.
+          Pick the pilot that fits your biggest gap right now.
+        </p>
+        <div data-reveal="fade-up" data-delay="250" class="flex flex-wrap justify-center gap-3 text-sm text-gray-500 opacity-0">
+          <span class="flex items-center gap-1">✓ No credit card required</span>
+          <span class="flex items-center gap-1">✓ Cancel anytime</span>
+          <span class="flex items-center gap-1">✓ Results guaranteed</span>
+        </div>
+      </div>
+
+      <!-- Pilot Plans -->
+      <div class="mx-auto mt-16 grid max-w-5xl gap-8 md:grid-cols-3">
+        {pilotPlans.map((plan, i) => (
+          <div
+            data-reveal="fade-up"
+            data-delay={i * 150}
+            class={`relative flex flex-col rounded-2xl border bg-white p-8 opacity-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${
+              plan.popular
+                ? "border-brand-500 shadow-lg shadow-brand-500/10 ring-1 ring-brand-500 hover:shadow-brand-500/20"
+                : "border-gray-200"
+            }`}
+          >
+            {plan.popular && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-4 py-0.5 text-xs font-semibold text-white">
+                Most Popular
+              </div>
+            )}
+            <div class="mb-6">
+              <h2 class="text-xl font-bold text-gray-900">{plan.name}</h2>
+              <p class="mt-1 text-sm text-gray-500">{plan.tagline}</p>
+            </div>
+            <div class="mb-6">
+              <span class="text-4xl font-extrabold text-gray-900">{plan.price}</span>
+              <span class="text-sm text-gray-400">/{plan.period}</span>
+            </div>
+            <ul class="mb-8 flex-1 space-y-3">
+              {plan.features.map((feat) => (
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <span class="mt-0.5 text-brand-500">✓</span>
+                  {feat}
+                </li>
+              ))}
+            </ul>
+            <CalEmbed
+              buttonText={plan.cta}
+              className={`w-full rounded-lg py-3 text-center text-sm font-semibold transition-colors ${
+                plan.popular
+                  ? "bg-brand-600 text-white hover:bg-brand-500"
+                  : "border border-gray-300 text-gray-700 hover:border-brand-500 hover:text-brand-600"
+              }`}
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- How It Works -->
+      <div class="mx-auto mt-24 max-w-4xl">
+        <h2 data-reveal="fade-up" class="mb-12 text-center text-2xl font-bold text-gray-900 opacity-0">How Our Pilots Work</h2>
+        <div class="grid gap-8 md:grid-cols-4">
+          {[
+            { step: "01", title: "15-min Discovery", desc: "Quick call to understand your biggest gap and match you to the right pilot." },
+            { step: "02", title: "We Audit", desc: "We run our full diagnostic — Lighthouse, AI visibility, schema, competitors — within 5 days." },
+            { step: "03", title: "We Fix", desc: "We implement 1-3 high-impact changes immediately. You see the difference in days." },
+            { step: "04", title: "You Decide", desc: "Happy? Roll into a full retainer. Not ready? Cancel — no questions, no charge." },
+          ].map((item, i) => (
+            <div data-reveal="scale-in" data-delay={i * 120} class="text-center opacity-0">
+              <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 text-lg font-bold text-brand-600 animate-float">
+                {item.step}
+              </div>
+              <h3 class="mb-2 font-bold text-gray-900">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Social Proof -->
+      <div data-reveal="fade-up" class="mx-auto mt-24 max-w-4xl rounded-2xl border border-gray-200 bg-gray-50 p-10 opacity-0">
+        <h2 class="mb-8 text-center text-xl font-bold text-gray-900">Results From Our Full Programs</h2>
+        <div class="grid gap-6 md:grid-cols-3">
+          {socialProof.map((item, i) => (
+            <div data-reveal="fade-up" data-delay={i * 120} class="rounded-xl bg-white p-6 text-center transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5 opacity-0">
+              <div class="text-3xl font-extrabold bg-gradient-to-r from-brand-500 to-rex-orange bg-clip-text text-transparent">{item.metric}</div>
+              <div class="mt-1 text-sm font-medium text-gray-900">{item.label}</div>
+              <div class="mt-0.5 text-xs text-gray-400">{item.client}</div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-8 text-center">
+          <a
+            href="/portfolio"
+            class="text-sm font-medium text-brand-600 hover:text-brand-500"
+          >
+            View full case studies →
+          </a>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="mx-auto mt-24 max-w-2xl">
+        <h2 class="mb-8 text-center text-xl font-bold text-gray-900">Questions?</h2>
+        <div class="space-y-4">
+          {[
+            { q: "What if I'm not happy with the results?", a: "You don't pay. We're confident in our work — if you don't see improvement after one month, the pilot is free." },
+            { q: "Can I upgrade to a full retainer?", a: "Yes. After the pilot month, we'll discuss your results and a full retainer plan. No pressure to commit." },
+            { q: "Do I need a contract?", a: "No. All our pilots are month-to-month. Cancel anytime with 7 days notice." },
+            { q: "Which pilot should I pick?", a: "Not sure? Book a free 15-min call and we'll recommend the right one based on your goals." },
+            { q: "Can I switch pilots mid-month?", a: "Yes. If the focus area isn't right, we'll pivot — no extra charge." },
+          ].map((faq) => (
+            <details class="group rounded-lg border border-gray-200 bg-white">
+              <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium text-gray-900">
+                {faq.q}
+                <svg class="h-4 w-4 text-gray-400 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="px-5 pb-4 text-sm text-gray-600">{faq.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- Final CTA -->
+      <div data-reveal="scale-in" class="mx-auto mt-24 max-w-lg text-center opacity-0">
+        <h2 class="mb-4 text-2xl font-bold text-gray-900">Still Not Sure?</h2>
+        <p class="mb-6 text-sm text-gray-500">
+          Run a free AI Visibility Audit first — see exactly where you stand across SEO, AI search, and direct answers.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <a
+            href="/lead-engine"
+            data-magnetic
+            class="rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:border-brand-500 hover:text-brand-600"
+          >
+            Run Free Audit
+          </a>
+          <span data-magnetic>
+            <CalEmbed
+              buttonText="Book a Free 15-min Call"
+              className="rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

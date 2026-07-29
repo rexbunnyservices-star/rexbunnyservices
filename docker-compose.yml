@@ -27,8 +27,10 @@ services:
       - N8N_PROXY_HOPS=1
       - WEBHOOK_URL=https://n8n.rexbunnyservices.online
       - POCKETBASE_URL=http://pocketbase:8090
+      - POCKETBASE_ADMIN_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJwYmNfMzE0MjYzNTgyMyIsImV4cCI6MTc4NTE4ODYxNywiaWQiOiJ5OHNsMW8zdnRlcXVra2siLCJyZWZyZXNoYWJsZSI6dHJ1ZSwidHlwZSI6ImF1dGgifQ.ADAQjLp5DvV6VKcKtviKAjZUJFh7s9GiM-4JuU-RgLI
       - LISTMONK_URL=http://listmonk:9000
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
     depends_on:
       - pocketbase
     restart: unless-stopped
@@ -141,6 +143,22 @@ services:
     networks:
       - rexnet
 
+  smm-service:
+    build:
+      context: ./social-media-manager
+      dockerfile: Dockerfile
+    ports:
+      - "3456:3456"
+    env_file:
+      - ./social-media-manager/.env
+    volumes:
+      - ./social-media-manager/data:/app/data
+    depends_on:
+      - pocketbase
+    restart: unless-stopped
+    networks:
+      - rexnet
+
   traefik:
     image: traefik:v3.0
     ports:
@@ -155,6 +173,7 @@ services:
       - listmonk
       - calcom
       - umami
+      - smm-service
     restart: unless-stopped
     networks:
       - rexnet
@@ -172,6 +191,7 @@ services:
       - listmonk
       - calcom
       - umami
+      - smm-service
     restart: unless-stopped
     networks:
       - rexnet

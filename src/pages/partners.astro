@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CalEmbed from "../components/CalEmbed.tsx";
+---
+
+<BaseLayout
+  title="Partner With RexBunny — White-Label SEO & AI Search"
+  description="White-label SEO, GEO, and AEO services for web dev agencies, freelancers, and marketing firms. Earn 20% lifetime commission. Zero work required."
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <!-- Hero -->
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 data-reveal="scale-in" class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl opacity-0">
+          Partner With <span class="text-brand-600">RexBunny</span>
+        </h1>
+        <p data-reveal="fade-up" data-delay="150" class="mb-6 text-lg text-gray-600 opacity-0">
+          Your clients get SEO, GEO, and AI search services — under <strong>your brand</strong>.
+          You earn 20% recurring commission. We do the work.
+        </p>
+        <div data-reveal="fade-up" data-delay="250" class="opacity-0">
+          <CalEmbed
+            buttonText="Become a Partner"
+            className="inline-block rounded-lg bg-brand-600 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+          />
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div class="mx-auto mt-20 max-w-4xl">
+        <h2 data-reveal="fade-up" class="mb-10 text-center text-2xl font-bold text-gray-900 opacity-0">How It Works</h2>
+        <div class="grid gap-8 md:grid-cols-3">
+          {[
+            { step: "1", title: "Refer a Client", desc: "Send us a client who needs SEO, GEO, or web performance work. One email is all it takes." },
+            { step: "2", title: "We Do Everything", desc: "We audit, implement, report — all white-label under your brand. Your client never knows we exist." },
+            { step: "3", title: "You Get Paid", desc: "20% of everything that client pays — for the lifetime of the account. Monthly, recurring." },
+          ].map((item, i) => (
+            <div data-reveal="scale-in" data-delay={i * 150} class="rounded-xl border border-gray-200 bg-white p-8 text-center transition-all duration-500 hover:-translate-y-1 hover:shadow-xl opacity-0">
+              <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 text-xl font-bold text-brand-600 animate-float">
+                {item.step}
+              </div>
+              <h3 class="mb-2 text-lg font-bold text-gray-900">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Why partner -->
+      <div class="mx-auto mt-20 max-w-4xl">
+        <h2 data-reveal="fade-up" class="mb-10 text-center text-2xl font-bold text-gray-900 opacity-0">Why Partner With Us?</h2>
+        <div class="grid gap-6 md:grid-cols-2">
+          {[
+            { title: "Zero Work For You", desc: "We handle everything — audits, implementation, reporting, client calls. You just refer." },
+            { title: "Recurring Revenue", desc: "20% lifetime commission. Not a one-time finder fee — you earn every month the client stays." },
+            { title: "White-Label", desc: "All deliverables carry your brand. We're invisible. Your client sees only you." },
+            { title: "Proven Results", desc: "+312% traffic, +96% conversions, 98 Lighthouse scores. Real metrics from real clients." },
+          ].map((item, i) => (
+            <div data-reveal="fade-up" data-delay={i * 100} class="rounded-xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl opacity-0" data-tilt>
+              <h3 class="mb-2 font-bold text-gray-900">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div data-reveal="fade-up" class="mx-auto mt-20 max-w-4xl rounded-2xl border border-gray-200 bg-gray-50 p-10 opacity-0">
+        <h2 class="mb-8 text-center text-xl font-bold text-gray-900">Results Your Clients Could Get</h2>
+        <div class="grid gap-6 md:grid-cols-3">
+          {[
+            { metric: "+312%", label: "Traffic", detail: "BrightSmile Dental — local SEO" },
+            { metric: "+96%", label: "Conversions", detail: "CloudMetrics — platform rebuild" },
+            { metric: "98", label: "Lighthouse", detail: "SaaS platform — web dev" },
+          ].map((item, i) => (
+            <div data-reveal="fade-up" data-delay={i * 120} class="rounded-xl bg-white p-6 text-center transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5 opacity-0">
+              <div class="text-3xl font-extrabold bg-gradient-to-r from-brand-500 to-rex-orange bg-clip-text text-transparent">{item.metric}</div>
+              <div class="mt-1 text-sm font-medium text-gray-900">{item.label}</div>
+              <div class="mt-0.5 text-xs text-gray-400">{item.detail}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div data-reveal="fade-up" class="mx-auto mt-20 max-w-2xl opacity-0">
+        <h2 class="mb-8 text-center text-xl font-bold text-gray-900">Partner Questions</h2>
+        <div class="space-y-4">
+          {[
+            { q: "Does it have to be white-label?", a: "No. You can also refer clients directly and we'll work under RexBunny brand — 15% commission instead of 20%." },
+            { q: "How do I refer a client?", a: "Send an email to partners@rexbunnyservices.online with the client name, website, and what they need. We take it from there." },
+            { q: "When do I get paid?", a: "Commission is paid monthly, within 15 days of client payment. Bank transfer or PayPal." },
+            { q: "What if my client wants to cancel?", a: "No hard feelings. You earn commission only on active months. No clawbacks." },
+            { q: "Do I need to be an agency?", a: "Not at all. Freelancers, consultants, even solo operators — anyone with client relationships can partner with us." },
+          ].map((faq) => (
+            <details class="group rounded-lg border border-gray-200 bg-white">
+              <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium text-gray-900">
+                {faq.q}
+                <svg class="h-4 w-4 text-gray-400 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="px-5 pb-4 text-sm text-gray-600">{faq.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- Final CTA -->
+      <div data-reveal="scale-in" class="mx-auto mt-20 max-w-lg text-center opacity-0">
+        <h2 class="mb-4 text-2xl font-bold text-gray-900">Ready to Start?</h2>
+        <p class="mb-6 text-sm text-gray-500">
+          First referral gets our white-glove treatment — we handle everything, you get 20% lifetime commission.
+        </p>
+        <span data-magnetic>
+          <CalEmbed
+            buttonText="Book Partner Intro Call"
+            className="inline-block rounded-lg bg-brand-600 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+          />
+        </span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

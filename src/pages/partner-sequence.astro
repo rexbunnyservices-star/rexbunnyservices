@@ -1,0 +1,99 @@
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Partner Outreach Sequence — RexBunny Services"
+  description="3-email partner outreach sequence for white-label referrals"
+>
+  <article class="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
+    <h1 class="mb-2 text-3xl font-bold text-gray-900">Partner Outreach Sequence</h1>
+    <p class="mb-10 text-sm text-gray-500">
+      Target: Web dev agencies, freelance developers, digital marketing freelancers, small ad agencies
+    </p>
+
+    <div class="space-y-12">
+      <!-- Email 1 -->
+      <div class="rounded-xl border border-gray-200 bg-white p-8">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="rounded-full bg-brand-100 px-3 py-1 text-xs font-bold text-brand-600">Email 1 — Day 1</span>
+          <span class="text-xs text-gray-400">Subject line</span>
+        </div>
+        <div class="mb-4 rounded-lg bg-gray-50 p-4 font-mono text-sm text-gray-800">
+          Subject: Your clients + our SEO/GEO = recurring revenue
+        </div>
+        <div class="text-sm text-gray-600">
+          <p>Hi {Name},</p>
+          <p class="mt-3">You build websites (or market businesses). We handle search visibility. Seems like a natural fit.</p>
+          <p class="mt-3">We're looking for 3 partner agencies/freelancers this month for our white-label program:</p>
+          <ul class="mt-2 list-disc pl-5">
+            <li>You refer a client who needs SEO, GEO, or web performance</li>
+            <li>We do ALL the work under your brand</li>
+            <li>You earn 20% lifetime commission on everything they pay</li>
+          </ul>
+          <p class="mt-3">First pilot client gets 50% off — you set the price, keep the margin.</p>
+          <p class="mt-3">Worth a 10-min call to see if there's a fit?</p>
+          <p class="mt-4">Best,<br>Anass<br>rexbunnyservices.online/partners</p>
+        </div>
+      </div>
+
+      <!-- Email 2 -->
+      <div class="rounded-xl border border-gray-200 bg-white p-8">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="rounded-full bg-brand-100 px-3 py-1 text-xs font-bold text-brand-600">Email 2 — Day 4</span>
+          <span class="text-xs text-gray-400">Subject line</span>
+        </div>
+        <div class="mb-4 rounded-lg bg-gray-50 p-4 font-mono text-sm text-gray-800">
+          Subject: Here's exactly how the partnership works
+        </div>
+        <div class="text-sm text-gray-600">
+          <p>Hi {Name},</p>
+          <p class="mt-3">Quick breakdown of how our white-label partnership works:</p>
+          <p class="mt-3"><strong>Step 1:</strong> You email me a client name + website + what they need.<br>
+          <strong>Step 2:</strong> We audit, scope, and present a plan (under your brand).<br>
+          <strong>Step 3:</strong> We execute — SEO, GEO, AEO, web dev — all of it.<br>
+          <strong>Step 4:</strong> You collect 20% of every payment. Monthly. For life.</p>
+          <p class="mt-3">Your client sees only your logo. We're invisible.</p>
+          <p class="mt-3">Here's a one-pager with more detail: rexbunnyservices.online/partners</p>
+          <p class="mt-3">Got 10 minutes this week?</p>
+          <p class="mt-4">Best,<br>Anass</p>
+        </div>
+      </div>
+
+      <!-- Email 3 -->
+      <div class="rounded-xl border border-gray-200 bg-white p-8">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="rounded-full bg-brand-100 px-3 py-1 text-xs font-bold text-brand-600">Email 3 — Day 8</span>
+          <span class="text-xs text-gray-400">Subject line</span>
+        </div>
+        <div class="mb-4 rounded-lg bg-gray-50 p-4 font-mono text-sm text-gray-800">
+          Subject: We took a client from 42 to 98 Lighthouse in 2 weeks
+        </div>
+        <div class="text-sm text-gray-600">
+          <p>Hi {Name},</p>
+          <p class="mt-3">This is the kind of result your clients could get:</p>
+          <p class="mt-3"><strong>CloudMetrics (SaaS platform):</strong><br>
+          → Before: 6s load time, 42 Lighthouse, low conversions<br>
+          → After: 0.4s LCP, 98 Lighthouse, +96% conversions</p>
+          <p class="mt-3">We did this with a full platform rebuild using Astro + edge deployment.</p>
+          <p class="mt-3">Your clients don't need to know it's us. They just need to see the results — with your name on it.</p>
+          <p class="mt-3">Still interested in chatting?</p>
+          <p class="mt-4">Best,<br>Anass</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 rounded-xl border border-brand-200 bg-brand-50 p-8">
+      <h2 class="mb-4 text-xl font-bold text-gray-900">Target List Ideas</h2>
+      <ul class="space-y-2 text-sm text-gray-700">
+        <li>• Local web dev agencies that build sites but outsource SEO</li>
+        <li>• Freelance WordPress developers (their clients always need SEO)</li>
+        <li>• Digital marketing freelancers who don't offer technical SEO</li>
+        <li>• Small ad agencies looking to add a service line</li>
+        <li>• SaaS consultants who could include GEO as an upsell</li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-600">
+        Find them on: Upwork, LinkedIn, Clutch, Google Maps (search "web developer" in any city), or local business groups.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
