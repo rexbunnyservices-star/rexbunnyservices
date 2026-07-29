@@ -222,6 +222,9 @@ const breadcrumbItems = breadcrumbs
       nav.nav-scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
       ::-moz-selection { background: rgba(249,115,22,0.2); }
       ::selection { background: rgba(249,115,22,0.2); }
+      .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 999; padding: 0.5rem 1rem; background: #f97316; color: #fff; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem; transition: top 0.2s; }
+      .skip-link:focus { top: 0.75rem; }
+      *:focus-visible { outline: 2px solid #f97316; outline-offset: 2px; border-radius: 4px; }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         [data-reveal] { opacity: 1 !important; }
@@ -229,12 +232,13 @@ const breadcrumbItems = breadcrumbs
     </style>
   </head>
   <body class="bg-white text-gray-900 antialiased">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div
       id="scroll-progress"
       class="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-400 via-rex-orange to-rex-gold z-[200] origin-left scale-x-0"
     />
     <Navigation />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

@@ -203,24 +203,26 @@ export default function LeadAuditTool() {
         <div class="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</div>
       )}
       <div class="mb-4">
-        <input
-          type="url"
-          placeholder="yourwebsite.com"
-          value={url}
-          onInput={(e) => setUrl((e.target as HTMLInputElement).value)}
-          required
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none"
-        />
+          <input
+            type="url"
+            placeholder="yourwebsite.com"
+            aria-label="Your website URL"
+            value={url}
+            onInput={(e) => setUrl((e.target as HTMLInputElement).value)}
+            required
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none"
+          />
       </div>
       <div class="mb-4">
-        <input
-          type="email"
-          placeholder="your@email.com"
-          value={email}
-          onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
-          required
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none"
-        />
+          <input
+            type="email"
+            placeholder="your@email.com"
+            aria-label="Your email address"
+            value={email}
+            onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
+            required
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none"
+          />
       </div>
       <label class="mb-6 flex items-start gap-2 text-xs text-gray-500">
         <input type="checkbox" required class="mt-0.5" />
