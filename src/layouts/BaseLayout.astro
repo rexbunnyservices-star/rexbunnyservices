@@ -215,6 +215,18 @@ const breadcrumbItems = breadcrumbs
         }
       ]
     })} />
+    <style>
+      :root { scroll-behavior: smooth; }
+      html.no-js [data-reveal] { opacity: 1 !important; }
+      nav { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.3s ease, box-shadow 0.3s ease; }
+      nav.nav-scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
+      ::-moz-selection { background: rgba(249,115,22,0.2); }
+      ::selection { background: rgba(249,115,22,0.2); }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        [data-reveal] { opacity: 1 !important; }
+      }
+    </style>
   </head>
   <body class="bg-white text-gray-900 antialiased">
     <div

@@ -36,8 +36,6 @@ const faqs = [
   },
 ];
 
-const siteUrl = "https://rexbunnyservices.online";
-
 const services = [
   {
     href: "/services/seo",
@@ -45,7 +43,9 @@ const services = [
     title: "SEO",
     subtitle: "Traditional & Local Search",
     accent: "text-brand-600",
-    accentBg: "bg-brand-100",
+    accentBg: "bg-brand-50",
+    accentBorder: "border-brand-200/50",
+    gradient: "from-brand-50 to-white",
     features: ["Technical & on-page SEO", "Programmatic local schema", "500+ city page automation", "GSC rank tracking"],
   },
   {
@@ -54,7 +54,9 @@ const services = [
     title: "GEO",
     subtitle: "Generative Engine Optimization",
     accent: "text-rex-violet",
-    accentBg: "bg-violet-100",
+    accentBg: "bg-violet-50",
+    accentBorder: "border-violet-200/50",
+    gradient: "from-violet-50 to-white",
     features: ["Entity engineering for AI", "LLM citation optimization", "AI crawl strategy", "Source score boosting"],
   },
   {
@@ -63,7 +65,9 @@ const services = [
     title: "AEO",
     subtitle: "Answer Engine Optimization",
     accent: "text-rex-teal",
-    accentBg: "bg-emerald-100",
+    accentBg: "bg-emerald-50",
+    accentBorder: "border-emerald-200/50",
+    gradient: "from-emerald-50 to-white",
     features: ["Featured snippet capture", "Voice & assistant readiness", "AI Overview integration", "Direct answer engineering"],
     badge: { text: "New Service", class: "text-rex-teal" },
   },
@@ -73,7 +77,9 @@ const services = [
     title: "Web Dev",
     subtitle: "Built for Search Performance",
     accent: "text-rex-blue",
-    accentBg: "bg-blue-100",
+    accentBg: "bg-blue-50",
+    accentBorder: "border-blue-200/50",
+    gradient: "from-blue-50 to-white",
     features: ["Lighthouse 95+ guaranteed", "Sub-second load times", "LLM-crawlable HTML", "Edge-deployed architecture"],
   },
   {
@@ -82,7 +88,9 @@ const services = [
     title: "AI Visual",
     subtitle: "AI-Generated Visual Content",
     accent: "text-rex-pink",
-    accentBg: "bg-fuchsia-100",
+    accentBg: "bg-fuchsia-50",
+    accentBorder: "border-fuchsia-200/50",
+    gradient: "from-fuchsia-50 to-white",
     features: ["Social graphics & video ads", "Product imagery & brand kits", "AI headshots & 3D mockups", "Delivered in days, not weeks"],
   },
 ];
@@ -92,7 +100,6 @@ const services = [
   title="Marketing Agency for AI & Search | SEO, GEO & AEO"
   description="RexBunny Services is a marketing agency specializing in SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). We make your brand visible in every search — Google, ChatGPT, Gemini, Siri, and beyond."
 >
-  <!-- FAQ Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -106,16 +113,17 @@ const services = [
     }))
   })} />
 
-  <!-- Hero -->
+  <!-- ═══ HERO ═══ -->
   <section data-cursor-glow class="relative overflow-hidden pt-24">
     <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-50/50" />
     <div class="absolute inset-0 bg-brand-glow" />
+    <div class="absolute inset-0 bg-noise pointer-events-none" />
     <div class="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <div data-reveal="fade-down" class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 opacity-0">
+        <div data-reveal="fade-down" class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 opacity-0 shadow-premium">
           AI Search &amp; Marketing Agency
         </div>
-        <h1 data-reveal="scale-in" class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0">
+        <h1 data-reveal="scale-fade" class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0">
           The Marketing Agency That Makes You{" "}
           <span class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
             Visible in Every Search
@@ -131,7 +139,7 @@ const services = [
           <a
             href="/lead-engine"
             data-magnetic
-            class="relative overflow-hidden rounded-xl bg-gradient-to-r from-brand-500 to-rex-orange px-8 py-4 text-base font-semibold text-white shadow-xl shadow-brand-500/30 transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5"
+            class="relative overflow-hidden rounded-xl bg-gradient-to-r from-brand-500 to-rex-orange px-8 py-4 text-base font-semibold text-white shadow-premium-glow transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.35)] hover:-translate-y-0.5"
           >
             <span class="absolute inset-0 bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
             <span class="relative">Run Your Free AI Visibility Audit →</span>
@@ -156,10 +164,11 @@ const services = [
     </div>
   </section>
 
-  <!-- Branded Metrics Bar -->
-  <section class="relative border-y border-brand-200/50 bg-gradient-to-r from-brand-50 via-white to-brand-50 py-12">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div data-reveal="fade-up" class="mb-6 text-center text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
+  <!-- ═══ METRICS ═══ -->
+  <section class="relative border-y border-brand-200/50 bg-gradient-to-r from-brand-50 via-white to-brand-50">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.35]" />
+    <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div data-reveal="fade-down" class="mb-8 text-center text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         A Marketing Agency Built for the AI Era
       </div>
       <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -171,30 +180,34 @@ const services = [
     </div>
   </section>
 
-  <!-- Five Service Pillars -->
-  <section class="py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div data-reveal="fade-up" class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        What We Do
+  <!-- ═══ SERVICES ═══ -->
+  <section class="relative py-24">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.2]" />
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal="fade-up" data-stagger="80" class="opacity-0">
+        <div data-reveal-stagger-item class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          What We Do
+        </div>
+        <h2 data-reveal-stagger-item class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark">Five Ways We Make You Visible</h2>
+        <p data-reveal-stagger-item class="mb-14 text-center text-gray-500">Every channel your customers search — we make sure you're there.</p>
       </div>
-      <h2 data-reveal="fade-up" data-delay="100" class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0">Five Ways We Make You Visible</h2>
-      <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">Every channel your customers search — we make sure you're there.</p>
       <div class="grid gap-5 md:grid-cols-5">
         {services.map((s, i) => (
           <a
             href={s.href}
             data-reveal="fade-up"
-            data-delay={300 + i * 100}
+            data-delay={300 + i * 80}
             data-tilt
-            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 overflow-hidden opacity-0"
+            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 overflow-hidden"
           >
-            <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${s.accentBg}`} />
+            <div class={`absolute inset-0 bg-gradient-to-b ${s.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+            <div class={`absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent ${s.accent.includes('brand') ? 'via-brand-500' : s.accent.includes('violet') ? 'via-violet-500' : s.accent.includes('emerald') ? 'via-emerald-500' : s.accent.includes('blue') ? 'via-blue-500' : 'via-fuchsia-500'} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
             <div class="relative">
-              <div class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${s.accentBg} ${s.accent}`}>
+              <div class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${s.accentBg} ${s.accent} shadow-sm group-hover:shadow-premium transition-all duration-300`}>
                 <img src={s.icon} alt="" class="h-6 w-6" loading="lazy" decoding="async" />
               </div>
-              <h3 class={`mb-1 text-lg font-extrabold ${s.accent} group-hover:scale-105 transition-transform`}>{s.title}</h3>
+              <h3 class={`mb-1 text-lg font-extrabold ${s.accent}`}>{s.title}</h3>
               <p class="mb-3 text-xs font-medium text-gray-400 uppercase tracking-wider">{s.subtitle}</p>
               <ul class="space-y-1.5 text-sm text-gray-500">
                 {s.features.map((f) => (
@@ -216,9 +229,10 @@ const services = [
     </div>
   </section>
 
-  <!-- Social Proof: Testimonials -->
-  <section class="border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section class="relative border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.2]" />
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div data-reveal="fade-up" class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
         Testimonials
@@ -226,28 +240,14 @@ const services = [
       <h2 data-reveal="fade-up" data-delay="100" class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0">Results That Speak</h2>
       <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">Real outcomes from real clients.</p>
       <div class="grid gap-6 md:grid-cols-3">
-        {
-          [
-            {
-              quote: "RexBunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue.",
-              author: "Sarah Chen",
-              role: "CTO, CloudMetrics",
-              metric: "+96% conversions",
-            },
-            {
-              quote: "We went from invisible in local search to dominating every market we serve. The ROI was evident within the first quarter.",
-              author: "Dr. James Park",
-              role: "Founder, BrightSmile Dental",
-              metric: "+312% traffic",
-            },
-            {
-              quote: "Our products now show up when people ask AI about home furniture. That's a completely new channel we never had before.",
-              author: "Erik Lindqvist",
-              role: "CEO, Nordic Home Co.",
-              metric: "23 AI citations/mo",
-            },
-          ].map((t, i) => (
-            <div data-reveal="blur-in" data-delay={i * 150} class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0">
+        {[
+          { quote: "RexBunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue.", author: "Sarah Chen", role: "CTO, CloudMetrics", metric: "+96% conversions" },
+          { quote: "We went from invisible in local search to dominating every market we serve. The ROI was evident within the first quarter.", author: "Dr. James Park", role: "Founder, BrightSmile Dental", metric: "+312% traffic" },
+          { quote: "Our products now show up when people ask AI about home furniture. That's a completely new channel we never had before.", author: "Erik Lindqvist", role: "CEO, Nordic Home Co.", metric: "23 AI citations/mo" },
+        ].map((t, i) => (
+          <div data-reveal="blur-in" data-delay={i * 150} class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 relative overflow-hidden">
+            <div class="absolute -top-8 -right-8 h-24 w-24 rounded-full bg-gradient-to-br from-brand-100 to-transparent opacity-50" />
+            <div class="relative">
               <div class="mb-4 flex items-center gap-1.5">
                 {[...Array(5)].map(() => (
                   <svg class="h-4 w-4 text-rex-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -256,7 +256,7 @@ const services = [
               <div class="mb-4 text-3xl font-extrabold bg-gradient-to-r from-brand-500 to-rex-orange bg-clip-text text-transparent">{t.metric}</div>
               <p class="mb-5 text-sm text-gray-600 leading-relaxed">"{t.quote}"</p>
               <div class="flex items-center gap-3 border-t border-gray-100 pt-4">
-                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-rex-orange text-xs font-bold text-white">
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-rex-orange text-xs font-bold text-white shadow-premium">
                   {t.author.charAt(0)}
                 </div>
                 <div>
@@ -265,21 +265,22 @@ const services = [
                 </div>
               </div>
             </div>
-          ))
-        }
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Client Logos Bar -->
-  <section class="py-14">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- ═══ CLIENT LOGOS ═══ -->
+  <section class="relative py-14">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.15]" />
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <p data-reveal="fade-in" class="mb-8 text-center text-sm font-semibold uppercase tracking-[2px] text-gray-400 opacity-0">
         Trusted by forward-thinking brands
       </p>
       <div data-reveal="fade-in" data-delay="200" class="flex flex-wrap items-center justify-center gap-6 opacity-0">
         {["CloudMetrics", "BrightSmile Dental", "Nordic Home Co.", "TechVault", "ScaleUp Labs"].map((name) => (
-          <div class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-500 transition-all hover:shadow-md hover:border-gray-300 hover:opacity-100 opacity-60">
+          <div class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-500 transition-all hover:shadow-premium hover:border-gray-300 hover:opacity-100 opacity-60">
             {name}
           </div>
         ))}
@@ -287,9 +288,10 @@ const services = [
     </div>
   </section>
 
-  <!-- Case Studies -->
-  <section class="border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- ═══ CASE STUDIES ═══ -->
+  <section class="relative border-y border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.2]" />
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-end justify-between">
         <div>
           <div data-reveal="fade-up" class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
@@ -299,90 +301,46 @@ const services = [
           <h2 data-reveal="fade-up" data-delay="100" class="font-display text-4xl font-extrabold text-rex-dark opacity-0">Proven Results</h2>
           <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">Real outcomes from real clients. Every metric verified.</p>
         </div>
-        <a href="/portfolio" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">
-          View All Case Studies →
-        </a>
+        <a href="/portfolio" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">View All Case Studies →</a>
       </div>
       <div class="grid gap-6 md:grid-cols-3">
-        {
-          [
-            {
-              title: "SaaS Platform Rebuild",
-              client: "CloudMetrics",
-              service: "Web Development",
-              desc: "From 6s to 0.4s LCP. Complete platform rebuild using Astro + Preact Islands.",
-              metrics: [
-                { label: "Lighthouse", value: "98" },
-                { label: "Traffic", value: "+142%" },
-                { label: "Conversions", value: "+96%" },
-              ],
-              color: "text-rex-blue",
-              slug: "saas-platform-rebuild",
-            },
-            {
-              title: "Dental Chain Local SEO",
-              client: "BrightSmile Dental",
-              service: "SEO",
-              desc: "120+ city pages with automated schema. Programmatic local SEO at scale.",
-              metrics: [
-                { label: "Lighthouse", value: "96" },
-                { label: "Traffic", value: "+312%" },
-                { label: "LCP", value: "0.6s" },
-              ],
-              color: "text-brand-600",
-              slug: "dental-chain-local-seo",
-            },
-            {
-              title: "E-Commerce AI Visibility",
-              client: "Nordic Home Co.",
-              service: "AI Search Optimization",
-              desc: "GEO optimization that got a brand cited in ChatGPT, Perplexity, and Gemini.",
-              metrics: [
-                { label: "Lighthouse", value: "97" },
-                { label: "Traffic", value: "+89%" },
-                { label: "Conversions", value: "+45%" },
-              ],
-              color: "text-rex-violet",
-              slug: "ecommerce-ai-visibility",
-            },
-          ].map((cs, i) => (
-            <a
-              href={`/portfolio/${cs.slug}`}
-              data-reveal="fade-up"
-              data-delay={i * 120}
-              data-tilt
-              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0"
-            >
-              <div class={`mb-3 text-xs font-extrabold uppercase tracking-wider ${cs.color}`}>
-                {cs.service}
-              </div>
-              <h3 class="mb-1 font-display text-lg font-bold text-rex-dark group-hover:text-brand-600 transition-colors">
-                {cs.title}
-              </h3>
-              <p class="mb-1 text-xs text-gray-400">{cs.client}</p>
-              <p class="mb-4 text-sm text-gray-500">{cs.desc}</p>
-              <div class="flex flex-wrap gap-2">
-                {cs.metrics.map((m) => (
-                  <span class="rounded-lg bg-gray-100 px-2.5 py-1 text-xs text-gray-500">
-                    <span class="font-extrabold text-rex-dark">{m.value}</span> {m.label}
-                  </span>
-                ))}
-              </div>
-            </a>
-          ))
-        }
+        {[
+          { title: "SaaS Platform Rebuild", client: "CloudMetrics", service: "Web Development", desc: "From 6s to 0.4s LCP. Complete platform rebuild using Astro + Preact Islands.", metrics: [{ label: "Lighthouse", value: "98" }, { label: "Traffic", value: "+142%" }, { label: "Conversions", value: "+96%" }], color: "text-rex-blue", slug: "saas-platform-rebuild" },
+          { title: "Dental Chain Local SEO", client: "BrightSmile Dental", service: "SEO", desc: "120+ city pages with automated schema. Programmatic local SEO at scale.", metrics: [{ label: "Lighthouse", value: "96" }, { label: "Traffic", value: "+312%" }, { label: "LCP", value: "0.6s" }], color: "text-brand-600", slug: "dental-chain-local-seo" },
+          { title: "E-Commerce AI Visibility", client: "Nordic Home Co.", service: "AI Search Optimization", desc: "GEO optimization that got a brand cited in ChatGPT, Perplexity, and Gemini.", metrics: [{ label: "Lighthouse", value: "97" }, { label: "Traffic", value: "+89%" }, { label: "Conversions", value: "+45%" }], color: "text-rex-violet", slug: "ecommerce-ai-visibility" },
+        ].map((cs, i) => (
+          <a
+            href={`/portfolio/${cs.slug}`}
+            data-reveal="fade-up"
+            data-delay={i * 120}
+            data-tilt
+            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 overflow-hidden"
+          >
+            <div class={`absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-current ${cs.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+            <div class={`mb-3 text-xs font-extrabold uppercase tracking-wider ${cs.color}`}>{cs.service}</div>
+            <h3 class="mb-1 font-display text-lg font-bold text-rex-dark group-hover:text-brand-600 transition-colors">{cs.title}</h3>
+            <p class="mb-1 text-xs text-gray-400">{cs.client}</p>
+            <p class="mb-4 text-sm text-gray-500">{cs.desc}</p>
+            <div class="flex flex-wrap gap-2">
+              {cs.metrics.map((m) => (
+                <span class="rounded-lg bg-gray-100 px-2.5 py-1 text-xs text-gray-500 shadow-sm">
+                  <span class="font-extrabold text-rex-dark">{m.value}</span> {m.label}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
       </div>
       <div class="mt-8 text-center sm:hidden">
-        <a href="/portfolio" class="text-sm font-semibold text-brand-600 hover:text-brand-700">
-          View All Case Studies →
-        </a>
+        <a href="/portfolio" class="text-sm font-semibold text-brand-600 hover:text-brand-700">View All Case Studies →</a>
       </div>
     </div>
   </section>
 
-  <!-- Latest Blog Posts -->
-  <section class="py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- ═══ BLOG ═══ -->
+  <section class="relative py-24">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.15]" />
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-end justify-between">
         <div>
           <div data-reveal="fade-up" class="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
@@ -392,69 +350,45 @@ const services = [
           <h2 data-reveal="fade-up" data-delay="100" class="font-display text-4xl font-extrabold text-rex-dark opacity-0">From the Blog</h2>
           <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">GEO strategies, SEO tactics, and web performance guides.</p>
         </div>
-        <a href="/blog" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">
-          View All Posts →
-        </a>
+        <a href="/blog" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">View All Posts →</a>
       </div>
       <div class="grid gap-6 md:grid-cols-3">
-        {
-          [
-            {
-              title: "How to Get Your Brand Cited in ChatGPT",
-              date: "June 22, 2026",
-              desc: "Step-by-step guide to optimizing your website so ChatGPT recommends your brand.",
-              tags: ["GEO", "ChatGPT"],
-              slug: "get-cited-in-chatgpt",
-            },
-            {
-              title: "What is Generative Engine Optimization (GEO)?",
-              date: "June 15, 2026",
-              desc: "A complete guide to optimizing your website for AI search engines.",
-              tags: ["GEO", "AI Search"],
-              slug: "what-is-geo",
-            },
-            {
-              title: "llms.txt Explained: The File Every Website Needs",
-              date: "May 28, 2026",
-              desc: "What is llms.txt, why it matters, and how to create one in under 10 minutes.",
-              tags: ["Technical", "AI Search"],
-              slug: "llms-txt-explained",
-            },
-          ].map((post, i) => (
-            <a
-              href={`/blog/${post.slug}`}
-              data-reveal="fade-up"
-              data-delay={i * 120}
-              class="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0"
-            >
-              <div class="mb-2 flex items-center gap-2 text-xs text-gray-400">
-                <span class="flex h-1.5 w-1.5 rounded-full bg-brand-400" />
-                {post.date}
-              </div>
-              <h3 class="mb-2 font-display text-lg font-bold text-rex-dark group-hover:text-brand-600 transition-colors">
-                {post.title}
-              </h3>
-              <p class="mb-4 text-sm text-gray-500">{post.desc}</p>
-              <div class="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span class="rounded-lg bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-600">{tag}</span>
-                ))}
-              </div>
-            </a>
-          ))
-        }
+        {[
+          { title: "How to Get Your Brand Cited in ChatGPT", date: "June 22, 2026", desc: "Step-by-step guide to optimizing your website so ChatGPT recommends your brand.", tags: ["GEO", "ChatGPT"], slug: "get-cited-in-chatgpt" },
+          { title: "What is Generative Engine Optimization (GEO)?", date: "June 15, 2026", desc: "A complete guide to optimizing your website for AI search engines.", tags: ["GEO", "AI Search"], slug: "what-is-geo" },
+          { title: "llms.txt Explained: The File Every Website Needs", date: "May 28, 2026", desc: "What is llms.txt, why it matters, and how to create one in under 10 minutes.", tags: ["Technical", "AI Search"], slug: "llms-txt-explained" },
+        ].map((post, i) => (
+          <a
+            href={`/blog/${post.slug}`}
+            data-reveal="fade-up"
+            data-delay={i * 120}
+            class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 overflow-hidden"
+          >
+            <div class="absolute -top-6 -right-6 h-16 w-16 rounded-full bg-gradient-to-br from-brand-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div class="mb-2 flex items-center gap-2 text-xs text-gray-400 relative">
+              <span class="flex h-1.5 w-1.5 rounded-full bg-brand-400" />
+              {post.date}
+            </div>
+            <h3 class="mb-2 font-display text-lg font-bold text-rex-dark group-hover:text-brand-600 transition-colors relative">{post.title}</h3>
+            <p class="mb-4 text-sm text-gray-500 relative">{post.desc}</p>
+            <div class="flex flex-wrap gap-2 relative">
+              {post.tags.map((tag) => (
+                <span class="rounded-lg bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-600 shadow-sm">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
       </div>
       <div class="mt-8 text-center sm:hidden">
-        <a href="/blog" class="text-sm font-semibold text-brand-600 hover:text-brand-700">
-          View All Posts →
-        </a>
+        <a href="/blog" class="text-sm font-semibold text-brand-600 hover:text-brand-700">View All Posts →</a>
       </div>
     </div>
   </section>
 
-  <!-- Lead Engine Embed -->
+  <!-- ═══ AUDIT ═══ -->
   <section data-reveal="fade-up" class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-24 opacity-0" id="audit">
     <div class="absolute inset-0 bg-brand-glow" />
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.25]" />
     <div class="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
       <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -462,18 +396,17 @@ const services = [
       </div>
       <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">Is Your Site Ready for AI Search?</h2>
       <p class="mb-8 text-center text-gray-500">Find out in 30 seconds. Free audit, no credit card.</p>
-      <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
+      <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-premium-xl">
         <LeadAuditTool client:visible />
       </div>
-      <p class="mt-4 text-center text-xs text-gray-400">
-        We'll check: Lighthouse Performance, AI Crawlability, Structured Data Quality, and LLM Citation Potential.
-      </p>
+      <p class="mt-4 text-center text-xs text-gray-400">We'll check: Lighthouse Performance, AI Crawlability, Structured Data Quality, and LLM Citation Potential.</p>
     </div>
   </section>
 
-  <!-- Process -->
-  <section class="py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- ═══ PROCESS ═══ -->
+  <section class="relative py-24">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.15]" />
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div data-reveal="fade-up" class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500 opacity-0">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         Process
@@ -487,50 +420,55 @@ const services = [
           { step: "03", title: "Implement", desc: "Execute the strategy — technical SEO, entity engineering, answer optimization, or performance rebuild." },
           { step: "04", title: "Monitor", desc: "Track rankings, AI citations, and answer placement weekly. Adapt to algorithm and model updates." },
         ].map((item, i) => (
-          <div data-reveal="scale-in" data-delay={i * 150} class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 opacity-0">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-rex-orange text-lg font-extrabold text-white shadow-lg">
-              {item.step}
+          <div data-reveal="scale-fade" data-delay={i * 120} class="group relative rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div class="relative">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-rex-orange text-lg font-extrabold text-white shadow-premium">
+                {item.step}
+              </div>
+              <h3 class="mb-2 font-display text-lg font-bold text-rex-dark">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
             </div>
-            <h3 class="mb-2 font-display text-lg font-bold text-rex-dark">{item.title}</h3>
-            <p class="text-sm text-gray-500">{item.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section data-reveal="fade-up" class="border-t border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24 opacity-0">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+  <!-- ═══ FAQ ═══ -->
+  <section data-reveal="fade-up" class="relative border-t border-gray-200 bg-gradient-to-b from-gray-50 to-white py-24 opacity-0">
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.2]" />
+    <div class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
       <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         FAQ
       </div>
       <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">Questions We Hear Every Day</h2>
       <p class="mb-10 text-center text-gray-500">Everything you need to know about modern search optimization.</p>
-      <FAQ items={faqs} client:visible />
+      <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-premium-xl">
+        <FAQ items={faqs} client:visible />
+      </div>
       <div class="mt-8 text-center">
         <CalEmbed buttonText="Still have questions? Book a Free 30-min Call →" />
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
-  <section data-reveal="scale-in" class="relative overflow-hidden py-24 opacity-0">
+  <!-- ═══ FINAL CTA ═══ -->
+  <section data-reveal="scale-fade" class="relative overflow-hidden py-24 opacity-0">
     <div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-rex-dark to-brand-950" />
     <div class="absolute inset-0 bg-brand-glow opacity-20 animate-ping-slow" />
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.35]" />
     <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-      <div class="mb-4 inline-flex items-center rounded-full border border-brand-700/50 bg-brand-800/30 px-4 py-1.5 text-sm font-medium text-brand-300">
+      <div class="mb-4 inline-flex items-center rounded-full border border-brand-700/50 bg-brand-800/30 px-4 py-1.5 text-sm font-medium text-brand-300 shadow-premium">
         Start Your Journey
       </div>
-      <h2 class="mb-4 font-display text-4xl font-extrabold text-white sm:text-5xl">
-        Most businesses are invisible in at least one search channel — and don't know it.
-      </h2>
+      <h2 class="mb-4 font-display text-4xl font-extrabold text-white sm:text-5xl">Most businesses are invisible in at least one search channel — and don't know it.</h2>
       <p class="mb-10 text-lg text-brand-200/80">Run your free audit. See your visibility across SEO, AI citations, and direct answers.</p>
       <a
         href="/lead-engine"
         data-magnetic
-        class="relative inline-block overflow-hidden rounded-xl bg-gradient-to-r from-brand-400 to-rex-orange px-10 py-4 text-lg font-bold text-white shadow-2xl shadow-brand-500/40 transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:-translate-y-0.5"
+        class="relative inline-block overflow-hidden rounded-xl bg-gradient-to-r from-brand-400 to-rex-orange px-10 py-4 text-lg font-bold text-white shadow-premium-xl transition-all hover:shadow-[0_0_48px_rgba(249,115,22,0.4)] hover:-translate-y-0.5"
       >
         <span class="absolute inset-0 bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
         <span class="relative">Run Your Free Visibility Audit →</span>

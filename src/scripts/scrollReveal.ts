@@ -5,7 +5,11 @@ const observer = new IntersectionObserver(
         const el = entry.target as HTMLElement;
         const animation = el.dataset.reveal || "fade-up";
         const delay = parseInt(el.dataset.delay || "0", 10);
+        const duration = parseInt(el.dataset.duration || "700", 10);
+        const stagger = parseInt(el.dataset.stagger || "0", 10);
+
         el.style.animationDelay = `${delay}ms`;
+        el.style.animationDuration = `${duration}ms`;
         el.classList.add(`animate-${animation}`);
         el.dataset.revealed = "true";
         observer.unobserve(el);
@@ -13,22 +17,35 @@ const observer = new IntersectionObserver(
         if (el.dataset.counter !== undefined) {
           animateCounter(el);
         }
+
+        if (stagger > 0) {
+          const children = el.querySelectorAll<HTMLElement>("[data-reveal-stagger-item]");
+          children.forEach((child, i) => {
+            const childAnim = child.dataset.reveal || animation;
+            const childDelay = delay + (i + 1) * stagger;
+            child.style.animationDelay = `${childDelay}ms`;
+            child.style.animationDuration = `${duration}ms`;
+            child.classList.add(`animate-${childAnim}`);
+            child.dataset.revealed = "true";
+            observer.unobserve(child);
+          });
+        }
       }
     });
   },
-  { threshold: 0.1, rootMargin: "-60px" }
+  { threshold: 0.1, rootMargin: "-40px" }
 );
 
 function animateCounter(el: HTMLElement) {
   const target = parseFloat(el.dataset.target || "0");
   const suffix = el.dataset.suffix || "";
-  const duration = parseInt(el.dataset.duration || "1500", 10);
+  const duration = parseInt(el.dataset.duration || "2000", 10);
   let start: number | null = null;
 
   function step(timestamp: number) {
     if (!start) start = timestamp;
     const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
+    const eased = 1 - Math.pow(1 - progress, 4);
     const current = Math.round(eased * target);
     el.textContent = formatNumber(current) + suffix;
     if (progress < 1) requestAnimationFrame(step);
@@ -39,7 +56,7 @@ function animateCounter(el: HTMLElement) {
 
 function formatNumber(n: number): string {
   if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
-  return n.toString();
+  return n.toLocaleString();
 }
 
 let progressBar: HTMLElement | null = null;
@@ -52,7 +69,7 @@ function initProgressBar() {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? scrollTop / docHeight : 0;
     progressBar!.style.transform = `scaleX(${progress})`;
-  });
+  }, { passive: true });
 }
 
 export function initScrollReveal() {
@@ -76,10 +93,10 @@ if (typeof document !== "undefined") {
     initScrollProgress();
   }
 
-  const observerForDynamic = new MutationObserver(() => {
+  const liveObserver = new MutationObserver(() => {
     document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-revealed])").forEach((el) => {
       observer.observe(el);
     });
   });
-  observerForDynamic.observe(document.body, { childList: true, subtree: true });
+  liveObserver.observe(document.body, { childList: true, subtree: true });
 }
