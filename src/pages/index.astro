@@ -205,7 +205,7 @@ const services = [
             <div class={`absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent ${s.accent.includes('brand') ? 'via-brand-500' : s.accent.includes('violet') ? 'via-violet-500' : s.accent.includes('emerald') ? 'via-emerald-500' : s.accent.includes('blue') ? 'via-blue-500' : 'via-fuchsia-500'} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
             <div class="relative">
               <div class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${s.accentBg} ${s.accent} shadow-sm group-hover:shadow-premium transition-all duration-300`}>
-                <img src={s.icon} alt="" class="h-6 w-6" loading="lazy" decoding="async" />
+                <img src={s.icon} alt="" width="24" height="24" class="h-6 w-6" decoding="async" />
               </div>
               <h3 class={`mb-1 text-lg font-extrabold ${s.accent}`}>{s.title}</h3>
               <p class="mb-3 text-xs font-medium text-gray-500 uppercase tracking-wider">{s.subtitle}</p>

@@ -7,5 +7,8 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: "https://rexbunnyservices.online",
   output: "static",
+  build: {
+    inlineStylesheets: "always",
+  },
   integrations: [preact(), tailwind(), sitemap(), mdx()],
 });
