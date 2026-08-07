@@ -1,9 +1,9 @@
 interface Env {
   FORMS: KVNamespace;
-  MAILEROO_API_KEY?: string;
+  AUDIT_WEBHOOK_URL?: string;
 }
 
-async function sendAuditEmail(apiKey: string, toEmail: string, siteUrl: string, results: any) {
+async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
   const color = results.compositeScore >= 80 ? "#22c55e" : results.compositeScore >= 50 ? "#eab308" : "#ef4444";
   const gptIcon = results.aiVisibility.gptBotStatus === "allowed" ? "✅" : "❌";
   const llmsIcon = results.aiVisibility.hasLlmsTxt ? "✅" : "❌";
@@ -88,25 +88,22 @@ async function sendAuditEmail(apiKey: string, toEmail: string, siteUrl: string, 
 </body>
 </html>`;
 
-  const res = await fetch("https://smtp.maileroo.com/api/v2/emails", {
+  const webhookUrl = "https://n8n.rexbunnyservices.online/webhook/audit-email";
+  const res = await fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Api-Key": apiKey,
     },
     body: JSON.stringify({
-      from: { address: "growth@rexbunnyservices.online", display_name: "RexBunny Services" },
-      to: [{ address: toEmail }],
+      to: toEmail,
       subject: `Your Free AI Visibility Audit for ${siteUrl}`,
       html,
-      tracking: true,
-      tags: { source: "audit-tool", site: siteUrl },
     }),
   });
 
   if (!res.ok) {
     const errBody = await res.text();
-    throw new Error(`Maileroo API error ${res.status}: ${errBody}`);
+    throw new Error(`Audit relay error ${res.status}: ${errBody}`);
   }
 }
 
@@ -174,8 +171,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       createdAt: new Date().toISOString(),
     }), { expirationTtl: 604800 });
 
-    const mailApiKey = context.env.MAILEROO_API_KEY || "bcf73bf9481105aa6ef5aaa1";
-    await sendAuditEmail(mailApiKey, email, normalizedUrl, results).catch((err) => {
+    await sendAuditEmail(email, normalizedUrl, results).catch((err) => {
       console.error("Failed to send audit email:", err);
     });
 
