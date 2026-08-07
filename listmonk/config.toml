@@ -16,8 +16,8 @@ database = "listmonk"
 
 [smtp]
 enabled = true
-host = "smtp.maileroo.com"
+host = "smtpout.secureserver.net"
 port = 465
 auth_protocol = "smtp"
-username = "growth@rexbunnyservices.online"
-password = "bcf73bf9481105aa6ef5aaa1"
+username = "help@rexbunnyservices.online"
+password = "Rexbunny@786"
