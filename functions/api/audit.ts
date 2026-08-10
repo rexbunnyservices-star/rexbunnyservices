@@ -1,6 +1,43 @@
 interface Env {
   FORMS: KVNamespace;
   AUDIT_WEBHOOK_URL?: string;
+  PB_URL?: string;
+  PB_EMAIL?: string;
+  PB_PASSWORD?: string;
+}
+
+async function syncLeadToPocketBase(env: Env, lead: any) {
+  const baseUrl = env.PB_URL || "https://pb.rexbunnyservices.online";
+  const email = env.PB_EMAIL || "admin@rexbunnyservices.com";
+  const password = env.PB_PASSWORD || "Admin12345!";
+
+  const authRes = await fetch(`${baseUrl}/api/collections/_superusers/auth-with-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ identity: email, password }),
+  });
+  if (!authRes.ok) throw new Error("PocketBase auth failed");
+  const { token } = await authRes.json();
+
+  const headers = { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
+
+  const existingRes = await fetch(
+    `${baseUrl}/api/collections/leads/records?perPage=1&filter=${encodeURIComponent(`email="${lead.email}"`)}`,
+    { headers }
+  );
+  if (existingRes.ok) {
+    const existing = await existingRes.json();
+    if (existing.items?.length) return { deduped: true, id: existing.items[0].id };
+  }
+
+  const createRes = await fetch(`${baseUrl}/api/collections/leads/records`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(lead),
+  });
+  if (!createRes.ok) throw new Error(`PocketBase create failed (${createRes.status})`);
+  const created = await createRes.json();
+  return { deduped: false, id: created.id };
 }
 
 async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
@@ -171,6 +208,20 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       createdAt: new Date().toISOString(),
     }), { expirationTtl: 604800 });
 
+    try {
+      await syncLeadToPocketBase(context.env, {
+        email,
+        website: normalizedUrl,
+        auditScore: compositeScore,
+        score: compositeScore,
+        aiVisibility: { gptBotStatus, hasLlmsTxt, hasStructuredData, aiVisibilityScore },
+        source: "audit-tool",
+        status: "new",
+      });
+    } catch (err) {
+      console.error("Failed to sync audit lead to PocketBase:", err);
+    }
+
     await sendAuditEmail(email, normalizedUrl, results).catch((err) => {
       console.error("Failed to send audit email:", err);
     });
@@ -179,8 +230,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch {
-    return new Response(JSON.stringify({ error: "Audit failed" }), {
+  } catch (e: any) {
+    return new Response(JSON.stringify({ error: "Audit failed", detail: e?.message || String(e) }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
