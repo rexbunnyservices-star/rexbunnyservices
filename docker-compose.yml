@@ -23,11 +23,11 @@ services:
       - .env
     environment:
       - N8N_LOG_LEVEL=debug
-      - N8N_SECURE_COOKIE=true
+      - N8N_SECURE_COOKIE=false
       - N8N_PROXY_HOPS=1
       - WEBHOOK_URL=https://n8n.rexbunnyservices.online
       - POCKETBASE_URL=http://pocketbase:8090
-      - POCKETBASE_ADMIN_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJwYmNfMzE0MjYzNTgyMyIsImV4cCI6MTc4NTE4ODYxNywiaWQiOiJ5OHNsMW8zdnRlcXVra2siLCJyZWZyZXNoYWJsZSI6dHJ1ZSwidHlwZSI6ImF1dGgifQ.ADAQjLp5DvV6VKcKtviKAjZUJFh7s9GiM-4JuU-RgLI
+      - POCKETBASE_ADMIN_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJwYmNfMzE0MjYzNTgyMyIsImV4cCI6MTc4NTU0NTAyOSwiaWQiOiJ5OHNsMW8zdnRlcXVra2siLCJyZWZyZXNoYWJsZSI6dHJ1ZSwidHlwZSI6ImF1dGgifQ.FH8Blzb-CFsYu67cqxW1f9R9MrD-_fTEbaHWye2w59U
       - LISTMONK_URL=http://listmonk:9000
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
@@ -151,10 +151,33 @@ services:
       - "3456:3456"
     env_file:
       - ./social-media-manager/.env
+    environment:
+      - OLLAMA_URL=http://ollama:11434
     volumes:
       - ./social-media-manager/data:/app/data
     depends_on:
       - pocketbase
+      - ollama
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - C:\Users\anass\.ollama\models:/root/.ollama/models
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_KEEP_ALIVE=24h
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     restart: unless-stopped
     networks:
       - rexnet
@@ -174,6 +197,16 @@ services:
       - calcom
       - umami
       - smm-service
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  reacher:
+    image: reacherhq/backend:latest
+    ports:
+      - "8081:8080"
+    environment:
+      - RUST_LOG=reacher=info
     restart: unless-stopped
     networks:
       - rexnet
