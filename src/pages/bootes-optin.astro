@@ -1,0 +1,199 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Register Interest — Bootes Aspire, Sector 76 Noida"
+  description="Register your interest in Bootes Aspire, Noida Sector 76 (NBCC flagship). 3 & 4 BHK residences and premium penthouses from ₹13,991/sq.ft. Our team will contact you to arrange a site visit."
+  noindex={true}
+>
+  <section class="bg-gray-50 py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+        <h1 class="text-center text-3xl font-extrabold text-gray-900">Register Your Interest</h1>
+        <p class="mt-2 text-center text-gray-600">
+          Bootes Aspire — Sector 76, Noida (NBCC flagship). 3 &amp; 4 BHK residences and premium
+          penthouses, from ₹13,991/sq.ft. Leave your details and our team will contact you to
+          arrange a site visit.
+        </p>
+
+        <form id="optin-form" class="mt-8 space-y-6" novalidate>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label for="fullName" class="mb-1 block text-sm font-semibold text-gray-700">Full name *</label>
+              <input
+                id="fullName" name="fullName" type="text" required autocomplete="name"
+                placeholder="e.g. Rahul Sharma"
+                class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
+              />
+            </div>
+            <div>
+              <label for="phone" class="mb-1 block text-sm font-semibold text-gray-700">Phone (WhatsApp preferred) *</label>
+              <input
+                id="phone" name="phone" type="tel" required autocomplete="tel"
+                inputmode="tel" pattern="[0-9+ -]{10,13}" maxlength="13"
+                placeholder="10-digit mobile number" class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="mb-1 block text-sm font-semibold text-gray-700">Email (optional)</label>
+            <input
+              id="email" name="email" type="email" autocomplete="email"
+              placeholder="you@example.com" class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
+            />
+          </div>
+
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label for="budgetRange" class="mb-1 block text-sm font-semibold text-gray-700">Budget range *</label>
+              <select id="budgetRange" name="budgetRange" required class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-brand-500 focus:outline-none">
+                <option value="">Select budget</option>
+                <option value="0.8-1.5 Cr">₹0.8–1.5 Cr</option>
+                <option value="1.5-3 Cr">₹1.5–3 Cr</option>
+                <option value="3 Cr+">₹3 Cr+</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
+            </div>
+            <div>
+              <label for="timeline" class="mb-1 block text-sm font-semibold text-gray-700">Timeline *</label>
+              <select id="timeline" name="timeline" required class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-brand-500 focus:outline-none">
+                <option value="">Select timeline</option>
+                <option value="< 3 months">Within 3 months</option>
+                <option value="3-6 months">3–6 months</option>
+                <option value="6-12 months">6–12 months</option>
+                <option value="12+ months">12+ months</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <span class="mb-2 block text-sm font-semibold text-gray-700">Interested in (select any)</span>
+            <div class="flex flex-wrap gap-3">
+              <label class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-brand-50">
+                <input type="checkbox" name="interested" value="3 BHK" /> 3 BHK
+              </label>
+              <label class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-brand-50">
+                <input type="checkbox" name="interested" value="4 BHK" /> 4 BHK
+              </label>
+              <label class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-brand-50">
+                <input type="checkbox" name="interested" value="Penthouse" /> Penthouse
+              </label>
+            </div>
+          </div>
+
+          <div class="space-y-3 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600">
+            <label class="flex items-start gap-3">
+              <input id="consent1" type="checkbox" required
+                class="mt-0.5 h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500" />
+              <span>
+                I consent to REX Bunny Services / Bootes Aspire contacting me by phone, WhatsApp and
+                email about this project.
+              </span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input id="consent2" type="checkbox" required
+                class="mt-0.5 h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500" />
+              <span>
+                I agree to the RERA disclosure and privacy policy. (RERA registration number to be
+                confirmed with the developer.)
+              </span>
+            </label>
+          </div>
+
+          <div class="pt-2">
+            <button
+              id="submit-btn" type="submit"
+              class="w-full rounded-xl bg-brand-600 py-3.5 text-base font-bold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500/50 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              Submit Interest
+            </button>
+          </div>
+
+          <p id="form-msg" class="hidden rounded-xl bg-green-50 p-4 text-center text-sm font-semibold text-green-700"></p>
+          <p id="form-err" class="hidden rounded-xl bg-red-50 p-4 text-center text-sm font-semibold text-red-600"></p>
+        </form>
+      </div>
+
+      <p class="mt-6 text-center text-xs text-gray-400">
+        Powered by REX Bunny Services · Project details subject to developer confirmation · RERA disclosure pending registration number
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById("optin-form");
+    const btn = document.getElementById("submit-btn") as HTMLButtonElement;
+    const msg = document.getElementById("form-msg") as HTMLParagraphElement;
+    const err = document.getElementById("form-err") as HTMLParagraphElement;
+
+    const show = (el: HTMLElement, text: string) => {
+      el.textContent = text;
+      el.classList.remove("hidden");
+    };
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.classList.add("hidden");
+      err.classList.add("hidden");
+
+      const fullName = (document.getElementById("fullName") as HTMLInputElement).value.trim();
+      const phone = (document.getElementById("phone") as HTMLInputElement).value.trim();
+      const email = (document.getElementById("email") as HTMLInputElement).value.trim();
+      const budgetRange = (document.getElementById("budgetRange") as HTMLSelectElement).value;
+      const timeline = (document.getElementById("timeline") as HTMLSelectElement).value;
+      const interested = Array.from(
+        document.querySelectorAll<HTMLInputElement>('input[name="interested"]:checked')
+      ).map((c) => c.value);
+      const consent1 = (document.getElementById("consent1") as HTMLInputElement).checked;
+      const consent2 = (document.getElementById("consent2") as HTMLInputElement).checked;
+
+      if (!fullName || !phone || !budgetRange || !timeline) {
+        show(err, "Please fill in your name, phone, budget and timeline.");
+        return;
+      }
+      if (!/^\d{10}$|^\d{10}$/.test(phone.replace(/[^0-9]/g, ""))) {
+        show(err, "Please enter a valid 10-digit mobile number.");
+        return;
+      }
+      if (!consent1 || !consent2) {
+        show(err, "Please tick both consent boxes to continue.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      try {
+        const res = await fetch("https://n8n.rexbunnyservices.online/webhook/bootes-optin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName,
+            phone,
+            email,
+            budgetRange,
+            timeline,
+            interested,
+            consent1,
+            consent2,
+          }),
+        });
+        const data = await res.json();
+        if (data && data.created) {
+          show(msg, "Thank you! Our team will contact you shortly to arrange your visit.");
+          form.reset();
+        } else {
+          show(err, data?.error ? `Sorry: ${data.error}` : "Sorry, something went wrong. Please try again.");
+        }
+      } catch (err2) {
+        show(err, "We couldn't reach our server. Please try again.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Submit Interest";
+      }
+    });
+  </script>
+</BaseLayout>
