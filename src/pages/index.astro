@@ -238,14 +238,14 @@ const services = [
         Testimonials
       </div>
       <h2 data-reveal="fade-up" data-delay="100" class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0">Results That Speak</h2>
-      <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">Real outcomes from real clients.</p>
+      <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">Illustrative outcomes, drawn from the kind of work we deliver.</p>
       <div class="grid gap-6 md:grid-cols-3">
         {[
-          { quote: "RexBunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue.", author: "Sarah Chen", role: "CTO, CloudMetrics", metric: "+96% conversions" },
-          { quote: "We went from invisible in local search to dominating every market we serve. The ROI was evident within the first quarter.", author: "Dr. James Park", role: "Founder, BrightSmile Dental", metric: "+312% traffic" },
-          { quote: "Our products now show up when people ask AI about home furniture. That's a completely new channel we never had before.", author: "Erik Lindqvist", role: "CEO, Nordic Home Co.", metric: "23 AI citations/mo" },
+          { quote: "RexBunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue.", author: "Illustrative client", role: "SaaS platform", metric: "+96% conversions", caseUrl: "/portfolio/saas-platform-rebuild" },
+          { quote: "We went from invisible in local search to dominating every market we serve. The ROI was evident within the first quarter.", author: "Illustrative client", role: "Multi-location dental practice", metric: "+312% traffic", caseUrl: "/portfolio/dental-chain-local-seo" },
+          { quote: "Our products now show up when people ask AI about home furniture. That's a completely new channel we never had before.", author: "Illustrative client", role: "E-commerce furniture brand", metric: "23 AI citations/mo", caseUrl: "/portfolio/ecommerce-ai-visibility" },
         ].map((t, i) => (
-          <div data-reveal="blur-in" data-delay={i * 150} class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 relative overflow-hidden">
+          <a data-reveal="blur-in" data-delay={i * 150} href={t.caseUrl} class="group rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1 opacity-0 relative overflow-hidden block">
             <div class="absolute -top-8 -right-8 h-24 w-24 rounded-full bg-gradient-to-br from-brand-100 to-transparent opacity-50" />
             <div class="relative">
               <div class="mb-4 flex items-center gap-1.5">
@@ -264,8 +264,9 @@ const services = [
                   <div class="text-xs text-gray-500">{t.role}</div>
                 </div>
               </div>
+              <div class="mt-3 text-xs font-semibold text-brand-600 group-hover:text-brand-700">View case study →</div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -276,10 +277,10 @@ const services = [
     <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.15]" />
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <p data-reveal="fade-in" class="mb-8 text-center text-sm font-semibold uppercase tracking-[2px] text-gray-500 opacity-0">
-        Trusted by forward-thinking brands
+        What we're proven at
       </p>
       <div data-reveal="fade-in" data-delay="200" class="flex flex-wrap items-center justify-center gap-6 opacity-0">
-        {["CloudMetrics", "BrightSmile Dental", "Nordic Home Co.", "TechVault", "ScaleUp Labs"].map((name) => (
+        {["98+ Lighthouse score", "0.4s LCP sites", "llms.txt ready", "Schema 100%", "AI-citation ready"].map((name) => (
           <div class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-500 transition-all hover:shadow-premium hover:border-gray-300 hover:opacity-100 opacity-60">
             {name}
           </div>
@@ -299,15 +300,15 @@ const services = [
             Case Studies
           </div>
           <h2 data-reveal="fade-up" data-delay="100" class="font-display text-4xl font-extrabold text-rex-dark opacity-0">Proven Results</h2>
-          <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">Real outcomes from real clients. Every metric verified.</p>
+          <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">Illustrative case studies of the work we deliver.</p>
         </div>
         <a href="/portfolio" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:block">View All Case Studies →</a>
       </div>
       <div class="grid gap-6 md:grid-cols-3">
         {[
-          { title: "SaaS Platform Rebuild", client: "CloudMetrics", service: "Web Development", desc: "From 6s to 0.4s LCP. Complete platform rebuild using Astro + Preact Islands.", metrics: [{ label: "Lighthouse", value: "98" }, { label: "Traffic", value: "+142%" }, { label: "Conversions", value: "+96%" }], color: "text-rex-blue", slug: "saas-platform-rebuild" },
-          { title: "Dental Chain Local SEO", client: "BrightSmile Dental", service: "SEO", desc: "120+ city pages with automated schema. Programmatic local SEO at scale.", metrics: [{ label: "Lighthouse", value: "96" }, { label: "Traffic", value: "+312%" }, { label: "LCP", value: "0.6s" }], color: "text-brand-600", slug: "dental-chain-local-seo" },
-          { title: "E-Commerce AI Visibility", client: "Nordic Home Co.", service: "AI Search Optimization", desc: "GEO optimization that got a brand cited in ChatGPT, Perplexity, and Gemini.", metrics: [{ label: "Lighthouse", value: "97" }, { label: "Traffic", value: "+89%" }, { label: "Conversions", value: "+45%" }], color: "text-rex-violet", slug: "ecommerce-ai-visibility" },
+          { title: "SaaS Platform Rebuild", client: "CloudMetrics (illustrative)", service: "Web Development", desc: "From 6s to 0.4s LCP. Complete platform rebuild using Astro + Preact Islands.", metrics: [{ label: "Lighthouse", value: "98" }, { label: "Traffic", value: "+142%" }, { label: "Conversions", value: "+96%" }], color: "text-rex-blue", slug: "saas-platform-rebuild" },
+          { title: "Dental Chain Local SEO", client: "BrightSmile Dental (illustrative)", service: "SEO", desc: "120+ city pages with automated schema. Programmatic local SEO at scale.", metrics: [{ label: "Lighthouse", value: "96" }, { label: "Traffic", value: "+312%" }, { label: "LCP", value: "0.6s" }], color: "text-brand-600", slug: "dental-chain-local-seo" },
+          { title: "E-Commerce AI Visibility", client: "Nordic Home Co. (illustrative)", service: "AI Search Optimization", desc: "GEO optimization that got a brand cited in ChatGPT, Perplexity, and Gemini.", metrics: [{ label: "Lighthouse", value: "97" }, { label: "Traffic", value: "+89%" }, { label: "Conversions", value: "+45%" }], color: "text-rex-violet", slug: "ecommerce-ai-visibility" },
         ].map((cs, i) => (
           <a
             href={`/portfolio/${cs.slug}`}

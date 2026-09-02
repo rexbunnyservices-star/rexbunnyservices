@@ -20,6 +20,7 @@ const portfolio = defineCollection({
     clientName: z.string(),
     serviceType: z.string(),
     description: z.string(),
+    disclaimer: z.string().optional(),
     results: z.object({
       lighthouse: z.number().optional(),
       trafficIncrease: z.string().optional(),
