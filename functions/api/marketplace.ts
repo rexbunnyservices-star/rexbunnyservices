@@ -11,7 +11,7 @@ function response(data: unknown, status = 200) {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'no-store',
-      'X-Mkt': '1.0.6',
+      'X-Mkt': '1.0.7',
     },
   });
 }
@@ -135,6 +135,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         total: data.totalItems || 0,
         pb: pbUrl,
         fs: res.status,
+        subcf: res.headers.get('cf-cache-status') || 'none',
+        subray: (res.headers.get('cf-ray') || '').slice(0, 12),
       });
     }
 
