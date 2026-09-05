@@ -38,8 +38,9 @@ async function fetchFromCollection(
   token: string,
   collection: string,
   limit: number,
+  sort = '-created',
 ) {
-  const url = `${baseUrl}/api/collections/${collection}/records?perPage=${limit}&skipTotal=1&sort=-created`;
+  const url = `${baseUrl}/api/collections/${collection}/records?perPage=${limit}&skipTotal=1&sort=${sort}`;
   const res = await fetch(url, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
@@ -98,7 +99,7 @@ async function bootesStats(baseUrl: string, token: string) {
     countSafe(baseUrl, token, c, 'campaignStatus = ""'),
     countSafe(baseUrl, token, c, 'visitStatus = "booked"'),
   ]);
-  const recent = await fetchFromCollection(baseUrl, token, c, 20);
+  const recent = await fetchFromCollection(baseUrl, token, c, 20, '-id');
   return response({
     items: recent.items || [],
     stats: {
