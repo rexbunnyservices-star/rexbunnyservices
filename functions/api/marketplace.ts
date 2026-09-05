@@ -115,7 +115,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     if (resource === 'leads') {
       const limit = Math.min(parseInt(url.searchParams.get('limit') || '500') || 500, 1000);
-      let api = `${pbUrl}/api/collections/social_leads/records?perPage=${limit}&skipTotal=1&sort=-scraped_at`;
+      let api = `${pbUrl}/api/collections/social_leads/records?perPage=${limit}&sort=-scraped_at`;
       if (filter) {
         api += `&filter=${encodeURIComponent(filter)}`;
       }
@@ -129,7 +129,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     if (resource === 'jobs') {
       const limit = Math.min(parseInt(url.searchParams.get('limit') || '100') || 100, 500);
-      const api = `${pbUrl}/api/collections/scrape_jobs/records?perPage=${limit}&skipTotal=1&sort=-started_at`;
+      const api = `${pbUrl}/api/collections/scrape_jobs/records?perPage=${limit}&sort=-started_at`;
       const res = await fetch(api, {
         headers: { Authorization: `Bearer ${token}` },
       });
