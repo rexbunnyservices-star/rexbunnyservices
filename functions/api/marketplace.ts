@@ -11,7 +11,7 @@ function response(data: unknown, status = 200) {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'no-store',
-      'X-Mkt': '1.0.4',
+      'X-Mkt': '1.0.5',
     },
   });
 }
@@ -124,7 +124,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         api += `&filter=${encodeURIComponent(filter)}`;
       }
       const res = await fetch(api, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-store' },
       });
       if (!res.ok) throw new Error(`PocketBase leads fetch failed (${res.status})`);
       const data = await res.json();
@@ -135,7 +135,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       const limit = Math.min(parseInt(url.searchParams.get('limit') || '100') || 100, 500);
       const api = `${pbUrl}/api/collections/scrape_jobs/records?perPage=${limit}&sort=-started_at`;
       const res = await fetch(api, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-store' },
       });
       if (!res.ok) throw new Error(`PocketBase jobs fetch failed (${res.status})`);
       const data = await res.json();
