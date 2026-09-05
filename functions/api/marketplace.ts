@@ -11,7 +11,7 @@ function response(data: unknown, status = 200) {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'no-store',
-      'X-Mkt': '1.0.5',
+      'X-Mkt': '1.0.6',
     },
   });
 }
@@ -119,27 +119,41 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     if (resource === 'leads') {
       const limit = Math.min(parseInt(url.searchParams.get('limit') || '500') || 500, 1000);
-      let api = `${pbUrl}/api/collections/social_leads/records?perPage=${limit}&sort=-scraped_at`;
+      let api = `${pbUrl}/api/collections/social_leads/records?perPage=${limit}&sort=-scraped_at&_cb=${Math.floor(
+        Date.now() / 60000,
+      )}`;
       if (filter) {
         api += `&filter=${encodeURIComponent(filter)}`;
       }
       const res = await fetch(api, {
-        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-store' },
+        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-cache' },
       });
       if (!res.ok) throw new Error(`PocketBase leads fetch failed (${res.status})`);
       const data = await res.json();
-      return response({ items: data.items || [], total: data.totalItems || 0 });
+      return response({
+        items: data.items || [],
+        total: data.totalItems || 0,
+        pb: pbUrl,
+        fs: res.status,
+      });
     }
 
     if (resource === 'jobs') {
       const limit = Math.min(parseInt(url.searchParams.get('limit') || '100') || 100, 500);
-      const api = `${pbUrl}/api/collections/scrape_jobs/records?perPage=${limit}&sort=-started_at`;
+      let api = `${pbUrl}/api/collections/scrape_jobs/records?perPage=${limit}&sort=-started_at&_cb=${Math.floor(
+        Date.now() / 60000,
+      )}`;
       const res = await fetch(api, {
-        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-store' },
+        headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-cache' },
       });
       if (!res.ok) throw new Error(`PocketBase jobs fetch failed (${res.status})`);
       const data = await res.json();
-      return response({ items: data.items || [], total: data.totalItems || 0 });
+      return response({
+        items: data.items || [],
+        total: data.totalItems || 0,
+        pb: pbUrl,
+        fs: res.status,
+      });
     }
 
     return response({ error: `Unknown resource: ${resource}` }, 400);
