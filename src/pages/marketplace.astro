@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MarketplaceDashboard from '../components/MarketplaceDashboard.tsx';
+---
+
+<BaseLayout
+  title="Rex Market Place Dashboard | RexBunny Services"
+  description="Internal dashboard for social buyer-intent and business leads scraped by Rex Market Place."
+  breadcrumbs={[{ name: 'Marketplace', url: '/marketplace' }]}
+  noindex={true}
+>
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <span class="text-brand-600">Rex Market Place Dashboard</span>
+        </h1>
+        <p class="mb-8 text-lg text-gray-600">
+          Buyer-intent &amp; business leads scraped across social platforms and directories.
+        </p>
+      </div>
+
+      <MarketplaceDashboard client:load />
+    </div>
+  </section>
+</BaseLayout>
