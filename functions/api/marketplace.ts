@@ -11,6 +11,7 @@ function response(data: unknown, status = 200) {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'no-store',
+      'X-Mkt': '1.0.4',
     },
   });
 }
