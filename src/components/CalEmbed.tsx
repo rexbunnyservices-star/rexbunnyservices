@@ -3,9 +3,16 @@ interface CalEmbedProps {
   className?: string;
 }
 
-export default function CalEmbed({ buttonText = "Book a Strategy Call →", className = "" }: CalEmbedProps) {
+export default function CalEmbed({
+  buttonText = 'Book a Strategy Call →',
+  className = '',
+}: CalEmbedProps) {
   const handleClick = () => {
-    window.open("https://cal.rexbunnyservices.online/strategy-call", "_blank", "noopener,noreferrer");
+    window.open(
+      'https://cal.rexbunnyservices.online/rexbunny/30min',
+      '_blank',
+      'noopener,noreferrer',
+    );
   };
 
   return (
