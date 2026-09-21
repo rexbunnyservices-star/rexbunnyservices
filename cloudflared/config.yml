@@ -2,14 +2,18 @@ tunnel: rex-bunny-services
 credentials-file: /etc/cloudflared/credentials.json
 
 ingress:
-  - hostname: pb.rexbunnyservices.online
-    service: http://host.docker.internal:8090
   - hostname: n8n.rexbunnyservices.online
     service: http://host.docker.internal:5678
   - hostname: listmonk.rexbunnyservices.online
     service: http://host.docker.internal:9000
+  - hostname: rexbunnyservices.online
+    service: http://host.docker.internal:3000
   - hostname: cal.rexbunnyservices.online
     service: http://host.docker.internal:3001
   - hostname: analytics.rexbunnyservices.online
     service: http://host.docker.internal:3002
+  - hostname: search.rexbunnyservices.online
+    service: http://host.docker.internal:8100
+  - hostname: pb.rexbunnyservices.online
+    service: http://host.docker.internal:8090
   - service: http_status:404
