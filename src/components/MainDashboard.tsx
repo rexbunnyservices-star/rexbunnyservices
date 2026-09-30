@@ -76,35 +76,7 @@ interface N8nExecution {
   stoppedAt: string;
 }
 
-type Tab = 'overview' | 'workflows' | 'executions' | 'leads' | 'prospects' | 'bootes';
-
-interface BootesLead {
-  id: string;
-  name: string;
-  phoneNumber: string;
-  email?: string;
-  source?: string;
-  status?: string;
-  consent?: boolean;
-  waStatus?: string;
-  visitStatus?: string;
-  leadInterest?: string;
-  created?: string;
-}
-
-interface BootesStats {
-  total: number;
-  sources: { organic: number; meta_paid: number; landing: number; optin: number };
-  consent: number;
-  wa: { sent: number; failed: number };
-  campaign: {
-    email_sent: number;
-    no_email_found: number;
-    email_unverified: number;
-    pending: number;
-  };
-  visits: { booked: number };
-}
+type Tab = 'overview' | 'workflows' | 'executions' | 'leads' | 'prospects';
 
 const leadStatusColors: Record<string, string> = {
   new: 'bg-blue-600/20 text-blue-400',
@@ -252,8 +224,6 @@ export default function MainDashboard() {
   const [search, setSearch] = useState('');
   const [leadFilter, setLeadFilter] = useState('all');
   const [prospectFilter, setProspectFilter] = useState('all');
-  const [bootesLeads, setBootesLeads] = useState<BootesLead[]>([]);
-  const [bootesStats, setBootesStats] = useState<BootesStats | null>(null);
   const [busyWorkflow, setBusyWorkflow] = useState<string | null>(null);
   const [selectedExec, setSelectedExec] = useState<N8nExecution | null>(null);
   const [execDetail, setExecDetail] = useState<any>(null);
@@ -272,12 +242,11 @@ export default function MainDashboard() {
     setError('');
     const headers = { 'x-api-key': PIN };
     try {
-      const [leadsRes, pbRes, wfRes, execRes, bootesRes] = await Promise.allSettled([
+      const [leadsRes, pbRes, wfRes, execRes] = await Promise.allSettled([
         fetch('/api/n8n-leads?collection=leads&limit=500', { headers }),
         fetch('/api/n8n-leads?collection=prospects&limit=500', { headers }),
         fetch('/api/n8n-data?resource=workflows-all&limit=50', { headers }),
         fetch('/api/n8n-data?resource=executions&limit=100', { headers }),
-        fetch('/api/n8n-leads?stats=bootes', { headers }),
       ]);
 
       if (leadsRes.status === 'fulfilled' && leadsRes.value.ok) {
@@ -295,11 +264,6 @@ export default function MainDashboard() {
       if (execRes.status === 'fulfilled' && execRes.value.ok) {
         const d = await execRes.value.json();
         setExecutions(d.data || []);
-      }
-      if (bootesRes.status === 'fulfilled' && bootesRes.value.ok) {
-        const d = await bootesRes.value.json();
-        setBootesLeads(d.items || []);
-        setBootesStats(d.stats || null);
       }
     } catch (e: any) {
       setError(e.message);
@@ -437,7 +401,6 @@ export default function MainDashboard() {
     { id: 'executions', label: 'Executions', count: executions.length },
     { id: 'leads', label: 'Leads', count: leadStats.total },
     { id: 'prospects', label: 'Prospects', count: prospectStats.total },
-    { id: 'bootes', label: 'Bootes', count: bootesStats?.total },
   ];
 
   return (
@@ -551,22 +514,6 @@ export default function MainDashboard() {
                     stoppedAt: e.stoppedAt,
                   })),
                   `executions-${new Date().toISOString().slice(0, 10)}.csv`,
-                );
-              } else if (tab === 'bootes') {
-                exportCSV(
-                  bootesLeads.map((b) => ({
-                    name: b.name,
-                    phone: b.phoneNumber,
-                    email: b.email || '',
-                    source: b.source || '',
-                    status: b.status || '',
-                    consent: b.consent ? 'yes' : 'no',
-                    waStatus: b.waStatus || '',
-                    visitStatus: b.visitStatus || '',
-                    interest: b.leadInterest || '',
-                    created: b.created || '',
-                  })),
-                  `bootes-leads-${new Date().toISOString().slice(0, 10)}.csv`,
                 );
               }
             }}
@@ -1330,142 +1277,6 @@ export default function MainDashboard() {
         </>
       )}
 
-      {/* ==================== BOOTES TAB ==================== */}
-      {!loading && tab === 'bootes' && bootesStats && (
-        <>
-          <div class="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-8">
-            <MetricCard value={bootesStats.total} label="Total" color="text-white" />
-            <MetricCard value={bootesStats.sources.organic} label="Organic" color="text-blue-400" />
-            <MetricCard
-              value={bootesStats.sources.meta_paid}
-              label="Meta Paid"
-              color="text-purple-400"
-            />
-            <MetricCard value={bootesStats.sources.landing} label="Landing" color="text-cyan-400" />
-            <MetricCard value={bootesStats.sources.optin} label="Opt-in" color="text-green-400" />
-            <MetricCard value={bootesStats.consent} label="Consent" color="text-emerald-400" />
-            <MetricCard value={bootesStats.wa.sent} label="WA Sent" color="text-teal-400" />
-            <MetricCard
-              value={bootesStats.visits.booked}
-              label="Visits Booked"
-              color="text-brand-400"
-            />
-          </div>
-
-          {/* WhatsApp + Email Campaign */}
-          <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div class="rounded-xl border border-gray-200 bg-white p-4">
-              <h3 class="mb-3 text-sm font-semibold text-gray-700">WhatsApp Cloud API</h3>
-              <div class="grid grid-cols-2 gap-3">
-                <MetricCard value={bootesStats.wa.sent} label="Sent" color="text-teal-400" />
-                <MetricCard value={bootesStats.wa.failed} label="Failed" color="text-red-400" />
-              </div>
-            </div>
-            <div class="rounded-xl border border-gray-200 bg-white p-4">
-              <h3 class="mb-3 text-sm font-semibold text-gray-700">Cold-Email Campaign</h3>
-              <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-                <MetricCard
-                  value={bootesStats.campaign.email_sent}
-                  label="Sent"
-                  color="text-green-400"
-                />
-                <MetricCard
-                  value={bootesStats.campaign.pending}
-                  label="Pending"
-                  color="text-yellow-400"
-                />
-                <MetricCard
-                  value={bootesStats.campaign.no_email_found}
-                  label="No Email"
-                  color="text-gray-500"
-                />
-                <MetricCard
-                  value={bootesStats.campaign.email_unverified}
-                  label="Unverified"
-                  color="text-red-400"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Recent bootes_leads */}
-          <div class="rounded-xl border border-gray-200 bg-white">
-            {bootesLeads.length === 0 ? (
-              <div class="p-8 text-center text-gray-500">
-                <p>No Bootes leads found</p>
-                <p class="mt-1 text-xs text-gray-400">
-                  Leads appear when the organic/metadata/landing pipelines ingest them
-                </p>
-              </div>
-            ) : (
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                  <thead>
-                    <tr class="border-b border-gray-200 text-xs uppercase text-gray-500">
-                      <th class="px-4 py-3">Name</th>
-                      <th class="px-4 py-3">Phone</th>
-                      <th class="px-4 py-3">Email</th>
-                      <th class="px-4 py-3">Source</th>
-                      <th class="px-4 py-3">Status</th>
-                      <th class="px-4 py-3">Consent</th>
-                      <th class="px-4 py-3">WA</th>
-                      <th class="px-4 py-3">Visit</th>
-                      <th class="px-4 py-3">Interest</th>
-                      <th class="px-4 py-3">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-gray-200">
-                    {bootesLeads.map((b) => (
-                      <tr key={b.id} class="hover:bg-gray-100">
-                        <td class="px-4 py-3 font-medium text-gray-700">{b.name || '—'}</td>
-                        <td class="px-4 py-3 text-xs text-gray-600 font-mono">
-                          {b.phoneNumber || '—'}
-                        </td>
-                        <td class="px-4 py-3 text-xs text-gray-600">{b.email || '—'}</td>
-                        <td class="px-4 py-3">
-                          <span
-                            class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
-                              b.source === 'meta_paid'
-                                ? 'bg-purple-600/20 text-purple-400'
-                                : b.source === 'optin'
-                                  ? 'bg-green-600/20 text-green-400'
-                                  : b.source === 'landing'
-                                    ? 'bg-cyan-600/20 text-cyan-400'
-                                    : 'bg-blue-600/20 text-blue-400'
-                            }`}
-                          >
-                            {b.source || 'organic'}
-                          </span>
-                        </td>
-                        <td class="px-4 py-3 text-xs text-gray-600">{b.status || '—'}</td>
-                        <td class="px-4 py-3">
-                          {b.consent ? (
-                            <span class="text-xs font-semibold text-green-400">Yes</span>
-                          ) : (
-                            <span class="text-xs text-gray-400">No</span>
-                          )}
-                        </td>
-                        <td class="px-4 py-3 text-xs text-gray-600">{b.waStatus || '—'}</td>
-                        <td class="px-4 py-3 text-xs text-gray-600">{b.visitStatus || '—'}</td>
-                        <td class="px-4 py-3 text-xs text-gray-600">{b.leadInterest || '—'}</td>
-                        <td class="px-4 py-3 text-xs text-gray-500">
-                          {b.created
-                            ? new Date(b.created).toLocaleDateString('en-US', {
-                                month: 'short',
-                                day: 'numeric',
-                              })
-                            : '—'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </>
-      )}
-
       {/* Execution detail modal */}
       {selectedExec && (
         <div
@@ -1566,11 +1377,7 @@ export default function MainDashboard() {
                 ? `${workflows.length} workflows (${activeWorkflows.length} active)`
                 : tab === 'executions'
                   ? `Showing ${filteredExecutions.length} of ${executions.length} executions`
-                  : tab === 'bootes'
-                    ? `${bootesLeads.length} recent of ${
-                        bootesStats?.total || 0
-                      } total bootes leads`
-                    : `${activeWorkflows.length} active workflows · ${executions.length} recent executions`}
+                  : `${activeWorkflows.length} active workflows · ${executions.length} recent executions`}
           <span class="mx-2">·</span>
           <span>Last refreshed: {new Date().toLocaleTimeString()}</span>
           <span class="mx-2">·</span>
