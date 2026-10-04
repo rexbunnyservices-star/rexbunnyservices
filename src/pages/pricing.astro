@@ -415,10 +415,14 @@ const siteUrl = 'https://rexbunnyservices.online';
           '@type': 'OfferCatalog',
           name: 'RexBunny Service Packages',
           itemListElement: serviceLines.flatMap((line) =>
-            line.plans.map((plan) => ({
-              '@type': 'Offer',
-              itemOffered: { '@type': 'Service', name: plan.name, description: plan.description },
-            })),
+            line.plans.map((plan) => {
+              const usd = Number(plan.price.replace(/[$,+]/g, ''));
+              return {
+                '@type': 'Offer',
+                itemOffered: { '@type': 'Service', name: plan.name, description: plan.description },
+                ...(Number.isFinite(usd) ? { price: usd, priceCurrency: 'USD' } : {}),
+              };
+            }),
           ),
         },
       },
