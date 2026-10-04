@@ -157,31 +157,47 @@ The dashboard sends the PIN (`9690`) as `x-api-key` header. Set a stronger `DASH
 
 ### Required Env Vars (set in Cloudflare Pages dashboard, not wrangler.toml)
 
-| Variable            | Default                                                  | Purpose                                        |
-| ------------------- | -------------------------------------------------------- | ---------------------------------------------- |
-| `DASHBOARD_API_KEY` | `9690` (falls back to PIN)                               | Shared secret for all dashboard API endpoints  |
-| `PB_URL`            | `https://pb.rexbunnyservices.online`                     | n8n-leads.ts                                   |
-| `PB_EMAIL`          | `admin@rexbunnyservices.com`                             | n8n-leads.ts                                   |
-| `PB_PASSWORD`       | ⚠️ **NOT SET** — code fallback still carries the literal | n8n-leads.ts, marketplace.ts, audit/contact.ts |
-| `N8N_URL`           | `https://n8n.rexbunnyservices.online`                    | n8n-data.ts                                    |
-| `N8N_EMAIL`         | `help@rexbunnyservices.com`                              | n8n-data.ts                                    |
-| `N8N_PASSWORD`      | set ✅                                                   | n8n-data.ts                                    |
+| Variable            | Default                               | Purpose                                        |
+| ------------------- | ------------------------------------- | ---------------------------------------------- |
+| `DASHBOARD_API_KEY` | `9690` (falls back to PIN)            | Shared secret for all dashboard API endpoints  |
+| `PB_URL`            | `https://pb.rexbunnyservices.online`  | n8n-leads.ts                                   |
+| `PB_EMAIL`          | `admin@rexbunnyservices.com`          | n8n-leads.ts                                   |
+| `PB_PASSWORD`       | set ✅                                | n8n-leads.ts, marketplace.ts, audit/contact.ts |
+| `N8N_URL`           | `https://n8n.rexbunnyservices.online` | n8n-data.ts                                    |
+| `N8N_EMAIL`         | `help@rexbunnyservices.com`           | n8n-data.ts                                    |
+| `N8N_PASSWORD`      | set ✅                                | n8n-data.ts                                    |
 
-### ⚠️ PB_PASSWORD is not set in Pages — the code fallback is load-bearing
+### ✅ No plaintext credential fallbacks remain in tracked files
 
-Verified 2026-10-04: `api/marketplace` and `api/n8n-leads` return
-HTTP 500 `"PocketBase auth failed"` the moment the `|| 'Admin12345!'`
-fallback is removed. `N8N_PASSWORD` **is** set (`api/n8n-data` works
-either way).
+Resolved 2026-10-04. `PB_PASSWORD` and `N8N_PASSWORD` are both set as
+Cloudflare Pages **production environment** secrets, and every
+`env.PB_PASSWORD || '<literal>'` fallback in `functions/api/*.ts` is
+gone. Verified after the deploying CI run completed: `api/marketplace`,
+`api/n8n-leads`, and `api/n8n-data` all return 200 with no fallback in
+the bundle.
 
-**Do not remove the fallback in `functions/api/*.ts` until `PB_PASSWORD`
-exists in the Cloudflare Pages environment.** Doing so breaks lead
-capture and the marketplace dashboard. This is the last plaintext
-credential left in tracked files, and it cannot be removed safely from
-here because local Wrangler OAuth is expired (needs `wrangler login`).
+Two traps worth remembering:
 
-Fix order: (1) set `PB_PASSWORD` in Pages, (2) drop the fallback,
-(3) rotate the PB admin password.
+- **A `git revert` that restores one file restores every file in the
+  commit.** Restoring the `n8n-data.ts` fallback silently put the four
+  PocketBase fallbacks back too, and post-deploy 200s then came from
+  the fallback rather than the secret. Verify against the deployed
+  build, not the working tree.
+- **The earlier "there are no plaintext credentials left" check was
+  wrong** because it grepped for literals already known. Scan tracked
+  files for secret-_shaped assignments_ (`PASSWORD|SECRET|TOKEN|KEY`
+  followed by a value) instead. That is how the unrelated
+  `PB_PASSWORD` for the n8n service account was found hardcoded in
+  `docker-compose.yml`.
+
+`docker-compose.yml` reads that service-account password from `.env` as
+`PB_N8N_SERVICE_PASSWORD`. Changing it requires
+`docker compose up -d --force-recreate n8n` — a plain restart keeps the
+old container env.
+
+Local Wrangler OAuth is still expired (needs `wrangler login`), so
+Pages mutations go through the GitHub Actions token. Password rotation
+remains outstanding: these values are still in git history.
 
 n8n auth cookie cached in `FORMS` KV (10min TTL). Never commit secrets to `wrangler.toml`.
 
