@@ -157,19 +157,31 @@ The dashboard sends the PIN (`9690`) as `x-api-key` header. Set a stronger `DASH
 
 ### Required Env Vars (set in Cloudflare Pages dashboard, not wrangler.toml)
 
-| Variable            | Default                               | Purpose                                        |
-| ------------------- | ------------------------------------- | ---------------------------------------------- |
-| `DASHBOARD_API_KEY` | `9690` (falls back to PIN)            | Shared secret for all dashboard API endpoints  |
-| `PB_URL`            | `https://pb.rexbunnyservices.online`  | n8n-leads.ts                                   |
-| `PB_EMAIL`          | `admin@rexbunnyservices.com`          | n8n-leads.ts                                   |
-| `PB_PASSWORD`       | **(required, no default)**            | n8n-leads.ts, marketplace.ts, audit/contact.ts |
-| `N8N_URL`           | `https://n8n.rexbunnyservices.online` | n8n-data.ts                                    |
-| `N8N_EMAIL`         | `help@rexbunnyservices.com`           | n8n-data.ts                                    |
-| `N8N_PASSWORD`      | **(required, no default)**            | n8n-data.ts                                    |
+| Variable            | Default                                                  | Purpose                                        |
+| ------------------- | -------------------------------------------------------- | ---------------------------------------------- |
+| `DASHBOARD_API_KEY` | `9690` (falls back to PIN)                               | Shared secret for all dashboard API endpoints  |
+| `PB_URL`            | `https://pb.rexbunnyservices.online`                     | n8n-leads.ts                                   |
+| `PB_EMAIL`          | `admin@rexbunnyservices.com`                             | n8n-leads.ts                                   |
+| `PB_PASSWORD`       | ⚠️ **NOT SET** — code fallback still carries the literal | n8n-leads.ts, marketplace.ts, audit/contact.ts |
+| `N8N_URL`           | `https://n8n.rexbunnyservices.online`                    | n8n-data.ts                                    |
+| `N8N_EMAIL`         | `help@rexbunnyservices.com`                              | n8n-data.ts                                    |
+| `N8N_PASSWORD`      | set ✅                                                   | n8n-data.ts                                    |
 
-`PB_PASSWORD` / `N8N_PASSWORD` have **no code fallback** - if unset, auth fails
-loudly instead of silently using a committed password. Keep them set in the
-Cloudflare Pages dashboard.
+### ⚠️ PB_PASSWORD is not set in Pages — the code fallback is load-bearing
+
+Verified 2026-10-04: `api/marketplace` and `api/n8n-leads` return
+HTTP 500 `"PocketBase auth failed"` the moment the `|| 'Admin12345!'`
+fallback is removed. `N8N_PASSWORD` **is** set (`api/n8n-data` works
+either way).
+
+**Do not remove the fallback in `functions/api/*.ts` until `PB_PASSWORD`
+exists in the Cloudflare Pages environment.** Doing so breaks lead
+capture and the marketplace dashboard. This is the last plaintext
+credential left in tracked files, and it cannot be removed safely from
+here because local Wrangler OAuth is expired (needs `wrangler login`).
+
+Fix order: (1) set `PB_PASSWORD` in Pages, (2) drop the fallback,
+(3) rotate the PB admin password.
 
 n8n auth cookie cached in `FORMS` KV (10min TTL). Never commit secrets to `wrangler.toml`.
 
