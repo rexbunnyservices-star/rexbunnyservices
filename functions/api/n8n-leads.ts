@@ -60,7 +60,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const pbUrl = context.env.PB_URL || 'https://pb.rexbunnyservices.online';
 
     const email = context.env.PB_EMAIL || 'admin@rexbunnyservices.com';
-    const password = context.env.PB_PASSWORD || 'Admin12345!';
+    const password = context.env.PB_PASSWORD;
     const token = await pbLogin(pbUrl, email, password);
 
     if (collection === 'prospects' || collection === 'leads') {

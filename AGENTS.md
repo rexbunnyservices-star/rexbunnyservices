@@ -16,13 +16,17 @@
 
 ## Logins
 
-| Service         | URL                                                      | Credentials                                 |
-| --------------- | -------------------------------------------------------- | ------------------------------------------- |
-| n8n             | `http://localhost:5678`                                  | help@rexbunnyservices.com / Admin12345!     |
-| PocketBase      | `http://localhost:8090/_/`                               | —                                           |
-| Listmonk        | `http://localhost:9000`                                  | listmonk / listmonk                         |
-| Titan SMTP/IMAP | smtpout.secureserver.net:465 / imap.secureserver.net:993 | help@rexbunnyservices.online / Rexbunny@786 |
-| OpenAI API      | —                                                        | sk-proj-... (in n8n credentials)            |
+> Passwords are deliberately **not** recorded here. Look them up in the password
+> manager or the gitignored `.env`. If you do not have a value, ask - never
+> commit one.
+
+| Service         | URL                                                      | Credentials                                       |
+| --------------- | -------------------------------------------------------- | ------------------------------------------------- |
+| n8n             | `http://localhost:5678`                                  | `help@rexbunnyservices.com` / see password mgr    |
+| PocketBase      | `http://localhost:8090/_/`                               | `admin@rexbunnyservices.com` / see `.env`         |
+| Listmonk        | `http://localhost:9000`                                  | see `listmonk/config.toml` (untracked)            |
+| Titan SMTP/IMAP | smtpout.secureserver.net:465 / imap.secureserver.net:993 | `help@rexbunnyservices.online` / see password mgr |
+| OpenAI API      | —                                                        | stored in n8n credentials                         |
 
 ## Webhook Endpoints
 
@@ -59,7 +63,7 @@
 
 ## lf01unified / lf03 — Email Outreach (Aug 8 — Titan-only)
 
-- **All sending switched to Titan SMTP** (`smtpout.secureserver.net:465`, `help@rexbunnyservices.online` / `Rexbunny@786`). Maileroo fully retired.
+- **All sending switched to Titan SMTP** (`smtpout.secureserver.net:465`, `help@rexbunnyservices.online`; password in password manager). Maileroo fully retired.
 - lf03 workflow id is `lf03emailoutreach`; `lf01unified` (id `lf01unified`) repointed: Build SEO Email `mailProvider: 'titan'`, Split by Type → `Send via Titan SMTP` (currently inactive).
 - lf01unified is NOT active yet — reactivate after confirming the Titan path.
 - DNS (Cloudflare, zone `f9e0ce14660d7ad27a49878e3ab04a89`): MX `smtp.secureserver.net`(0)+`mailstore1.secureserver.net`(10), SPF `v=spf1 include:secureserver.net -all`, DMARC `p=reject`, DKIM CNAMEs + TXT `T7191768` — all Titan-only, verified via 1.1.1.1/8.8.8.8.
@@ -153,21 +157,25 @@ The dashboard sends the PIN (`9690`) as `x-api-key` header. Set a stronger `DASH
 
 ### Required Env Vars (set in Cloudflare Pages dashboard, not wrangler.toml)
 
-| Variable            | Default                               | Purpose                                       |
-| ------------------- | ------------------------------------- | --------------------------------------------- |
-| `DASHBOARD_API_KEY` | `9690` (falls back to PIN)            | Shared secret for all dashboard API endpoints |
-| `PB_URL`            | `https://pb.rexbunnyservices.online`  | n8n-leads.ts                                  |
-| `PB_EMAIL`          | `admin@rexbunnyservices.com`          | n8n-leads.ts                                  |
-| `PB_PASSWORD`       | `Admin12345!`                         | n8n-leads.ts                                  |
-| `N8N_URL`           | `https://n8n.rexbunnyservices.online` | n8n-data.ts                                   |
-| `N8N_EMAIL`         | `help@rexbunnyservices.com`           | n8n-data.ts                                   |
-| `N8N_PASSWORD`      | `Admin12345!`                         | n8n-data.ts                                   |
+| Variable            | Default                               | Purpose                                        |
+| ------------------- | ------------------------------------- | ---------------------------------------------- |
+| `DASHBOARD_API_KEY` | `9690` (falls back to PIN)            | Shared secret for all dashboard API endpoints  |
+| `PB_URL`            | `https://pb.rexbunnyservices.online`  | n8n-leads.ts                                   |
+| `PB_EMAIL`          | `admin@rexbunnyservices.com`          | n8n-leads.ts                                   |
+| `PB_PASSWORD`       | **(required, no default)**            | n8n-leads.ts, marketplace.ts, audit/contact.ts |
+| `N8N_URL`           | `https://n8n.rexbunnyservices.online` | n8n-data.ts                                    |
+| `N8N_EMAIL`         | `help@rexbunnyservices.com`           | n8n-data.ts                                    |
+| `N8N_PASSWORD`      | **(required, no default)**            | n8n-data.ts                                    |
+
+`PB_PASSWORD` / `N8N_PASSWORD` have **no code fallback** - if unset, auth fails
+loudly instead of silently using a committed password. Keep them set in the
+Cloudflare Pages dashboard.
 
 n8n auth cookie cached in `FORMS` KV (10min TTL). Never commit secrets to `wrangler.toml`.
 
 ## Known Fixes (Jul 26)
 
-- n8n admin password hash was corrupted during DB recovery (bcrypt `$` chars mangled by shell). **Fix**: Use Python script (not inline `-c`) to generate bcrypt hash: `import bcrypt; bcrypt.hashpw(b"Admin12345!", bcrypt.gensalt())`
+- n8n admin password hash was corrupted during DB recovery (bcrypt `$` chars mangled by shell). **Fix**: Use Python script (not inline `-c`) to generate bcrypt hash: `import bcrypt; bcrypt.hashpw(os.environ["N8N_PASSWORD"].encode(), bcrypt.gensalt())`
 - PB v0.22+ admin auth endpoint: `POST /api/collections/_superusers/auth-with-password` (not `/api/admins/auth-with-password`)
 
 ## Free Audit Email Feature
@@ -216,5 +224,5 @@ n8n auth cookie cached in `FORMS` KV (10min TTL). Never commit secrets to `wrang
   9. Created **personal project** (`project` + `project_relation` with `project:personalOwner` role) and **shared_workflow** + **shared_credentials** entries for all existing workflows/credentials.
   10. Restarted n8n → **all 8 workflows activated** successfully, login via REST API returns **200 OK** with `role: global:owner`.
 - **Key insight**: The `setupOwner` method in `ownership.service.js:170` requires a pre-existing `user` row with `global:owner` role. It does NOT call `createUserWithProject()` — that's only used by the normal signup flow. After `user-management:reset` deletes that row, the setup endpoint can't complete.
-- **Login working**: `help@rexbunnyservices.com` / `Admin12345!`
+- **Login working**: `help@rexbunnyservices.com` (password in password manager — n8n's own `/rest/login` returns 200)
 - **n8n_db_credential**: File `n8n_data/database.sqlite`

@@ -7,7 +7,7 @@ services:
       - ./pb_data_fresh:/pb_data
     environment:
       - PB_ADMIN_EMAIL=admin@rexbunnyservices.com
-      - PB_ADMIN_PASSWORD=Admin12345!
+      - PB_ADMIN_PASSWORD=${PB_ADMIN_PASSWORD:?set PB_ADMIN_PASSWORD in .env}
     restart: unless-stopped
     networks:
       - rexnet
@@ -46,9 +46,9 @@ services:
       - '9000:9000'
     environment:
       - LISTMONK_ADMIN_EMAIL=admin@rexbunnyservices.online
-      - LISTMONK_ADMIN_PASSWORD=R3xBunnyL1stMonk!2024$$
+      - LISTMONK_ADMIN_PASSWORD=${LISTMONK_ADMIN_PASSWORD:?set in .env}
       - LISTMONK_ADMIN_API_USER=listmonk-api
-      - LISTMONK_ADMIN_API_PASSWORD=R3xBunnyL1stMonk!2024$$
+      - LISTMONK_ADMIN_API_PASSWORD=${LISTMONK_ADMIN_PASSWORD:?set in .env}
     volumes:
       - ./listmonk/config.toml:/listmonk/config.toml
     depends_on:
