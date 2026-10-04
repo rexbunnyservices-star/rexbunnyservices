@@ -9,7 +9,7 @@ interface Env {
 async function syncLeadToPocketBase(env: Env, lead: any) {
   const baseUrl = env.PB_URL || 'https://pb.rexbunnyservices.online';
   const email = env.PB_EMAIL || 'admin@rexbunnyservices.com';
-  const password = env.PB_PASSWORD;
+  const password = env.PB_PASSWORD || 'Admin12345!';
 
   const authRes = await fetch(`${baseUrl}/api/collections/_superusers/auth-with-password`, {
     method: 'POST',
