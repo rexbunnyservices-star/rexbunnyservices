@@ -28,7 +28,7 @@ services:
       - WEBHOOK_URL=https://n8n.rexbunnyservices.online
       - POCKETBASE_URL=http://pocketbase:8090
       - PB_EMAIL=n8n-service@rexbunnyservices.online
-      - PB_PASSWORD=chSRTfvPpxoqgmC41YOFVdWz
+      - PB_PASSWORD=${PB_N8N_SERVICE_PASSWORD:?set in .env}
       - SALES_ALERT_TO=help@rexbunnyservices.online
       - LISTMONK_URL=http://listmonk:9000
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
