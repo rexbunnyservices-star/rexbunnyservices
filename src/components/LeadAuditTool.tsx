@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import { trackMetaEvent } from '../lib/metaTracking';
 
 interface AuditResults {
   performanceScore: number;
@@ -98,6 +99,10 @@ export default function LeadAuditTool() {
       const data: AuditResults = await res.json();
 
       setResults(data);
+      trackMetaEvent('Lead', {
+        content_name: 'ai-search-readiness-audit',
+        content_category: 'free_audit',
+      });
       setStep('complete');
       setProgress(100);
     } catch {
@@ -108,10 +113,46 @@ export default function LeadAuditTool() {
     }
   };
 
+  const [shareState, setShareState] = useState<'idle' | 'copied'>('idle');
+
+  const handleShare = async (platform: 'linkedin' | 'x' | 'copy') => {
+    if (!results) return;
+    const score = results.compositeScore;
+    const rating = score >= 80 ? 'great' : score >= 50 ? 'decent' : 'needs work';
+    const text = `My site scored ${score}/100 (${rating}) on the free AI Visibility Audit — check yours too`;
+    const pageUrl = 'https://rexbunnyservices.online/lead-engine';
+    if (platform === 'linkedin') {
+      window.open(
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          pageUrl,
+        )}&summary=${encodeURIComponent(text)}`,
+        '_blank',
+        'noopener,noreferrer,width=640,height=560',
+      );
+    } else if (platform === 'x') {
+      window.open(
+        `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(
+          pageUrl,
+        )}`,
+        '_blank',
+        'noopener,noreferrer,width=640,height=560',
+      );
+    } else {
+      try {
+        await navigator.clipboard.writeText(`${text}: ${pageUrl}`);
+        setShareState('copied');
+        setTimeout(() => setShareState('idle'), 2000);
+      } catch {
+        window.open(
+          `mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(pageUrl)}`,
+        );
+      }
+    }
+  };
+
   const handleReset = () => {
     setStep('form');
     setResults(null);
-    setLeadId(null);
     setProgress(0);
   };
 
@@ -187,6 +228,32 @@ export default function LeadAuditTool() {
           Your full audit report has been sent to <strong class="text-gray-900">{email}</strong>.
           Book a strategy call to get your personalized GEO roadmap.
         </p>
+
+        <div class="mb-6 rounded-lg bg-white p-4">
+          <p class="mb-3 text-sm font-semibold text-gray-900">
+            Got a score you're proud of? Share it.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <button
+              onClick={() => handleShare('linkedin')}
+              class="flex-1 rounded-lg bg-[#0a66c2] px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:opacity-90"
+            >
+              Share on LinkedIn
+            </button>
+            <button
+              onClick={() => handleShare('x')}
+              class="flex-1 rounded-lg bg-black px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:opacity-80"
+            >
+              Share on X
+            </button>
+            <button
+              onClick={() => handleShare('copy')}
+              class="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-center text-sm font-medium text-gray-700 transition-colors hover:border-gray-400"
+            >
+              {shareState === 'copied' ? '✓ Copied!' : 'Copy Link'}
+            </button>
+          </div>
+        </div>
 
         <div class="flex flex-col gap-3 sm:flex-row">
           <a

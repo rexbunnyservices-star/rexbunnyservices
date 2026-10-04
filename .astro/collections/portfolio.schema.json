@@ -19,6 +19,9 @@
         "description": {
           "type": "string"
         },
+        "disclaimer": {
+          "type": "string"
+        },
         "results": {
           "type": "object",
           "properties": {
@@ -50,14 +53,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "slug",
-        "clientName",
-        "serviceType",
-        "description",
-        "results"
-      ],
+      "required": ["title", "slug", "clientName", "serviceType", "description", "results"],
       "additionalProperties": false
     }
   },

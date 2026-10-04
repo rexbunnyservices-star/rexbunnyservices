@@ -1,23 +1,33 @@
 ---
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/services/seo", label: "SEO" },
-  { href: "/services/ai-search-optimization", label: "GEO" },
-  { href: "/services/aeo", label: "AEO" },
-  { href: "/services/web-development", label: "Web Dev" },
-  { href: "/services/ai-visual", label: "AI Visual" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/portfolio", label: "Case Studies" },
-  { href: "/lead-engine", label: "Free Audit" },
-  { href: "/contact", label: "Contact" },
+  { href: '/', label: 'Home' },
+  { href: '/services/seo', label: 'AI Search' },
+  { href: '/services/web-development', label: 'Web Dev' },
+  { href: '/services/lead-generation', label: 'Lead Gen' },
+  { href: '/services/ad-campaigns', label: 'Ads' },
+  { href: '/services/ecommerce-dashboards', label: 'Shopping' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/portfolio', label: 'Case Studies' },
+  { href: '/lead-engine', label: 'Free Audit' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 
-<nav aria-label="Primary" class="fixed top-0 z-50 w-full border-b border-brand-200/50 bg-white/90 backdrop-blur-md">
+<nav
+  aria-label="Primary"
+  class="fixed top-0 z-50 w-full border-b border-brand-200/50 bg-white/90 backdrop-blur-md"
+>
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 lg:px-8">
     <a href="/" class="flex items-center gap-2">
-      <img src="/images/logo-mark.png" alt="RexBunny Services" width="200" height="175" class="h-9 w-auto" decoding="async" />
+      <img
+        src="/images/logo-mark.png"
+        alt="RexBunny Services"
+        width="200"
+        height="175"
+        class="h-9 w-auto"
+        decoding="async"
+      />
       <div class="flex flex-col leading-tight">
         <span class="text-lg font-extrabold tracking-tight text-rex-dark">RexBunny</span>
         <span class="text-[10px] font-medium tracking-[2px] text-gray-500">SERVICES</span>
@@ -43,9 +53,19 @@ const links = [
       </a>
     </div>
 
-    <button class="md:hidden" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-btn">
+    <button
+      class="md:hidden"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      id="mobile-menu-btn"
+    >
       <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
   </div>
@@ -53,7 +73,14 @@ const links = [
   <div class="hidden border-t border-gray-200 bg-white md:hidden" id="mobile-menu">
     <div class="space-y-1 px-4 py-4">
       <a href="/" class="mb-3 flex items-center gap-2">
-        <img src="/images/logo-mark.png" alt="RexBunny Services" width="200" height="175" class="h-8 w-auto" decoding="async" />
+        <img
+          src="/images/logo-mark.png"
+          alt="RexBunny Services"
+          width="200"
+          height="175"
+          class="h-8 w-auto"
+          decoding="async"
+        />
         <div class="flex flex-col leading-tight">
           <span class="text-base font-extrabold tracking-tight text-rex-dark">RexBunny</span>
           <span class="text-[9px] font-medium tracking-[2px] text-gray-500">SERVICES</span>
@@ -80,12 +107,12 @@ const links = [
 </nav>
 
 <script>
-  const btn = document.getElementById("mobile-menu-btn");
-  const menu = document.getElementById("mobile-menu");
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
   if (btn && menu) {
-    btn.addEventListener("click", () => {
-      const expanded = menu.classList.toggle("hidden");
-      btn.setAttribute("aria-expanded", String(!expanded));
+    btn.addEventListener('click', () => {
+      const expanded = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!expanded));
     });
   }
 </script>

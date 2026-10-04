@@ -6,14 +6,14 @@ interface Env {
 function response(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   });
 }
 
 function checkAuth(request: Request, env: Env) {
-  const key = env.DASHBOARD_API_KEY || "9690";
-  if (request.headers.get("x-api-key") !== key) {
-    return response({ error: "Unauthorized" }, 401);
+  const key = env.DASHBOARD_API_KEY || '9690';
+  if (request.headers.get('x-api-key') !== key) {
+    return response({ error: 'Unauthorized' }, 401);
   }
 }
 
@@ -23,8 +23,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   try {
     const url = new URL(context.request.url);
-    const type = url.searchParams.get("type") || "audit";
-    const prefix = type === "contact" ? "contact_" : "audit_";
+    const type = url.searchParams.get('type') || 'audit';
+    const prefix = type === 'contact' ? 'contact_' : 'audit_';
 
     const list = await context.env.FORMS.list({ prefix });
     const items = [];
@@ -50,7 +50,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
     const { keys } = await context.request.json();
     if (!Array.isArray(keys) || keys.length === 0) {
-      return response({ error: "keys array is required" }, 400);
+      return response({ error: 'keys array is required' }, 400);
     }
     let deleted = 0;
     for (const key of keys) {

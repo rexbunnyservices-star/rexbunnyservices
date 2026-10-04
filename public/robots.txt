@@ -1,4 +1,4 @@
-# REX Bunny Services — AI crawler optimized
+# RexBunny Services — AI crawler optimized
 
 User-agent: GPTBot
 Allow: /

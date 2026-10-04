@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
@@ -9,14 +9,47 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="pt-24">
     <div class="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mb-8 text-center">
-        <span class="mb-4 inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-600">
+        <span
+          class="mb-4 inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-600"
+        >
           Free Download
         </span>
         <h1 class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl">
           The 20-Point GEO Checklist
         </h1>
         <p class="text-lg text-gray-500">
-          Every action item you need to make your website visible to AI search engines. No fluff, no theory — just the checklist.
+          Every action item you need to make your website visible to AI search engines. No fluff, no
+          theory — just the checklist.
+        </p>
+      </div>
+
+      <div
+        id="checklist-gate"
+        class="mb-8 rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-50 to-white p-8 text-center"
+      >
+        <h2 class="mb-2 text-xl font-bold text-gray-900">Get This Checklist to Your Inbox</h2>
+        <p class="mb-6 text-sm text-gray-500">
+          Download the full PDF + get a free AI visibility audit. No spam, unsubscribe anytime.
+        </p>
+        <form id="checklist-form" class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+          <input
+            type="email"
+            id="checklist-email"
+            required
+            placeholder="you@company.com"
+            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+            aria-label="Email address"
+          />
+          <button
+            type="submit"
+            id="checklist-submit"
+            class="shrink-0 rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500 disabled:opacity-60"
+          >
+            Email Me It →
+          </button>
+        </form>
+        <p id="checklist-success" class="mt-4 hidden text-sm font-semibold text-green-700">
+          Thanks! Check your inbox — the checklist is on its way.
         </p>
       </div>
 
@@ -25,46 +58,95 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
         <div class="space-y-6">
           <div>
-            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">Technical Setup</h3>
+            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">
+              Technical Setup
+            </h3>
             <ul class="space-y-2 text-sm text-gray-600">
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> llms.txt file created and accessible</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> robots.txt allows GPTBot, Claude-Web, PerplexityBot</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> HTTPS enforced across all pages</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Page load under 2 seconds (LCP)</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Mobile-responsive design</li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> llms.txt file created and accessible
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> robots.txt allows GPTBot, Claude-Web, PerplexityBot
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> HTTPS enforced across all pages
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Page load under 2 seconds (LCP)
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Mobile-responsive design
+              </li>
             </ul>
           </div>
 
           <div>
-            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">Structured Data</h3>
+            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">
+              Structured Data
+            </h3>
             <ul class="space-y-2 text-sm text-gray-600">
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Organization schema implemented</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> ProfessionalService schema with service types</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> FAQPage schema on relevant pages</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> BreadcrumbList schema for navigation</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> WebSite schema with SearchAction</li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Organization schema implemented
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> ProfessionalService schema with service types
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> FAQPage schema on relevant pages
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> BreadcrumbList schema for navigation
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> WebSite and Organization schema linking services
+              </li>
             </ul>
           </div>
 
           <div>
-            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">Content Optimization</h3>
+            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">
+              Content Optimization
+            </h3>
             <ul class="space-y-2 text-sm text-gray-600">
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Homepage clearly states what you do</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Service pages answer specific questions</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Blog content structured for citation (H2/H3, lists, data)</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> About page includes founding date and key facts</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Contact information consistent across pages</li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Homepage clearly states what you do
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Service pages answer specific questions
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Blog content structured for citation (H2/H3, lists,
+                data)
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> About page includes founding date and key facts
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Contact information consistent across pages
+              </li>
             </ul>
           </div>
 
           <div>
-            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">Authority Signals</h3>
+            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-600">
+              Authority Signals
+            </h3>
             <ul class="space-y-2 text-sm text-gray-600">
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Backlinks from industry-relevant sites</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Social profiles linked (LinkedIn, Twitter)</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Press mentions or media appearances</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Client testimonials with real names</li>
-              <li class="flex items-start gap-2"><span class="text-brand-600">â˜</span> Case studies with quantified results</li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Backlinks from industry-relevant sites
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Social profiles linked (LinkedIn, Twitter)
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Press mentions or media appearances
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Client testimonials with real names
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600">✓</span> Case studies with quantified results
+              </li>
             </ul>
           </div>
         </div>
@@ -93,3 +175,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('checklist-form');
+  const emailInput = document.getElementById('checklist-email');
+  const submitBtn = document.getElementById('checklist-submit');
+  const successMsg = document.getElementById('checklist-success');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = emailInput?.value?.trim();
+    if (!email) return;
+    if (submitBtn) submitBtn.disabled = true;
+    try {
+      const res = await fetch('/api/checklist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'geo-checklist' }),
+      });
+      if (res.ok) {
+        if (form) form.style.display = 'none';
+        if (successMsg) successMsg.classList.remove('hidden');
+      } else if (submitBtn) {
+        submitBtn.disabled = false;
+      }
+    } catch {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+</script>

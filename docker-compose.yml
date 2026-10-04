@@ -2,7 +2,7 @@ services:
   pocketbase:
     image: ghcr.io/muchobien/pocketbase:latest
     ports:
-      - "8090:8090"
+      - '8090:8090'
     volumes:
       - ./pb_data_fresh:/pb_data
     environment:
@@ -15,7 +15,7 @@ services:
   n8n:
     image: n8nio/n8n:latest
     ports:
-      - "5678:5678"
+      - '5678:5678'
     volumes:
       - ./n8n_data:/home/node/.n8n
       - ./n8n/workflows:/home/node/.n8n/workflows
@@ -27,10 +27,13 @@ services:
       - N8N_PROXY_HOPS=1
       - WEBHOOK_URL=https://n8n.rexbunnyservices.online
       - POCKETBASE_URL=http://pocketbase:8090
-      - POCKETBASE_ADMIN_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJwYmNfMzE0MjYzNTgyMyIsImV4cCI6MTc4NTU0NTAyOSwiaWQiOiJ5OHNsMW8zdnRlcXVra2siLCJyZWZyZXNoYWJsZSI6dHJ1ZSwidHlwZSI6ImF1dGgifQ.FH8Blzb-CFsYu67cqxW1f9R9MrD-_fTEbaHWye2w59U
+      - PB_EMAIL=n8n-service@rexbunnyservices.online
+      - PB_PASSWORD=chSRTfvPpxoqgmC41YOFVdWz
+      - SALES_ALERT_TO=help@rexbunnyservices.online
       - LISTMONK_URL=http://listmonk:9000
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
+      - N8N_RUNNERS_TASK_TIMEOUT=900
     depends_on:
       - pocketbase
     restart: unless-stopped
@@ -40,7 +43,7 @@ services:
   listmonk:
     image: listmonk/listmonk:latest
     ports:
-      - "9000:9000"
+      - '9000:9000'
     environment:
       - LISTMONK_ADMIN_EMAIL=admin@rexbunnyservices.online
       - LISTMONK_ADMIN_PASSWORD=R3xBunnyL1stMonk!2024$$
@@ -65,7 +68,7 @@ services:
     volumes:
       - ./listmonk_db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      test: ['CMD-SHELL', 'pg_isready -U listmonk']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -76,7 +79,7 @@ services:
   calcom:
     image: calcom/cal.com:latest
     ports:
-      - "3001:3000"
+      - '3001:3000'
     environment:
       - N8N_LOG_LEVEL=debug
       - DATABASE_URL=postgresql://calcom:${POSTGRES_PASSWORD:-changeme}@calcom-db:5432/calcom
@@ -101,7 +104,7 @@ services:
     volumes:
       - ./calcom_db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U calcom"]
+      test: ['CMD-SHELL', 'pg_isready -U calcom']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -112,7 +115,7 @@ services:
   umami:
     image: ghcr.io/umami-software/umami:postgresql-latest
     ports:
-      - "3002:3000"
+      - '3002:3000'
     environment:
       - N8N_LOG_LEVEL=debug
       - DATABASE_TYPE=postgresql
@@ -135,7 +138,7 @@ services:
     volumes:
       - ./umami_db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U umami"]
+      test: ['CMD-SHELL', 'pg_isready -U umami']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -148,7 +151,7 @@ services:
       context: ./social-media-manager
       dockerfile: Dockerfile
     ports:
-      - "3456:3456"
+      - '3456:3456'
     env_file:
       - ./social-media-manager/.env
     environment:
@@ -165,7 +168,7 @@ services:
   ollama:
     image: ollama/ollama:latest
     ports:
-      - "11434:11434"
+      - '11434:11434'
     volumes:
       - C:\Users\anass\.ollama\models:/root/.ollama/models
     environment:
@@ -185,8 +188,8 @@ services:
   traefik:
     image: traefik:v3.0
     ports:
-      - "443:443"
-      - "80:80"
+      - '443:443'
+      - '80:80'
     volumes:
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml
       - ./traefik/config.yml:/etc/traefik/config.yml
@@ -204,9 +207,25 @@ services:
   reacher:
     image: reacherhq/backend:latest
     ports:
-      - "8081:8080"
+      - '8081:8080'
     environment:
       - RUST_LOG=reacher=info
+      - RCH__HELLO_NAME=rexbunnyservices.online
+      - RCH__FROM_EMAIL=verify@rexbunnyservices.online
+      - RCH__SMTP_TIMEOUT=15
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  gmaps-scraper:
+    image: gosom/google-maps-scraper
+    command: ['-web', '-addr', ':8080', '-data-folder', '/gmapsdata']
+    ports:
+      - '8082:8080'
+    volumes:
+      - ./gmapsdata:/gmapsdata
+    environment:
+      - DISABLE_TELEMETRY=1
     restart: unless-stopped
     networks:
       - rexnet
@@ -225,6 +244,27 @@ services:
       - calcom
       - umami
       - smm-service
+    restart: unless-stopped
+    networks:
+      - rexnet
+
+  # Internal SMTP relay that injects RFC 8058 one-click List-Unsubscribe
+  # headers, then relays to Titan. Needed because n8n's Email Send node
+  # cannot set custom message headers.
+  # Bound to 127.0.0.1 only (for host-side debugging) + reachable by n8n
+  # over the internal rexnet network. Do NOT publish 0.0.0.0.
+  smtp-header-relay:
+    build: ./smtp-header-relay
+    container_name: rex-bunny-services-smtp-header-relay-1
+    ports:
+      - '127.0.0.1:2525:2525'
+    env_file:
+      - .env
+    environment:
+      - RELAY_BIND_HOST=0.0.0.0
+      - RELAY_BIND_PORT=2525
+      - RELAY_LOG_LEVEL=INFO
+    depends_on: []
     restart: unless-stopped
     networks:
       - rexnet

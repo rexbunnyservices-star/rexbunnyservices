@@ -1,25 +1,25 @@
 http:
   routers:
     n8n:
-      rule: "Host(`n8n.rexbunnyservices.online`)"
+      rule: 'Host(`n8n.rexbunnyservices.online`)'
       service: n8n
       tls:
         certResolver: letsencrypt
 
     listmonk:
-      rule: "Host(`listmonk.rexbunnyservices.online`)"
+      rule: 'Host(`listmonk.rexbunnyservices.online`)'
       service: listmonk
       tls:
         certResolver: letsencrypt
 
     calcom:
-      rule: "Host(`cal.rexbunnyservices.online`)"
+      rule: 'Host(`cal.rexbunnyservices.online`)'
       service: calcom
       tls:
         certResolver: letsencrypt
 
     umami:
-      rule: "Host(`analytics.rexbunnyservices.online`)"
+      rule: 'Host(`analytics.rexbunnyservices.online`)'
       service: umami
       tls:
         certResolver: letsencrypt
@@ -28,19 +28,19 @@ http:
     n8n:
       loadBalancer:
         servers:
-          - url: "http://n8n:5678"
+          - url: 'http://n8n:5678'
 
     listmonk:
       loadBalancer:
         servers:
-          - url: "http://listmonk:9000"
+          - url: 'http://listmonk:9000'
 
     calcom:
       loadBalancer:
         servers:
-          - url: "http://calcom:3000"
+          - url: 'http://calcom:3000'
 
     umami:
       loadBalancer:
         servers:
-          - url: "http://umami:3000"
+          - url: 'http://umami:3000'

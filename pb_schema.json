@@ -24,7 +24,11 @@
         { "name": "title", "type": "text", "required": true },
         { "name": "slug", "type": "text", "required": true, "unique": true },
         { "name": "clientName", "type": "text" },
-        { "name": "serviceType", "type": "relation", "options": { "collectionId": "services", "maxSelect": 1 } },
+        {
+          "name": "serviceType",
+          "type": "relation",
+          "options": { "collectionId": "services", "maxSelect": 1 }
+        },
         { "name": "description", "type": "editor" },
         { "name": "results", "type": "json" },
         { "name": "testimonial", "type": "text" },
@@ -38,10 +42,20 @@
         { "name": "email", "type": "email", "required": true },
         { "name": "website", "type": "url", "required": true },
         { "name": "name", "type": "text" },
-        { "name": "serviceInterest", "type": "select", "options": { "values": ["webdev", "seo", "geo", "unknown"] } },
+        {
+          "name": "serviceInterest",
+          "type": "select",
+          "options": { "values": ["webdev", "seo", "geo", "unknown"] }
+        },
         { "name": "auditScore", "type": "json" },
         { "name": "aiVisibility", "type": "json" },
-        { "name": "status", "type": "select", "options": { "values": ["new", "running", "completed", "contacted", "qualified", "converted", "lost"] } },
+        {
+          "name": "status",
+          "type": "select",
+          "options": {
+            "values": ["new", "running", "completed", "contacted", "qualified", "converted", "lost"]
+          }
+        },
         { "name": "source", "type": "text" },
         { "name": "score", "type": "number" }
       ]

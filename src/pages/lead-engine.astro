@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import LeadAuditTool from "../components/LeadAuditTool.tsx";
-import CalEmbed from "../components/CalEmbed.tsx";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadAuditTool from '../components/LeadAuditTool.tsx';
+import CalEmbed from '../components/CalEmbed.tsx';
 ---
 
 <BaseLayout
@@ -29,18 +29,36 @@ import CalEmbed from "../components/CalEmbed.tsx";
       <div class="mx-auto mt-16 max-w-4xl">
         <h2 class="mb-8 text-center text-2xl font-bold text-gray-900">What We Check</h2>
         <div class="grid gap-4 md:grid-cols-4">
-          {[
-            { icon: "⚡", title: "Lighthouse Performance", desc: "LCP, CLS, TBT, FCP — full Core Web Vitals audit" },
-            { icon: "🔍", title: "SEO Foundation", desc: "Technical SEO, on-page optimization, and keyword readiness" },
-            { icon: "🤖", title: "GEO Readiness", desc: "GPTBot access, llms.txt, entity signals, citation potential" },
-            { icon: "🎙️", title: "AEO Readiness", desc: "Featured snippet presence, voice search readiness, AI Overview extractability" },
-          ].map((item) => (
-            <div class="rounded-xl border border-gray-200 bg-white p-5 text-center">
-              <div class="mb-2 text-2xl">{item.icon}</div>
-              <h3 class="mb-1 text-sm font-bold text-gray-900">{item.title}</h3>
-              <p class="text-xs text-gray-500">{item.desc}</p>
-            </div>
-          ))}
+          {
+            [
+              {
+                icon: '⚡',
+                title: 'Lighthouse Performance',
+                desc: 'LCP, CLS, TBT, FCP — full Core Web Vitals audit',
+              },
+              {
+                icon: '🔍',
+                title: 'SEO Foundation',
+                desc: 'Technical SEO, on-page optimization, and keyword readiness',
+              },
+              {
+                icon: '🤖',
+                title: 'GEO Readiness',
+                desc: 'GPTBot access, llms.txt, entity signals, citation potential',
+              },
+              {
+                icon: '🎙️',
+                title: 'AEO Readiness',
+                desc: 'Featured snippet presence, voice search readiness, AI Overview extractability',
+              },
+            ].map((item) => (
+              <div class="rounded-xl border border-gray-200 bg-white p-5 text-center">
+                <div class="mb-2 text-2xl">{item.icon}</div>
+                <h3 class="mb-1 text-sm font-bold text-gray-900">{item.title}</h3>
+                <p class="text-xs text-gray-500">{item.desc}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
 
@@ -48,22 +66,40 @@ import CalEmbed from "../components/CalEmbed.tsx";
       <div class="mx-auto mt-16 max-w-3xl">
         <h2 class="mb-6 text-center text-2xl font-bold text-gray-900">How It Works</h2>
         <div class="space-y-4">
-          {[
-            { step: "1", title: "Submit your URL", desc: "Enter your website URL and email. We only use your email to send the full report." },
-            { step: "2", title: "We run Lighthouse", desc: "Our headless Chrome instance audits your Core Web Vitals, accessibility, and best practices." },
-            { step: "3", title: "We check AI readiness", desc: "We query your robots.txt, check for llms.txt, analyze your structured data, and evaluate entity clarity." },
-            { step: "4", title: "You get your score", desc: "Preview your composite AI Visibility Score instantly. Full PDF report delivered to your inbox." },
-          ].map((item) => (
-            <div class="flex gap-4 rounded-xl border border-gray-200 bg-white p-5">
-              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
-                {item.step}
+          {
+            [
+              {
+                step: '1',
+                title: 'Submit your URL',
+                desc: 'Enter your website URL and email. We only use your email to send the full report.',
+              },
+              {
+                step: '2',
+                title: 'We run Lighthouse',
+                desc: 'Our headless Chrome instance audits your Core Web Vitals, accessibility, and best practices.',
+              },
+              {
+                step: '3',
+                title: 'We check AI readiness',
+                desc: 'We query your robots.txt, check for llms.txt, analyze your structured data, and evaluate entity clarity.',
+              },
+              {
+                step: '4',
+                title: 'You get your score',
+                desc: 'Preview your composite AI Visibility Score instantly. Full PDF report delivered to your inbox.',
+              },
+            ].map((item) => (
+              <div class="flex gap-4 rounded-xl border border-gray-200 bg-white p-5">
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+                  {item.step}
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900">{item.title}</h3>
+                  <p class="text-sm text-gray-500">{item.desc}</p>
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-gray-900">{item.title}</h3>
-                <p class="text-sm text-gray-500">{item.desc}</p>
-              </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
 
@@ -71,7 +107,8 @@ import CalEmbed from "../components/CalEmbed.tsx";
       <div class="mx-auto mt-16 max-w-lg text-center">
         <h2 class="mb-4 text-2xl font-bold text-gray-900">Want the Full Strategy Roadmap?</h2>
         <p class="mb-6 text-sm text-gray-500">
-          After your audit, book a free 30-minute strategy call where we walk through your results and build a custom action plan.
+          After your audit, book a free 30-minute strategy call where we walk through your results
+          and build a custom action plan.
         </p>
         <CalEmbed buttonText="Book Your Free Strategy Call →" />
       </div>

@@ -7,7 +7,7 @@ interface MetricCardProps {
 
 export default function MetricCard({ value, label, description, index = 0 }: MetricCardProps) {
   const numeric = /^\d+(\.\d+)?$/.test(value);
-  const suffix = value.replace(/[\d.]/g, "");
+  const suffix = value.replace(/[\d.]/g, '');
   const numVal = parseFloat(value);
   return (
     <div
@@ -16,7 +16,7 @@ export default function MetricCard({ value, label, description, index = 0 }: Met
       class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-all duration-500 hover:shadow-lg hover:border-brand-500/30 hover:-translate-y-0.5 opacity-0"
     >
       <div
-        data-counter={numeric ? "true" : undefined}
+        data-counter={numeric ? 'true' : undefined}
         data-target={numeric ? numVal : undefined}
         data-suffix={suffix || undefined}
         class="bg-gradient-to-r from-brand-500 to-rex-orange bg-clip-text font-display text-3xl font-extrabold text-transparent"

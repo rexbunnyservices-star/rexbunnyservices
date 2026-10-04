@@ -1,20 +1,20 @@
 ---
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
-import ExitPopup from "../components/ExitPopup.astro";
-import "@fontsource/inter/300.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "@fontsource/inter/700.css";
-import "@fontsource/inter/800.css";
-import "@fontsource/inter/900.css";
-import "@fontsource/plus-jakarta-sans/600.css";
-import "@fontsource/plus-jakarta-sans/700.css";
-import "@fontsource/plus-jakarta-sans/800.css";
-import "@fontsource/jetbrains-mono/400.css";
-import "@fontsource/jetbrains-mono/500.css";
-import "@fontsource/jetbrains-mono/700.css";
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import ExitPopup from '../components/ExitPopup.astro';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/900.css';
+import '@fontsource/plus-jakarta-sans/600.css';
+import '@fontsource/plus-jakarta-sans/700.css';
+import '@fontsource/plus-jakarta-sans/800.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/700.css';
 
 export interface Props {
   title: string;
@@ -25,18 +25,32 @@ export interface Props {
   breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { title, description, canonical, ogImage, ogType = "website", breadcrumbs, noindex = false } = Astro.props;
-const siteUrl = "https://rexbunnyservices.online";
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = 'website',
+  breadcrumbs,
+  noindex = false,
+} = Astro.props;
+const siteUrl = 'https://rexbunnyservices.online';
 const pageUrl = canonical || Astro.url.pathname;
 const fullUrl = `${siteUrl}${pageUrl}`;
-const ogImageUrl = ogImage || `${siteUrl}/images/og-image.svg`;
+const ogImageUrl = ogImage || `${siteUrl}/images/og-image.png`;
 
 const breadcrumbItems = breadcrumbs
-  ? [{ name: "Home", url: siteUrl }, ...breadcrumbs.map(b => ({ name: b.name, url: b.url.startsWith("http") ? b.url : `${siteUrl}${b.url}` }))]
-  : [{ name: "Home", url: siteUrl }];
+  ? [
+      { name: 'Home', url: siteUrl },
+      ...breadcrumbs.map((b) => ({
+        name: b.name,
+        url: b.url.startsWith('http') ? b.url : `${siteUrl}${b.url}`,
+      })),
+    ]
+  : [{ name: 'Home', url: siteUrl }];
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -44,7 +58,12 @@ const breadcrumbItems = breadcrumbs
     <title>{title} | RexBunny Services</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={`${siteUrl}${pageUrl}`} />
-    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    <meta
+      name="robots"
+      content={noindex
+        ? 'noindex, nofollow'
+        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/icon-180.png" />
@@ -52,7 +71,43 @@ const breadcrumbItems = breadcrumbs
     <meta name="author" content="RexBunny Services" />
 
     <!-- Umami Analytics -->
-    <script async defer src="https://analytics.rexbunnyservices.online/script.js" data-website-id="89882bfd-5853-4835-8ee8-a54cc9b8f4a6"></script>
+    <script
+      async
+      defer
+      src="https://analytics.rexbunnyservices.online/script.js"
+      data-website-id="89882bfd-5853-4835-8ee8-a54cc9b8f4a6"></script>
+
+    <!-- Meta Pixel: REX Bunny Website Leads Pixel -->
+    <script is:inline>
+      /* eslint-disable @typescript-eslint/no-unused-expressions -- Facebook's own minified bootstrap */
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '1113443814370385');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=1113443814370385&ev=PageView&noscript=1"
+      />
+    </noscript>
 
     <!-- Hreflang for international audience -->
     <link rel="alternate" hreflang="en" href={fullUrl} />
@@ -80,156 +135,207 @@ const breadcrumbItems = breadcrumbs
     <meta name="twitter:site" content="@rexbunnyservices" />
 
     <!-- JSON-LD Schema -->
-    <script type="application/ld+json" data-schema="organization" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": `${siteUrl}/#organization`,
-          "name": "RexBunny Services",
-          "url": siteUrl,
-          "logo": `${siteUrl}/images/logo.png`,
-          "foundingDate": "2024-01-01",
-          "founders": [
-            {
-              "@type": "Person",
-              "@id": `${siteUrl}/#founder`,
-              "name": "Anass",
-              "jobTitle": "CEO & Lead Architect"
-            }
-          ],
-          "sameAs": [
-            "https://linkedin.com/company/rexbunnyservices"
-          ],
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "US"
-          },
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "sales",
-            "email": "help@rexbunnyservices.com",
-            "availableLanguage": ["English"]
-          },
-          "description": "A marketing agency specializing in SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). We make brands visible in Google, ChatGPT, Gemini, Siri, Alexa, Perplexity, and Copilot."
-        },
-        {
-          "@type": "ProfessionalService",
-          "@id": `${siteUrl}/#service`,
-          "name": "RexBunny Services — AI Search Optimization & Web Development",
-          "provider": { "@id": `${siteUrl}/#organization` },
-          "url": siteUrl,
-          "areaServed": [
-            { "@type": "Country", "name": "United States" },
-            { "@type": "Country", "name": "Canada" },
-            { "@type": "Country", "name": "United Kingdom" }
-          ],
-          "serviceType": [
-            "Generative Engine Optimization",
-            "AI Search Optimization",
-            "Technical SEO",
-            "Local SEO",
-            "Web Development",
-            "Performance Engineering",
-            "Conversion Rate Optimization",
-            "Structured Data Consulting"
-          ],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "RexBunny Service Packages",
-            "itemListElement": [
+    <script
+      type="application/ld+json"
+      data-schema="organization"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'RexBunny Services',
+            url: siteUrl,
+            logo: `${siteUrl}/images/logo.png`,
+            foundingDate: '2024-01-01',
+            founders: [
               {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "GEO Growth Package",
-                  "description": "Full entity optimization, LLM citation engineering, and AI search monitoring."
-                }
+                '@type': 'Person',
+                '@id': `${siteUrl}/#founder`,
+                name: 'Anass',
+                jobTitle: 'Founder & Lead Engineer',
               },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Web Performance Overhaul",
-                  "description": "End-to-end rebuild or refactor to achieve Lighthouse 95+ and sub-second load times."
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Programmatic Local SEO",
-                  "description": "Scalable local SEO infrastructure for multi-location businesses."
-                }
-              }
-            ]
-          }
-        },
-        {
-          "@type": "WebSite",
-          "@id": `${siteUrl}/#website`,
-          "url": siteUrl,
-          "name": "RexBunny Services",
-          "publisher": { "@id": `${siteUrl}/#organization` },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+            ],
+            sameAs: ['https://linkedin.com/company/rexbunnyservices'],
+            address: {
+              '@type': 'PostalAddress',
+              addressCountry: 'US',
             },
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "WebPage",
-          "@id": `${siteUrl}/#webpage`,
-          "url": siteUrl,
-          "name": "RexBunny Services — AI Search Optimization & Web Development",
-          "isPartOf": { "@id": `${siteUrl}/#website` },
-          "about": { "@id": `${siteUrl}/#service` },
-          "mainEntity": { "@id": `${siteUrl}/#service` },
-          "specialty": [
-            "Generative Engine Optimization",
-            "AI Search Optimization",
-            "LLM Citation Engineering",
-            "Entity Optimization",
-            "Technical SEO",
-            "Web Performance Engineering"
-          ],
-          "significantLink": [
-            `${siteUrl}/services/web-development`,
-            `${siteUrl}/services/seo`,
-            `${siteUrl}/services/ai-search-optimization`,
-            `${siteUrl}/services/aeo`,
-            `${siteUrl}/lead-engine`,
-            `${siteUrl}/ai-search-statistics`
-          ]
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": `${siteUrl}/#breadcrumb`,
-          "itemListElement": breadcrumbItems.map((item, i) => ({
-            "@type": "ListItem",
-            "position": i + 1,
-            "name": item.name,
-            "item": item.url
-          }))
-        }
-      ]
-    })} />
+            contactPoint: {
+              '@type': 'ContactPoint',
+              contactType: 'sales',
+              email: 'help@rexbunnyservices.com',
+              availableLanguage: ['English'],
+            },
+            description:
+              'A growth engineering practice covering AI search optimization (SEO, GEO, AEO), website generation, lead generation, ad campaigns, ecommerce dashboards, and AI visual production. We make brands visible and measurable in Google, ChatGPT, Gemini, Siri, Alexa, Perplexity, and Copilot.',
+          },
+          {
+            '@type': 'ProfessionalService',
+            '@id': `${siteUrl}/#service`,
+            name: 'RexBunny Services — Growth Engineering',
+            alternateName: 'RexBunny Services — AI Search Optimization & Web Development',
+            provider: { '@id': `${siteUrl}/#organization` },
+            url: siteUrl,
+            availableLanguage: ['English'],
+            areaServed: [
+              { '@type': 'Country', name: 'United States' },
+              { '@type': 'Country', name: 'United Kingdom' },
+              { '@type': 'Country', name: 'Canada' },
+              { '@type': 'AdministrativeArea', name: 'Worldwide' },
+            ],
+            serviceType: [
+              'Generative Engine Optimization',
+              'AI Search Optimization',
+              'Technical SEO',
+              'Local SEO',
+              'Web Development',
+              'Performance Engineering',
+              'Answer Engine Optimization',
+              'Lead Generation',
+              'Ad Campaigns',
+              'Ecommerce Dashboards',
+              'AI Visual Production',
+            ],
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'RexBunny Service Packages',
+              itemListElement: [
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'GEO Growth Package',
+                    description:
+                      'Full entity optimization, LLM citation engineering, and AI search monitoring.',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Web Performance Overhaul',
+                    description:
+                      'End-to-end rebuild or refactor to achieve Lighthouse 95+ and sub-second load times.',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Programmatic Local SEO',
+                    description: 'Scalable local SEO infrastructure for multi-location businesses.',
+                  },
+                },
+              ],
+            },
+          },
+          {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`,
+            url: siteUrl,
+            name: 'RexBunny Services',
+            publisher: { '@id': `${siteUrl}/#organization` },
+          },
+          {
+            '@type': 'WebPage',
+            '@id': `${siteUrl}/#webpage`,
+            url: siteUrl,
+            name: 'RexBunny Services — Growth Engineering',
+            isPartOf: { '@id': `${siteUrl}/#website` },
+            about: { '@id': `${siteUrl}/#service` },
+            mainEntity: { '@id': `${siteUrl}/#service` },
+            specialty: [
+              'Generative Engine Optimization',
+              'AI Search Optimization',
+              'LLM Citation Engineering',
+              'Entity Optimization',
+              'Technical SEO',
+              'Web Performance Engineering',
+              'Lead Generation',
+              'Ecommerce Dashboards',
+            ],
+            significantLink: [
+              `${siteUrl}/services/web-development`,
+              `${siteUrl}/services/seo`,
+              `${siteUrl}/services/ai-search-optimization`,
+              `${siteUrl}/services/aeo`,
+              `${siteUrl}/services/lead-generation`,
+              `${siteUrl}/services/ad-campaigns`,
+              `${siteUrl}/services/ecommerce-dashboards`,
+              `${siteUrl}/services/ai-visual`,
+              `${siteUrl}/lead-engine`,
+              `${siteUrl}/ai-search-statistics`,
+            ],
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${siteUrl}/#breadcrumb`,
+            itemListElement: breadcrumbItems.map((item, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              name: item.name,
+              item: item.url,
+            })),
+          },
+        ],
+      })}
+    />
     <style>
-      :root { scroll-behavior: smooth; }
-      html.no-js [data-reveal] { opacity: 1 !important; }
-      nav { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.3s ease, box-shadow 0.3s ease; }
-      nav.nav-scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
-      ::-moz-selection { background: rgba(249,115,22,0.2); }
-      ::selection { background: rgba(249,115,22,0.2); }
-      .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 999; padding: 0.5rem 1rem; background: #f97316; color: #fff; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem; transition: top 0.2s; }
-      .skip-link:focus { top: 0.75rem; }
-      *:focus-visible { outline: 2px solid #f97316; outline-offset: 2px; border-radius: 4px; }
+      :root {
+        scroll-behavior: smooth;
+      }
+      html.no-js [data-reveal] {
+        opacity: 1 !important;
+      }
+      nav {
+        transition:
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      nav.nav-scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+      }
+      ::-moz-selection {
+        background: rgba(249, 115, 22, 0.2);
+      }
+      ::selection {
+        background: rgba(249, 115, 22, 0.2);
+      }
+      .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 1rem;
+        z-index: 999;
+        padding: 0.5rem 1rem;
+        background: #f97316;
+        color: #fff;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: top 0.2s;
+      }
+      .skip-link:focus {
+        top: 0.75rem;
+      }
+      *:focus-visible {
+        outline: 2px solid #f97316;
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
       @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        [data-reveal] { opacity: 1 !important; }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        [data-reveal] {
+          opacity: 1 !important;
+        }
       }
     </style>
   </head>
@@ -238,7 +344,8 @@ const breadcrumbItems = breadcrumbs
     <div
       id="scroll-progress"
       class="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-400 via-rex-orange to-rex-gold z-[200] origin-left scale-x-0"
-    />
+    >
+    </div>
     <Navigation />
     <main id="main-content">
       <slot />
@@ -247,13 +354,13 @@ const breadcrumbItems = breadcrumbs
     <ExitPopup />
 
     <script>
-      import "../scripts/smoothScroll.ts";
+      import '../scripts/smoothScroll.ts';
     </script>
     <script>
-      import "../scripts/scrollReveal.ts";
+      import '../scripts/scrollReveal.ts';
     </script>
     <script>
-      import "../scripts/interactions.ts";
+      import '../scripts/interactions.ts';
     </script>
   </body>
 </html>

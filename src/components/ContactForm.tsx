@@ -1,45 +1,63 @@
-import { useState } from "preact/hooks";
+import { useState } from 'preact/hooks';
+import { trackMetaEvent } from '../lib/metaTracking';
 
 export default function ContactForm() {
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    phone: "",
-    service: "",
-    message: "",
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    service: '',
+    message: '',
   });
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    setStatus("sending");
+    setStatus('sending');
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
       if (res.ok) {
-        setStatus("sent");
-        setForm({ name: "", email: "", company: "", phone: "", service: "", message: "" });
+        trackMetaEvent('Lead', {
+          content_name: form.service || 'rex-contact',
+          content_category: 'service_enquiry',
+        });
+        setStatus('sent');
+        setForm({ name: '', email: '', company: '', phone: '', service: '', message: '' });
       } else {
-        setStatus("error");
+        setStatus('error');
       }
     } catch {
-      setStatus("error");
+      setStatus('error');
     }
   };
 
-  if (status === "sent") {
+  if (status === 'sent') {
     return (
       <div class="rounded-lg border border-green-200 bg-green-50 p-6 text-center">
-        <svg class="mx-auto mb-3 h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        <svg
+          class="mx-auto mb-3 h-12 w-12 text-green-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"
+          />
         </svg>
         <h3 class="text-lg font-bold text-green-800">Message Sent!</h3>
         <p class="mt-1 text-sm text-green-600">We'll get back to you within 24 hours.</p>
-        <button onClick={() => setStatus("idle")} class="mt-4 text-sm font-medium text-green-700 underline hover:text-green-600">
+        <button
+          onClick={() => setStatus('idle')}
+          class="mt-4 text-sm font-medium text-green-700 underline hover:text-green-600"
+        >
           Send another message
         </button>
       </div>
@@ -50,7 +68,9 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} class="space-y-4">
       <div class="grid gap-4 sm:grid-cols-2">
         <div>
-          <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Name *</label>
+          <label for="name" class="mb-1 block text-sm font-medium text-gray-700">
+            Name *
+          </label>
           <input
             id="name"
             type="text"
@@ -62,7 +82,9 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label for="email" class="mb-1 block text-sm font-medium text-gray-700">Email *</label>
+          <label for="email" class="mb-1 block text-sm font-medium text-gray-700">
+            Email *
+          </label>
           <input
             id="email"
             type="email"
@@ -76,7 +98,9 @@ export default function ContactForm() {
       </div>
       <div class="grid gap-4 sm:grid-cols-2">
         <div>
-          <label for="company" class="mb-1 block text-sm font-medium text-gray-700">Company</label>
+          <label for="company" class="mb-1 block text-sm font-medium text-gray-700">
+            Company
+          </label>
           <input
             id="company"
             type="text"
@@ -87,7 +111,9 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label for="phone" class="mb-1 block text-sm font-medium text-gray-700">Phone</label>
+          <label for="phone" class="mb-1 block text-sm font-medium text-gray-700">
+            Phone
+          </label>
           <input
             id="phone"
             type="tel"
@@ -99,7 +125,9 @@ export default function ContactForm() {
         </div>
       </div>
       <div>
-        <label for="service" class="mb-1 block text-sm font-medium text-gray-700">Service Interested In</label>
+        <label for="service" class="mb-1 block text-sm font-medium text-gray-700">
+          Service Interested In
+        </label>
         <select
           id="service"
           value={form.service}
@@ -107,16 +135,18 @@ export default function ContactForm() {
           class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
         >
           <option value="">Select a service</option>
-          <option value="seo">SEO Services</option>
-          <option value="aeo">Answer Engine Optimization (AEO)</option>
-          <option value="geo">Generative Engine Optimization (GEO)</option>
-          <option value="web-development">Web Development</option>
-          <option value="ai-visual">AI Visual Services</option>
+          <option value="ai-search">AI Search Optimization</option>
+          <option value="web-development">Website Generation</option>
+          <option value="lead-generation">Lead Generation</option>
+          <option value="ad-campaigns">Ad Campaigns</option>
+          <option value="ecommerce-dashboards">Shopping Dashboards</option>
           <option value="other">Other / Not Sure</option>
         </select>
       </div>
       <div>
-        <label for="message" class="mb-1 block text-sm font-medium text-gray-700">Message *</label>
+        <label for="message" class="mb-1 block text-sm font-medium text-gray-700">
+          Message *
+        </label>
         <textarea
           id="message"
           required
@@ -127,15 +157,17 @@ export default function ContactForm() {
           placeholder="Tell us about your project or goals..."
         />
       </div>
-      {status === "error" && (
-        <p class="text-sm text-red-600">Something went wrong. Please try again or email us directly.</p>
+      {status === 'error' && (
+        <p class="text-sm text-red-600">
+          Something went wrong. Please try again or email us directly.
+        </p>
       )}
       <button
         type="submit"
-        disabled={status === "sending"}
+        disabled={status === 'sending'}
         class="w-full rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-brand-500 disabled:opacity-50"
       >
-        {status === "sending" ? "Sending..." : "Send Message"}
+        {status === 'sending' ? 'Sending...' : 'Send Message'}
       </button>
     </form>
   );

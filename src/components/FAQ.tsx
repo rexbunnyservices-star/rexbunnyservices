@@ -20,7 +20,12 @@ export default function FAQ({ items }: FAQProps) {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </summary>
           <div class="border-t border-gray-200 px-6 py-4 text-sm text-gray-600">{item.answer}</div>

@@ -7,23 +7,25 @@ interface Env {
 }
 
 async function syncLeadToPocketBase(env: Env, lead: any) {
-  const baseUrl = env.PB_URL || "https://pb.rexbunnyservices.online";
-  const email = env.PB_EMAIL || "admin@rexbunnyservices.com";
-  const password = env.PB_PASSWORD || "Admin12345!";
+  const baseUrl = env.PB_URL || 'https://pb.rexbunnyservices.online';
+  const email = env.PB_EMAIL || 'admin@rexbunnyservices.com';
+  const password = env.PB_PASSWORD || 'Admin12345!';
 
   const authRes = await fetch(`${baseUrl}/api/collections/_superusers/auth-with-password`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ identity: email, password }),
   });
-  if (!authRes.ok) throw new Error("PocketBase auth failed");
+  if (!authRes.ok) throw new Error('PocketBase auth failed');
   const { token } = await authRes.json();
 
-  const headers = { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
+  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
 
   const existingRes = await fetch(
-    `${baseUrl}/api/collections/leads/records?perPage=1&filter=${encodeURIComponent(`email="${lead.email}"`)}`,
-    { headers }
+    `${baseUrl}/api/collections/leads/records?perPage=1&filter=${encodeURIComponent(
+      `email="${lead.email}"`,
+    )}`,
+    { headers },
   );
   if (existingRes.ok) {
     const existing = await existingRes.json();
@@ -31,7 +33,7 @@ async function syncLeadToPocketBase(env: Env, lead: any) {
   }
 
   const createRes = await fetch(`${baseUrl}/api/collections/leads/records`, {
-    method: "POST",
+    method: 'POST',
     headers,
     body: JSON.stringify(lead),
   });
@@ -41,10 +43,11 @@ async function syncLeadToPocketBase(env: Env, lead: any) {
 }
 
 async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
-  const color = results.compositeScore >= 80 ? "#22c55e" : results.compositeScore >= 50 ? "#eab308" : "#ef4444";
-  const gptIcon = results.aiVisibility.gptBotStatus === "allowed" ? "✅" : "❌";
-  const llmsIcon = results.aiVisibility.hasLlmsTxt ? "✅" : "❌";
-  const sdIcon = results.aiVisibility.hasStructuredData ? "✅" : "❌";
+  const color =
+    results.compositeScore >= 80 ? '#22c55e' : results.compositeScore >= 50 ? '#eab308' : '#ef4444';
+  const gptIcon = results.aiVisibility.gptBotStatus === 'allowed' ? '✅' : '❌';
+  const llmsIcon = results.aiVisibility.hasLlmsTxt ? '✅' : '❌';
+  const sdIcon = results.aiVisibility.hasStructuredData ? '✅' : '❌';
 
   const html = `<!DOCTYPE html>
 <html>
@@ -79,7 +82,9 @@ async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
 </td>
 <td width="33%" style="padding:8px;text-align:center">
 <div style="background:#f8fafc;border-radius:8px;padding:12px">
-<div style="font-size:20px;font-weight:bold;color:#1e293b">${results.aiVisibility.aiVisibilityScore}</div>
+<div style="font-size:20px;font-weight:bold;color:#1e293b">${
+    results.aiVisibility.aiVisibilityScore
+  }</div>
 <div style="font-size:11px;color:#64748b">AI Readiness</div>
 </div>
 </td>
@@ -90,23 +95,35 @@ async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
 <table width="100%" cellpadding="0" cellspacing="0">
 <tr>
 <td style="padding:6px 0;font-size:13px;color:#475569">LCP</td>
-<td style="padding:6px 0;font-size:13px;color:#1e293b;text-align:right">${(results.lcp / 1000).toFixed(1)}s</td>
+<td style="padding:6px 0;font-size:13px;color:#1e293b;text-align:right">${(
+    results.lcp / 1000
+  ).toFixed(1)}s</td>
 </tr>
 <tr>
 <td style="padding:6px 0;font-size:13px;color:#475569;border-top:1px solid #f1f5f9">CLS</td>
-<td style="padding:6px 0;font-size:13px;color:#1e293b;text-align:right;border-top:1px solid #f1f5f9">${results.cls}</td>
+<td style="padding:6px 0;font-size:13px;color:#1e293b;text-align:right;border-top:1px solid #f1f5f9">${
+    results.cls
+  }</td>
 </tr>
 <tr>
 <td style="padding:6px 0;font-size:13px;color:#475569;border-top:1px solid #f1f5f9">TBT</td>
-<td style="padding:6px 0;font-size:13px;color:#1e293b;text-align:right;border-top:1px solid #f1f5f9">${results.tbt}ms</td>
+<td style="padding:6px 0;font-size:13px;color:#1e293b;text-align:right;border-top:1px solid #f1f5f9">${
+    results.tbt
+  }ms</td>
 </tr>
 </table>
 <div style="margin:20px 0;border-top:1px solid #e2e8f0"></div>
 <h2 style="font-size:15px;color:#1e293b;margin:0 0 12px">AI Crawl Status</h2>
 <table width="100%" cellpadding="0" cellspacing="0">
-<tr><td style="padding:6px 0;font-size:13px">${gptIcon} GPTBot: ${results.aiVisibility.gptBotStatus}</td></tr>
-<tr><td style="padding:6px 0;font-size:13px">${llmsIcon} llms.txt: ${results.aiVisibility.hasLlmsTxt ? "Found" : "Missing"}</td></tr>
-<tr><td style="padding:6px 0;font-size:13px">${sdIcon} Structured Data: ${results.aiVisibility.hasStructuredData ? "Found" : "Missing"}</td></tr>
+<tr><td style="padding:6px 0;font-size:13px">${gptIcon} GPTBot: ${
+    results.aiVisibility.gptBotStatus
+  }</td></tr>
+<tr><td style="padding:6px 0;font-size:13px">${llmsIcon} llms.txt: ${
+    results.aiVisibility.hasLlmsTxt ? 'Found' : 'Missing'
+  }</td></tr>
+<tr><td style="padding:6px 0;font-size:13px">${sdIcon} Structured Data: ${
+    results.aiVisibility.hasStructuredData ? 'Found' : 'Missing'
+  }</td></tr>
 </table>
 <div style="margin:24px 0;border-top:1px solid #e2e8f0"></div>
 <p style="font-size:13px;color:#64748b;line-height:1.5">This is a high-level overview. For a full strategic roadmap tailored to your site, book a free strategy call with our team.</p>
@@ -125,11 +142,11 @@ async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
 </body>
 </html>`;
 
-  const webhookUrl = "https://n8n.rexbunnyservices.online/webhook/audit-email";
+  const webhookUrl = 'https://n8n.rexbunnyservices.online/webhook/audit-email';
   const res = await fetch(webhookUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       to: toEmail,
@@ -148,65 +165,108 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
     const { url, email } = await context.request.json();
     if (!url || !email) {
-      return new Response(JSON.stringify({ error: "url and email are required" }), {
+      return new Response(JSON.stringify({ error: 'url and email are required' }), {
         status: 400,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const normalizedUrl = url.startsWith("http") ? url : `https://${url}`;
-    let performanceScore = 0, seoScore = 0, bestPracticesScore = 0;
-    let lcp = 0, cls = 0, tbt = 0, hasStructuredData = false;
+    const normalizedUrl = url.startsWith('http') ? url : `https://${url}`;
+    let performanceScore = 0,
+      seoScore = 0,
+      bestPracticesScore = 0;
+    let lcp = 0,
+      cls = 0,
+      tbt = 0,
+      hasStructuredData = false;
 
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        if (attempt > 0) await new Promise(r => setTimeout(r, 3000 * attempt));
-        const psiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(normalizedUrl)}&category=PERFORMANCE&category=SEO&category=BEST_PRACTICES&strategy=MOBILE`;
+        if (attempt > 0) await new Promise((r) => setTimeout(r, 3000 * attempt));
+        const psiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
+          normalizedUrl,
+        )}&category=PERFORMANCE&category=SEO&category=BEST_PRACTICES&strategy=MOBILE`;
         const psiRes = await fetch(psiUrl);
         if (psiRes.status === 429) continue;
         if (!psiRes.ok) continue;
-        const psiData = await psiRes.json() as any;
+        const psiData = (await psiRes.json()) as any;
         const cats = psiData?.lighthouseResult?.categories || {};
         performanceScore = Math.round((cats.performance?.score || 0) * 100);
         seoScore = Math.round((cats.seo?.score || 0) * 100);
-        bestPracticesScore = Math.round((cats["best-practices"]?.score || 0) * 100);
+        bestPracticesScore = Math.round((cats['best-practices']?.score || 0) * 100);
         const audits = psiData?.lighthouseResult?.audits || {};
-        lcp = audits["largest-contentful-paint"]?.numericValue || 0;
-        cls = audits["cumulative-layout-shift"]?.numericValue || 0;
-        tbt = audits["total-blocking-time"]?.numericValue || 0;
-        hasStructuredData = audits["structured-data"]?.score === 1;
+        lcp = audits['largest-contentful-paint']?.numericValue || 0;
+        cls = audits['cumulative-layout-shift']?.numericValue || 0;
+        tbt = audits['total-blocking-time']?.numericValue || 0;
+        hasStructuredData = audits['structured-data']?.score === 1;
         break;
-      } catch { /* retry */ }
+      } catch {
+        /* retry */
+      }
     }
 
     const origin = new URL(normalizedUrl).origin;
-    let gptBotStatus = "unknown", hasLlmsTxt = false;
-    try { const r = await fetch(`${origin}/robots.txt`); if (r.ok) gptBotStatus = (await r.text()).toLowerCase().includes("gptbot") ? "blocked" : "allowed"; } catch { /* ignore */ }
-    try { hasLlmsTxt = (await fetch(`${origin}/llms.txt`)).ok; } catch { /* ignore */ }
+    let gptBotStatus = 'unknown',
+      hasLlmsTxt = false;
+    try {
+      const r = await fetch(`${origin}/robots.txt`);
+      if (r.ok)
+        gptBotStatus = (await r.text()).toLowerCase().includes('gptbot') ? 'blocked' : 'allowed';
+    } catch {
+      /* ignore */
+    }
+    try {
+      hasLlmsTxt = (await fetch(`${origin}/llms.txt`)).ok;
+    } catch {
+      /* ignore */
+    }
 
     let aiVisibilityScore = 50;
-    if (gptBotStatus === "allowed") aiVisibilityScore += 15;
+    if (gptBotStatus === 'allowed') aiVisibilityScore += 15;
     if (hasLlmsTxt) aiVisibilityScore += 20;
     if (hasStructuredData) aiVisibilityScore += 15;
     aiVisibilityScore = Math.min(aiVisibilityScore, 100);
 
-    const compositeScore = Math.round(performanceScore * 0.3 + seoScore * 0.3 + aiVisibilityScore * 0.4);
+    const compositeScore = Math.round(
+      performanceScore * 0.3 + seoScore * 0.3 + aiVisibilityScore * 0.4,
+    );
 
     const results = {
-      performanceScore, seoScore, accessabilityScore: bestPracticesScore, bestPracticesScore,
-      lcp: Math.round(lcp), cls: parseFloat(cls.toFixed(3)), tbt: Math.round(tbt),
-      aiVisibility: { gptBotStatus, hasLlmsTxt, hasStructuredData, entityClarity: hasStructuredData ? "clear" : "vague", aiVisibilityScore },
-      compositeScore, email, url: normalizedUrl,
+      performanceScore,
+      seoScore,
+      accessabilityScore: bestPracticesScore,
+      bestPracticesScore,
+      lcp: Math.round(lcp),
+      cls: parseFloat(cls.toFixed(3)),
+      tbt: Math.round(tbt),
+      aiVisibility: {
+        gptBotStatus,
+        hasLlmsTxt,
+        hasStructuredData,
+        entityClarity: hasStructuredData ? 'clear' : 'vague',
+        aiVisibilityScore,
+      },
+      compositeScore,
+      email,
+      url: normalizedUrl,
     };
 
     const key = `audit_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`;
-    await context.env.FORMS.put(key, JSON.stringify({
-      type: "audit",
-      email, website: normalizedUrl, auditScore: compositeScore,
-      aiVisibility: { gptBotStatus, hasLlmsTxt, hasStructuredData, aiVisibilityScore },
-      score: compositeScore, source: "audit-tool", status: "new",
-      createdAt: new Date().toISOString(),
-    }), { expirationTtl: 604800 });
+    await context.env.FORMS.put(
+      key,
+      JSON.stringify({
+        type: 'audit',
+        email,
+        website: normalizedUrl,
+        auditScore: compositeScore,
+        aiVisibility: { gptBotStatus, hasLlmsTxt, hasStructuredData, aiVisibilityScore },
+        score: compositeScore,
+        source: 'audit-tool',
+        status: 'new',
+        createdAt: new Date().toISOString(),
+      }),
+      { expirationTtl: 604800 },
+    );
 
     try {
       await syncLeadToPocketBase(context.env, {
@@ -215,25 +275,28 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         auditScore: compositeScore,
         score: compositeScore,
         aiVisibility: { gptBotStatus, hasLlmsTxt, hasStructuredData, aiVisibilityScore },
-        source: "audit-tool",
-        status: "new",
+        source: 'audit-tool',
+        status: 'new',
       });
     } catch (err) {
-      console.error("Failed to sync audit lead to PocketBase:", err);
+      console.error('Failed to sync audit lead to PocketBase:', err);
     }
 
     await sendAuditEmail(email, normalizedUrl, results).catch((err) => {
-      console.error("Failed to send audit email:", err);
+      console.error('Failed to send audit email:', err);
     });
 
     return new Response(JSON.stringify(results), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: "Audit failed", detail: e?.message || String(e) }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: 'Audit failed', detail: e?.message || String(e) }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
   }
 };

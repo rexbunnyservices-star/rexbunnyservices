@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Need a freelance project done? Get a free quote."
+  description="Get a fast, no-pressure quote for your web development, SEO, shopify, video or AI automation project. RexBunny Services – done-for-you freelance delivery."
+  noindex={true}
+>
+  <section class="bg-slate-950 py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-2xl border border-white/10 bg-white shadow-xl">
+        <div class="bg-gradient-to-r from-orange-600 to-orange-500 px-8 py-6 text-white">
+          <p class="text-xs font-bold tracking-widest uppercase">RexBunny Services</p>
+          <h1 class="mt-1 text-2xl font-extrabold sm:text-3xl">
+            Got a freelance project? Get a free quote.
+          </h1>
+          <p class="mt-1 text-sm text-orange-100">
+            Web development · Shopify · SEO · Video · AI automation. Tell us what you need – we'll
+            reply within 24 hours.
+          </p>
+        </div>
+
+        <form id="lead-form" class="p-8" novalidate>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label for="name" class="mb-1 block text-sm font-semibold text-gray-700"
+                >Full name *</label
+              >
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+                class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+              />
+            </div>
+            <div>
+              <label for="email" class="mb-1 block text-sm font-semibold text-gray-700"
+                >Email *</label
+              >
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="you@company.com"
+                class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <label for="phone" class="mb-1 block text-sm font-semibold text-gray-700"
+              >Phone / WhatsApp (optional)</label
+            >
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="+91 98765 43210"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+            />
+          </div>
+
+          <div class="mt-6">
+            <label for="service" class="mb-1 block text-sm font-semibold text-gray-700"
+              >What do you need? *</label
+            >
+            <select
+              id="service"
+              name="service"
+              required
+              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-orange-500 focus:outline-none"
+            >
+              <option value="">Select a service</option>
+              <option value="web-development">Website / Web app development</option>
+              <option value="shopify">Shopify ecommerce store</option>
+              <option value="seo">SEO &amp; AI search visibility</option>
+              <option value="video">Video editing / content</option>
+              <option value="ai-automation">AI automation / chatbots</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+
+          <div class="mt-6">
+            <label for="company" class="mb-1 block text-sm font-semibold text-gray-700"
+              >Company / project name (optional)</label
+            >
+            <input
+              id="company"
+              name="company"
+              type="text"
+              placeholder="Company or project name"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+            />
+          </div>
+
+          <div class="mt-6">
+            <label for="message" class="mb-1 block text-sm font-semibold text-gray-700"
+              >Tell us about the project *</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="4"
+              placeholder="What are you trying to build? Timeline, budget ballpark, current website…"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+            ></textarea>
+          </div>
+
+          <div class="mt-8">
+            <button
+              id="submit-btn"
+              type="submit"
+              class="w-full rounded-xl bg-orange-600 py-3.5 text-base font-bold text-white transition hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500/50 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              Get My Free Quote
+            </button>
+          </div>
+
+          <p
+            id="form-msg"
+            class="mt-4 hidden rounded-xl bg-green-50 p-4 text-center text-sm font-semibold text-green-700"
+          >
+          </p>
+          <p
+            id="form-err"
+            class="mt-4 hidden rounded-xl bg-red-50 p-4 text-center text-sm font-semibold text-red-600"
+          >
+          </p>
+
+          <p class="mt-4 text-center text-xs text-gray-400">
+            No spam. We reply to every qualified project within 24 hours.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script lang="ts">
+    const form = document.getElementById('lead-form');
+    const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const msg = document.getElementById('form-msg') as HTMLParagraphElement;
+    const err = document.getElementById('form-err') as HTMLParagraphElement;
+
+    const show = (el: HTMLElement, text: string) => {
+      el.textContent = text;
+      el.classList.remove('hidden');
+    };
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.classList.add('hidden');
+      err.classList.add('hidden');
+
+      const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+      const phone = (document.getElementById('phone') as HTMLInputElement).value.trim();
+      const company = (document.getElementById('company') as HTMLInputElement).value.trim();
+      const service = (document.getElementById('service') as HTMLSelectElement).value;
+      const message = (document.getElementById('message') as HTMLTextAreaElement).value.trim();
+
+      if (!name || !email || !service || !message) {
+        show(err, 'Please fill in your name, email, service and project details.');
+        return;
+      }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        show(err, 'Please enter a valid email address.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('https://n8n.rexbunnyservices.online/webhook/freelance-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            company,
+            service,
+            message,
+            source: 'meta-ads',
+          }),
+        });
+        const data = await res.json();
+        if (data && data.created) {
+          show(msg, "Thanks! We've received your project details and will reply within 24 hours.");
+          form.reset();
+        } else {
+          show(
+            err,
+            data?.error ? `Sorry: ${data.error}` : 'Sorry, something went wrong. Please try again.',
+          );
+        }
+      } catch {
+        show(err, "We couldn't reach our server. Please try again.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Get My Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>

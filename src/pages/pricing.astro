@@ -1,350 +1,365 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CalEmbed from '../components/CalEmbed.tsx';
 
-import BaseLayout from "../layouts/BaseLayout.astro";
-import CalEmbed from "../components/CalEmbed.tsx";
+// ponytail: indicative conversion for display only, refresh quarterly.
+// Kept out of JSON-LD on purpose — a stale rate in structured data is worse than no rate.
+const USD_TO_GBP = 0.79;
+
+function gbp(price: string) {
+  const n = Number(price.replace(/[$,+]/g, ''));
+  if (!Number.isFinite(n)) return null;
+  const g = Math.round((n * USD_TO_GBP) / 10) * 10;
+  return `£${g.toLocaleString('en-GB')}${price.includes('+') ? '+' : ''}`;
+}
 
 const serviceLines = [
   {
-    id: "seo",
-    name: "SEO",
-    tagline: "Traditional & Local Search",
-    description: "Rank on Google, Bing, and other search engines. Technical SEO, local SEO, and programmatic city pages at scale.",
+    id: 'seo',
+    name: 'SEO',
+    tagline: 'Traditional & Local Search',
+    description:
+      'Rank on Google, Bing, and other search engines. Technical SEO, local SEO, and programmatic city pages at scale.',
     plans: [
       {
-        name: "SEO Audit",
-        tagline: "One-time diagnostic",
-        price: "$1,500",
-        period: "one-time",
+        name: 'SEO Audit',
+        tagline: 'One-time diagnostic',
+        price: '$1,500',
+        period: 'one-time',
         features: [
-          "Technical SEO audit (20+ checks)",
-          "On-page optimization analysis",
-          "Backlink profile review",
-          "Keyword gap analysis",
-          "PDF report with roadmap",
-          "30-day follow-up support",
+          'Technical SEO audit (20+ checks)',
+          'On-page optimization analysis',
+          'Backlink profile review',
+          'Keyword gap analysis',
+          'PDF report with roadmap',
+          '30-day follow-up support',
         ],
-        cta: "Start Audit",
-        href: "/lead-engine",
+        cta: 'Start Audit',
+        href: '/lead-engine',
         popular: false,
       },
       {
-        name: "Local SEO",
-        tagline: "Single location",
-        price: "$1,500",
-        period: "per month",
+        name: 'Local SEO',
+        tagline: 'Single location',
+        price: '$1,500',
+        period: 'per month',
         features: [
-          "Google Business Profile management",
-          "Local citation building & cleanup",
-          "Local schema markup",
-          "Monthly rank tracking (50 keywords)",
-          "Monthly reporting",
+          'Google Business Profile management',
+          'Local citation building & cleanup',
+          'Local schema markup',
+          'Monthly rank tracking (50 keywords)',
+          'Monthly reporting',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
       {
-        name: "Growth SEO",
-        tagline: "Multi-location",
-        price: "$3,000",
-        period: "per month",
+        name: 'Growth SEO',
+        tagline: 'Multi-location',
+        price: '$3,000',
+        period: 'per month',
         features: [
-          "Everything in Local",
-          "Programmatic city page generation",
-          "Auto-generated local schema",
-          "GSC integration & monitoring",
-          "n8n automated rank tracking",
-          "Dedicated account manager",
+          'Everything in Local',
+          'Programmatic city page generation',
+          'Auto-generated local schema',
+          'GSC integration & monitoring',
+          'n8n automated rank tracking',
+          'Dedicated account manager',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: true,
       },
       {
-        name: "Enterprise SEO",
-        tagline: "50+ locations",
-        price: "Custom",
-        period: "",
+        name: 'Enterprise SEO',
+        tagline: '50+ locations',
+        price: 'Custom',
+        period: '',
         features: [
-          "Everything in Growth",
-          "Custom automation pipeline",
-          "API integrations",
-          "Dedicated SEO engineer",
-          "Weekly strategy calls",
-          "Priority support & SLA",
+          'Everything in Growth',
+          'Custom automation pipeline',
+          'API integrations',
+          'Dedicated SEO engineer',
+          'Weekly strategy calls',
+          'Priority support & SLA',
         ],
-        cta: "Contact Sales",
-        href: "/contact",
+        cta: 'Contact Sales',
+        href: '/contact',
         popular: false,
       },
     ],
   },
   {
-    id: "geo",
-    name: "GEO",
-    tagline: "Generative Engine Optimization",
-    description: "Get your brand cited inside ChatGPT, Gemini, Perplexity, and Copilot responses. Entity engineering, LLM citation strategy, and AI crawl optimization.",
+    id: 'geo',
+    name: 'GEO',
+    tagline: 'Generative Engine Optimization',
+    description:
+      'Get your brand cited inside ChatGPT, Gemini, Perplexity, and Copilot responses. Entity engineering, LLM citation strategy, and AI crawl optimization.',
     plans: [
       {
-        name: "GEO Sprint",
-        tagline: "One-time foundation",
-        price: "$8,000",
-        period: "one-time",
+        name: 'GEO Sprint',
+        tagline: 'One-time foundation',
+        price: '$8,000',
+        period: 'one-time',
         features: [
-          "Full AI visibility baseline",
-          "Entity page creation & optimization",
-          "JSON-LD schema rollout (all pages)",
-          "5 AI-optimized listicle articles",
-          "llms.txt & robots.txt AI config",
-          "Directory & citation submissions",
-          "Baseline citation report",
+          'Full AI visibility baseline',
+          'Entity page creation & optimization',
+          'JSON-LD schema rollout (all pages)',
+          '5 AI-optimized listicle articles',
+          'llms.txt & robots.txt AI config',
+          'Directory & citation submissions',
+          'Baseline citation report',
         ],
-        cta: "Start GEO Sprint",
-        href: "/lead-engine",
+        cta: 'Start GEO Sprint',
+        href: '/lead-engine',
         popular: false,
       },
       {
-        name: "GEO Growth",
-        tagline: "Ongoing optimization",
-        price: "$4,500",
-        period: "per month",
+        name: 'GEO Growth',
+        tagline: 'Ongoing optimization',
+        price: '$4,500',
+        period: 'per month',
         features: [
-          "Weekly AI citation tracking (5 engines)",
-          "4-8 AI-optimized content pieces/mo",
-          "Entity signal monitoring & updates",
-          "Directory & source maintenance",
-          "Monthly performance report",
-          "Slack support channel",
+          'Weekly AI citation tracking (5 engines)',
+          '4-8 AI-optimized content pieces/mo',
+          'Entity signal monitoring & updates',
+          'Directory & source maintenance',
+          'Monthly performance report',
+          'Slack support channel',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: true,
       },
       {
-        name: "GEO Enterprise",
-        tagline: "Full-scale program",
-        price: "$8,000",
-        period: "per month",
+        name: 'GEO Enterprise',
+        tagline: 'Full-scale program',
+        price: '$8,000',
+        period: 'per month',
         features: [
-          "Everything in Growth",
-          "12+ AI-optimized content pieces/mo",
-          "Multi-engine competitor benchmarking",
-          "Real-time citation alerts",
-          "Quarterly strategy review",
-          "Dedicated account manager",
+          'Everything in Growth',
+          '12+ AI-optimized content pieces/mo',
+          'Multi-engine competitor benchmarking',
+          'Real-time citation alerts',
+          'Quarterly strategy review',
+          'Dedicated account manager',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
     ],
   },
   {
-    id: "aeo",
-    name: "AEO",
-    tagline: "Answer Engine Optimization",
-    description: "Become the direct answer in Google AI Overviews, featured snippets, Siri, Alexa, and voice search. Direct answer engineering, voice-ready content, and snippet capture.",
+    id: 'aeo',
+    name: 'AEO',
+    tagline: 'Answer Engine Optimization',
+    description:
+      'Become the direct answer in Google AI Overviews, featured snippets, Siri, Alexa, and voice search. Direct answer engineering, voice-ready content, and snippet capture.',
     plans: [
       {
-        name: "AEO Audit",
-        tagline: "One-time diagnostic",
-        price: "$1,500",
-        period: "one-time",
+        name: 'AEO Audit',
+        tagline: 'One-time diagnostic',
+        price: '$1,500',
+        period: 'one-time',
         features: [
-          "Featured snippet opportunity audit",
-          "Voice search readiness check",
-          "AI Overview presence analysis",
-          "FAQ/HowTo schema audit",
-          "Direct answer extraction test",
-          "PDF report with roadmap",
+          'Featured snippet opportunity audit',
+          'Voice search readiness check',
+          'AI Overview presence analysis',
+          'FAQ/HowTo schema audit',
+          'Direct answer extraction test',
+          'PDF report with roadmap',
         ],
-        cta: "Start AEO Audit",
-        href: "/lead-engine",
+        cta: 'Start AEO Audit',
+        href: '/lead-engine',
         popular: false,
       },
       {
-        name: "AEO Foundation",
-        tagline: "Essential package",
-        price: "$2,000",
-        period: "per month",
+        name: 'AEO Foundation',
+        tagline: 'Essential package',
+        price: '$2,000',
+        period: 'per month',
         features: [
-          "FAQ schema & HowTo markup",
-          "Featured snippet targeting (10 queries)",
-          "Voice search content optimization",
-          "Direct answer content engineering",
-          "Monthly snippet tracking & reporting",
+          'FAQ schema & HowTo markup',
+          'Featured snippet targeting (10 queries)',
+          'Voice search content optimization',
+          'Direct answer content engineering',
+          'Monthly snippet tracking & reporting',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
       {
-        name: "AEO Growth",
-        tagline: "Full answer strategy",
-        price: "$3,500",
-        period: "per month",
+        name: 'AEO Growth',
+        tagline: 'Full answer strategy',
+        price: '$3,500',
+        period: 'per month',
         features: [
-          "Everything in Foundation",
-          "Voice assistant integration (Siri, Alexa)",
-          "AI Overview content optimization",
-          "Conversational content engineering",
-          "Cross-platform answer monitoring",
-          "Monthly strategy call",
+          'Everything in Foundation',
+          'Voice assistant integration (Siri, Alexa)',
+          'AI Overview content optimization',
+          'Conversational content engineering',
+          'Cross-platform answer monitoring',
+          'Monthly strategy call',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: true,
       },
     ],
   },
   {
-    id: "webdev",
-    name: "Web Dev",
-    tagline: "Built for Search Performance",
-    description: "High-performance websites engineered for Lighthouse 95+, sub-second load times, and LLM-ready HTML. Available as a standalone service or bundled with marketing.",
+    id: 'webdev',
+    name: 'Web Dev',
+    tagline: 'Built for Search Performance',
+    description:
+      'High-performance websites engineered for Lighthouse 95+, sub-second load times, and LLM-ready HTML. Available as a standalone service or bundled with marketing.',
     plans: [
       {
-        name: "Starter Site",
-        tagline: "3-5 pages",
-        price: "$5,000",
-        period: "one-time",
+        name: 'Starter Site',
+        tagline: '3-5 pages',
+        price: '$5,000',
+        period: 'one-time',
         features: [
-          "3-5 page responsive website",
-          "Template-based premium design",
-          "SEO-optimized structure",
-          "Contact forms & lead capture",
-          "Basic schema markup",
-          "1 month post-launch support",
+          '3-5 page responsive website',
+          'Template-based premium design',
+          'SEO-optimized structure',
+          'Contact forms & lead capture',
+          'Basic schema markup',
+          '1 month post-launch support',
         ],
-        cta: "Get Started",
-        href: "/contact",
+        cta: 'Get Started',
+        href: '/contact',
         popular: false,
       },
       {
-        name: "Business Site",
-        tagline: "5-10 pages",
-        price: "$10,000",
-        period: "one-time",
+        name: 'Business Site',
+        tagline: '5-10 pages',
+        price: '$10,000',
+        period: 'one-time',
         features: [
-          "Everything in Starter",
-          "Custom design system",
-          "GEO-optimized content structure",
-          "Advanced schema (FAQ, HowTo, Product)",
-          "llms.txt & AI crawl setup",
-          "3 months post-launch support",
+          'Everything in Starter',
+          'Custom design system',
+          'GEO-optimized content structure',
+          'Advanced schema (FAQ, HowTo, Product)',
+          'llms.txt & AI crawl setup',
+          '3 months post-launch support',
         ],
-        cta: "Get Started",
-        href: "/contact",
+        cta: 'Get Started',
+        href: '/contact',
         popular: true,
       },
       {
-        name: "Custom Build",
-        tagline: "Complex or enterprise",
-        price: "$15,000+",
-        period: "one-time",
+        name: 'Custom Build',
+        tagline: 'Complex or enterprise',
+        price: '$15,000+',
+        period: 'one-time',
         features: [
-          "Everything in Business",
-          "Full custom architecture",
-          "Integrations & API connections",
-          "Edge deployment & CDN",
-          "Performance SLA (Lighthouse 95+)",
-          "6 months post-launch support",
+          'Everything in Business',
+          'Full custom architecture',
+          'Integrations & API connections',
+          'Edge deployment & CDN',
+          'Performance targets (Lighthouse 95+)',
+          '6 months post-launch support',
         ],
-        cta: "Contact Sales",
-        href: "/contact",
+        cta: 'Contact Sales',
+        href: '/contact',
         popular: false,
       },
     ],
   },
   {
-    id: "ai-visual",
-    name: "AI Visual Services",
-    tagline: "AI-Generated Visual Content",
-    description: "AI-powered social graphics, video ads, product imagery, and brand assets. Produced on our own hardware with ComfyUI — delivered in days, not weeks.",
+    id: 'ai-visual',
+    name: 'AI Visual Services',
+    tagline: 'AI-Generated Visual Content',
+    description:
+      'AI-powered social graphics, video ads, product imagery, and brand assets. Produced on our own hardware with ComfyUI — delivered in days, not weeks.',
     plans: [
       {
-        name: "Starter Visuals",
-        tagline: "5 social graphics + product cutouts",
-        price: "$497",
-        period: "one-time",
+        name: 'Starter Visuals',
+        tagline: '5 social graphics + product cutouts',
+        price: '$497',
+        period: 'one-time',
         features: [
-          "5 AI-generated social media graphics",
-          "Product background removal & cleanup",
-          "HD upscaled versions of logos/images",
-          "Auto-generated alt text & captions",
-          "Two rounds of revisions",
-          "Full commercial rights",
+          '5 AI-generated social media graphics',
+          'Product background removal & cleanup',
+          'HD upscaled versions of logos/images',
+          'Auto-generated alt text & captions',
+          'Two rounds of revisions',
+          'Full commercial rights',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
       {
-        name: "AI Video Ads",
-        tagline: "1 polished 30s video ad",
-        price: "$997",
-        period: "one-time",
+        name: 'AI Video Ads',
+        tagline: '1 polished 30s video ad',
+        price: '$997',
+        period: 'one-time',
         features: [
-          "Product animation from still images",
-          "Branded background video loops",
-          "Background music or voiceover",
-          "4K upscale output",
-          "Two rounds of revisions",
-          "Optimized for Instagram/TikTok/Facebook",
+          'Product animation from still images',
+          'Branded background video loops',
+          'Background music or voiceover',
+          '4K upscale output',
+          'Two rounds of revisions',
+          'Optimized for Instagram/TikTok/Facebook',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: true,
       },
       {
-        name: "E-Commerce Pro",
-        tagline: "20 product images + 5 lifestyle scenes",
-        price: "$1,497",
-        period: "one-time",
+        name: 'E-Commerce Pro',
+        tagline: '20 product images + 5 lifestyle scenes',
+        price: '$1,497',
+        period: 'one-time',
         features: [
-          "Batch background removal & cleanup",
-          "AI-generated lifestyle scenes",
-          "Product inpainting & touch-up",
-          "4K upscaled product images",
-          "Layered PSD-ready files",
-          "Grid sets for marketplace listings",
+          'Batch background removal & cleanup',
+          'AI-generated lifestyle scenes',
+          'Product inpainting & touch-up',
+          '4K upscaled product images',
+          'Layered PSD-ready files',
+          'Grid sets for marketplace listings',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
       {
-        name: "Brand Identity Suite",
-        tagline: "Full visual brand package",
-        price: "$2,497",
-        period: "one-time",
+        name: 'Brand Identity Suite',
+        tagline: 'Full visual brand package',
+        price: '$2,497',
+        period: 'one-time',
         features: [
-          "AI-generated logo concepts (symbolic)",
-          "Brand pattern & texture assets",
-          "Brand color variant exploration",
-          "Mascot / character design",
-          "3D depth maps & mockup geometry",
-          "Full brand guidelines document",
+          'AI-generated logo concepts (symbolic)',
+          'Brand pattern & texture assets',
+          'Brand color variant exploration',
+          'Mascot / character design',
+          '3D depth maps & mockup geometry',
+          'Full brand guidelines document',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
       {
-        name: "Content Engine",
-        tagline: "Monthly content retainer",
-        price: "$1,997",
-        period: "per month",
+        name: 'Content Engine',
+        tagline: 'Monthly content retainer',
+        price: '$1,997',
+        period: 'per month',
         features: [
-          "10 social graphics per month",
-          "4 short video clips per month",
-          "2 compiled reels per month",
-          "Audio branding & background music",
-          "Auto-captioning & alt text",
-          "Consistent brand filter on all assets",
+          '10 social graphics per month',
+          '4 short video clips per month',
+          '2 compiled reels per month',
+          'Audio branding & background music',
+          'Auto-captioning & alt text',
+          'Consistent brand filter on all assets',
         ],
-        cta: "Book Strategy Call",
-        href: "#",
+        cta: 'Book Strategy Call',
+        href: '#',
         popular: false,
       },
     ],
@@ -353,65 +368,71 @@ const serviceLines = [
 
 const bundles = [
   {
-    name: "SEO + GEO Bundle",
-    tagline: "Traditional + AI search",
-    price: "15% off",
-    description: "Cover both Google rankings and AI citations. Most businesses start here.",
-    url: "#",
+    name: 'SEO + GEO Bundle',
+    tagline: 'Traditional + AI search',
+    price: '15% off',
+    description: 'Cover both Google rankings and AI citations. Most businesses start here.',
+    url: '#',
   },
   {
-    name: "SEO + AEO Bundle",
-    tagline: "Search + direct answers",
-    price: "15% off",
-    description: "Rank on Google and become the direct answer in AI Overviews & voice search.",
-    url: "#",
+    name: 'SEO + AEO Bundle',
+    tagline: 'Search + direct answers',
+    price: '15% off',
+    description: 'Rank on Google and become the direct answer in AI Overviews & voice search.',
+    url: '#',
   },
   {
-    name: "Full Stack Bundle",
-    tagline: "SEO + GEO + AEO",
-    price: "25% off",
-    description: "Complete search visibility across every channel. Maximum ROI for growing businesses.",
-    url: "#",
+    name: 'Full Stack Bundle',
+    tagline: 'SEO + GEO + AEO',
+    price: '25% off',
+    description:
+      'Complete search visibility across every channel. Maximum ROI for growing businesses.',
+    url: '#',
     popular: true,
   },
 ];
 
-const siteUrl = "https://rexbunnyservices.online";
+const siteUrl = 'https://rexbunnyservices.online';
 ---
 
 <BaseLayout
-  title="Pricing | Marketing Agency for SEO, GEO & AEO"
+  title="Transparent Pricing"
   description="Transparent pricing for SEO, GEO, AEO, and web development services. Choose the service line that fits your goals — or bundle for maximum visibility."
 >
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Pricing — Marketing Agency for SEO, GEO & AEO",
-    "description": "Transparent pricing for SEO, GEO, AEO, and web development services from RexBunny Services.",
-    "isPartOf": { "@id": `${siteUrl}/#website` },
-    "about": {
-      "@type": "Service",
-      "provider": { "@type": "Organization", "name": "RexBunny Services", "url": siteUrl },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "RexBunny Service Packages",
-        "itemListElement": serviceLines.flatMap(line =>
-          line.plans.map(plan => ({
-            "@type": "Offer",
-            "itemOffered": { "@type": "Service", "name": plan.name, "description": plan.description }
-          }))
-        )
-      }
-    }
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Transparent Pricing — RexBunny Services',
+      description:
+        'Transparent USD pricing with GBP equivalents for SEO, GEO, AEO, web development, lead generation, ad campaigns, and ecommerce dashboard services.',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: {
+        '@type': 'Service',
+        provider: { '@type': 'Organization', name: 'RexBunny Services', url: siteUrl },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'RexBunny Service Packages',
+          itemListElement: serviceLines.flatMap((line) =>
+            line.plans.map((plan) => ({
+              '@type': 'Offer',
+              itemOffered: { '@type': 'Service', name: plan.name, description: plan.description },
+            })),
+          ),
+        },
+      },
+    })}
+  />
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <h1 class="mb-4 text-4xl font-extrabold text-gray-700 sm:text-5xl">
-          Transparent Pricing
-        </h1>
+        <h1 class="mb-4 text-4xl font-extrabold text-gray-700 sm:text-5xl">Transparent Pricing</h1>
         <p class="mb-8 text-lg text-gray-500">
           Pick the search channel you need to win. Or bundle them all.
+        </p>
+        <p class="mb-10 text-sm text-gray-400">
+          All prices in USD. GBP shown for UK buyers — your card provider sets the final rate.
         </p>
       </div>
 
@@ -429,8 +450,8 @@ const siteUrl = "https://rexbunnyservices.online";
                 <div
                   class={`relative rounded-2xl border p-6 ${
                     plan.popular
-                      ? "border-brand-500 bg-white shadow-lg shadow-brand-500/10"
-                      : "border-gray-200 bg-white"
+                      ? 'border-brand-500 bg-white shadow-lg shadow-brand-500/10'
+                      : 'border-gray-200 bg-white'
                   }`}
                 >
                   {plan.popular && (
@@ -444,8 +465,11 @@ const siteUrl = "https://rexbunnyservices.online";
                   </div>
                   <div class="mb-4">
                     <span class="text-3xl font-extrabold text-gray-700">{plan.price}</span>
-                    {plan.period && (
-                      <span class="text-sm text-gray-400">/{plan.period}</span>
+                    {plan.period && <span class="text-sm text-gray-400">/{plan.period}</span>}
+                    {gbp(plan.price) && (
+                      <div class="mt-1 text-sm text-gray-500">
+                        ≈ {gbp(plan.price)} <span class="text-gray-400">GBP</span>
+                      </div>
                     )}
                   </div>
                   <ul class="mb-6 space-y-2">
@@ -456,15 +480,15 @@ const siteUrl = "https://rexbunnyservices.online";
                       </li>
                     ))}
                   </ul>
-                  {plan.href === "#" ? (
+                  {plan.href === '#' ? (
                     <CalEmbed buttonText={plan.cta} className="w-full text-xs" client:load />
                   ) : (
                     <a
                       href={plan.href}
                       class={`block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors ${
                         plan.popular
-                          ? "bg-brand-600 text-white hover:bg-brand-500"
-                          : "border border-gray-300 text-gray-700 hover:border-brand-500 hover:text-brand-400"
+                          ? 'bg-brand-600 text-white hover:bg-brand-500'
+                          : 'border border-gray-300 text-gray-700 hover:border-brand-500 hover:text-brand-400'
                       }`}
                     >
                       {plan.cta}
@@ -484,25 +508,32 @@ const siteUrl = "https://rexbunnyservices.online";
           Combine service lines for maximum coverage at a discounted rate.
         </p>
         <div class="grid gap-6 md:grid-cols-3">
-          {bundles.map((bundle) => (
-            <div class={`rounded-xl border p-6 text-center ${bundle.popular ? "border-brand-500 bg-brand-500/5" : "border-gray-200 bg-white"}`}>
-              {bundle.popular && (
-                <div class="mb-3 text-xs font-semibold text-brand-400">â˜… BEST VALUE</div>
-              )}
-              <h3 class="text-lg font-bold text-gray-700">{bundle.name}</h3>
-              <p class="mb-1 text-sm text-gray-500">{bundle.tagline}</p>
-              <div class="mb-3 text-2xl font-extrabold text-brand-400">{bundle.price}</div>
-              <p class="mb-5 text-xs text-gray-400">{bundle.description}</p>
-              <CalEmbed buttonText="Book Strategy Call" className="w-full text-xs" client:load />
-            </div>
-          ))}
+          {
+            bundles.map((bundle) => (
+              <div
+                class={`rounded-xl border p-6 text-center ${
+                  bundle.popular ? 'border-brand-500 bg-brand-500/5' : 'border-gray-200 bg-white'
+                }`}
+              >
+                {bundle.popular && (
+                  <div class="mb-3 text-xs font-semibold text-brand-400">★ BEST VALUE</div>
+                )}
+                <h3 class="text-lg font-bold text-gray-700">{bundle.name}</h3>
+                <p class="mb-1 text-sm text-gray-500">{bundle.tagline}</p>
+                <div class="mb-3 text-2xl font-extrabold text-brand-400">{bundle.price}</div>
+                <p class="mb-5 text-xs text-gray-400">{bundle.description}</p>
+                <CalEmbed buttonText="Book Strategy Call" className="w-full text-xs" client:load />
+              </div>
+            ))
+          }
         </div>
       </div>
 
       <div class="text-center">
         <h2 class="mb-4 text-2xl font-bold text-gray-700">Not sure where to start?</h2>
         <p class="mb-6 text-sm text-gray-500">
-          Run a free visibility audit. We'll analyze your gaps across SEO, AI citations, and direct answers — and recommend the right path.
+          Run a free visibility audit. We'll analyze your gaps across SEO, AI citations, and direct
+          answers — and recommend the right path.
         </p>
         <a
           href="/lead-engine"

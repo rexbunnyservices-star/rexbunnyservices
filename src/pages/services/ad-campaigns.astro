@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalEmbed from '../../components/CalEmbed.tsx';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Ad Campaigns',
+  description:
+    'Google, Meta, and emerging AI-platform ad campaigns managed with conversion-focused creatives, transparent budgets, and a CPL-driven mindset — not vanity clicks.',
+  provider: {
+    '@type': 'Organization',
+    name: 'RexBunny Services',
+    url: 'https://rexbunnyservices.online',
+  },
+  serviceType: 'Ad Campaigns',
+  areaServed: { '@type': 'Country', name: 'Canada' },
+  url: 'https://rexbunnyservices.online/services/ad-campaigns',
+};
+
+const benefits = [
+  { metric: 'Google', label: 'Search & Shopping Ads', desc: 'High-intent queries captured' },
+  { metric: 'Meta', label: 'Facebook & Instagram', desc: 'Retargeting + prospecting at scale' },
+  { metric: 'AI', label: 'Emerging AI platforms', desc: 'Early-mover placement advantage' },
+];
+
+const stackItems = [
+  {
+    name: 'Google Ads',
+    desc: 'Search, Shopping and Performance Max with tight negative-keyword hygiene',
+  },
+  {
+    name: 'Meta Ads Manager',
+    desc: 'CAPI-backed tracking, audience lookalikes, and creative testing',
+  },
+  {
+    name: 'AI-native placements',
+    desc: 'Sponsored slots inside AI assistants and LLM answer surfaces',
+  },
+  { name: 'Creative studio', desc: 'Conversion-focused ad copy and visuals tested per audience' },
+  {
+    name: 'Transparent reporting',
+    desc: 'Budget, spend and cost-per-result reported weekly — no black box',
+  },
+  {
+    name: 'Attribution',
+    desc: 'UTM-tracked clicks from ad to lead to sale, measurable end to end',
+  },
+];
+---
+
+<BaseLayout
+  title="Ad Campaigns | Google · Meta · AI Platforms"
+  description="Paid campaigns on Google, Meta, and emerging AI platforms — managed with transparent budgets, conversion-focused creatives, and a cost-per-lead mindset."
+  breadcrumbs={[
+    { name: 'Services', url: '/services' },
+    { name: 'Ad Campaigns', url: '/services/ad-campaigns' },
+  ]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- Hero -->
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          Ads That Pay for <span class="text-brand-600">Leads</span>, Not Just Clicks
+        </h1>
+        <p class="mb-8 text-lg text-gray-600">
+          We run campaigns on Google, Meta, and the new AI platforms — with conversion-focused
+          creatives, honest budgets, and a cost-per-lead target instead of vanity metrics.
+        </p>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="/contact"
+            class="rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500"
+          >
+            Get a Free Campaign Review →
+          </a>
+          <CalEmbed buttonText="Book a Strategy Call" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Channels -->
+  <section class="border-y border-gray-200 bg-gray-50 py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+        {
+          benefits.map((b) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6 text-center">
+              <div class="text-3xl font-bold text-brand-600">{b.metric}</div>
+              <div class="mt-2 text-sm font-medium text-gray-900">{b.label}</div>
+              <div class="mt-1 text-xs text-gray-500">{b.desc}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Setup -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-2 text-center text-3xl font-bold text-gray-900">What We Run</h2>
+      <p class="mb-12 text-center text-gray-500">
+        Every placement is tracked and justified against your lead and sales goals.
+      </p>
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          stackItems.map((item) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 class="mb-2 text-lg font-bold text-gray-900">{item.name}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-gray-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">How We Manage Spend</h2>
+      <div class="grid gap-4 md:grid-cols-4">
+        {
+          [
+            {
+              step: '1',
+              title: 'Align',
+              desc: 'Define the target customer, the offer, and a cost-per-lead you can profitably afford.',
+            },
+            {
+              step: '2',
+              title: 'Build',
+              desc: 'Write conversion-first creatives and structure campaigns by intent and audience.',
+            },
+            {
+              step: '3',
+              title: 'Launch',
+              desc: 'Start lean, exit learning phases fast, and scale only what proves out.',
+            },
+            {
+              step: '4',
+              title: 'Refine',
+              desc: 'Weekly kill-the-losers review: pause, reallocate, and improve cost per result.',
+            },
+          ].map((item) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6">
+              <div class="mb-3 text-sm font-bold text-brand-500">Step {item.step}</div>
+              <h3 class="mb-2 text-lg font-bold text-gray-900">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-3xl font-bold text-gray-900">
+        Tired of Click-Farms and Unmetered Spend?
+      </h2>
+      <p class="mb-8 text-gray-500">
+        Get a free teardown of your current ad account — what's working, what's burning budget.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500"
+      >
+        Get Your Free Account Review →
+      </a>
+    </div>
+  </section>
+
+  <!-- Related Reading -->
+  <section class="border-t border-gray-200 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-gray-500">
+        Related Reading
+      </h3>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a
+          href="/blog"
+          class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300"
+        >
+          <div class="text-xs font-semibold text-fuchsia-500">BLOG</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">
+            Marketing Insights
+          </h4>
+          <p class="mt-1 text-xs text-gray-500">Paid media, AI search, and conversion playbooks</p>
+        </a>
+        <a
+          href="/services/lead-generation"
+          class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300"
+        >
+          <div class="text-xs font-semibold text-violet-500">SERVICE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">
+            Lead Generation
+          </h4>
+          <p class="mt-1 text-xs text-gray-500">Paid and organic leads working together</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

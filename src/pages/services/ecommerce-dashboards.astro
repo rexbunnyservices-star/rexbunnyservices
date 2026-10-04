@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalEmbed from '../../components/CalEmbed.tsx';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Shopping Dashboards',
+  description:
+    'Unified sales and analytics dashboards across Amazon, Flipkart, Meesho, and Shopify — sales, inventory, competitor pricing, and P&L in one live view.',
+  provider: {
+    '@type': 'Organization',
+    name: 'RexBunny Services',
+    url: 'https://rexbunnyservices.online',
+  },
+  serviceType: 'Shopping Dashboards',
+  areaServed: { '@type': 'Country', name: 'Canada' },
+  url: 'https://rexbunnyservices.online/services/ecommerce-dashboards',
+};
+
+const benefits = [
+  { metric: '1', label: 'Dashboard, 4 marketplaces', desc: 'Amazon · Flipkart · Meesho · Shopify' },
+  { metric: 'Live', label: 'Sales & inventory', desc: 'One glance, no tab-hopping' },
+  { metric: '24/7', label: 'Price monitoring', desc: 'Competitors tracked automatically' },
+];
+
+const stackItems = [
+  { name: 'Amazon', desc: 'Seller Central sync — orders, fees, inventory, buy-box priced' },
+  { name: 'Flipkart', desc: 'Sales, cancellations, and listing performance rolled up' },
+  { name: 'Meesho', desc: 'Reseller channel metrics and volume trends in one view' },
+  { name: 'Shopify', desc: 'Store revenue, AOV, fulfilled orders, and discount performance' },
+  { name: 'Competitor pricing', desc: 'Daily monitoring with alerts when you lose the price edge' },
+  { name: 'P&L at a glance', desc: 'Fees, ads, and COGS netted against revenue per channel' },
+];
+---
+
+<BaseLayout
+  title="Shopping Dashboards | Amazon · Flipkart · Meesho · Shopify"
+  description="Live e-commerce dashboards unifying Amazon, Flipkart, Meesho, and Shopify. Sales, inventory, competitor pricing, and P&L in one view."
+  breadcrumbs={[
+    { name: 'Services', url: '/services' },
+    { name: 'Shopping Dashboards', url: '/services/ecommerce-dashboards' },
+  ]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- Hero -->
+  <section class="pt-24">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          All Your Marketplaces, <span class="text-brand-600">One Dashboard</span>
+        </h1>
+        <p class="mb-8 text-lg text-gray-600">
+          Stop logging into Amazon, Flipkart, Meesho, and Shopify to find out how business is going.
+          We build one live dashboard with sales, inventory, competitor pricing, and P&L — updated
+          around the clock.
+        </p>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="/contact"
+            class="rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500"
+          >
+            See a Sample Dashboard →
+          </a>
+          <CalEmbed buttonText="Book a Strategy Call" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage -->
+  <section class="border-y border-gray-200 bg-gray-50 py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+        {
+          benefits.map((b) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6 text-center">
+              <div class="text-3xl font-bold text-brand-600">{b.metric}</div>
+              <div class="mt-2 text-sm font-medium text-gray-900">{b.label}</div>
+              <div class="mt-1 text-xs text-gray-500">{b.desc}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-2 text-center text-3xl font-bold text-gray-900">What's Inside</h2>
+      <p class="mb-12 text-center text-gray-500">
+        Each marketplace feeds one normalized view of your business.
+      </p>
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          stackItems.map((item) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 class="mb-2 text-lg font-bold text-gray-900">{item.name}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-gray-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">How We Build It</h2>
+      <div class="grid gap-4 md:grid-cols-4">
+        {
+          [
+            {
+              step: '1',
+              title: 'Connect',
+              desc: 'Link your marketplace accounts and seller APIs to the pipeline.',
+            },
+            {
+              step: '2',
+              title: 'Normalize',
+              desc: 'Standardize orders, fees, and SKUs into one consistent data model.',
+            },
+            {
+              step: '3',
+              title: 'Monitor',
+              desc: 'Track competitor prices and set alerts for the thresholds that matter.',
+            },
+            {
+              step: '4',
+              title: 'Decide',
+              desc: 'Revenue, inventory, and P&L on one screen — repricing and restock calls get faster.',
+            },
+          ].map((item) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6">
+              <div class="mb-3 text-sm font-bold text-brand-500">Step {item.step}</div>
+              <h3 class="mb-2 text-lg font-bold text-gray-900">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 text-3xl font-bold text-gray-900">Running Your Business From Five Tabs?</h2>
+      <p class="mb-8 text-gray-500">
+        Get a free mockup of your marketplace data in one clean dashboard.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500"
+      >
+        Get Your Free Dashboard Mockup →
+      </a>
+    </div>
+  </section>
+
+  <!-- Related Reading -->
+  <section class="border-t border-gray-200 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h3 class="mb-6 text-center text-sm font-semibold uppercase tracking-wider text-gray-500">
+        Related Reading
+      </h3>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a
+          href="/services/lead-generation"
+          class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300"
+        >
+          <div class="text-xs font-semibold text-violet-500">SERVICE</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">
+            Lead Generation
+          </h4>
+          <p class="mt-1 text-xs text-gray-500">Buyers for your products or your services</p>
+        </a>
+        <a
+          href="/blog"
+          class="group rounded-xl border border-gray-200 bg-white p-5 transition-all hover:shadow-md hover:border-gray-300"
+        >
+          <div class="text-xs font-semibold text-fuchsia-500">BLOG</div>
+          <h4 class="mt-1 text-sm font-bold text-gray-900 group-hover:text-brand-600">
+            Marketing Insights
+          </h4>
+          <p class="mt-1 text-xs text-gray-500">E-commerce and growth playbooks</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

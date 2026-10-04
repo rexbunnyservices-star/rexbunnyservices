@@ -1,68 +1,105 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import CalEmbed from "../components/CalEmbed.tsx";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CalEmbed from '../components/CalEmbed.tsx';
 
-const siteUrl = "https://rexbunnyservices.online";
+const siteUrl = 'https://rexbunnyservices.online';
 const aboutSchema = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "name": "About RexBunny Services",
-  "description": "A marketing agency specializing in SEO, GEO, and AEO making brands visible in Google, ChatGPT, Gemini, Siri, Alexa, Perplexity, and Copilot.",
-  "mainEntity": {
-    "@type": "Organization",
-    "@id": `${siteUrl}/#organization`,
-    "name": "RexBunny Services",
-    "url": siteUrl
-  }
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About RexBunny Services',
+  description:
+    'A growth engineering practice covering AI search optimization (SEO, GEO, AEO), website generation, lead generation, ad campaigns, ecommerce dashboards, and AI visual production.',
+  mainEntity: {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'RexBunny Services',
+    url: siteUrl,
+  },
 };
 ---
 
 <BaseLayout
-  title="About RexBunny Services | Marketing Agency for AI & Search"
-  description="RexBunny Services is a marketing agency specializing in SEO, GEO, and AEO. We make your brand visible in every search — Google, ChatGPT, Siri, Gemini, and beyond."
-  breadcrumbs={[
-    { name: "About", url: "/about" }
-  ]}
+  title="About Us | Growth Engineering for AI Search"
+  description="RexBunny Services is a founder-led growth engineering practice covering AI search optimization, website generation, lead generation, ad campaigns, ecommerce dashboards, and AI visual production."
+  breadcrumbs={[{ name: 'About', url: '/about' }]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
   <section class="pt-24">
     <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
       <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
-        A Marketing Agency for <span class="text-brand-400">Every Way People Search</span>
+        Growth Engineering for <span class="text-brand-400">Every Way People Search</span>
       </h1>
       <div class="prose max-w-none text-gray-600">
         <p class="text-lg leading-relaxed">
-          Search has fractured. Customers now find businesses through Google, ChatGPT, Siri, Alexa, Gemini, Perplexity, AI Overviews, and voice assistants — each with different rules for who gets featured. Most marketing agencies only optimize for one channel.
+          Search has fractured. Customers now find businesses through Google, ChatGPT, Siri, Alexa,
+          Gemini, Perplexity, AI Overviews, and voice assistants — each with different rules for who
+          gets featured. Most marketing agencies only optimize for one channel.
         </p>
         <p class="mt-4 text-lg leading-relaxed">
-          RexBunny Services is a marketing agency built for this reality. We cover every search surface — traditional (SEO), AI-generated (GEO), and direct answers (AEO). We don't just help you rank; we make you visible in every format your customers use to find answers.
+          RexBunny Services is a growth engineering practice built for this reality. We cover every
+          search surface — traditional (SEO), AI-generated (GEO), and direct answers (AEO) — then
+          connect them to the systems that turn visibility into pipeline: the site, the lead engine,
+          the campaigns, and the dashboard that proves it. We don't just help you rank; we build the
+          whole path from search to signed customer.
         </p>
 
         <h2 class="mt-12 mb-4 text-2xl font-bold text-gray-900">Who We Are</h2>
         <p>
-          We are a small, focused marketing agency that specializes in search visibility across all channels — Google, LLMs, voice assistants, and AI answer engines. Our team combines deep expertise in search algorithms, entity engineering, structured data, content strategy, and web performance. We don't spread across dozens of services. We focus on what we're best at: making brands findable everywhere.
+          We are founder-led and deliberately small. Anass builds and runs every engagement directly
+          — no account-manager layer, no work handed to a junior team you never meet. That means the
+          person scoping your system is the person shipping it, across search engineering,
+          structured data, web performance, automation, and reporting.
         </p>
+        <div
+          class="mt-6 flex items-start gap-4 rounded-2xl border border-brand-200 bg-brand-50 p-5"
+        >
+          <div
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 font-display text-lg font-bold text-white"
+          >
+            A
+          </div>
+          <div>
+            <div class="font-bold text-gray-900">Anass</div>
+            <div class="text-sm text-gray-500">Founder &amp; Lead Engineer</div>
+            <p class="mt-2 text-sm text-gray-600">
+              Runs strategy, implementation, and reporting. Works with clients across the US, UK,
+              Canada, and wider — remotely, which is how most of our engagements run.
+            </p>
+          </div>
+        </div>
 
         <h2 class="mt-12 mb-4 text-2xl font-bold text-gray-900">Why Three Search Channels?</h2>
         <p>
-          <strong>SEO (Search Engine Optimization)</strong> — The foundation. Ranking on Google, Bing, and other traditional search engines through technical health, backlinks, and content authority. Still drives the majority of web traffic.
+          <strong>SEO (Search Engine Optimization)</strong> — The foundation. Ranking on Google, Bing,
+          and other traditional search engines through technical health, backlinks, and content authority.
+          Still drives the majority of web traffic.
         </p>
         <p>
-          <strong>GEO (Generative Engine Optimization)</strong> — Getting your brand cited as a source inside AI responses from ChatGPT, Gemini, Perplexity, and Copilot. Entity clarity, structured data depth, and citation-worthiness are the new ranking factors.
+          <strong>GEO (Generative Engine Optimization)</strong> — Getting your brand cited as a source
+          inside AI responses from ChatGPT, Gemini, Perplexity, and Copilot. Entity clarity, structured
+          data depth, and citation-worthiness are the new ranking factors.
         </p>
         <p>
-          <strong>AEO (Answer Engine Optimization)</strong> — Making your content the direct answer that AI Overviews, featured snippets, Siri, and Alexa read aloud. Voice search is growing 3x faster than typed search, and AEO puts you in the response.
+          <strong>AEO (Answer Engine Optimization)</strong> — Making your content the direct answer that
+          AI Overviews, featured snippets, Siri, and Alexa read aloud. Voice search is growing 3x faster
+          than typed search, and AEO puts you in the response.
         </p>
         <p>
-          Most businesses invest in one or two of these channels. We ensure you're visible across all three — because your customers use all of them.
+          Most businesses invest in one or two of these channels. We ensure you're visible across
+          all three — because your customers use all of them.
         </p>
 
         <h2 class="mt-12 mb-4 text-2xl font-bold text-gray-900">Our Approach</h2>
         <p>
-          Every engagement starts with a thorough audit of your current search visibility — across Google, AI citations, and direct answers. From there, we build a tailored strategy that addresses your specific gaps, whether that's fixing Core Web Vitals, restructuring content for LLM consumption, or engineering direct answers for voice search.
+          Every engagement starts with a thorough audit of your current search visibility — across
+          Google, AI citations, and direct answers. From there, we build a tailored strategy that
+          addresses your specific gaps, whether that's fixing Core Web Vitals, restructuring content
+          for LLM consumption, or engineering direct answers for voice search.
         </p>
         <p>
-          Every recommendation is backed by data. We track rankings, AI citation frequency, featured snippet presence, Lighthouse scores, and conversion metrics to prove ROI — not just activity.
+          Every recommendation is backed by data. We track rankings, AI citation frequency, featured
+          snippet presence, Lighthouse scores, and conversion metrics to prove ROI — not just
+          activity.
         </p>
 
         <div class="mt-10 grid gap-4 md:grid-cols-4">
