@@ -1,4 +1,4 @@
-interface Env {
+﻿interface Env {
   FORMS: KVNamespace;
   DASHBOARD_API_KEY?: string;
   N8N_URL?: string;
@@ -56,7 +56,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     if (!cookie) {
       const email = context.env.N8N_EMAIL || 'help@rexbunnyservices.com';
-      const password = context.env.N8N_PASSWORD || 'Admin12345!';
+      const password = context.env.N8N_PASSWORD;
       cookie = await getN8nCookie(n8nUrl, email, password);
       await context.env.FORMS.put('n8n_auth_cookie', cookie, { expirationTtl: 600 });
     }
@@ -121,7 +121,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     let cookie = await context.env.FORMS.get('n8n_auth_cookie', 'text');
     if (!cookie) {
       const email = context.env.N8N_EMAIL || 'help@rexbunnyservices.com';
-      const password = context.env.N8N_PASSWORD || 'Admin12345!';
+      const password = context.env.N8N_PASSWORD;
       cookie = await getN8nCookie(n8nUrl, email, password);
       await context.env.FORMS.put('n8n_auth_cookie', cookie, { expirationTtl: 600 });
     }
