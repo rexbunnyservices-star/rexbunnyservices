@@ -1,4 +1,4 @@
-interface Env {
+﻿interface Env {
   FORMS: KVNamespace;
   AUDIT_WEBHOOK_URL?: string;
   PB_URL?: string;
@@ -9,7 +9,7 @@ interface Env {
 async function syncLeadToPocketBase(env: Env, lead: any) {
   const baseUrl = env.PB_URL || 'https://pb.rexbunnyservices.online';
   const email = env.PB_EMAIL || 'admin@rexbunnyservices.com';
-  const password = env.PB_PASSWORD || 'Admin12345!';
+  const password = env.PB_PASSWORD;
 
   const authRes = await fetch(`${baseUrl}/api/collections/_superusers/auth-with-password`, {
     method: 'POST',
@@ -45,9 +45,9 @@ async function syncLeadToPocketBase(env: Env, lead: any) {
 async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
   const color =
     results.compositeScore >= 80 ? '#22c55e' : results.compositeScore >= 50 ? '#eab308' : '#ef4444';
-  const gptIcon = results.aiVisibility.gptBotStatus === 'allowed' ? '✅' : '❌';
-  const llmsIcon = results.aiVisibility.hasLlmsTxt ? '✅' : '❌';
-  const sdIcon = results.aiVisibility.hasStructuredData ? '✅' : '❌';
+  const gptIcon = results.aiVisibility.gptBotStatus === 'allowed' ? 'âœ…' : 'âŒ';
+  const llmsIcon = results.aiVisibility.hasLlmsTxt ? 'âœ…' : 'âŒ';
+  const sdIcon = results.aiVisibility.hasStructuredData ? 'âœ…' : 'âŒ';
 
   const html = `<!DOCTYPE html>
 <html>
@@ -134,7 +134,7 @@ async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
 </table>
 </td></tr>
 <tr><td style="padding:24px 32px;background:#f8fafc;text-align:center">
-<p style="margin:0;font-size:12px;color:#94a3b8">RexBunny Services — Marketing Agency for AI &amp; Search</p>
+<p style="margin:0;font-size:12px;color:#94a3b8">RexBunny Services â€” Marketing Agency for AI &amp; Search</p>
 <p style="margin:4px 0 0;font-size:11px;color:#94a3b8">${siteUrl}</p>
 </td></tr>
 </table>
