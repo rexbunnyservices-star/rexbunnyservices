@@ -191,8 +191,8 @@ const services = [
 ---
 
 <BaseLayout
-  title="AI Search, SEO, Websites & Visuals"
-  description="Found, believed and bought. SEO, AI search, websites and visuals from one founder, at freelancer rates. Try the free audit before you talk to anyone."
+  title="Build, Grow & Automate"
+  description="Build the site. Grow it in Google, ChatGPT and Siri. Automate the pipeline behind it. One founder, freelancer rates, agency-grade output."
 >
   <script
     type="application/ld+json"
@@ -221,17 +221,17 @@ const services = [
           data-reveal="fade-down"
           class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 opacity-0 shadow-premium"
         >
-          Search · Sites · Visuals · H1
+          From blank site to booked call
         </div>
         <h1
           data-reveal="scale-fade"
           class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0"
         >
-          Found.{' '}
+          Build.{' '}
           <span
             class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent"
           >
-            Believed. Bought.
+            Grow. Automate.
           </span>
         </h1>
         <p
@@ -239,12 +239,45 @@ const services = [
           data-delay="150"
           class="mb-4 text-lg text-gray-600 sm:text-xl opacity-0"
         >
-          SEO, AI search and answer engines get you found. A fast site gets you believed. Visuals
-          and video get you bought. One founder does all of it.
+          We build the site, grow your visibility across Google and AI search, then automate the
+          follow-up that turns attention into pipeline. One founder does all three.
         </p>
         <p data-reveal="fade-up" data-delay="250" class="mb-10 text-base text-gray-500 opacity-0">
           Freelancer rates. Agency-grade output.
         </p>
+        <div
+          data-reveal="fade-up"
+          data-delay="300"
+          class="mx-auto mb-10 grid max-w-4xl gap-4 sm:grid-cols-3"
+        >
+          {
+            [
+              {
+                phase: 'Build',
+                title: 'The site',
+                desc: 'Fast, schema-clean, built to be read by AI.',
+              },
+              {
+                phase: 'Grow',
+                title: 'Every search channel',
+                desc: 'Found on Google, ChatGPT, Siri, AI Overviews.',
+              },
+              {
+                phase: 'Automate',
+                title: 'The pipeline',
+                desc: 'Leads found, enriched and scored without you.',
+              },
+            ].map((p) => (
+              <div class="rounded-2xl border border-gray-200 bg-white/70 p-5 text-left backdrop-blur-sm">
+                <div class="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-500">
+                  {p.phase}
+                </div>
+                <h2 class="mb-1 text-base font-bold text-rex-dark">{p.title}</h2>
+                <p class="text-xs leading-relaxed text-gray-500">{p.desc}</p>
+              </div>
+            ))
+          }
+        </div>
         <div
           data-reveal="fade-up"
           data-delay="350"
@@ -258,7 +291,7 @@ const services = [
             <span
               class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"
             ></span>
-            <span class="relative">Run Your Free AI Visibility Audit →</span>
+            <span class="relative">Run Your Free Build &amp; Search Audit →</span>
           </a>
           <span data-magnetic><CalEmbed buttonText="Book a Strategy Call" client:load /></span>
         </div>

@@ -1,8 +1,8 @@
 # RexBunny Services
-> Growth Engineering — AI search, sites that convert, pipelines that fill, dashboards that prove it.
+> Build · Grow · Automate — sites that convert, visibility in every search channel, pipelines that fill.
 
 ## About
-RexBunny Services is a founder-led growth engineering practice. We cover AI search optimization (SEO, GEO, AEO), website generation, lead generation, ad campaigns, ecommerce dashboards, and AI visual production — building the full path from search visibility to signed customer, not just rankings. Founder and lead engineer: Anass. Serving clients across the US, UK, Canada, and worldwide, remotely. Prices are in USD; GBP equivalents are shown for UK buyers.
+RexBunny Services is a one-founder practice working in three phases. BUILD: we build websites (Lighthouse 95+, sub-second loads, LLM-crawlable HTML, structured data). GROW: we grow visibility across AI search optimization (SEO, GEO, AEO). AUTOMATE: we automate the lead pipeline behind it — automated prospecting, enrichment, AI-scored qualification, ad campaigns, and ecommerce dashboards. The full path from search visibility to signed customer, not just rankings. Founder and lead engineer: Anass. Serving clients across the US, UK, Canada, and worldwide, remotely. Freelancer rates, agency-grade output. Prices are in USD; GBP equivalents are shown for UK buyers.
 
 ## Services
 - [AI Search Optimization / GEO](https://rexbunnyservices.online/services/ai-search-optimization): Entity engineering, LLM citation optimization, AI crawl strategy
@@ -18,7 +18,9 @@ RexBunny Services is a founder-led growth engineering practice. We cover AI sear
 - [Free Visibility Audit](https://rexbunnyservices.online/lead-engine): Free diagnostic tool — checks SEO, AI crawlability, structured data, and answer presence
 - [Case Studies](https://rexbunnyservices.online/portfolio): Example engagements, clearly labelled as illustrative
 - [Blog](https://rexbunnyservices.online/blog): SEO strategies, GEO tactics, AEO guides, performance tips
-- [AI Search Statistics](https://rexbunnyservices.online/ai-search-statistics): Curated data and benchmarks on AI search, GEO, and voice search
+- [GEO Checklist](https://rexbunnyservices.online/geo-checklist): Free 20-point checklist for getting cited in ChatGPT, Gemini and Perplexity
+- [Transparent Pricing](https://rexbunnyservices.online/pricing): Every tier with USD and GBP, nothing gated behind "contact us"
+- [About](https://rexbunnyservices.online/about): Who we are and how the three phases fit together
 
 ## FAQ
 - **What is GEO?** Generative Engine Optimization is the practice of engineering websites to be cited in AI search responses from ChatGPT, Gemini, Perplexity, and Copilot.
