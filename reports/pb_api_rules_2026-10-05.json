@@ -1,0 +1,60 @@
+// PocketBase API rule lockdown — 2026-10-05
+//
+// `prospects` was anonymously readable: every record, 47 fields, including
+// email, phoneNumber, name and personalizedEmail. Anyone could pull the whole
+// database with no auth. Four more collections had open rules.
+//
+// Rule used: @request.auth.collectionId != ""
+//   - `auth != null` was rejected as invalid syntax by PocketBase.
+//   - `auth.id != ""` fails for per-collection API tokens; `collectionId != ""`
+//     covers superusers AND collection tokens, which is how functions/api
+//     authenticates. Matches the convention social_leads already used.
+//
+// Verify any collection after changing it:
+//   anon  GET https://pb.rexbunnyservices.online/api/collections/<name>/records?perPage=1
+//         -> 200 with totalItems:0, or 403/404. Never a populated list.
+//   authed GET same path with a superuser token -> real count.
+//
+// Before locking, confirm the only consumer authenticates. Dashboard reads go
+// through functions/api/*.ts, which log in as superuser first.
+{
+  "capturedAt": "2026-10-05",
+  "host": "http://localhost:8090",
+  "publicUrl": "https://pb.rexbunnyservices.online",
+  "ruleApplied": "@request.auth.collectionId != \"\"",
+  "before": {
+    "prospects": { "rows": 1618, "listRule": "", "viewRule": "", "risk": "HIGH — PII" },
+    "pipeline_state": {
+      "rows": 1,
+      "listRule": "",
+      "viewRule": "",
+      "risk": "low — internal rotation state"
+    },
+    "meta_campaign": { "rows": 1, "listRule": "", "viewRule": "", "risk": "low — ad campaign ids" },
+    "scrape_jobs": {
+      "rows": 0,
+      "listRule": "",
+      "viewRule": "",
+      "risk": "none yet, lock before it fills"
+    },
+    "leads": {
+      "rows": 2,
+      "listRule": "",
+      "note": "anon read already returned 403 despite empty rule — behaviour not explained, verify in admin UI"
+    },
+    "social_leads": {
+      "rows": 62,
+      "listRule": "@request.auth.id != ''",
+      "note": "already protected, left as-is"
+    }
+  },
+  "after": {
+    "prospects": "locked, anon sees 0, authed sees 1618, fetch-by-id 404",
+    "pipeline_state": "locked",
+    "meta_campaign": "locked",
+    "scrape_jobs": "locked",
+    "leads": "already 403 for anon",
+    "social_leads": "unchanged"
+  },
+  "restore": "PATCH /api/collections/<id> with listRule and viewRule set to \"\" (empty string = public). Only do this deliberately."
+}
