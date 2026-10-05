@@ -5,16 +5,17 @@ import LeadAuditTool from '../components/LeadAuditTool.tsx';
 import FAQ from '../components/FAQ.tsx';
 import CalEmbed from '../components/CalEmbed.tsx';
 
-// Live pipeline scale, read at build time. This is the number of prospects our own
-// automated system is working — NOT client results. Deliberately fails soft to the
-// last known value so a tunnel/PocketBase outage can never break the deploy.
+// Live pipeline scale, read at build time from our own count-only endpoint.
+// That endpoint returns a single integer and no records: the prospects
+// collection holds emails and phone numbers, so its PocketBase list rule is
+// admin-only and this page must never read it directly.
+// This is prospects our own automated system is working — NOT client results.
 const PIPELINE_FALLBACK = 1618;
 let pipelineCount = PIPELINE_FALLBACK;
 try {
-  const res = await fetch(
-    'https://pb.rexbunnyservices.online/api/collections/prospects/records?perPage=1',
-    { signal: AbortSignal.timeout(4000) },
-  );
+  const res = await fetch('https://rexbunnyservices.online/api/pipeline-count', {
+    signal: AbortSignal.timeout(4000),
+  });
   const data = await res.json();
   if (Number.isFinite(data.totalItems)) pipelineCount = data.totalItems;
 } catch {
