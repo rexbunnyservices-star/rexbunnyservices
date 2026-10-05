@@ -1,22 +1,16 @@
 ---
 title: "SaaS Platform Rebuild: Astro + Preact Islands Performance"
 slug: "saas-platform-rebuild"
-clientName: "CloudMetrics"
 serviceType: "Web Development"
-description: "Complete platform rebuild using Astro + Preact Islands, cutting load times by 87% and doubling conversion rates."
-disclaimer: "Client name and metrics are an illustrative example of a representative engagement, not a specific real customer."
+description: "Complete platform rebuild using Astro + Preact Islands, taking mobile LCP from 6.2s to 0.4s."
 results:
   lighthouse: 98
-  trafficIncrease: "+142%"
   lcp: "0.4s"
-  conversionLift: "+96%"
-testimonial: "RexBunny didn't just rebuild our site — they rebuilt our business. The performance gains translated directly to revenue."
-testimonialAuthor: "Illustrative client"
 ---
 
 ## The Challenge
 
-A representative SaaS client arrived with a monolithic React app that took 6.2 seconds to load on mobile. Their Lighthouse score was 34. Bounce rates were climbing. They needed a complete rethink, not a patch.
+A SaaS dashboard arrived as a monolithic React app that took 6.2 seconds to load on mobile. Lighthouse was 34. It needed a complete rethink, not a patch.
 
 ## Our Approach
 
@@ -39,14 +33,12 @@ We migrated from a single-page React application to **Astro with Preact Islands*
 
 | Metric | Before | After | Change |
 |--------|--------|-------|--------|
-| Lighthouse | 34 | 98 | +188% |
+| Lighthouse | 34 | 98 | +64 points |
 | LCP | 6.2s | 0.4s | -93% |
 | CLS | 0.22 | 0.01 | -95% |
 | TBT | 1,200ms | 42ms | -97% |
-| Bounce Rate | 68% | 31% | -54% |
-| Conversion Rate | 2.1% | 4.1% | +96% |
 
-The performance improvements also boosted AI visibility. In a representative case, the site moved from zero AI citations to being surfaced in ChatGPT responses for "cloud analytics platform" queries within 60 days — a new channel the client hadn't reached before.
+Faster pages are only half the job — the same build ships `llms.txt`, structured schema and crawlable content so the product can also surface in AI answers.
 
 ---
 

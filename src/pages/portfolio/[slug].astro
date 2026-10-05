@@ -44,7 +44,7 @@ const serviceLinks: Record<string, { href: string; label: string; desc: string; 
 ---
 
 <BaseLayout
-  title={`${project.data.title} — Case Study`}
+  title={`${project.data.title} — Example Project`}
   description={project.data.description}
   breadcrumbs={[
     { name: 'Portfolio', url: '/portfolio' },
@@ -64,24 +64,6 @@ const serviceLinks: Record<string, { href: string; label: string; desc: string; 
         name: 'RexBunny Services',
         url: siteUrl,
       },
-      ...(project.data.disclaimer
-        ? {}
-        : {
-            client: {
-              '@type': 'Organization',
-              name: project.data.clientName,
-            },
-            review: project.data.testimonial
-              ? {
-                  '@type': 'Review',
-                  reviewBody: project.data.testimonial,
-                  author: {
-                    '@type': 'Person',
-                    name: project.data.testimonialAuthor,
-                  },
-                }
-              : undefined,
-          }),
       result: project.data.results ? JSON.stringify(project.data.results) : undefined,
     })}
   />
@@ -103,16 +85,6 @@ const serviceLinks: Record<string, { href: string; label: string; desc: string; 
         </div>
         <h1 class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl">{project.data.title}</h1>
         <p class="mb-2 text-lg text-gray-500">{project.data.description}</p>
-        <p class="text-sm text-gray-400">
-          Client: <span class="text-gray-600">{project.data.clientName}</span>
-        </p>
-        {
-          project.data.disclaimer && (
-            <div class="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-              <strong class="font-semibold">Illustrative example.</strong> {project.data.disclaimer}
-            </div>
-          )
-        }
       </header>
 
       <div class="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -121,16 +93,6 @@ const serviceLinks: Record<string, { href: string; label: string; desc: string; 
             <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
               <div class="text-2xl font-bold text-brand-600">{project.data.results.lighthouse}</div>
               <div class="text-xs text-gray-400">Lighthouse</div>
-            </div>
-          )
-        }
-        {
-          project.data.results.trafficIncrease && (
-            <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
-              <div class="text-2xl font-bold text-green-500">
-                {project.data.results.trafficIncrease}
-              </div>
-              <div class="text-xs text-gray-400">Traffic</div>
             </div>
           )
         }
@@ -153,20 +115,6 @@ const serviceLinks: Record<string, { href: string; label: string; desc: string; 
           )
         }
       </div>
-
-      {
-        project.data.testimonial && (
-          <blockquote class="mb-12 rounded-xl border-l-4 border-brand-500 bg-gray-50 p-6">
-            <p class="mb-2 text-lg italic text-gray-700">"{project.data.testimonial}"</p>
-            <cite class="text-sm text-gray-400">— {project.data.testimonialAuthor}</cite>
-            {project.data.disclaimer && (
-              <div class="mt-2 text-xs text-gray-400">
-                Sample quote shown for illustration; not attributed to a real named customer.
-              </div>
-            )}
-          </blockquote>
-        )
-      }
 
       <div class="prose prose-brand max-w-none text-gray-600">
         <Content />

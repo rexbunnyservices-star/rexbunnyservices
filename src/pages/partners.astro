@@ -119,18 +119,16 @@ import CalEmbed from '../components/CalEmbed.tsx';
         data-reveal="fade-up"
         class="mx-auto mt-20 max-w-4xl rounded-2xl border border-gray-200 bg-gray-50 p-10 opacity-0"
       >
-        <h2 class="mb-8 text-center text-xl font-bold text-gray-900">
-          Results Your Clients Could Get
-        </h2>
+        <h2 class="mb-8 text-center text-xl font-bold text-gray-900">Delivery Benchmarks</h2>
         <p class="mb-8 text-center text-xs text-gray-400">
-          Illustrative metrics from representative engagements — not specific customer results.
+          Technical targets our builds are engineered and measured against.
         </p>
         <div class="grid gap-6 md:grid-cols-3">
           {
             [
-              { metric: '+312%', label: 'Traffic', detail: 'Multi-location SEO — illustrative' },
-              { metric: '+96%', label: 'Conversions', detail: 'Platform rebuild — illustrative' },
-              { metric: '98', label: 'Lighthouse', detail: 'Web dev build — illustrative' },
+              { metric: '96+', label: 'Lighthouse', detail: 'Local SEO build' },
+              { metric: '<0.6s', label: 'LCP', detail: 'Programmatic page set' },
+              { metric: '120+', label: 'City pages', detail: 'Generated with schema' },
             ].map((item, i) => (
               <div
                 data-reveal="fade-up"

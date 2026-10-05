@@ -14,24 +14,16 @@ const serviceColors: Record<string, string> = {
 
 <BaseLayout
   title="Portfolio"
-  description="Illustrative case studies from RexBunny Services — representative examples of web performance, SEO, and AI search optimization engagements."
+  description="Sample builds from RexBunny Services — examples of web performance, SEO, and AI search optimization work."
 >
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <h1 class="mb-4 text-center text-4xl font-extrabold text-gray-900 sm:text-5xl">
-        Case Studies
+        Example Projects
       </h1>
       <p class="mb-8 text-center text-lg text-gray-500">
-        Representative engagements, quantified end to end.
+        Sample builds showing scope, architecture and technical results.
       </p>
-      <div
-        class="mx-auto mb-12 max-w-3xl rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800"
-      >
-        <strong class="font-semibold">Illustrative examples — not client results.</strong> The projects
-        and metrics below show the <em>shape</em> of work RexBunny does: they are representative examples,
-        not engagements for named customers, and the figures are illustrative rather than measured outcomes.
-        Real numbers come from your own audit.
-      </div>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
           projects.map((project) => (
@@ -63,11 +55,6 @@ const serviceColors: Record<string, string> = {
                     Lighthouse: {project.data.results.lighthouse}
                   </span>
                 )}
-                {project.data.results.trafficIncrease && (
-                  <span class="rounded bg-gray-100 px-2 py-1">
-                    Traffic: {project.data.results.trafficIncrease}
-                  </span>
-                )}
                 {project.data.results.lcp && (
                   <span class="rounded bg-gray-100 px-2 py-1">LCP: {project.data.results.lcp}</span>
                 )}
@@ -77,7 +64,7 @@ const serviceColors: Record<string, string> = {
         }
       </div>
       <div class="mt-12 text-center">
-        <CalEmbed buttonText="Be Our Next Case Study →" />
+        <CalEmbed buttonText="Start Your Project →" />
       </div>
     </div>
   </section>

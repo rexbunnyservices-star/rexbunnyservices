@@ -1,40 +1,5 @@
 export default new Map([
   [
-    'src/content/blog/google-ai-overviews-optimization.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fgoogle-ai-overviews-optimization.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
-    'src/content/blog/aeo-answer-engine-optimization-guide.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Faeo-answer-engine-optimization-guide.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
-    'src/content/blog/lighthouse-100-blueprint.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Flighthouse-100-blueprint.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
-    'src/content/blog/get-cited-in-chatgpt.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fget-cited-in-chatgpt.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
-    'src/content/blog/optimize-for-perplexity.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Foptimize-for-perplexity.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
     'src/content/blog/geo-vs-seo-2026.mdx',
     () =>
       import(
@@ -42,24 +7,10 @@ export default new Map([
       ),
   ],
   [
-    'src/content/portfolio/dental-chain-local-seo.mdx',
+    'src/content/blog/google-ai-overviews-optimization.mdx',
     () =>
       import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fdental-chain-local-seo.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
-    'src/content/portfolio/ecommerce-ai-visibility.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fecommerce-ai-visibility.mdx&astroContentModuleFlag=true'
-      ),
-  ],
-  [
-    'src/content/portfolio/coffee-shop-ai-visuals.mdx',
-    () =>
-      import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fcoffee-shop-ai-visuals.mdx&astroContentModuleFlag=true'
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fgoogle-ai-overviews-optimization.mdx&astroContentModuleFlag=true'
       ),
   ],
   [
@@ -70,10 +21,17 @@ export default new Map([
       ),
   ],
   [
-    'src/content/portfolio/saas-platform-rebuild.mdx',
+    'src/content/blog/get-cited-in-chatgpt.mdx',
     () =>
       import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fsaas-platform-rebuild.mdx&astroContentModuleFlag=true'
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fget-cited-in-chatgpt.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
+    'src/content/blog/lighthouse-100-blueprint.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Flighthouse-100-blueprint.mdx&astroContentModuleFlag=true'
       ),
   ],
   [
@@ -91,6 +49,41 @@ export default new Map([
       ),
   ],
   [
+    'src/content/blog/aeo-answer-engine-optimization-guide.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Faeo-answer-engine-optimization-guide.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
+    'src/content/portfolio/coffee-shop-ai-visuals.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fcoffee-shop-ai-visuals.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
+    'src/content/blog/optimize-for-perplexity.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Foptimize-for-perplexity.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
+    'src/content/portfolio/dental-chain-local-seo.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fdental-chain-local-seo.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
+    'src/content/portfolio/ecommerce-ai-visibility.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fecommerce-ai-visibility.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
     'src/content/blog/perplexity-seo-strategy.mdx',
     () =>
       import(
@@ -98,10 +91,10 @@ export default new Map([
       ),
   ],
   [
-    'src/content/blog/voice-search-optimization-2026.mdx',
+    'src/content/portfolio/saas-platform-rebuild.mdx',
     () =>
       import(
-        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fvoice-search-optimization-2026.mdx&astroContentModuleFlag=true'
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fportfolio%2Fsaas-platform-rebuild.mdx&astroContentModuleFlag=true'
       ),
   ],
   [
@@ -109,6 +102,13 @@ export default new Map([
     () =>
       import(
         'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fprogrammatic-local-seo.mdx&astroContentModuleFlag=true'
+      ),
+  ],
+  [
+    'src/content/blog/voice-search-optimization-2026.mdx',
+    () =>
+      import(
+        'astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fvoice-search-optimization-2026.mdx&astroContentModuleFlag=true'
       ),
   ],
   [

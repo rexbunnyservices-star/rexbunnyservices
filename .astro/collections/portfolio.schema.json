@@ -10,16 +10,10 @@
         "slug": {
           "type": "string"
         },
-        "clientName": {
-          "type": "string"
-        },
         "serviceType": {
           "type": "string"
         },
         "description": {
-          "type": "string"
-        },
-        "disclaimer": {
           "type": "string"
         },
         "results": {
@@ -28,23 +22,11 @@
             "lighthouse": {
               "type": "number"
             },
-            "trafficIncrease": {
-              "type": "string"
-            },
             "lcp": {
-              "type": "string"
-            },
-            "conversionLift": {
               "type": "string"
             }
           },
           "additionalProperties": false
-        },
-        "testimonial": {
-          "type": "string"
-        },
-        "testimonialAuthor": {
-          "type": "string"
         },
         "liveUrl": {
           "type": "string"
@@ -53,7 +35,7 @@
           "type": "string"
         }
       },
-      "required": ["title", "slug", "clientName", "serviceType", "description", "results"],
+      "required": ["title", "slug", "serviceType", "description", "results"],
       "additionalProperties": false
     }
   },

@@ -17,18 +17,12 @@ const portfolio = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
-    clientName: z.string(),
     serviceType: z.string(),
     description: z.string(),
-    disclaimer: z.string().optional(),
     results: z.object({
       lighthouse: z.number().optional(),
-      trafficIncrease: z.string().optional(),
       lcp: z.string().optional(),
-      conversionLift: z.string().optional(),
     }),
-    testimonial: z.string().optional(),
-    testimonialAuthor: z.string().optional(),
     liveUrl: z.string().optional(),
   }),
 });
