@@ -5,6 +5,23 @@ import LeadAuditTool from '../components/LeadAuditTool.tsx';
 import FAQ from '../components/FAQ.tsx';
 import CalEmbed from '../components/CalEmbed.tsx';
 
+// Live pipeline scale, read at build time. This is the number of prospects our own
+// automated system is working — NOT client results. Deliberately fails soft to the
+// last known value so a tunnel/PocketBase outage can never break the deploy.
+const PIPELINE_FALLBACK = 1618;
+let pipelineCount = PIPELINE_FALLBACK;
+try {
+  const res = await fetch(
+    'https://pb.rexbunnyservices.online/api/collections/prospects/records?perPage=1',
+    { signal: AbortSignal.timeout(4000) },
+  );
+  const data = await res.json();
+  if (Number.isFinite(data.totalItems)) pipelineCount = data.totalItems;
+} catch {
+  pipelineCount = PIPELINE_FALLBACK;
+}
+const pipelineFormatted = pipelineCount.toLocaleString('en-US');
+
 const faqs = [
   {
     question: "What's the difference between SEO, GEO, and AEO?",
@@ -174,8 +191,8 @@ const services = [
 ---
 
 <BaseLayout
-  title="Growth Engineering for AI Search, Sites & Pipeline"
-  description="RexBunny Services is a growth engineering practice covering AI search optimization (SEO, GEO, AEO), website generation, lead generation, ad campaigns, ecommerce dashboards, and AI visual production."
+  title="AI Search, SEO, Websites & Visuals"
+  description="Found, believed and bought. SEO, AI search, websites and visuals from one founder, at freelancer rates. Try the free audit before you talk to anyone."
 >
   <script
     type="application/ld+json"
@@ -204,17 +221,17 @@ const services = [
           data-reveal="fade-down"
           class="mb-6 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 opacity-0 shadow-premium"
         >
-          Growth Engineering
+          Search · Sites · Visuals · H1
         </div>
         <h1
           data-reveal="scale-fade"
           class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0"
         >
-          Growth Engineering for{' '}
+          Found.{' '}
           <span
             class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent"
           >
-            Every Search Channel
+            Believed. Bought.
           </span>
         </h1>
         <p
@@ -222,12 +239,11 @@ const services = [
           data-delay="150"
           class="mb-4 text-lg text-gray-600 sm:text-xl opacity-0"
         >
-          SEO. GEO. AEO. We cover every way your customers search — Google, ChatGPT, Siri, Alexa,
-          Gemini, and Perplexity.
+          SEO, AI search and answer engines get you found. A fast site gets you believed. Visuals
+          and video get you bought. One founder does all of it.
         </p>
         <p data-reveal="fade-up" data-delay="250" class="mb-10 text-base text-gray-500 opacity-0">
-          We engineer your brand into traditional search, AI citations, and direct answer engines —
-          so you're found everywhere your customers are looking.
+          Freelancer rates. Agency-grade output.
         </p>
         <div
           data-reveal="fade-up"
@@ -295,6 +311,23 @@ const services = [
           </span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCOPE ═══ -->
+  <section class="border-y border-gray-200 bg-gray-50 py-14">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-3 text-2xl font-extrabold text-rex-dark">Need something specific?</h2>
+      <p class="mb-6 text-sm text-gray-500">
+        The prices below are starting points, not limits. Pick a channel or tell us the outcome you
+        want — we'll scope the work and price it to your project.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+      >
+        Scope My Project →
+      </a>
     </div>
   </section>
 
@@ -505,41 +538,49 @@ const services = [
             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
           ></path></svg
         >
-        Proof, Not Promises
+        Check me, don't trust me
       </div>
       <h2
         data-reveal="fade-up"
         data-delay="100"
         class="mb-4 text-center font-display text-4xl font-extrabold text-rex-dark opacity-0"
       >
-        Don't Take Our Word for It
+        Check Me, Don't Trust Me.
       </h2>
       <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">
         Every claim below is something you can verify yourself, right now.
       </p>
-      <div class="grid gap-6 md:grid-cols-3">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {
           [
             {
-              href: '/lead-engine',
-              badge: 'Live & running',
-              title: 'Lead-engine pipeline in production',
-              body: 'Our automated lead-gen, AI-enrichment and outreach pipeline — discovers prospects, scores them into SEO vs web-dev tracks, and keeps the funnel moving on autopilot.',
-              verify: 'See the live proof →',
+              href: 'https://pagespeed.web.dev/analysis/https-rexbunnyservices-online/analysis?form_factor=desktop',
+              external: true,
+              badge: 'Verify in PageSpeed',
+              title: 'Lighthouse 98 on this very site',
+              body: 'Run Google PageSpeed Insights against rexbunnyservices.online. Same score you can check on any site we hand over — no call required to see it.',
+              verify: 'Open PageSpeed',
             },
             {
               href: '/lead-engine',
               badge: 'Runnable right here',
-              title: 'Run the exact tool we sell',
-              body: 'This is our actual GEO/AEO audit, not a brochure version. Enter any site — including this one — and it emails you a real PDF report.',
-              verify: 'Run it on this site →',
+              title: 'Free audit, real Lighthouse PDF',
+              body: 'Run the exact audit tool we sell. Enter any site — including this one — and it emails you a real PDF report. No credit card, no call.',
+              verify: 'Run it on your site',
+            },
+            {
+              href: '/pricing',
+              badge: 'Nothing hidden',
+              title: 'Every price on the pricing page',
+              body: 'All tiers, all in USD with GBP shown. Nothing is gated behind "contact us" — compare everything before you talk to anyone.',
+              verify: 'See all prices',
             },
             {
               href: '/portfolio',
-              badge: 'Built for performance',
-              title: 'This website is the deliverable',
-              body: 'You are on a production build: edge-deployed, llms.txt, full schema, mobile-first Lighthouse performance target. The same baseline we sell every client.',
-              verify: 'Inspect the source or run the audit',
+              badge: 'Pipeline scale, not client results',
+              title: `${pipelineFormatted} prospects in one automated pipeline`,
+              body: 'That is the number of prospects our own automated prospecting and enrichment system is currently working. It is pipeline scale — it is not a client result, and we will not present it as one.',
+              verify: 'See the sample builds',
             },
           ].map((t, i) => (
             <a

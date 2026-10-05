@@ -24,7 +24,7 @@ const serviceLines = [
       {
         name: 'SEO Audit',
         tagline: 'One-time diagnostic',
-        price: '$1,500',
+        price: '$500',
         period: 'one-time',
         features: [
           'Technical SEO audit (20+ checks)',
@@ -41,7 +41,7 @@ const serviceLines = [
       {
         name: 'Local SEO',
         tagline: 'Single location',
-        price: '$1,500',
+        price: '$750',
         period: 'per month',
         features: [
           'Google Business Profile management',
@@ -57,7 +57,7 @@ const serviceLines = [
       {
         name: 'Growth SEO',
         tagline: 'Multi-location',
-        price: '$3,000',
+        price: '$1,500',
         period: 'per month',
         features: [
           'Everything in Local',
@@ -99,7 +99,7 @@ const serviceLines = [
       {
         name: 'GEO Sprint',
         tagline: 'One-time foundation',
-        price: '$8,000',
+        price: '$3,000',
         period: 'one-time',
         features: [
           'Full AI visibility baseline',
@@ -117,7 +117,7 @@ const serviceLines = [
       {
         name: 'GEO Growth',
         tagline: 'Ongoing optimization',
-        price: '$4,500',
+        price: '$2,000',
         period: 'per month',
         features: [
           'Weekly AI citation tracking (5 engines)',
@@ -134,7 +134,7 @@ const serviceLines = [
       {
         name: 'GEO Enterprise',
         tagline: 'Full-scale program',
-        price: '$8,000',
+        price: '$4,000',
         period: 'per month',
         features: [
           'Everything in Growth',
@@ -159,7 +159,7 @@ const serviceLines = [
       {
         name: 'AEO Audit',
         tagline: 'One-time diagnostic',
-        price: '$1,500',
+        price: '$500',
         period: 'one-time',
         features: [
           'Featured snippet opportunity audit',
@@ -176,7 +176,7 @@ const serviceLines = [
       {
         name: 'AEO Foundation',
         tagline: 'Essential package',
-        price: '$2,000',
+        price: '$1,000',
         period: 'per month',
         features: [
           'FAQ schema & HowTo markup',
@@ -192,7 +192,7 @@ const serviceLines = [
       {
         name: 'AEO Growth',
         tagline: 'Full answer strategy',
-        price: '$3,500',
+        price: '$1,750',
         period: 'per month',
         features: [
           'Everything in Foundation',
@@ -417,7 +417,7 @@ const siteUrl = 'https://rexbunnyservices.online';
               const usd = Number(plan.price.replace(/[$,+]/g, ''));
               return {
                 '@type': 'Offer',
-                itemOffered: { '@type': 'Service', name: plan.name, description: plan.description },
+                itemOffered: { '@type': 'Service', name: plan.name, description: plan.tagline },
                 ...(Number.isFinite(usd) ? { price: usd, priceCurrency: 'USD' } : {}),
               };
             }),
@@ -426,12 +426,31 @@ const siteUrl = 'https://rexbunnyservices.online';
       },
     })}
   />
+  <section class="border-y border-gray-200 bg-gray-50 py-14">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-3 text-2xl font-extrabold text-gray-700">Need something specific?</h2>
+      <p class="mb-6 text-sm text-gray-500">
+        The prices below are starting points, not limits. Pick a channel or tell us the outcome you
+        want — we'll scope the work and price it to your project.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+      >
+        Scope My Project →
+      </a>
+    </div>
+  </section>
+
   <section class="pt-24">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="mb-4 text-4xl font-extrabold text-gray-700 sm:text-5xl">Transparent Pricing</h1>
-        <p class="mb-8 text-lg text-gray-500">
+        <p class="mb-3 text-lg text-gray-500">
           Pick the search channel you need to win. Or bundle them all.
+        </p>
+        <p class="mb-8 text-sm font-semibold text-gray-600">
+          Freelancer rates. Agency-grade output.
         </p>
         <p class="mb-10 text-sm text-gray-400">
           All prices in USD. GBP shown for UK buyers — your card provider sets the final rate.
