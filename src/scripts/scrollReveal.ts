@@ -8,10 +8,7 @@ const observer = new IntersectionObserver(
         const duration = parseInt(el.dataset.duration || '700', 10);
         const stagger = parseInt(el.dataset.stagger || '0', 10);
 
-        el.style.animationDelay = `${delay}ms`;
-        el.style.animationDuration = `${duration}ms`;
-        el.classList.add(`animate-${animation}`);
-        el.dataset.revealed = 'true';
+        revealNow(el, animation, duration, delay);
         observer.unobserve(el);
 
         if (el.dataset.counter !== undefined) {
@@ -21,12 +18,12 @@ const observer = new IntersectionObserver(
         if (stagger > 0) {
           const children = el.querySelectorAll<HTMLElement>('[data-reveal-stagger-item]');
           children.forEach((child, i) => {
-            const childAnim = child.dataset.reveal || animation;
-            const childDelay = delay + (i + 1) * stagger;
-            child.style.animationDelay = `${childDelay}ms`;
-            child.style.animationDuration = `${duration}ms`;
-            child.classList.add(`animate-${childAnim}`);
-            child.dataset.revealed = 'true';
+            revealNow(
+              child,
+              child.dataset.reveal || animation,
+              duration,
+              delay + (i + 1) * stagger,
+            );
             observer.unobserve(child);
           });
         }
@@ -76,7 +73,33 @@ function initProgressBar() {
   );
 }
 
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/*
+ * Tailwind's .opacity-0 is !important, and a stylesheet override loses to it on
+ * source order no matter how specific the selector is. The only thing that wins
+ * is Tailwind's own ! utilities, so reduced motion reveals via !opacity-100.
+ * Without this, 58 opacity-0 elements are invisible for users who ask for less
+ * motion, which is the exact opposite of what they requested.
+ */
+function revealNow(el: HTMLElement, animation: string, duration: number, delay = 0) {
+  el.style.animationDelay = `${delay}ms`;
+  el.style.animationDuration = `${duration}ms`;
+  el.classList.remove('opacity-0');
+  el.classList.add('!opacity-100');
+  el.classList.add(`animate-${animation}`);
+  el.dataset.revealed = 'true';
+}
+
 export function initScrollReveal() {
+  if (prefersReducedMotion()) {
+    document
+      .querySelectorAll<HTMLElement>('[data-reveal], [data-reveal-stagger-item]')
+      .forEach((el) => revealNow(el, el.dataset.reveal || 'fade-up', 1));
+    return;
+  }
+
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
     if (el.dataset.revealed !== 'true') observer.observe(el);
   });

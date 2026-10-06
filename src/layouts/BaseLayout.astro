@@ -287,10 +287,13 @@ const breadcrumbItems = breadcrumbs
       }
 
       /*
-       * Reduced motion: kill every animation, but force content visible.
-       * 58 elements ship with opacity-0 and are only ever revealed by their
-       * keyframe running, so `animation: none` alone would leave the page
-       * blank. Opacity must be restored explicitly.
+       * Reduced motion. Two parts, both load-bearing:
+       *
+       * 1. Tailwind's .opacity-0 utility carries !important, so a scoped
+       *    `opacity: 1 !important` loses on source order and 58 elements stay
+       *    invisible. The only reliable override is a double-bang utility class
+       *    applied by scrollReveal when motion is reduced.
+       * 2. The universal kill below stops the keyframes running at all.
        */
       @media (prefers-reduced-motion: reduce) {
         *,
@@ -300,14 +303,6 @@ const breadcrumbItems = breadcrumbs
           animation-iteration-count: 1 !important;
           transition-duration: 0.001ms !important;
           scroll-behavior: auto !important;
-        }
-        [data-reveal],
-        [data-reveal-stagger-item] {
-          opacity: 1 !important;
-          animation: none !important;
-        }
-        [data-cursor-glow] {
-          display: none !important;
         }
         #cursor-glow {
           display: none !important;
