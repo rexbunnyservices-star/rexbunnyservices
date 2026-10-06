@@ -225,15 +225,16 @@ const services = [
           From blank site to booked call
         </div>
         <h1
-          data-reveal="scale-fade"
+          data-reveal="glow-border"
+          data-duration="1400"
           class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0"
         >
-          Build.{' '}
+          <span class="inline-block">Build.</span>{' '}
           <span
-            class="bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-clip-text text-transparent"
-          >
-            Grow. Automate.
-          </span>
+            class="inline-block bg-gradient-to-r from-brand-500 via-rex-orange to-rex-gold bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-shift"
+            >Grow.</span
+          >{' '}
+          <span class="inline-block">Automate.</span>
         </h1>
         <p
           data-reveal="fade-up"
@@ -249,6 +250,7 @@ const services = [
         <div
           data-reveal="fade-up"
           data-delay="300"
+          data-stagger="140"
           class="mx-auto mb-10 grid max-w-4xl gap-4 sm:grid-cols-3"
         >
           {
@@ -268,13 +270,22 @@ const services = [
                 title: 'The pipeline',
                 desc: 'Leads found, enriched and scored without you.',
               },
-            ].map((p) => (
-              <div class="rounded-2xl border border-gray-200 bg-white/70 p-5 text-left backdrop-blur-sm">
+            ].map((p, i) => (
+              <div
+                data-reveal-stagger-item
+                class="rounded-2xl border border-gray-200 bg-white/70 p-5 text-left opacity-0 backdrop-blur-sm transition-colors hover:border-brand-300"
+              >
                 <div class="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-500">
                   {p.phase}
                 </div>
                 <h2 class="mb-1 text-base font-bold text-rex-dark">{p.title}</h2>
                 <p class="text-xs leading-relaxed text-gray-500">{p.desc}</p>
+                {i === 2 && (
+                  <p class="mt-3 border-t border-gray-100 pt-2 text-[11px] leading-snug text-gray-400">
+                    <span class="font-semibold text-brand-500">{pipelineFormatted}</span> prospects
+                    in our pipeline — pipeline scale, not client results.
+                  </p>
+                )}
               </div>
             ))
           }

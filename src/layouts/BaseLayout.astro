@@ -285,6 +285,34 @@ const breadcrumbItems = breadcrumbs
       html.no-js [data-reveal] {
         opacity: 1 !important;
       }
+
+      /*
+       * Reduced motion: kill every animation, but force content visible.
+       * 58 elements ship with opacity-0 and are only ever revealed by their
+       * keyframe running, so `animation: none` alone would leave the page
+       * blank. Opacity must be restored explicitly.
+       */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+        [data-reveal],
+        [data-reveal-stagger-item] {
+          opacity: 1 !important;
+          animation: none !important;
+        }
+        [data-cursor-glow] {
+          display: none !important;
+        }
+        #cursor-glow {
+          display: none !important;
+        }
+      }
       nav {
         transition:
           transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
