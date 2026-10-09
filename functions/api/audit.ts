@@ -129,7 +129,7 @@ async function sendAuditEmail(toEmail: string, siteUrl: string, results: any) {
 <p style="font-size:13px;color:#64748b;line-height:1.5">This is a high-level overview. For a full strategic roadmap tailored to your site, book a free strategy call with our team.</p>
 <table width="100%" cellpadding="0" cellspacing="0">
 <tr><td align="center" style="padding:8px 0">
-<a href="https://cal.rexbunnyservices.online/strategy-call" style="display:inline-block;background:#312e81;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600">Book Your Free Strategy Call</a>
+<a href="https://cal.rexbunnyservices.online/org/rexbunny/rexbunny/strategy-call" style="display:inline-block;background:#312e81;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600">Book Your Free Strategy Call</a>
 </td></tr>
 </table>
 </td></tr>

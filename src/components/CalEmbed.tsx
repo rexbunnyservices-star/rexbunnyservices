@@ -9,7 +9,7 @@ export default function CalEmbed({
 }: CalEmbedProps) {
   const handleClick = () => {
     window.open(
-      'https://cal.rexbunnyservices.online/rexbunny/30min',
+      'https://cal.rexbunnyservices.online/org/rexbunny/rexbunny/30min',
       '_blank',
       'noopener,noreferrer',
     );
