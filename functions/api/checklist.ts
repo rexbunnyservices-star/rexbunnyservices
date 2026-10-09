@@ -139,7 +139,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch {
+  } catch (err) {
+    console.error('checklist capture failed:', err);
     return new Response(JSON.stringify({ error: 'Failed to capture email' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
