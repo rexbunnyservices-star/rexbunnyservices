@@ -87,6 +87,12 @@ services:
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-changeme}
       - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY:-changeme}
       - NEXTAUTH_URL=https://cal.rexbunnyservices.online
+      - WEBAPP_URL=https://cal.rexbunnyservices.online
+      - NEXT_PUBLIC_WEBAPP_URL=https://cal.rexbunnyservices.online
+      - NEXT_PUBLIC_API_V2_URL=https://cal.rexbunnyservices.online/api/v2
+      - ALLOWED_HOSTNAMES="cal.rexbunnyservices.online"
+      - NEXT_PUBLIC_WEBAPP_URL_FOR_OAUTH=https://cal.rexbunnyservices.online
+      - ORGANIZATIONS_ENABLED=1
     depends_on:
       calcom-db:
         condition: service_healthy
