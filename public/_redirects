@@ -1,1 +1,6 @@
 # Cloudflare Pages Functions handle /api/* routes automatically
+
+# AI-search blog cluster consolidation (site-garden 2026-10-10)
+/blog/how-to-get-cited-in-chatgpt  /blog/get-cited-in-chatgpt  301
+/blog/llms-txt-setup-guide         /blog/llms-txt-explained   301
+/blog/perplexity-seo-strategy      /blog/optimize-for-perplexity 301

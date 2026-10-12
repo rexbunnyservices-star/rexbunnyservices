@@ -23,6 +23,13 @@ Before optimizing, know where you stand. Run a free audit to check:
 - **Is your structured data complete?** ChatGPT extracts entity information from JSON-LD schema. Missing schema means missing context.
 - **What does ChatGPT currently say about your brand?** Ask it directly: "What do you know about [your brand]?" The answer reveals your current AI visibility baseline.
 
+To confirm crawler access, your robots.txt should include:
+
+```
+User-agent: GPTBot
+Allow: /
+```
+
 ## Step 2: Create an llms.txt File
 
 This is the single most overlooked GEO tactic. An llms.txt file at your domain root tells AI models exactly who you are and what you do. It's like a business card for AI crawlers.
