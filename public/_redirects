@@ -4,3 +4,7 @@
 /blog/how-to-get-cited-in-chatgpt  /blog/get-cited-in-chatgpt  301
 /blog/llms-txt-setup-guide         /blog/llms-txt-explained   301
 /blog/perplexity-seo-strategy      /blog/optimize-for-perplexity 301
+# trailing-slash forms (Pages 308s to these, so they are the indexed URLs)
+/blog/how-to-get-cited-in-chatgpt/  /blog/get-cited-in-chatgpt  301
+/blog/llms-txt-setup-guide/         /blog/llms-txt-explained   301
+/blog/perplexity-seo-strategy/      /blog/optimize-for-perplexity 301
