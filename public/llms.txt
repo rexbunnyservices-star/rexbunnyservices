@@ -22,6 +22,11 @@ RexBunny Services is a one-founder practice working in three phases. BUILD: we b
 - [Transparent Pricing](https://rexbunnyservices.online/pricing): Every tier with USD and GBP, nothing gated behind "contact us"
 - [About](https://rexbunnyservices.online/about): Who we are and how the three phases fit together
 
+## Guides
+- [How to Get Your Brand Cited in ChatGPT](https://rexbunnyservices.online/blog/get-cited-in-chatgpt): The citation engineering checklist — entity clarity, llms.txt, schema, citation-worthy structure
+- [llms.txt Explained](https://rexbunnyservices.online/blog/llms-txt-explained): What the file is, how to build one in 10 minutes, and how it feeds AI answers
+- [How to Optimize for Perplexity AI](https://rexbunnyservices.online/blog/optimize-for-perplexity): Perplexity's crawler, citation rules, and how to get pulled into its answers
+
 ## FAQ
 - **What is GEO?** Generative Engine Optimization is the practice of engineering websites to be cited in AI search responses from ChatGPT, Gemini, Perplexity, and Copilot.
 - **What is AEO?** Answer Engine Optimization is the practice of engineering content to become the direct answer in AI Overviews, featured snippets, voice search, and assistants like Siri and Alexa.
