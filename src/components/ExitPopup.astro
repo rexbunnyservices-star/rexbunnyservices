@@ -80,6 +80,8 @@
 </div>
 
 <script>
+  import { trackMetaEvent } from '../lib/metaTracking';
+
   let popupShown = false;
 
   function showPopup() {
@@ -128,6 +130,10 @@
       if (res.ok) {
         if (form) form.style.display = 'none';
         if (successMsg) successMsg.classList.remove('hidden');
+        trackMetaEvent('Lead', {
+          content_name: 'exit-popup-checklist',
+          content_category: 'checklist',
+        });
       } else {
         if (submitBtn) submitBtn.disabled = false;
         if (emailInput) emailInput.classList.add('border-red-400');

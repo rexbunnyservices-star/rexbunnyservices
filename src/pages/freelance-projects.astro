@@ -145,6 +145,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <script lang="ts">
+    import { trackMetaEvent } from '../lib/metaTracking';
+
     const form = document.getElementById('lead-form');
     const btn = document.getElementById('submit-btn') as HTMLButtonElement;
     const msg = document.getElementById('form-msg') as HTMLParagraphElement;
@@ -195,6 +197,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         });
         const data = await res.json();
         if (data && data.created) {
+          trackMetaEvent('Lead', {
+            content_name: service || 'freelance-project',
+            content_category: 'project_enquiry',
+          });
           show(msg, "Thanks! We've received your project details and will reply within 24 hours.");
           form.reset();
         } else {

@@ -1,3 +1,5 @@
+import { trackMetaEvent } from '../lib/metaTracking';
+
 interface CalEmbedProps {
   buttonText?: string;
   className?: string;
@@ -8,6 +10,10 @@ export default function CalEmbed({
   className = '',
 }: CalEmbedProps) {
   const handleClick = () => {
+    // Booking happens on a different origin (link-out, not an embed), so the
+    // pixel can't see the actual booking. Record the intent click as a custom
+    // event rather than a Lead — don't inflate the Lead count.
+    trackMetaEvent('BookCallClick', { content_name: buttonText });
     window.open(
       'https://cal.rexbunnyservices.online/org/rexbunny/rexbunny/30min',
       '_blank',
