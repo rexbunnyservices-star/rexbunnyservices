@@ -5,23 +5,111 @@ import CalEmbed from '../../components/CalEmbed.tsx';
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Shopping Dashboards',
+  name: 'Marketplace Profit Dashboard',
   description:
-    'Unified sales and analytics dashboards across Amazon, Flipkart, Meesho, and Shopify — sales, inventory, competitor pricing, and P&L in one live view.',
+    'Landed-margin dashboards across Amazon, Flipkart, Meesho, and Shopify. Fees, returns, ad spend, and COGS netted per SKU so you see real profit, not just sales. Starts with a free Profit Snapshot.',
+  offers: {
+    '@type': 'Offer',
+    price: 14999,
+    priceCurrency: 'INR',
+    description: 'One-time dashboard build. First Profit Snapshot is free.',
+  },
   provider: {
     '@type': 'Organization',
     name: 'RexBunny Services',
     url: 'https://rexbunnyservices.online',
   },
-  serviceType: 'Shopping Dashboards',
-  areaServed: { '@type': 'Country', name: 'Canada' },
+  serviceType: 'Marketplace Profit Dashboard',
+  areaServed: { '@type': 'Country', name: 'India' },
   url: 'https://rexbunnyservices.online/services/ecommerce-dashboards',
 };
 
+const snapshotIncludes = [
+  {
+    title: 'Landed margin per SKU',
+    desc: 'Revenue minus fees, returns/RTO, ad spend, and COGS — one number per SKU.',
+  },
+  {
+    title: 'Top 3 leak sources',
+    desc: 'Where your money actually goes: fees, RTO, or ads priced above margin.',
+  },
+  {
+    title: 'What to fix first',
+    desc: 'A ranked action list — which SKU to fix, pause, or reprice, in order.',
+  },
+  {
+    title: 'Delivered in 48h',
+    desc: 'Send us your reports, get the Snapshot back within two working days.',
+  },
+];
+
+// Worked example — illustrative, not a client result. Replace with real numbers per seller.
+const rows = [
+  {
+    sku: 'SKU A · Amazon',
+    rev: '6,00,000',
+    fees: '1,05,000',
+    rto: '96,000',
+    ads: '60,000',
+    cogs: '2,40,000',
+    margin: '99,000',
+    pct: '16.5%',
+    pos: true,
+  },
+  {
+    sku: 'SKU B · Meesho',
+    rev: '4,50,000',
+    fees: '78,750',
+    rto: '81,000',
+    ads: '54,000',
+    cogs: '1,98,000',
+    margin: '38,250',
+    pct: '8.5%',
+    pos: true,
+  },
+  {
+    sku: 'SKU C · Flipkart',
+    rev: '3,00,000',
+    fees: '54,000',
+    rto: '27,000',
+    ads: '45,000',
+    cogs: '1,35,000',
+    margin: '39,000',
+    pct: '13.0%',
+    pos: true,
+  },
+  {
+    sku: 'SKU D · Meesho',
+    rev: '2,50,000',
+    fees: '45,000',
+    rto: '75,000',
+    ads: '40,000',
+    cogs: '1,10,000',
+    margin: '-20,000',
+    pct: '-8.0%',
+    pos: false,
+  },
+];
+
+const fixes = [
+  [
+    'SKU D is loss-making',
+    'RTO at 30% of revenue plus ads priced above margin. Pause ads, fix sizing and listing, re-check in two weeks — stops the ₹20,000/mo bleed.',
+  ],
+  [
+    'SKU B is thin at 8.5%',
+    'Cut the wasteful ad spend and lift price by 3% — recovers about ₹34,000/mo without new orders.',
+  ],
+  [
+    'SKU A is the winner at 16.5%',
+    'Every 1% off COGS is ₹6,000/mo. Renegotiate the supplier and drip ads in — do not touch the listing.',
+  ],
+];
+
 const benefits = [
   { metric: '1', label: 'Dashboard, 4 marketplaces', desc: 'Amazon · Flipkart · Meesho · Shopify' },
-  { metric: 'Live', label: 'Sales & inventory', desc: 'One glance, no tab-hopping' },
-  { metric: '24/7', label: 'Price monitoring', desc: 'Competitors tracked automatically' },
+  { metric: 'Per-SKU', label: 'Landed margin', desc: 'Not just sales — what you keep' },
+  { metric: '48h', label: 'First Snapshot', desc: 'Free, before you pay anything' },
 ];
 
 const stackItems = [
@@ -30,16 +118,19 @@ const stackItems = [
   { name: 'Meesho', desc: 'Reseller channel metrics and volume trends in one view' },
   { name: 'Shopify', desc: 'Store revenue, AOV, fulfilled orders, and discount performance' },
   { name: 'Competitor pricing', desc: 'Daily monitoring with alerts when you lose the price edge' },
-  { name: 'P&L at a glance', desc: 'Fees, ads, and COGS netted against revenue per channel' },
+  {
+    name: 'Landed-margin P&L',
+    desc: 'Fees, returns/RTO, ads, and COGS netted against revenue per SKU',
+  },
 ];
 ---
 
 <BaseLayout
-  title="Shopping Dashboards | Amazon · Flipkart · Meesho · Shopify"
-  description="Live e-commerce dashboards unifying Amazon, Flipkart, Meesho, and Shopify. Sales, inventory, competitor pricing, and P&L in one view."
+  title="Marketplace Profit Dashboard | Real Margin per SKU — Amazon, Flipkart, Meesho"
+  description="See what you actually keep per SKU across Amazon, Flipkart, and Meesho — after fees, returns, ad spend, and COGS. Free Profit Snapshot first. Dashboard setup ₹14,999 + ₹2,999/mo."
   breadcrumbs={[
     { name: 'Services', url: '/services' },
-    { name: 'Shopping Dashboards', url: '/services/ecommerce-dashboards' },
+    { name: 'Profit Dashboard', url: '/services/ecommerce-dashboards' },
   ]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
@@ -49,19 +140,19 @@ const stackItems = [
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="mb-6 text-4xl font-extrabold text-gray-900 sm:text-5xl">
-          All Your Marketplaces, <span class="text-brand-600">One Dashboard</span>
+          Your Dashboard Shows Sales. <span class="text-brand-600">Not Your Profit.</span>
         </h1>
         <p class="mb-8 text-lg text-gray-600">
-          Stop logging into Amazon, Flipkart, Meesho, and Shopify to find out how business is going.
-          We build one live dashboard with sales, inventory, competitor pricing, and P&L — updated
-          around the clock.
+          We net fees, returns/RTO, ad spend, and COGS against every SKU across Amazon, Flipkart,
+          and Meesho — and show the one number that matters: what you actually keep. It starts with
+          a free Profit Snapshot, in your inbox within 48 hours.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a
             href="/contact"
             class="rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500"
           >
-            See a Sample Dashboard →
+            Get My Free Profit Snapshot →
           </a>
           <CalEmbed buttonText="Book a Strategy Call" client:load />
         </div>
@@ -86,8 +177,193 @@ const stackItems = [
     </div>
   </section>
 
-  <!-- Integrations -->
+  <!-- What's in the Profit Snapshot -->
   <section class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-2 text-center text-3xl font-bold text-gray-900">What's in a Profit Snapshot</h2>
+      <p class="mb-12 text-center text-gray-500">
+        A four-page read of your business — free, no commitment, no account needed.
+      </p>
+      <div class="grid gap-4 md:grid-cols-4">
+        {
+          snapshotIncludes.map((item) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 class="mb-2 text-base font-bold text-gray-900">{item.title}</h3>
+              <p class="text-sm text-gray-500">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample Profit Snapshot -->
+  <section id="sample" class="border-y border-gray-200 bg-gray-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-2 text-center text-3xl font-bold text-gray-900">Sample Profit Snapshot</h2>
+      <p class="mb-2 text-center text-gray-500">
+        A worked example — a ₹16L/mo apparel seller across Amazon, Flipkart, and Meesho.
+      </p>
+      <p class="mb-10 text-center text-xs text-gray-400">
+        Illustrative example. These are representative figures, not a client result — your Snapshot
+        uses your own reports.
+      </p>
+
+      <div class="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+        <table class="w-full min-w-[840px] text-left text-sm">
+          <thead class="bg-gray-50 text-xs uppercase tracking-wider text-gray-500">
+            <tr>
+              <th class="px-4 py-3 font-semibold">SKU</th>
+              <th class="px-4 py-3 text-right font-semibold">Revenue</th>
+              <th class="px-4 py-3 text-right font-semibold">Fees</th>
+              <th class="px-4 py-3 text-right font-semibold">Returns/RTO</th>
+              <th class="px-4 py-3 text-right font-semibold">Ad spend</th>
+              <th class="px-4 py-3 text-right font-semibold">COGS</th>
+              <th class="px-4 py-3 text-right font-semibold">Landed margin</th>
+              <th class="px-4 py-3 text-right font-semibold">Margin %</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {
+              rows.map((r) => (
+                <tr>
+                  <td class="px-4 py-3 font-medium text-gray-900">{r.sku}</td>
+                  <td class="px-4 py-3 text-right text-gray-600">₹{r.rev}</td>
+                  <td class="px-4 py-3 text-right text-gray-600">₹{r.fees}</td>
+                  <td class="px-4 py-3 text-right text-gray-600">₹{r.rto}</td>
+                  <td class="px-4 py-3 text-right text-gray-600">₹{r.ads}</td>
+                  <td class="px-4 py-3 text-right text-gray-600">₹{r.cogs}</td>
+                  <td
+                    class={`px-4 py-3 text-right font-semibold ${
+                      r.pos ? 'text-gray-900' : 'text-red-600'
+                    }`}
+                  >
+                    ₹{r.margin}
+                  </td>
+                  <td
+                    class={`px-4 py-3 text-right font-semibold ${
+                      r.pos ? 'text-emerald-600' : 'text-red-600'
+                    }`}
+                  >
+                    {r.pct}
+                  </td>
+                </tr>
+              ))
+            }
+            <tr class="bg-gray-50 font-semibold text-gray-900">
+              <td class="px-4 py-3">Total</td>
+              <td class="px-4 py-3 text-right">₹16,00,000</td>
+              <td class="px-4 py-3 text-right">₹2,82,750</td>
+              <td class="px-4 py-3 text-right">₹2,79,000</td>
+              <td class="px-4 py-3 text-right">₹1,99,000</td>
+              <td class="px-4 py-3 text-right">₹6,83,000</td>
+              <td class="px-4 py-3 text-right">₹1,56,250</td>
+              <td class="px-4 py-3 text-right text-emerald-600">9.8%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Leak callout -->
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-red-200 bg-red-50 p-6">
+          <div class="text-xs font-semibold uppercase tracking-wider text-red-500">
+            Recoverable this month
+          </div>
+          <div class="mt-2 text-3xl font-extrabold text-red-600">₹41,360</div>
+          <ul class="mt-4 space-y-2 text-sm text-red-700">
+            <li>Loss-making SKUs selling below landed cost — <strong>₹20,000/mo</strong></li>
+            <li>Ad spend on SKUs priced below ad break-even — <strong>₹21,360/mo</strong></li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-white p-6">
+          <div class="text-xs font-semibold uppercase tracking-wider text-gray-500">
+            What to fix first
+          </div>
+          <ol class="mt-4 space-y-4">
+            {
+              fixes.map(([title, desc], i) => (
+                <li class="flex gap-3">
+                  <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <div class="text-sm font-semibold text-gray-900">{title}</div>
+                    <p class="mt-0.5 text-sm text-gray-500">{desc}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-2 text-center text-3xl font-bold text-gray-900">Simple Pricing</h2>
+      <p class="mb-10 text-center text-gray-500">
+        The Snapshot is free. You only pay if you want it live.
+      </p>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-gray-200 bg-white p-8">
+          <div class="text-sm font-semibold text-gray-500">Profit Snapshot</div>
+          <div class="mt-3 text-4xl font-extrabold text-gray-900">Free</div>
+          <p class="mt-3 text-sm text-gray-500">
+            Your real landed margin per SKU, top 3 leak sources, and what to fix first — delivered
+            in 48h.
+          </p>
+          <a
+            href="/contact"
+            class="mt-8 block w-full rounded-lg border border-gray-300 py-3 text-center text-sm font-semibold text-gray-700 hover:border-brand-500 hover:text-brand-600"
+          >
+            Get My Free Snapshot →
+          </a>
+        </div>
+        <div
+          class="relative rounded-2xl border border-brand-500 bg-white p-8 shadow-lg shadow-brand-500/10"
+        >
+          <div
+            class="absolute -top-3 left-8 rounded-full bg-brand-600 px-3 py-0.5 text-xs font-semibold text-white"
+          >
+            Dashboard
+          </div>
+          <div class="text-sm font-semibold text-gray-500">Live Dashboard Setup</div>
+          <div class="mt-3 text-4xl font-extrabold text-gray-900">
+            ₹14,999 <span class="text-base font-medium text-gray-400">one-time</span>
+          </div>
+          <div class="mt-1 text-sm text-gray-500">
+            then <strong class="text-gray-700">₹2,999/mo</strong> to keep it running
+          </div>
+          <ul class="mt-6 space-y-2 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="mt-0.5 text-brand-500">✓</span> All 4 marketplaces, one live view
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-0.5 text-brand-500">✓</span> Landed margin per SKU, updated daily
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-0.5 text-brand-500">✓</span> Competitor price monitoring &amp; alerts
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-0.5 text-brand-500">✓</span> RTO and ad-spend leak tracking
+            </li>
+          </ul>
+          <div class="mt-8">
+            <CalEmbed buttonText="Book a Strategy Call" className="w-full" client:load />
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-center text-xs text-gray-400">
+        Most sellers recover the ₹14,999 within the first month from the leaks the Snapshot finds.
+      </p>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section class="border-y border-gray-200 bg-gray-50 py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 class="mb-2 text-center text-3xl font-bold text-gray-900">What's Inside</h2>
       <p class="mb-12 text-center text-gray-500">
@@ -107,7 +383,7 @@ const stackItems = [
   </section>
 
   <!-- Process -->
-  <section class="bg-gray-50 py-20">
+  <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 class="mb-12 text-center text-3xl font-bold text-gray-900">How We Build It</h2>
       <div class="grid gap-4 md:grid-cols-4">
@@ -121,7 +397,7 @@ const stackItems = [
             {
               step: '2',
               title: 'Normalize',
-              desc: 'Standardize orders, fees, and SKUs into one consistent data model.',
+              desc: 'Standardize orders, fees, returns/RTO, and SKUs into one consistent data model.',
             },
             {
               step: '3',
@@ -131,7 +407,7 @@ const stackItems = [
             {
               step: '4',
               title: 'Decide',
-              desc: 'Revenue, inventory, and P&L on one screen — repricing and restock calls get faster.',
+              desc: 'Real margin per SKU on one screen — repricing and restock calls get faster.',
             },
           ].map((item) => (
             <div class="rounded-xl border border-gray-200 bg-white p-6">
@@ -146,17 +422,18 @@ const stackItems = [
   </section>
 
   <!-- CTA -->
-  <section class="py-20">
+  <section class="border-t border-gray-200 bg-gray-50 py-20">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
       <h2 class="mb-4 text-3xl font-bold text-gray-900">Running Your Business From Five Tabs?</h2>
       <p class="mb-8 text-gray-500">
-        Get a free mockup of your marketplace data in one clean dashboard.
+        Send us your last month's reports. Get back a free Profit Snapshot in 48 hours — no account,
+        no commitment.
       </p>
       <a
         href="/contact"
         class="inline-block rounded-lg bg-brand-600 px-8 py-4 font-semibold text-white hover:bg-brand-500"
       >
-        Get Your Free Dashboard Mockup →
+        Get Your Free Profit Snapshot →
       </a>
     </div>
   </section>
