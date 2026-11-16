@@ -109,7 +109,9 @@ function scoreRobots(robotsTxt: string | null): { crawl: Signal[]; aiBlocked: bo
 
   const groups = parseRobots(robotsTxt);
   const gpt = isBlocked(groups, 'gptbot');
-  const claude = isBlocked(groups, 'claudebot') && isBlocked(groups, 'claude-web');
+  // ClaudeBot is Anthropic's primary crawler. Claude-Web / Anthropic-AI being
+  // allowed does NOT un-block it, so judge each agent independently.
+  const claude = isBlocked(groups, 'claudebot');
   const perplexity = isBlocked(groups, 'perplexitybot');
   const googleExt = isBlocked(groups, 'google-extended');
 
@@ -338,8 +340,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // ── D. Technical health (24) ───────────────────────────────────────────
     const isHttps = normalizedUrl.startsWith('https://');
-    const encoding = (headers.get('content-encoding') || '').toLowerCase();
-    const compressed = encoding.includes('br') || encoding.includes('gzip');
     const htmlKb = Math.round(new Blob([html]).size / 1024);
     const hsts = Boolean(headers.get('strict-transport-security'));
     const nosniff = (headers.get('x-content-type-options') || '').includes('nosniff');
@@ -351,13 +351,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         points: 6,
         earned: isHttps ? 6 : 0,
         fix: isHttps ? undefined : 'Serve the site over HTTPS.',
-      },
-      {
-        key: 'compression',
-        label: compressed ? 'HTML is compressed' : 'HTML is served uncompressed',
-        points: 5,
-        earned: compressed ? 5 : 0,
-        fix: compressed ? undefined : 'Enable Brotli/gzip compression on HTML responses.',
       },
       {
         key: 'weight',
