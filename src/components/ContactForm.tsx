@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { trackMetaEvent } from '../lib/metaTracking';
+import { trackMetaEvent, trackUmamiEvent } from '../lib/metaTracking';
 
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -25,6 +25,9 @@ export default function ContactForm() {
         trackMetaEvent('Lead', {
           content_name: form.service || 'rex-contact',
           content_category: 'service_enquiry',
+        });
+        trackUmamiEvent('contact-submitted', {
+          service: form.service || 'general',
         });
         setStatus('sent');
         setForm({ name: '', email: '', company: '', phone: '', service: '', message: '' });

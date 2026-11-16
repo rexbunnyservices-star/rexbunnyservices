@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { trackMetaEvent } from '../lib/metaTracking';
+import { trackMetaEvent, trackUmamiEvent } from '../lib/metaTracking';
 
 interface AuditResults {
   scoreVersion?: string;
@@ -115,6 +115,11 @@ export default function LeadAuditTool() {
       trackMetaEvent('Lead', {
         content_name: 'ai-search-readiness-audit',
         content_category: 'free_audit',
+      });
+      trackUmamiEvent('audit-submitted', {
+        score: data.compositeScore,
+        ai_crawlability: data.breakdown?.aiCrawlability ?? data.aiVisibility.aiVisibilityScore,
+        structured_data: data.breakdown?.structuredData ?? 0,
       });
       setStep('complete');
       setProgress(100);

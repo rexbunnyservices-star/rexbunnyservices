@@ -13,3 +13,23 @@ export function trackMetaEvent(eventName: string, params: MetaEventParams = {}):
   const metaWindow = window as MetaWindow;
   metaWindow.fbq?.('track', eventName, params);
 }
+
+
+type UmamiWindow = Window & {
+  umami?: {
+    track: (eventName: string, eventData?: Record<string, string | number | boolean>) => void;
+  };
+};
+
+/**
+ * Fire a privacy-safe Umami event when the tracker is available.
+ * Never pass PII (email, name, phone, message) in event data.
+ */
+export function trackUmamiEvent(
+  eventName: string,
+  eventData: Record<string, string | number | boolean> = {},
+): void {
+  if (typeof window === 'undefined') return;
+  const w = window as UmamiWindow;
+  w.umami?.track(eventName, eventData);
+}
