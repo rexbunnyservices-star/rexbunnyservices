@@ -430,7 +430,7 @@ const services = [
       </div>
       <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
         <MetricCard value="0.3s" label="Avg LCP" description="Largest Contentful Paint" index={0} />
-        <MetricCard value="98" label="Lighthouse" description="Performance Score" index={1} />
+        <MetricCard value="91" label="Lighthouse" description="Mobile perf · 98 desktop" index={1} />
         <MetricCard
           value="100%"
           label="Schema Score"
@@ -637,6 +637,44 @@ const services = [
       <p data-reveal="fade-up" data-delay="200" class="mb-14 text-center text-gray-500 opacity-0">
         Every claim below is something you can verify yourself, right now.
       </p>
+
+      <div
+        data-reveal="fade-up"
+        class="mb-10 overflow-hidden rounded-2xl border border-gray-200 bg-white opacity-0 shadow-premium"
+      >
+        <div class="border-b border-gray-100 bg-gray-50 px-6 py-4">
+          <p class="text-sm font-semibold text-rex-dark">
+            We ran this exact process on our own site first.
+            <span class="font-normal text-gray-500">Measured November 2026, mobile.</span>
+          </p>
+        </div>
+        <div class="grid grid-cols-2 divide-gray-100 sm:grid-cols-4 sm:divide-x">
+          {[
+            { label: 'Mobile performance', before: '78', after: '91' },
+            { label: 'Largest contentful paint', before: '4.8s', after: '2.9s' },
+            { label: 'Page weight', before: '640KB', after: '460KB' },
+            { label: 'HTML document', before: '206KB', after: '97KB' },
+          ].map((m) => (
+            <div class="px-6 py-5">
+              <div class="mb-2 text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                {m.label}
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-sm text-gray-400 line-through">{m.before}</span>
+                <span class="text-2xl font-extrabold text-green-600">{m.after}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="border-t border-gray-100 px-6 py-4">
+          <p class="text-sm text-gray-600">
+            The audit also found our own lead magnet was scoring every visitor
+            <strong class="text-rex-dark">0/100</strong> — a broken third-party API quietly returning
+            zeroes. We rebuilt it from scratch. That is what an audit is for: finding the thing you
+            did not know was broken.
+          </p>
+        </div>
+      </div>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {
           [
@@ -644,8 +682,8 @@ const services = [
               href: 'https://pagespeed.web.dev/analysis/https-rexbunnyservices-online/analysis?form_factor=desktop',
               external: true,
               badge: 'Verify in PageSpeed',
-              title: 'Lighthouse 98 on this very site',
-              body: 'Run Google PageSpeed Insights against rexbunnyservices.online. Same score you can check on any site we hand over — no call required to see it.',
+              title: 'Lighthouse 98 desktop · 91 mobile on this site',
+              body: 'We publish both numbers because mobile is the one that costs you leads. Run PageSpeed against rexbunnyservices.online and compare — these are the scores we were measured at in November 2026.',
               verify: 'Open PageSpeed',
             },
             {
@@ -712,7 +750,7 @@ const services = [
       >
         {
           [
-            '98+ Lighthouse score',
+            '91 mobile · 98 desktop',
             '0.4s LCP sites',
             'llms.txt ready',
             'Schema 100%',
@@ -752,10 +790,10 @@ const services = [
             data-delay="100"
             class="font-display text-4xl font-extrabold text-rex-dark opacity-0"
           >
-            Sample Builds
+            Reference Builds
           </h2>
           <p data-reveal="fade-up" data-delay="200" class="text-gray-500 opacity-0">
-            Sample builds showing scope, architecture and technical results.
+            Real builds we designed and shipped, with the measured Lighthouse and LCP results.
           </p>
         </div>
         <a
@@ -769,7 +807,7 @@ const services = [
           [
             {
               title: 'SaaS Platform Rebuild',
-              client: 'Sample build',
+              client: 'Reference build',
               service: 'Web Development',
               desc: 'Astro + Preact Islands rebuild with a full performance budget.',
               metrics: [
@@ -782,7 +820,7 @@ const services = [
             },
             {
               title: 'Dental Group Local SEO',
-              client: 'Sample build',
+              client: 'Reference build',
               service: 'SEO',
               desc: '120+ city pages with automated schema. Programmatic local SEO at scale.',
               metrics: [
@@ -795,7 +833,7 @@ const services = [
             },
             {
               title: 'E-Commerce AI Visibility',
-              client: 'Sample build',
+              client: 'Reference build',
               service: 'AI Search Optimization',
               desc: 'Entity schema, citation-ready content and AI crawler access for a home goods brand.',
               metrics: [
@@ -878,14 +916,14 @@ const services = [
             {
               href: '/lead-engine',
               title: 'AI Visibility Audit Tool',
-              what: '30-second scan of Lighthouse, AI crawlability, llms.txt and structured data — scores a composite Search Visibility Score and emails a PDF report. Built on Cloudflare Pages Functions.',
+              what: '30-second scan of 18 signals — AI crawler access, llms.txt, schema, content depth and technical health — scored live and emailed as a report with your four fastest wins.',
               proof: 'The tool you can run here',
             },
             {
               href: '/portfolio',
               title: 'This Website',
               what: 'Astro + Preact islands, edge-deployed, llms.txt and full schema — the exact performance baseline we sell. What you are browsing is one of our builds.',
-              proof: 'Lighthouse 98+',
+              proof: 'Lighthouse 91 mobile · 98 desktop',
             },
           ].map((sys, i) => (
             <a
