@@ -2,13 +2,15 @@ import { useState } from 'preact/hooks';
 import { trackMetaEvent } from '../lib/metaTracking';
 
 interface AuditResults {
-  performanceScore: number;
-  seoScore: number;
-  accessabilityScore: number;
-  bestPracticesScore: number;
-  lcp: number;
-  cls: number;
-  tbt: number;
+  scoreVersion?: string;
+  compositeScore: number;
+  breakdown?: {
+    aiCrawlability: number;
+    structuredData: number;
+    content: number;
+    technical: number;
+  };
+  issues?: string[];
   aiVisibility: {
     gptBotStatus: string;
     hasLlmsTxt: boolean;
@@ -16,7 +18,15 @@ interface AuditResults {
     entityClarity: string;
     aiVisibilityScore: number;
   };
-  compositeScore: number;
+  // optional legacy fields (present only when PageSpeed enrichment is enabled)
+  performanceScore?: number;
+  seoScore?: number;
+  bestPracticesScore?: number;
+  accessabilityScore?: number;
+  metricsAvailable?: boolean;
+  lcp?: number;
+  cls?: number;
+  tbt?: number;
 }
 
 function ScoreRing({ score, size = 120 }: { score: number; size?: number }) {
@@ -93,7 +103,10 @@ export default function LeadAuditTool() {
         body: JSON.stringify({ url, email }),
       });
 
-      if (!res.ok) throw new Error('Audit request failed');
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error || 'Audit request failed');
+      }
 
       setProgress(90);
       const data: AuditResults = await res.json();
@@ -177,61 +190,124 @@ export default function LeadAuditTool() {
   }
 
   if (step === 'complete' && results) {
+    const bd = results.breakdown ?? {
+      aiCrawlability: results.aiVisibility.aiVisibilityScore,
+      structuredData: results.aiVisibility.hasStructuredData ? 100 : 0,
+      content: results.seoScore ?? 0,
+      technical: results.bestPracticesScore ?? 0,
+    };
+    const bars: Array<{ label: string; value: number }> = [
+      { label: 'AI crawlability', value: bd.aiCrawlability },
+      { label: 'Structured data', value: bd.structuredData },
+      { label: 'Content depth', value: bd.content },
+      { label: 'Technical health', value: bd.technical },
+    ];
     return (
-      <div class="rounded-xl bg-gray-100 p-8">
+      <div class="rounded-xl bg-gray-100 p-6 sm:p-8">
         <div class="mb-6 flex flex-col items-center">
           <ScoreRing score={results.compositeScore} />
           <h4 class="mt-4 text-xl font-bold text-gray-900">Your AI Visibility Score</h4>
+          <p class="mt-1 text-center text-sm text-gray-500">
+            {results.compositeScore >= 80
+              ? 'Strong. You are set up to be found and quoted.'
+              : results.compositeScore >= 50
+                ? 'Halfway there. Real traffic is being left on the table.'
+                : 'Most AI assistants cannot find you today.'}
+          </p>
         </div>
 
-        <div class="mb-6 grid grid-cols-3 gap-3">
-          <MetricCard label="Performance" value={results.performanceScore} />
-          <MetricCard label="SEO" value={results.seoScore} />
-          <MetricCard label="AI Readiness" value={results.aiVisibility.aiVisibilityScore} />
+        <div class="mb-6 space-y-3 rounded-lg bg-white p-4">
+          {bars.map((bar) => (
+            <div>
+              <div class="mb-1 flex items-center justify-between text-sm">
+                <span class="font-medium text-gray-700">{bar.label}</span>
+                <span
+                  class={
+                    bar.value >= 80
+                      ? 'font-semibold text-green-600'
+                      : bar.value >= 50
+                        ? 'font-semibold text-yellow-600'
+                        : 'font-semibold text-red-600'
+                  }
+                >
+                  {bar.value}
+                </span>
+              </div>
+              <div class="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                <div
+                  class={
+                    bar.value >= 80
+                      ? 'h-full rounded-full bg-green-500 transition-all duration-700'
+                      : bar.value >= 50
+                        ? 'h-full rounded-full bg-yellow-500 transition-all duration-700'
+                        : 'h-full rounded-full bg-red-500 transition-all duration-700'
+                  }
+                  style={{ width: `${bar.value}%` }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
+
+        {results.issues && results.issues.length > 0 && (
+          <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
+            <h5 class="mb-2 text-sm font-semibold text-red-900">Your four fastest wins</h5>
+            <ol class="list-decimal space-y-1.5 pl-5 text-sm text-red-800">
+              {results.issues.map((issue) => (
+                <li>{issue}</li>
+              ))}
+            </ol>
+          </div>
+        )}
 
         <div class="mb-6 rounded-lg bg-white p-4">
           <h5 class="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
-            AI Crawl Status
+            AI crawl status
           </h5>
           <ul class="space-y-2 text-sm">
             <li class="flex items-center gap-2">
               <span
                 class={
-                  results.aiVisibility.gptBotStatus === 'crawlable'
-                    ? 'text-green-400'
-                    : 'text-red-400'
+                  results.aiVisibility.gptBotStatus === 'allowed'
+                    ? 'text-green-500'
+                    : 'text-red-500'
                 }
               >
-                {results.aiVisibility.gptBotStatus === 'crawlable' ? '✓' : '✗'}
+                {results.aiVisibility.gptBotStatus === 'allowed' ? '✓' : '✗'}
               </span>
-              GPTBot: {results.aiVisibility.gptBotStatus}
+              <span class="text-gray-700">
+                GPTBot (ChatGPT): {results.aiVisibility.gptBotStatus}
+              </span>
             </li>
             <li class="flex items-center gap-2">
-              <span class={results.aiVisibility.hasLlmsTxt ? 'text-green-400' : 'text-red-400'}>
+              <span class={results.aiVisibility.hasLlmsTxt ? 'text-green-500' : 'text-red-500'}>
                 {results.aiVisibility.hasLlmsTxt ? '✓' : '✗'}
               </span>
-              llms.txt: {results.aiVisibility.hasLlmsTxt ? 'Found' : 'Missing'}
+              <span class="text-gray-700">
+                llms.txt: {results.aiVisibility.hasLlmsTxt ? 'Found' : 'Missing'}
+              </span>
             </li>
             <li class="flex items-center gap-2">
               <span
-                class={results.aiVisibility.hasStructuredData ? 'text-green-400' : 'text-red-400'}
+                class={results.aiVisibility.hasStructuredData ? 'text-green-500' : 'text-red-500'}
               >
                 {results.aiVisibility.hasStructuredData ? '✓' : '✗'}
               </span>
-              Structured Data: {results.aiVisibility.hasStructuredData ? 'Found' : 'Missing'}
+              <span class="text-gray-700">
+                Structured data: {results.aiVisibility.hasStructuredData ? 'Found' : 'Missing'}
+              </span>
             </li>
           </ul>
         </div>
 
         <p class="mb-4 text-sm text-gray-600">
-          Your full audit report has been sent to <strong class="text-gray-900">{email}</strong>.
-          Book a strategy call to get your personalized GEO roadmap.
+          Full report sent to <strong class="text-gray-900">{email}</strong>. Fix the list above and
+          the score moves — that is exactly what our AI Search package does.
         </p>
 
         <div class="mb-6 rounded-lg bg-white p-4">
           <p class="mb-3 text-sm font-semibold text-gray-900">
-            Got a score you're proud of? Share it.
+            Got a score you are proud of? Share it.
           </p>
           <div class="flex flex-wrap gap-2">
             <button
@@ -260,7 +336,7 @@ export default function LeadAuditTool() {
             href="https://cal.rexbunnyservices.online/org/rexbunny/rexbunny/30min"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 rounded-lg bg-brand-600 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-brand-500"
+            class="flex-1 rounded-lg bg-brand-700 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-brand-800"
           >
             Book Your Strategy Call →
           </a>
@@ -274,7 +350,6 @@ export default function LeadAuditTool() {
       </div>
     );
   }
-
   return (
     <form onSubmit={handleSubmit} class="rounded-xl bg-gray-100 p-8">
       <h3 class="mb-2 text-2xl font-bold text-gray-900">Free AI Visibility & SEO Audit</h3>
@@ -311,7 +386,7 @@ export default function LeadAuditTool() {
       </label>
       <button
         type="submit"
-        class="w-full rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-500"
+        class="w-full rounded-lg bg-brand-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-500"
       >
         Run My Free Audit →
       </button>
