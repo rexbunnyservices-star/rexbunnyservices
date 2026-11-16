@@ -1,0 +1,328 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.tsx';
+
+const siteUrl = 'https://rexbunnyservices.online';
+const measuredOn = '17 November 2026';
+const sampleSize = 21;
+
+const findings = [
+  {
+    label: 'No FAQ, Article, Service or Product schema',
+    count: 13,
+    pct: 62,
+    note: 'This is the schema AI assistants quote. Without it there is no structured answer to lift.',
+    severity: 'critical',
+  },
+  {
+    label: 'No Organization or LocalBusiness entity',
+    count: 7,
+    pct: 33,
+    note: 'The site never states, in machine-readable form, who it is or where it operates.',
+    severity: 'critical',
+  },
+  {
+    label: 'No JSON-LD of any kind',
+    count: 7,
+    pct: 33,
+    note: 'A third of the sample ships no structured data at all.',
+    severity: 'critical',
+  },
+  {
+    label: 'Meta description missing or the wrong length',
+    count: 7,
+    pct: 33,
+    note: 'The text an assistant is most likely to reuse when summarising the page.',
+    severity: 'warning',
+  },
+  {
+    label: 'Title tag outside 10–65 characters',
+    count: 6,
+    pct: 29,
+    note: 'Truncated titles lose the qualifier that makes the result relevant.',
+    severity: 'warning',
+  },
+  {
+    label: 'Not exactly one H1',
+    count: 6,
+    pct: 29,
+    note: 'Multiple or missing H1s make the page’s subject ambiguous.',
+    severity: 'warning',
+  },
+  {
+    label: 'No llms.txt',
+    count: 3,
+    pct: 14,
+    note: 'An emerging convention — adoption is high but not universal.',
+    severity: 'warning',
+  },
+  {
+    label: 'HTML document over 500 KB',
+    count: 14,
+    pct: 67,
+    note: 'Heavy documents slow first paint and are more expensive for a crawler to parse.',
+    severity: 'warning',
+  },
+  {
+    label: 'Blocks GPTBot (ChatGPT) and ClaudeBot',
+    count: 1,
+    pct: 5,
+    note: 'A major design platform disallows both crawlers at the root. Its content cannot be cited.',
+    severity: 'critical',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Is this a client testimonial?',
+    answer:
+      'No. It is a measured study of public websites, and we are explicit about the difference because we do not publish invented client results. Every number on this page can be reproduced by running the same free audit against the same sites.',
+  },
+  {
+    question: 'Which sites did you measure?',
+    answer:
+      'Twenty-one publicly reachable homepages across SaaS, ecommerce and consumer technology, chosen because they are well known and easy for anyone to re-check. We measured homepages only, on 17 November 2026. We do not name individual sites except where the finding is a public robots.txt rule.',
+  },
+  {
+    question: 'Why does schema matter more than speed for AI search?',
+    answer:
+      'Speed decides whether a human waits for the page. Schema decides whether a language model knows what the page is about, who publishes it and what question it answers. A fast page with no structure can be crawled and still never quoted, because the model has nothing unambiguous to lift.',
+  },
+  {
+    question: 'What score did these sites get overall?',
+    answer:
+      'Scores ranged widely because signals are weighted by consequence, not by count. The point of the study is the shape of the misses: brand recognition and engineering budget do not protect a site from missing the schema that AI assistants actually quote.',
+  },
+];
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="We Audited 21 Well-Known Sites for AI Visibility — 62% Can't Be Quoted"
+  description="A reproducible study of 21 public homepages: 62% carry no FAQ, Article or Service schema, 33% declare no business entity, and one major platform blocks GPTBot entirely."
+  breadcrumbs={[{ name: 'AI Visibility Index', url: `${siteUrl}/ai-visibility-index` }]}
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Article',
+          headline: "We audited 21 well-known sites for AI visibility. 62% can't be quoted.",
+          description:
+            'A reproducible audit of 21 public homepages measuring AI crawlability, structured data, content depth and technical health.',
+          datePublished: '2026-11-17',
+          dateModified: '2026-11-17',
+          author: { '@type': 'Organization', name: 'RexBunny Services', url: siteUrl },
+          publisher: { '@type': 'Organization', name: 'RexBunny Services', url: siteUrl },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}/ai-visibility-index` },
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+          })),
+        },
+      ],
+    })}
+  />
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-gray-200 bg-gradient-to-br from-brand-50 via-white to-brand-50/50 pt-24">
+    <div class="relative mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <span
+        class="mb-5 inline-block rounded-full border border-brand-200 bg-white px-4 py-1 text-sm font-semibold text-brand-700"
+      >
+        Measured study · {sampleSize} public sites · {measuredOn}
+      </span>
+      <h1 class="mb-5 font-display text-4xl font-extrabold leading-tight text-rex-dark sm:text-5xl">
+        We audited {sampleSize} well-known sites for AI visibility.<br />
+        <span class="text-brand-700">62% cannot be quoted.</span>
+      </h1>
+      <p class="max-w-2xl text-lg text-gray-600">
+        Not a testimonial, and not a pitch deck. We ran the same 18-signal check our free audit uses
+        against {sampleSize} live homepages at well-funded companies, and published exactly what we
+        found — including the finding that one of them blocks ChatGPT outright.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/ai-visibility-score"
+          class="rounded-lg bg-brand-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-800"
+        >
+          Score your own site →
+        </a>
+        <a
+          href="#method"
+          class="rounded-lg border border-gray-300 bg-white px-6 py-3 font-semibold text-gray-700 transition-colors hover:border-gray-400"
+        >
+          How we measured
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEADLINE NUMBERS -->
+  <section class="border-b border-gray-200 bg-white py-14">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 sm:grid-cols-3">
+        {
+          [
+            { big: '62%', small: 'have no schema AI assistants can quote' },
+            { big: '33%', small: 'declare no business entity at all' },
+            { big: '67%', small: 'ship a homepage document over 500 KB' },
+          ].map((s) => (
+            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+              <div class="mb-1 font-display text-4xl font-extrabold text-brand-700">{s.big}</div>
+              <div class="text-sm text-gray-600">{s.small}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-2 font-display text-3xl font-extrabold text-rex-dark">Every finding</h2>
+      <p class="mb-10 text-gray-500">
+        Out of {sampleSize} sites. Each bar is the share of sites that failed the check.
+      </p>
+      <div class="space-y-7">
+        {
+          findings.map((f) => (
+            <div>
+              <div class="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+                <span class="font-semibold text-gray-900">{f.label}</span>
+                <span class="text-sm font-semibold text-gray-500">
+                  {f.pct}% <span class="font-normal text-gray-400">({f.count} of {sampleSize})</span>
+                </span>
+              </div>
+              <div class="h-3 w-full overflow-hidden rounded-full bg-gray-100">
+                <div
+                  class={
+                    f.severity === 'critical'
+                      ? 'h-full rounded-full bg-red-500'
+                      : 'h-full rounded-full bg-amber-400'
+                  }
+                  style={`width:${f.pct}%`}
+                />
+              </div>
+              <p class="mt-2 text-sm text-gray-500">{f.note}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-10 rounded-xl border border-gray-200 bg-gray-50 p-5">
+        <p class="text-sm text-gray-600">
+          <strong class="text-gray-900">Median first byte:</strong> 828 ms. &nbsp;
+          <strong class="text-gray-900">Median homepage document:</strong> 622 KB. &nbsp; These are
+          large, well-resourced companies — the technical bar is not the problem.
+          <strong class="text-gray-900">The structure is.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAKEAWAYS -->
+  <section class="border-y border-gray-200 bg-gray-50 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-8 font-display text-3xl font-extrabold text-rex-dark">
+        What the data actually says
+      </h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          [
+            {
+              t: 'Brand size buys you nothing here',
+              d: 'These are companies with full web teams. Two thirds still ship a document over 500 KB and a third carry no structured data. AI visibility is a separate discipline from having a good website.',
+            },
+            {
+              t: 'The gap is schema, not speed',
+              d: 'Canonical tags were universal, HTTPS was universal. The misses cluster in the signals that tell a model what the page means — entity, FAQ, service schema. That is the cheapest work with the largest effect.',
+            },
+            {
+              t: 'Blocking is a click, and it is invisible',
+              d: 'One platform disallows GPTBot and ClaudeBot at the root of robots.txt. Nobody would notice from the outside, and no amount of content strategy fixes it. It is the first thing we check.',
+            },
+          ].map((c) => (
+            <div class="rounded-2xl border border-gray-200 bg-white p-6">
+              <h3 class="mb-2 font-bold text-rex-dark">{c.t}</h3>
+              <p class="text-sm leading-relaxed text-gray-600">{c.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section id="method" class="bg-white py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-6 font-display text-3xl font-extrabold text-rex-dark">Method</h2>
+      <ul class="space-y-4 text-gray-600">
+        <li>
+          <strong class="text-gray-900">Sample.</strong> {sampleSize} publicly reachable homepages
+          across SaaS, ecommerce and consumer technology, selected for recognisability so anyone can
+          re-run the check.
+        </li>
+        <li>
+          <strong class="text-gray-900">Scope.</strong> Homepage only, fetched as a normal browser
+          would, plus each site’s <code class="rounded bg-gray-100 px-1">/robots.txt</code>,
+          <code class="rounded bg-gray-100 px-1">/llms.txt</code> and
+          <code class="rounded bg-gray-100 px-1">/sitemap.xml</code>.
+        </li>
+        <li>
+          <strong class="text-gray-900">Date.</strong> {measuredOn}. Sites change; re-measure before
+          citing a specific site.
+        </li>
+        <li>
+          <strong class="text-gray-900">Engine.</strong> The same 18 checks behind our
+          <a href="/ai-visibility-score" class="font-semibold text-brand-700 underline"
+            >free AI visibility audit</a
+          >: crawler access parsed per RFC 9309, structured data read from JSON-LD, content and
+          technical health measured directly.
+        </li>
+        <li>
+          <strong class="text-gray-900">Limits.</strong> A homepage is not a whole site, and a
+          server-side fetch cannot see crawler rules injected by an edge proxy such as Cloudflare’s
+          managed robots block. Where that applies, the real position is worse than measured — never
+          better.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-rex-dark py-16">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-4 font-display text-3xl font-extrabold text-white">
+        Where does your site land?
+      </h2>
+      <p class="mb-8 text-gray-300">
+        The audit is free and takes about thirty seconds. You get a score out of 100 and the four
+        fixes that move it fastest — the same checks behind every number on this page.
+      </p>
+      <a
+        href="/ai-visibility-score"
+        class="inline-block rounded-lg bg-brand-700 px-8 py-4 font-semibold text-white transition-colors hover:bg-brand-800"
+      >
+        Score my site free →
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-8 font-display text-3xl font-extrabold text-rex-dark">
+        Questions about this study
+      </h2>
+      <FAQ items={faqs} client:visible />
+    </div>
+  </section>
+</BaseLayout>
