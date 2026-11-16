@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadAuditTool from '../components/LeadAuditTool.tsx';
+import FAQ from '../components/FAQ.tsx';
+
+const siteUrl = 'https://rexbunnyservices.online';
+
+const checks = [
+  {
+    group: 'AI crawlability',
+    detail: [
+      'GPTBot (ChatGPT) allowed in robots.txt',
+      'ClaudeBot (Anthropic) allowed',
+      'PerplexityBot allowed',
+      'Google-Extended allowed (AI Overviews)',
+      'llms.txt published',
+      'sitemap.xml published',
+    ],
+  },
+  {
+    group: 'Structured data',
+    detail: [
+      'JSON-LD present',
+      'Organization / LocalBusiness entity declared',
+      'FAQ, Article, Service or Product schema',
+      'Self-referencing canonical tag',
+    ],
+  },
+  {
+    group: 'Content depth',
+    detail: [
+      'Title tag 10–65 characters',
+      'Meta description 50–165 characters',
+      'Exactly one H1',
+      '300+ words of crawlable text',
+    ],
+  },
+  {
+    group: 'Technical health',
+    detail: [
+      'Served over HTTPS',
+      'HTML under 150 KB',
+      'First byte under 800 ms',
+      'HSTS and nosniff headers',
+    ],
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is an AI visibility score?',
+    answer:
+      'An AI visibility score measures whether AI assistants such as ChatGPT, Claude, Perplexity and Google AI Overviews can crawl your site, understand what you do, and quote you in an answer. It is scored out of 100 across crawlability, structured data, content depth and technical health.',
+  },
+  {
+    question: 'How is this different from a Lighthouse score?',
+    answer:
+      'Lighthouse measures how fast a browser renders your page. An AI visibility score measures whether a language model can read it at all. A site can score 100 on Lighthouse and still be invisible to ChatGPT because a robots.txt rule blocks the crawler or the page carries no structured data.',
+  },
+  {
+    question: 'Is the score really free?',
+    answer:
+      'Yes. You enter a URL and an email, we run the checks live against your site, and the result plus a written report lands in your inbox. No credit card, no sales call required.',
+  },
+  {
+    question: 'Why does robots.txt matter so much?',
+    answer:
+      'If robots.txt disallows a crawler, that crawler is not allowed to read any page. GPTBot, ClaudeBot, PerplexityBot and Google-Extended are each blocked by separate rules, and some content-delivery layers add blocks automatically. It is the single most common reason a business never appears in AI answers.',
+  },
+];
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="AI Visibility Score Checker — Visible to ChatGPT?"
+  description="Free AI visibility score in 30 seconds. We check GPTBot and ClaudeBot access, llms.txt, JSON-LD, content depth and technical health, then show the four fastest fixes."
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebApplication',
+          name: 'AI Visibility Score Checker',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          url: `${siteUrl}/ai-visibility-score`,
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+          description:
+            'Scores any website out of 100 on whether AI assistants can crawl, understand and cite it.',
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+          })),
+        },
+      ],
+    })}
+  />
+
+  <section class="relative overflow-hidden pt-24">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-50/50"></div>
+    <div class="relative mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mb-8 text-center">
+        <span
+          class="mb-4 inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700"
+        >
+          Free · 30 seconds · No credit card
+        </span>
+        <h1 class="mb-4 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          What is your AI Visibility Score?
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+          ChatGPT, Claude, Perplexity and Google AI Overviews now answer questions your customers
+          used to type into search. If a crawler is blocked or your schema is missing, they answer
+          with your competitor. Score your site out of 100 and see the four fixes that move it
+          fastest.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-premium-xl sm:p-8">
+        <LeadAuditTool client:visible />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-3 text-center font-display text-3xl font-extrabold text-rex-dark">
+        What we actually measure
+      </h2>
+      <p class="mx-auto mb-10 max-w-2xl text-center text-gray-600">
+        Eighteen signals, all checked live against your site — nothing is simulated and nothing
+        depends on a third-party API being available.
+      </p>
+      <div class="grid gap-6 sm:grid-cols-2">
+        {
+          checks.map((group) => (
+            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+              <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-brand-700">
+                {group.group}
+              </h3>
+              <ul class="space-y-2 text-sm text-gray-700">
+                {group.detail.map((item) => (
+                  <li class="flex gap-2">
+                    <span class="text-green-600">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-50 py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mb-6 text-center font-display text-3xl font-extrabold text-rex-dark">
+        Common questions
+      </h2>
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="mb-3 font-display text-3xl font-extrabold text-rex-dark">
+        Scored low? That is fixable.
+      </h2>
+      <p class="mx-auto mb-8 max-w-xl text-gray-600">
+        Most of what we find is structural — blocked crawlers, missing schema, thin pages. It is
+        work we do every week for a fixed price, and we will tell you honestly if it is not worth
+        it for your site.
+      </p>
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/pricing"
+          class="rounded-xl bg-brand-700 px-8 py-4 text-base font-semibold text-white shadow-premium transition-colors hover:bg-brand-800"
+        >
+          See pricing →
+        </a>
+        <a
+          href="/services/ai-search-optimization"
+          class="rounded-xl border border-gray-300 px-8 py-4 text-base font-semibold text-gray-800 transition-colors hover:border-gray-400"
+        >
+          What AI Search optimisation includes
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
