@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logoMark from '../assets/logo-mark.png';
+
 const links = [
   { href: '/', label: 'Home' },
   { href: '/services/web-development', label: 'Web Dev' },
@@ -21,11 +24,13 @@ const links = [
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 lg:px-8">
     <a href="/" class="flex items-center gap-2">
-      <img
-        src="/images/logo-mark.png"
+      <Image
+        src={logoMark}
         alt="RexBunny Services"
-        width="200"
-        height="175"
+        width={90}
+        height={79}
+        format="webp"
+        quality={88}
         class="h-9 w-auto"
         decoding="async"
       />
@@ -74,11 +79,13 @@ const links = [
   <div class="hidden border-t border-gray-200 bg-white md:hidden" id="mobile-menu">
     <div class="space-y-1 px-4 py-4">
       <a href="/" class="mb-3 flex items-center gap-2">
-        <img
-          src="/images/logo-mark.png"
+        <Image
+          src={logoMark}
           alt="RexBunny Services"
-          width="200"
-          height="175"
+          width={90}
+          height={79}
+          format="webp"
+          quality={88}
           class="h-8 w-auto"
           decoding="async"
         />

@@ -8,7 +8,7 @@ export default defineConfig({
   site: 'https://rexbunnyservices.online',
   output: 'static',
   build: {
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'auto',
   },
   integrations: [preact(), tailwind(), sitemap(), mdx()],
 });

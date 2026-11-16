@@ -80,7 +80,13 @@ const breadcrumbItems = breadcrumbs
     <!-- Meta Pixel: REX Bunny Website Leads Pixel -->
     <script is:inline>
       /* eslint-disable @typescript-eslint/no-unused-expressions -- Facebook's own minified bootstrap */
-      !(function (f, b, e, v, n, t, s) {
+      /*
+       * The fbq stub is installed immediately (a few hundred bytes, no network),
+       * so a Lead event fired before the real script lands is queued, not lost.
+       * Only the 200 KB fbevents.js download is deferred until the page is
+       * interactive, so it no longer competes with the hero on mobile.
+       */
+      (function (f, b, e, v, n) {
         if (f.fbq) return;
         n = f.fbq = function () {
           n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
@@ -90,13 +96,32 @@ const breadcrumbItems = breadcrumbs
         n.loaded = !0;
         n.version = '2.0';
         n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
+        var loaded = false;
+        function loadPixel() {
+          if (loaded) return;
+          loaded = true;
+          var t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          var s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        }
+
+        function schedule() {
+          if ('requestIdleCallback' in f) {
+            f.requestIdleCallback(loadPixel, { timeout: 2500 });
+          } else {
+            setTimeout(loadPixel, 1200);
+          }
+        }
+        ['scroll', 'click', 'touchstart', 'keydown'].forEach(function (evt) {
+          f.addEventListener(evt, loadPixel, { once: true, passive: true });
+        });
+        if (b.readyState === 'complete') schedule();
+        else f.addEventListener('load', schedule, { once: true });
+        setTimeout(loadPixel, 3500);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1113443814370385');
       fbq('track', 'PageView');
     </script>

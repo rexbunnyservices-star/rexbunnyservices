@@ -189,7 +189,7 @@ function PinGate({ onUnlock }: { onUnlock: () => void }) {
         {error && <p class="mb-4 text-sm text-red-400">Wrong PIN. Try again.</p>}
         <button
           onClick={handleSubmit}
-          class="w-full rounded-lg bg-brand-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-500"
+          class="w-full rounded-lg bg-brand-700 px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-500"
         >
           Enter Dashboard
         </button>
@@ -522,7 +522,7 @@ export default function MarketplaceDashboard() {
                 onClick={() => setPlatform(p)}
                 class={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize transition-colors ${
                   platform === p
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -539,7 +539,7 @@ export default function MarketplaceDashboard() {
                 onClick={() => setIntent(it)}
                 class={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize transition-colors ${
                   intent === it
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -556,7 +556,7 @@ export default function MarketplaceDashboard() {
                 onClick={() => setCity(c)}
                 class={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize transition-colors ${
                   city === c
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -572,7 +572,7 @@ export default function MarketplaceDashboard() {
                 onClick={() => setBuyerProfile(b)}
                 class={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize transition-colors ${
                   buyerProfile === b
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -919,7 +919,7 @@ export default function MarketplaceDashboard() {
                 href={selected.profile_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mt-4 inline-block rounded-lg bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"
+                class="mt-4 inline-block rounded-lg bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"
               >
                 Open profile ↗
               </a>

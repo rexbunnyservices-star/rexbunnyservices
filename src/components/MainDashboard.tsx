@@ -85,7 +85,7 @@ const leadStatusColors: Record<string, string> = {
   completed: 'bg-green-600/20 text-green-400',
   contacted: 'bg-purple-600/20 text-purple-400',
   qualified: 'bg-emerald-600/20 text-emerald-400',
-  converted: 'bg-brand-600/20 text-brand-400',
+  converted: 'bg-brand-700/20 text-brand-400',
   lost: 'bg-red-600/20 text-red-400',
 };
 
@@ -96,9 +96,9 @@ const prospectStatusColors: Record<string, string> = {
   low_priority: 'bg-yellow-600/20 text-yellow-400',
   contacted: 'bg-purple-600/20 text-purple-400',
   responded: 'bg-emerald-600/20 text-emerald-400',
-  converted: 'bg-brand-600/20 text-brand-400',
+  converted: 'bg-brand-700/20 text-brand-400',
   replied: 'bg-emerald-600/20 text-emerald-400',
-  booked: 'bg-brand-600/20 text-brand-400',
+  booked: 'bg-brand-700/20 text-brand-400',
   unsubscribed: 'bg-red-600/20 text-red-400',
   web_dev_qualified: 'bg-orange-600/20 text-orange-400',
 };
@@ -203,7 +203,7 @@ function PinGate({ onUnlock }: { onUnlock: () => void }) {
         {error && <p class="mb-4 text-sm text-red-400">Wrong PIN. Try again.</p>}
         <button
           onClick={handleSubmit}
-          class="w-full rounded-lg bg-brand-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-500"
+          class="w-full rounded-lg bg-brand-700 px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-500"
         >
           Enter Dashboard
         </button>
@@ -422,7 +422,7 @@ export default function MainDashboard() {
               setSearch('');
             }}
             class={`flex-shrink-0 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${
-              tab === t.id ? 'bg-brand-600 text-white' : 'text-gray-500 hover:text-gray-700'
+              tab === t.id ? 'bg-brand-700 text-white' : 'text-gray-500 hover:text-gray-700'
             }`}
           >
             {t.label}
@@ -517,7 +517,7 @@ export default function MainDashboard() {
                 );
               }
             }}
-            class="rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-500"
+            class="rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-500"
           >
             Export CSV
           </button>
@@ -884,7 +884,7 @@ export default function MainDashboard() {
                 onClick={() => setLeadFilter(f)}
                 class={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
                   leadFilter === f
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'border border-gray-300 text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -1079,7 +1079,7 @@ export default function MainDashboard() {
                 onClick={() => setProspectFilter(f)}
                 class={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
                   prospectFilter === f
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'border border-gray-300 text-gray-500 hover:text-gray-700'
                 }`}
               >

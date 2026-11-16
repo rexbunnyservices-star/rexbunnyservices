@@ -2,6 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MetricCard from '../components/MetricCard.tsx';
 import LeadAuditTool from '../components/LeadAuditTool.tsx';
+import { Image } from 'astro:assets';
+import svcAiSearch from '../assets/services/ai-search.png';
+import svcWebsiteGen from '../assets/services/website-gen.png';
+import svcLeadGen from '../assets/services/lead-gen.png';
+import svcAds from '../assets/services/ad-campaigns.png';
+import svcDashboards from '../assets/services/shopping-dashboards.png';
+import svcAudit from '../assets/services/audit.png';
 import FAQ from '../components/FAQ.tsx';
 import CalEmbed from '../components/CalEmbed.tsx';
 
@@ -64,7 +71,7 @@ const faqs = [
 const services = [
   {
     href: '/services/seo',
-    image: '/images/services/ai-search.png',
+    image: svcAiSearch,
     imageWidth: 760,
     imageHeight: 598,
     title: 'AI Search Optimization',
@@ -85,7 +92,7 @@ const services = [
   },
   {
     href: '/services/web-development',
-    image: '/images/services/website-gen.png',
+    image: svcWebsiteGen,
     imageWidth: 690,
     imageHeight: 760,
     title: 'Website Generation',
@@ -106,7 +113,7 @@ const services = [
   },
   {
     href: '/services/lead-generation',
-    image: '/images/services/lead-gen.png',
+    image: svcLeadGen,
     imageWidth: 640,
     imageHeight: 760,
     title: 'Lead Generation',
@@ -127,7 +134,7 @@ const services = [
   },
   {
     href: '/services/ad-campaigns',
-    image: '/images/services/ad-campaigns.png',
+    image: svcAds,
     imageWidth: 674,
     imageHeight: 760,
     title: 'Ad Campaigns',
@@ -148,7 +155,7 @@ const services = [
   },
   {
     href: '/services/ecommerce-dashboards',
-    image: '/images/services/shopping-dashboards.png',
+    image: svcDashboards,
     imageWidth: 674,
     imageHeight: 760,
     title: 'Shopping Dashboards',
@@ -169,7 +176,7 @@ const services = [
   },
   {
     href: '/lead-engine',
-    image: '/images/services/audit.png',
+    image: svcAudit,
     imageWidth: 760,
     imageHeight: 749,
     title: 'Free Performance Audit',
@@ -225,9 +232,7 @@ const services = [
           From blank site to booked call
         </div>
         <h1
-          data-reveal="glow-border"
-          data-duration="1400"
-          class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl opacity-0"
+          class="mb-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-rex-dark sm:text-6xl lg:text-7xl"
         >
           <span class="inline-block">Build.</span>{' '}
           <span
@@ -236,11 +241,7 @@ const services = [
           >{' '}
           <span class="inline-block">Automate.</span>
         </h1>
-        <p
-          data-reveal="fade-up"
-          data-delay="150"
-          class="mb-4 text-lg text-gray-600 sm:text-xl opacity-0"
-        >
+        <p class="mb-4 text-lg text-gray-600 sm:text-xl">
           We build the site, grow your visibility across Google and AI search, then automate the
           follow-up that turns attention into pipeline. One founder does all three.
         </p>
@@ -296,14 +297,14 @@ const services = [
           class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center opacity-0"
         >
           <a
-            href="/lead-engine"
+            href="#audit"
             data-magnetic
             class="relative overflow-hidden rounded-xl bg-gradient-to-r from-brand-500 to-rex-orange px-8 py-4 text-base font-semibold text-white shadow-premium-glow transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.35)] hover:-translate-y-0.5"
           >
             <span
               class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"
             ></span>
-            <span class="relative">Run Your Free Build &amp; Search Audit →</span>
+            <span class="relative">Score My Site Free →</span>
           </a>
           <span data-magnetic><CalEmbed buttonText="Book a Strategy Call" client:load /></span>
         </div>
@@ -359,6 +360,45 @@ const services = [
     </div>
   </section>
 
+  <!-- ═══ AI VISIBILITY SCORE (primary conversion path) ═══ -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-20 sm:py-24"
+    id="audit"
+  >
+    <div class="absolute inset-0 bg-brand-glow"></div>
+    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.25]"></div>
+    <div class="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div
+        class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-600"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          ></path></svg
+        >
+        Free AI Visibility Score
+      </div>
+      <h2 class="mb-3 text-center font-display text-4xl font-extrabold text-rex-dark">
+        Can ChatGPT find your business?
+      </h2>
+      <p class="mx-auto mb-8 max-w-xl text-center text-gray-600">
+        Right now an AI assistant is answering a question your customer asked. If it cannot crawl
+        your site or read your schema, it recommends your competitor. Score yours in 30 seconds —
+        free, no credit card.
+      </p>
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-premium-xl sm:p-8">
+        <LeadAuditTool client:visible />
+      </div>
+      <p class="mx-auto mt-4 max-w-lg text-center text-xs leading-relaxed text-gray-500">
+        18 live checks: AI crawl permissions (GPTBot, ClaudeBot, PerplexityBot), llms.txt,
+        JSON-LD, entity clarity, content depth, compression, TTFB and security headers.
+      </p>
+    </div>
+  </section>
+
   <!-- ═══ SCOPE ═══ -->
   <section class="border-y border-gray-200 bg-gray-50 py-14">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
@@ -369,7 +409,7 @@ const services = [
       </p>
       <a
         href="/contact"
-        class="inline-block rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
+        class="inline-block rounded-lg bg-brand-700 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500"
       >
         Scope My Project →
       </a>
@@ -548,12 +588,14 @@ const services = [
                     i === 0 ? 'md:order-1' : 'md:order-2'
                   }`}
                 >
-                  <img
+                  <Image
                     src={s.image}
                     alt=""
                     aria-hidden="true"
-                    width={s.imageWidth}
-                    height={s.imageHeight}
+                    widths={[260, 420, 640]}
+                    sizes="(min-width: 768px) 320px, 82vw"
+                    format="webp"
+                    quality={78}
                     class={`h-auto select-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.025] ${s.logoClass}`}
                     loading="lazy"
                     decoding="async"
@@ -964,44 +1006,6 @@ const services = [
           >View All Posts →</a
         >
       </div>
-    </div>
-  </section>
-
-  <!-- ═══ AUDIT ═══ -->
-  <section
-    data-reveal="fade-up"
-    class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-24 opacity-0"
-    id="audit"
-  >
-    <div class="absolute inset-0 bg-brand-glow"></div>
-    <div class="absolute inset-0 bg-noise pointer-events-none opacity-[0.25]"></div>
-    <div class="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-      <div
-        class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[2px] text-brand-500"
-      >
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          ><path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          ></path></svg
-        >
-        Free Audit
-      </div>
-      <h2 class="mb-2 text-center font-display text-4xl font-extrabold text-rex-dark">
-        Is Your Site Ready for AI Search?
-      </h2>
-      <p class="mb-8 text-center text-gray-500">
-        Find out in 30 seconds. Free audit, no credit card.
-      </p>
-      <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-premium-xl">
-        <LeadAuditTool client:visible />
-      </div>
-      <p class="mt-4 text-center text-xs text-gray-500">
-        We'll check: Lighthouse Performance, AI Crawlability, Structured Data Quality, and LLM
-        Citation Potential.
-      </p>
     </div>
   </section>
 
