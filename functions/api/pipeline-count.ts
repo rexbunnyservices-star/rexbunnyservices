@@ -1,7 +1,10 @@
-// Public pipeline count ONLY. Returns an integer and nothing else.
+// Public pipeline count. Returns the CURRENT record count plus the ALL-TIME
+// processed total (1,618 prospects scanned as of the 2026-09-30 audit — this
+// includes records later deleted, so it never falls when PB is cleaned up).
 // The prospects collection carries emails, phone numbers and names, so its
 // PocketBase list rule must stay admin-only. This endpoint exists so the
-// homepage can render a live count without exposing a single record.
+// homepage can render a count without exposing a single record.
+const TOTAL_PROCESSED_BASELINE = 1618;
 interface Env {
   PB_URL?: string;
   PB_EMAIL?: string;
@@ -31,7 +34,10 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
 
     const { totalItems } = await res.json();
 
-    return new Response(JSON.stringify({ totalItems }), {
+    return new Response(JSON.stringify({
+      totalItems,
+      totalProcessed: Math.max(TOTAL_PROCESSED_BASELINE, totalItems),
+    }), {
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'public, max-age=300',
@@ -39,7 +45,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     });
   } catch {
     // Never leak the reason, and never fail the page build over a count.
-    return new Response(JSON.stringify({ totalItems: null }), {
+    return new Response(JSON.stringify({ totalItems: null, totalProcessed: TOTAL_PROCESSED_BASELINE }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
