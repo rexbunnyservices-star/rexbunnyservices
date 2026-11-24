@@ -6380,6 +6380,12 @@ Most of our clients use both: one marketer in-house who owns the brand, and us f
 .rwtm-sub,.rwin-sub,.rwsv-desc,.rwfq-a,.rwpr-tag,.rwft-blurb,.rwtm-role,.rwtm-link,.rwp,.rwn-desc{opacity:1!important}
 .rwtm-role{font-size:13px!important;line-height:1.45!important}
 .rex-hl{background:#ff6b00;color:#0d0e10;padding:0 .09em;border-radius:4px;display:inline-block;transform:rotate(-.8deg)}
+.rex-audit-input{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;font:15px 'Funnel Sans',Inter,sans-serif;margin-bottom:12px;outline:none}
+.rex-audit-input::placeholder{color:rgba(255,255,255,.5)}
+.rex-audit-input:focus{border-color:#ff6b00}
+.rex-audit-status{margin-top:14px;font-size:14px;color:#e8e6ef;line-height:1.65;max-width:60ch}
+.rex-audit-status b{color:#ff6b00;font-size:22px}
+.rex-audit-status ol{margin:8px 0 0 18px;padding:0}
 .rwtm-link{font-size:16px!important}
 .rwtm-card p,.rwsv-desc p,.rwin-sub p{font-size:15px!important}
 .rwpr-price:after{content:attr(data-rex)}
@@ -6434,6 +6440,38 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
       var im=c.querySelector('img');if(im&&im.getAttribute('src')!=='/rex/assets/'+d.img)im.src='/rex/assets/'+d.img;
       var lk=c.querySelector('.rwtm-in');if(lk)lk.textContent='EXPLORE';
     });
+    var secA=document.querySelectorAll('section')[13];
+    if(secA){
+      secA.id='audit';
+      if(!secA.dataset.rexForm){
+        secA.dataset.rexForm='1';
+        var sel=secA.querySelector('select');
+        if(sel){var wi=document.createElement('input');wi.type='url';wi.className='rex-audit-input';wi.placeholder='Your website (https://...)';wi.setAttribute('aria-label','Your website');sel.parentNode.replaceChild(wi,sel)}
+        var em=secA.querySelector('input[placeholder="Work email"]');if(em){em.type='email';em.className='rex-audit-input';em.placeholder='Email for your PDF report'}
+        var st=document.createElement('div');st.className='rex-audit-status';
+        var btn=secA.querySelector('.rwct-go');
+        if(btn){btn.parentNode.insertBefore(st,btn.nextSibling);
+          btn.addEventListener('click',function(ev){
+            ev.preventDefault();
+            var w=secA.querySelector('input[type=url]'),e2=secA.querySelector('input[type=email]');
+            var site=w?w.value.trim():'',mail=e2?e2.value.trim():'';
+            if(!site||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){st.textContent='Enter your website and a valid email address.';return}
+            st.textContent='Scanning 18 live signals…';btn.style.pointerEvents='none';
+            fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:site,email:mail})})
+              .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
+              .then(function(o){
+                btn.style.pointerEvents='';
+                if(!o.ok||o.d.error){st.textContent=o.d.error||'Audit failed — please try again.';return}
+                st.innerHTML='<b>'+o.d.compositeScore+'/100</b> AI Visibility Score for '+site+'. Your four fastest wins are on their way to '+mail+'.'+
+                  (o.d.issues&&o.d.issues.length?'<ol><li>'+o.d.issues.map(function(x){return x}).join('</li><li>')+'</li></ol>':'');
+              })
+              .catch(function(){btn.style.pointerEvents='';st.textContent='Could not reach the audit service — please try again.'});
+          });
+        }
+      }
+    }
+    document.querySelectorAll('a[href="/contact"],a[href="#final"]').forEach(function(a){a.href='#audit'});
+    document.querySelectorAll('a[href="/work"]').forEach(function(a){a.href='#services'});
     var sec8=document.querySelectorAll('section')[8];
     if(sec8){var h8=sec8.querySelector('h2');if(h8&&h8.textContent.replace(/\s+/g,' ').trim()!=='Automations for your business.')h8.innerHTML='Automations for your <span class="rex-hl">business.</span>'}
     var wm=document.querySelector('.rwft-wm-t');
