@@ -528,10 +528,28 @@ try {
       console.error('Failed to send audit email:', err);
     });
 
-    return new Response(JSON.stringify(results), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    // ── Viral share token ──────────────────────────────────────────────────
+    // Store a PUBLIC-SAFE copy (no email) under a short token so the result
+    // can be rendered on a shareable page with OG meta. Email is never exposed.
+    const shareToken = crypto.randomUUID().replace(/-/g, '').slice(0, 12);
+    await context.env.FORMS.put(
+      `share:${shareToken}`,
+      JSON.stringify({
+        score: compositeScore,
+        website: normalizedUrl,
+        issues,
+        breakdown: results.breakdown,
+        checkedAt: results.checkedAt,
+      }),
+      { expirationTtl: 2592000 }, // 30 days
+    );
+    const shareOrigin = new URL(context.request.url).origin;
+    const shareUrl = `${shareOrigin}/audit/${shareToken}`;
+
+    return new Response(
+      JSON.stringify({ ...results, shareToken, shareUrl }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
+    );
   } catch (e: any) {
     return new Response(
       JSON.stringify({ error: 'Audit failed', detail: e?.message || String(e) }),

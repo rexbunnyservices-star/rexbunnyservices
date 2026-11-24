@@ -70,6 +70,12 @@
     
     <!-- End of headEnd -->
 	
+<!-- REX Analytics -->
+<script async defer src="https://analytics.rexbunnyservices.online/script.js" data-website-id="89882bfd-5853-4835-8ee8-a54cc9b8f4a6"></script>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+try{fbq('init','1113443814370385');fbq('track','PageView')}catch(e){}
+</script>
 </head>
 <body>
 	<script async src="/rex/assets/81ba3be11224f7e5.js" data-fid="77571d1bdddba544e8b4bf8e7acad9f1d794ecdf48bd235029c88ae88c302b25" data-no-nt></script>
@@ -6385,6 +6391,11 @@ Most of our clients use both: one marketer in-house who owns the brand, and us f
 .rex-logo-footer{height:110px;width:auto;display:block;margin:0 auto 28px;object-fit:contain}
 .rex-svc{font:500 10px 'Geist Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,238,232,.55);margin-left:8px;align-self:center;padding-top:2px}
 
+/* REX viral share buttons */
+.rex-share{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.rex-share a,.rex-share button{font:500 10px 'Geist Mono',monospace!important;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,107,0,.5);color:#ff6b00;background:transparent;border-radius:999px;padding:8px 12px;cursor:pointer;text-decoration:none}
+.rex-share a:hover,.rex-share button:hover{background:rgba(255,107,0,.14)}
+
 /* REX header: mark + wordmark + minimal services on one line */
 .rwhd-logo{display:flex!important;align-items:flex-end;gap:1px!important}
 .rwhd-logo .rex-logo{height:48px!important;width:auto;flex:0 0 auto;position:relative;left:10px;top:3px}
@@ -6505,8 +6516,16 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
             .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
             .then(function(o){
               if(!o.ok||o.d.error){st2.textContent=o.d.error||'Audit failed — please try again.';return}
-              st2.innerHTML='<b>'+o.d.compositeScore+'/100</b> AI Visibility Score for '+site+'. Your four fastest wins are on their way to '+mail+'.'+
-                (o.d.issues&&o.d.issues.length?'<ol><li>'+o.d.issues.map(function(x){return x}).join('</li><li>')+'</li></ol>':'');
+              var d=o.d,share=d.shareUrl||('https://rexbunnyservices.online/audit/'+d.shareToken);
+              st2.innerHTML='<b>'+d.compositeScore+'/100</b> AI Visibility Score for '+site+'. Your four fastest wins are on their way to '+mail+'.'+
+                (d.issues&&d.issues.length?'<ol><li>'+d.issues.map(function(x){return x}).join('</li><li>')+'</li></ol>':'')+
+                '<div class="rex-share"><a href="'+share+'" target="_blank" rel="noopener">View &amp; share your scorecard →</a>'+
+                '<button type="button" data-x="'+share+'" data-score="'+d.compositeScore+'">Post to X</button>'+
+                '<button type="button" data-li="'+share+'">LinkedIn</button></div>';
+              try{if(window.umami)window.umami.track('audit-submitted',{score:d.compositeScore})}catch(e){}
+              var sx=st2.querySelector('[data-x]'),sl=st2.querySelector('[data-li]');
+              if(sx)sx.onclick=function(){var t='My site scored '+d.compositeScore+'/100 for AI visibility. Can you beat it?';window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(t)+'&url='+encodeURIComponent(share),'_blank','noopener');try{if(window.umami)window.umami.track('audit-shared',{network:'x'})}catch(e){}};
+              if(sl)sl.onclick=function(){window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(share),'_blank','noopener');try{if(window.umami)window.umami.track('audit-shared',{network:'linkedin'})}catch(e){}};
             })
             .catch(function(){st2.textContent='Could not reach the audit service — please try again.'});
         }
