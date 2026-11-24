@@ -524,10 +524,6 @@ try {
       console.error('Failed to sync audit lead to PocketBase:', err);
     }
 
-    await sendAuditEmail(email, normalizedUrl, results).catch((err) => {
-      console.error('Failed to send audit email:', err);
-    });
-
     // ── Viral share token ──────────────────────────────────────────────────
     // Store a PUBLIC-SAFE copy (no email) under a short token so the result
     // can be rendered on a shareable page with OG meta. Email is never exposed.
@@ -545,6 +541,10 @@ try {
     );
     const shareOrigin = new URL(context.request.url).origin;
     const shareUrl = `${shareOrigin}/audit/${shareToken}`;
+
+    await sendAuditEmail(email, normalizedUrl, { ...results, shareUrl }).catch((err) => {
+      console.error('Failed to send audit email:', err);
+    });
 
     return new Response(
       JSON.stringify({ ...results, shareToken, shareUrl }),
@@ -647,6 +647,10 @@ ${issues.map((i) => `<li style="margin-bottom:8px">${i}</li>`).join('')}
 }
 <div style="margin:24px 0;border-top:1px solid #e2e8f0"></div>
 <p style="font-size:13px;color:#64748b;line-height:1.5">We scored ${siteUrl} against the signals that decide whether ChatGPT, Perplexity, Gemini and Google's AI Overviews can find, read and quote you. Fixing the list above is exactly what our AI Search package does.</p>
+<div style="margin:24px 0;padding:18px;border:1px solid #fed7aa;border-radius:10px;background:#fff7ed">
+<p style="margin:0 0 10px;font-size:14px;color:#9a3412;font-weight:600">My site scored ${results.compositeScore}/100 for AI visibility. Can you beat it?</p>
+<a href="${results.shareUrl || 'https://rexbunnyservices.online/rex/'}" style="font-size:13px;color:#c2410c">View &amp; share your scorecard →</a>
+</div>
 <table width="100%" cellpadding="0" cellspacing="0">
 <tr><td align="center" style="padding:8px 0">
 <a href="https://rexbunnyservices.online/pricing" style="display:inline-block;background:#c2410c;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600">See what fixing it costs</a>
