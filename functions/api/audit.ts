@@ -163,8 +163,36 @@ function extractJsonLdTypes(html: string): string[] {
   return [...types];
 }
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+
+// Built-in KV rate limiter for public, unauthenticated form endpoints.
+// 12 requests / hour / connecting IP. Key is IP-hashed so no raw PII is stored.
+async function rateLimited(env: Env, request: Request): Promise<Response | null> {
+  const ip = request.headers.get('Cf-Connecting-IP') || request.headers.get('x-forwarded-for') || 'unknown';
+  let hash = 5381;
+  for (let i = 0; i < ip.length; i++) hash = ((hash << 5) + hash + ip.charCodeAt(i)) | 0;
+  const bucket = Math.floor(Date.now() / 3600000);
+  const key = `rl:${Math.abs(hash).toString(36)}:${bucket}`;
   try {
+    const raw = await env.FORMS.get(key, 'text');
+    const n = raw ? parseInt(raw, 10) || 0 : 0;
+    if (n >= 12) {
+      return new Response(JSON.stringify({ error: 'Too many requests. Please try again later.' }), {
+        status: 429,
+        headers: { 'Content-Type': 'application/json', 'Retry-After': '3600' },
+      });
+    }
+    await env.FORMS.put(key, String(n + 1), { expirationTtl: 3600 });
+  } catch {
+    // Never block a real submission because the limiter failed.
+  }
+  return null;
+}
+
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+  
+  const limited = await rateLimited(context.env, context.request);
+  if (limited) return limited;
+try {
     const { url, email } = (await context.request.json()) as { url?: string; email?: string };
     const emailOk = typeof email === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
     if (!url || !emailOk) {

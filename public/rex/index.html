@@ -6474,10 +6474,23 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
       document.addEventListener('click',function(ev){
         var t=ev.target&&ev.target.closest?ev.target:null;
         var a=t?t.closest('a'):null;
-        if(a){var h=a.getAttribute('href');
-          if(h==='/contact'||h==='#final'){ev.preventDefault();ev.stopPropagation();var s1=document.getElementById('audit')||document.querySelectorAll('section')[13];if(s1)s1.scrollIntoView({behavior:'smooth'})}
-          else if(h==='/work'||h==='#cases'){ev.preventDefault();ev.stopPropagation();var s2=document.getElementById('services')||document.querySelectorAll('section')[3];if(s2)s2.scrollIntoView({behavior:'smooth'})}
-          if(h==='/contact'||h==='/work'||h==='#final')a.setAttribute('href','#audit');
+        if(a){var h=a.getAttribute('href')||'';
+          var SEC=document.querySelectorAll('section'),MAP={
+            '/services':3,'/services/seo':3,'/services/social-media':3,'/services/paid-ads':3,
+            '/services/content':3,'/services/web-design':3,'/services/branding':3,
+            '/work':4,'/work/northside-dental':4,'/team':2,'/team/maya-chen':2,
+            '/team/jordan-reyes':2,'/team/amara-okafor':2,'/team/liam-novak':2,
+            '/team/sofia-marin':2,'/team/theo-park':2,'/about':2,'/blog':7,
+            '/blog/local-seo-2026':7,'/blog/reels-that-sell':7,'/blog/roas-is-not-profit':7,
+            '/pricing':10,'/careers':2,'/privacy':13,'/terms':13,'/cookies':13,
+            '/contact':13,'#final':13,'#audit':13,'#cases':4,'#content':7,'#why':2,'#services':3,
+            '/':0,'/#faq':11
+          };
+          var target=MAP[h.replace(/\/$/,'')]!==undefined?MAP[h.replace(/\/$/,'')]:MAP[h];
+          if(target!==undefined&&SEC[target]){
+            ev.preventDefault();ev.stopPropagation();SEC[target].scrollIntoView({behavior:'smooth'});
+            if(h.startsWith('/')||h==='#final')a.setAttribute('href','#'+(SEC[target].id||'section'+target));
+          }
         }
         if(t&&t.closest('.rwct-go')){
           ev.preventDefault();ev.stopPropagation();

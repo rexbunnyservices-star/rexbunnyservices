@@ -11,8 +11,11 @@ function response(data: unknown, status = 200) {
 }
 
 function checkAuth(request: Request, env: Env) {
-  const key = env.DASHBOARD_API_KEY || '9690';
-  if (request.headers.get('x-api-key') !== key) {
+  // Fail closed: no backend dashboard client is deployed, so an unset key
+  // must never fall back to a guessable literal. Set DASHBOARD_API_KEY as a
+  // Cloudflare Pages secret to enable these maintenance endpoints.
+  const key = env.DASHBOARD_API_KEY;
+  if (!key || request.headers.get('x-api-key') !== key) {
     return response({ error: 'Unauthorized' }, 401);
   }
 }
