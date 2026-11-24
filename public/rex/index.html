@@ -6441,34 +6441,44 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
       var lk=c.querySelector('.rwtm-in');if(lk)lk.textContent='EXPLORE';
     });
     var secA=document.querySelectorAll('section')[13];
-    if(secA){
-      secA.id='audit';
+    if(secA){secA.id='audit';
       if(!secA.dataset.rexForm){
         secA.dataset.rexForm='1';
         var sel=secA.querySelector('select');
         if(sel){var wi=document.createElement('input');wi.type='url';wi.className='rex-audit-input';wi.placeholder='Your website (https://...)';wi.setAttribute('aria-label','Your website');sel.parentNode.replaceChild(wi,sel)}
         var em=secA.querySelector('input[placeholder="Work email"]');if(em){em.type='email';em.className='rex-audit-input';em.placeholder='Email for your PDF report'}
         var st=document.createElement('div');st.className='rex-audit-status';
-        var btn=secA.querySelector('.rwct-go');
-        if(btn){btn.parentNode.insertBefore(st,btn.nextSibling);
-          btn.addEventListener('click',function(ev){
-            ev.preventDefault();
-            var w=secA.querySelector('input[type=url]'),e2=secA.querySelector('input[type=email]');
-            var site=w?w.value.trim():'',mail=e2?e2.value.trim():'';
-            if(!site||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){st.textContent='Enter your website and a valid email address.';return}
-            st.textContent='Scanning 18 live signals…';btn.style.pointerEvents='none';
-            fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:site,email:mail})})
-              .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
-              .then(function(o){
-                btn.style.pointerEvents='';
-                if(!o.ok||o.d.error){st.textContent=o.d.error||'Audit failed — please try again.';return}
-                st.innerHTML='<b>'+o.d.compositeScore+'/100</b> AI Visibility Score for '+site+'. Your four fastest wins are on their way to '+mail+'.'+
-                  (o.d.issues&&o.d.issues.length?'<ol><li>'+o.d.issues.map(function(x){return x}).join('</li><li>')+'</li></ol>':'');
-              })
-              .catch(function(){btn.style.pointerEvents='';st.textContent='Could not reach the audit service — please try again.'});
-          });
-        }
+        var btn=secA.querySelector('.rwct-go');if(btn&&btn.parentNode)btn.parentNode.insertBefore(st,btn.nextSibling);
       }
+    }
+    if(!window.__rexClick){
+      window.__rexClick=1;
+      document.addEventListener('click',function(ev){
+        var t=ev.target&&ev.target.closest?ev.target:null;
+        var a=t?t.closest('a'):null;
+        if(a){var h=a.getAttribute('href');
+          if(h==='/contact'||h==='#final'){ev.preventDefault();var s1=document.getElementById('audit');if(s1)s1.scrollIntoView({behavior:'smooth'})}
+          else if(h==='/work'||h==='#cases'){ev.preventDefault();var s2=document.getElementById('services')||document.querySelectorAll('section')[3];if(s2)s2.scrollIntoView({behavior:'smooth'})}
+        }
+        if(t&&t.closest('.rwct-go')){
+          ev.preventDefault();
+          var sec=document.getElementById('audit');if(!sec)return;
+          var w=sec.querySelector('input[type=url]'),e2=sec.querySelector('input[type=email]');
+          var st2=sec.querySelector('.rex-audit-status');
+          if(!st2){st2=document.createElement('div');st2.className='rex-audit-status';sec.appendChild(st2)}
+          var site=w?w.value.trim():'',mail=e2?e2.value.trim():'';
+          if(!site||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){st2.textContent='Enter your website and a valid email address.';return}
+          st2.textContent='Scanning 18 live signals…';
+          fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:site,email:mail})})
+            .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
+            .then(function(o){
+              if(!o.ok||o.d.error){st2.textContent=o.d.error||'Audit failed — please try again.';return}
+              st2.innerHTML='<b>'+o.d.compositeScore+'/100</b> AI Visibility Score for '+site+'. Your four fastest wins are on their way to '+mail+'.'+
+                (o.d.issues&&o.d.issues.length?'<ol><li>'+o.d.issues.map(function(x){return x}).join('</li><li>')+'</li></ol>':'');
+            })
+            .catch(function(){st2.textContent='Could not reach the audit service — please try again.'});
+        }
+      });
     }
     document.querySelectorAll('a[href="/contact"],a[href="#final"]').forEach(function(a){a.href='#audit'});
     document.querySelectorAll('a[href="/work"]').forEach(function(a){a.href='#services'});
