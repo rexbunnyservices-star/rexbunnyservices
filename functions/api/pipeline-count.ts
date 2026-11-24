@@ -1,11 +1,12 @@
 // Public pipeline count. Returns the CURRENT record count plus the ALL-TIME
 // processed total across every niche: 9,039 unique Google Maps places +
-// 2,565 unique social/job-board leads + 13 direct website leads = 11,617.
-// Deleted records stay counted, so the figure never falls when PB is cleaned.
+// 2,565 unique social/job-board leads + 13 direct website leads + 1,618,300
+// cumulative reach events = 1,629,917. Deleted records stay counted, so the
+// figure never falls when PB is cleaned.
 // The prospects collection carries emails, phone numbers and names, so its
 // PocketBase list rule must stay admin-only. This endpoint exists so the
 // homepage can render a count without exposing a single record.
-const TOTAL_PROCESSED_BASELINE = 11617;
+const TOTAL_PROCESSED_BASELINE = 1629917;
 interface Env {
   PB_URL?: string;
   PB_EMAIL?: string;
