@@ -6549,7 +6549,7 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
     var h=document.querySelector('.rwh-h1');
     if(h){var HW=['Get','found','where','your','buyers','search.'],hs=h.querySelectorAll('.rwh-wi');
       if(hs.length===HW.length){hs.forEach(function(s,i){if(s.textContent.trim()!==HW[i])s.textContent=HW[i]});h.setAttribute('aria-label',HW.join(' '))}}
-    var prices=['$0','$5,000','$750'],pnames=['Free audit','Starter Site','Local SEO'],pbtns=['Run my free audit','Scope my site','Start growing'];
+    var prices=['$0','$1,997','$397'],pnames=['Free audit','Starter Site','Local SEO'],pbtns=['Run my free audit','Scope my site','Start growing'];
     document.querySelectorAll('.rwpr-price').forEach(function(e,i){e.setAttribute('data-rex',prices[i]||'')});
     document.querySelectorAll('.rwpr-name').forEach(function(e,i){if(pnames[i]&&e.textContent.trim()!==pnames[i])e.textContent=pnames[i]});
     document.querySelectorAll('.rwpr').forEach(function(card,i){var b=card.querySelector('.rw-l1'),b2=card.querySelector('.rw-l2');if(b&&pbtns[i])b.textContent=pbtns[i];if(b2&&pbtns[i])b2.textContent=pbtns[i]});
