@@ -112,7 +112,7 @@ li span{color:var(--acc);font-weight:500;flex:none}
     <p class="label">AI Visibility Score</p>
     ${issues.length ? `<p class="eb">Four fastest fixes</p><ol>${issueHtml}</ol>` : ''}
     <p class="challenge">My site scored <em>${score}/100</em> for AI visibility.<br>Can you beat it?</p>
-    <a class="cta" href="/#audit" id="try">Take the free audit <span aria-hidden="true">→</span></a>
+    <a class="cta" href="/?utm_source=scorecard&utm_medium=viral&utm_campaign=audit_share#audit" id="try">Take the free audit <span aria-hidden="true">→</span></a>
     <div class="share">
       <button id="li" type="button">Share on LinkedIn</button>
       <button id="tw" type="button">Post on X</button>
