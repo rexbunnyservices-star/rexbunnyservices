@@ -6464,6 +6464,7 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
         if(a){var h=a.getAttribute('href');
           if(h==='/contact'||h==='#final'){ev.preventDefault();var s1=document.getElementById('audit');if(s1)s1.scrollIntoView({behavior:'smooth'})}
           else if(h==='/work'||h==='#cases'){ev.preventDefault();var s2=document.getElementById('services')||document.querySelectorAll('section')[3];if(s2)s2.scrollIntoView({behavior:'smooth'})}
+          if(h==='/contact'||h==='/work'||h==='#final')a.setAttribute('href','#audit');
         }
         if(t&&t.closest('.rwct-go')){
           ev.preventDefault();
@@ -6483,7 +6484,7 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
             })
             .catch(function(){st2.textContent='Could not reach the audit service — please try again.'});
         }
-      });
+      },true);
     }
     document.querySelectorAll('a[href="/contact"],a[href="#final"]').forEach(function(a){a.href='#audit'});
     document.querySelectorAll('a[href="/work"]').forEach(function(a){a.href='#services'});
