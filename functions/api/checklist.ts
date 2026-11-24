@@ -95,12 +95,12 @@ async function sendChecklistEmail(toEmail: string) {
 
 // Built-in KV rate limiter for public, unauthenticated form endpoints.
 // 12 requests / hour / connecting IP. Key is IP-hashed so no raw PII is stored.
-async function rateLimited(env: Env, request: Request): Promise<Response | null> {
+async function rateLimited(env: Env, request: Request, action: string): Promise<Response | null> {
   const ip = request.headers.get('Cf-Connecting-IP') || request.headers.get('x-forwarded-for') || 'unknown';
   let hash = 5381;
   for (let i = 0; i < ip.length; i++) hash = ((hash << 5) + hash + ip.charCodeAt(i)) | 0;
   const bucket = Math.floor(Date.now() / 3600000);
-  const key = `rl:${Math.abs(hash).toString(36)}:${bucket}`;
+  const key = `rl:${action}:${Math.abs(hash).toString(36)}:${bucket}`;
   try {
     const raw = await env.FORMS.get(key, 'text');
     const n = raw ? parseInt(raw, 10) || 0 : 0;
@@ -119,7 +119,7 @@ async function rateLimited(env: Env, request: Request): Promise<Response | null>
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   
-  const limited = await rateLimited(context.env, context.request);
+  const limited = await rateLimited(context.env, context.request, 'checklist');
   if (limited) return limited;
 try {
     const { email, name, source } = await context.request.json();
