@@ -6386,6 +6386,8 @@ Most of our clients use both: one marketer in-house who owns the brand, and us f
 .rex-audit-status{margin-top:14px;font-size:14px;color:#e8e6ef;line-height:1.65;max-width:60ch}
 .rex-audit-status b{color:#ff6b00;font-size:22px}
 .rex-audit-status ol{margin:8px 0 0 18px;padding:0}
+.rex-audit-toast{position:fixed;right:20px;bottom:20px;z-index:9999;background:#16171a;border:1px solid #ff6b00;border-radius:12px;padding:16px 20px;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.rex-audit-toast b{display:block;font-size:26px}
 .rwtm-link{font-size:16px!important}
 .rwtm-card p,.rwsv-desc p,.rwin-sub p{font-size:15px!important}
 .rwpr-price:after{content:attr(data-rex)}
@@ -6451,6 +6453,9 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
         var btn=secA.querySelector('.rwct-go');if(btn&&btn.parentNode)btn.parentNode.insertBefore(st,btn.nextSibling);
       }
     }
+    if(!window.__rexStatus){
+      var ts=document.createElement('div');ts.className='rex-audit-status rex-audit-toast';document.body.appendChild(ts);window.__rexStatus=ts;
+    }
     if(!window.__rexClick){
       window.__rexClick=1;
       document.addEventListener('click',function(ev){
@@ -6464,8 +6469,8 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
           ev.preventDefault();
           var sec=document.getElementById('audit');if(!sec)return;
           var w=sec.querySelector('input[type=url]'),e2=sec.querySelector('input[type=email]');
-          var st2=sec.querySelector('.rex-audit-status');
-          if(!st2){st2=document.createElement('div');st2.className='rex-audit-status';sec.appendChild(st2)}
+          var st2=window.__rexStatus;
+          if(!st2||!document.body.contains(st2)){st2=document.createElement('div');st2.className='rex-audit-status rex-audit-toast';document.body.appendChild(st2);window.__rexStatus=st2}
           var site=w?w.value.trim():'',mail=e2?e2.value.trim():'';
           if(!site||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){st2.textContent='Enter your website and a valid email address.';return}
           st2.textContent='Scanning 18 live signals…';
