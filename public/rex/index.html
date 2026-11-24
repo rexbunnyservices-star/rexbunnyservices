@@ -6462,12 +6462,12 @@ setTimeout(function(){var e=document.getElementById('rex-intro');if(e)e.remove()
         var t=ev.target&&ev.target.closest?ev.target:null;
         var a=t?t.closest('a'):null;
         if(a){var h=a.getAttribute('href');
-          if(h==='/contact'||h==='#final'){ev.preventDefault();var s1=document.getElementById('audit');if(s1)s1.scrollIntoView({behavior:'smooth'})}
-          else if(h==='/work'||h==='#cases'){ev.preventDefault();var s2=document.getElementById('services')||document.querySelectorAll('section')[3];if(s2)s2.scrollIntoView({behavior:'smooth'})}
+          if(h==='/contact'||h==='#final'){ev.preventDefault();ev.stopPropagation();var s1=document.getElementById('audit')||document.querySelectorAll('section')[13];if(s1)s1.scrollIntoView({behavior:'smooth'})}
+          else if(h==='/work'||h==='#cases'){ev.preventDefault();ev.stopPropagation();var s2=document.getElementById('services')||document.querySelectorAll('section')[3];if(s2)s2.scrollIntoView({behavior:'smooth'})}
           if(h==='/contact'||h==='/work'||h==='#final')a.setAttribute('href','#audit');
         }
         if(t&&t.closest('.rwct-go')){
-          ev.preventDefault();
+          ev.preventDefault();ev.stopPropagation();
           var sec=document.getElementById('audit');if(!sec)return;
           var w=sec.querySelector('input[type=url]'),e2=sec.querySelector('input[type=email]');
           var st2=window.__rexStatus;
